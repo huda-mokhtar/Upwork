@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31025.194
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Upwork", "Upwork\Upwork.csproj", "{9680E439-6C62-4A2B-9401-DF0C14B2DE57}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9680E439-6C62-4A2B-9401-DF0C14B2DE57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9680E439-6C62-4A2B-9401-DF0C14B2DE57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9680E439-6C62-4A2B-9401-DF0C14B2DE57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9680E439-6C62-4A2B-9401-DF0C14B2DE57}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FA23CE0A-6808-41A2-A7ED-462EE46C9383}
+	EndGlobalSection
+EndGlobal
