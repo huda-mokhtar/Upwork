@@ -58,7 +58,7 @@ namespace Upwork.Models
         public virtual List<Freelancer_Language> Languages { get; set; }
 
 
-
+        public List<Project> Projects { get; set; }
 
     }
 }
