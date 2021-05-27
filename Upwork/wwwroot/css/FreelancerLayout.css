@@ -9,7 +9,7 @@ a {
     text-decoration: none;
 }
 
-nav, footer {
+nav {
     color: #fff;
 }
 
@@ -17,7 +17,7 @@ nav, footer {
     color: #6fda44;
 }
 
-    .text-green:hover {
+.text-green:hover {
         color: #6fda44d2;
         border-bottom: 1px solid #6fda44d2;
     }
@@ -32,6 +32,8 @@ nav, footer {
 
 section {
     padding: 1.2rem 0.3rem;
+
+
 }
 
 
@@ -41,14 +43,25 @@ nav p {
     font-size: 0.6;
     font-weight: 500;
 }
-
-
-
-
-/*******footer*********/
-footer a {
-    color: #fff;
+nav a{
+    color:white;
 }
+nav a:hover {
+    color: #6fda44;
+    text-decoration:none;
+}
+.center {
+    background-color: #f1f2f4;
+}
+nav i{
+    color:white;
+}
+nav button{
+    border:none;
+    background-color:transparent;
+    color:white;
+}
+/*******footer*********/
 
     footer a:hover {
         color: #fff;
@@ -58,5 +71,18 @@ footer a {
 footer p {
     margin-bottom: 0rem;
 }
+.up-footer-items a{
+    color: #656565;
+}
+.up-footer-items a:hover {
+    color: #656565;
+}
 
+footer i {
+    color: #656565;
+    border-radius:50%;
+    background-color:gainsboro;
+    padding:0.4rem;
+    margin:.4rem;
+}
 /******* end footer*********/
