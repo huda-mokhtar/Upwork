@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Upwork.Models;
+using Upwork.Models.DbModels;
 
 namespace Upwork.Data
 {
@@ -54,6 +55,7 @@ namespace Upwork.Data
         public virtual DbSet<ProjectSteps> ProjectSteps { get; set; }
         public virtual DbSet<Tags> Tags { get; set; }
         public virtual DbSet<ProjectTags> ProjectTags { get; set; }
+        public virtual DbSet<ProjectSkills> ProjectSkills { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -64,6 +66,7 @@ namespace Upwork.Data
             builder.Entity<Freelancer_Skill>().HasKey(o => new { o.SkillId, o.FreelancerId });
             builder.Entity<ProjectLevel>().HasKey(o => new { o.ProjectId, o.LevelId });
             builder.Entity<ProjectTags>().HasKey(o => new { o.ProjectId, o.TagsId });
+            builder.Entity<ProjectSkills>().HasKey(o => new { o.ProjectId, o.SkillId });
         }
 
       

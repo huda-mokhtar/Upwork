@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="~/css/FreelancerLayout.css" rel="stylesheet" />
+    <title>@ViewData["Title"] - Upwork</title>
+
+</head>
+
+<body>
+    <!--navbar-->
+    <nav class="bg-dark-cyan">
+        <div class="container">
+            <div class="d-flex justify-content-between align-content-start">
+
+                <a class="navbar-brand text-light" href="#"><b><span class="text-green">Up</span>work</b></a>
+
+               <div>
+
+               </div>
+
+            </div>
+        </div>
+    </nav>
+    <!--End of navbar-->
+
+    @RenderBody();
+
+
+    <!--Footer-->
+    <footer class="text-center py-3 bg-dark-cyan">
+        <h6>© 2015 - 2021 Upwork® Global Inc.</h6>
+        <p> <a href="https://www.upwork.com/legal">Terms of Service</a></p>
+        <p> <a href="https://www.upwork.com/legal#privacy">Privacy Policy</a></p>
+        <p> <a href="https://www.upwork.com/legal#accessibility">Accessibility</a></p>
+    </footer>
+
+
+    <!-- End Footer-->
+    <!--Scripts-->
+    <script src="https://kit.fontawesome.com/fa50145e5d.js" crossorigin="anonymous"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

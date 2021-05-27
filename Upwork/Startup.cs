@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Upwork.Data;
+using Upwork.services;
 
 namespace Upwork
 {
@@ -34,6 +35,8 @@ namespace Upwork
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddScoped<IProject, ProjectDB>();
             services.AddControllersWithViews();
         }
 
