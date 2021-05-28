@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    @*<link href="~/css/FreelancerLayout.css" rel="stylesheet" />*@
     <link href="~/css/FreelancerLayout.css" rel="stylesheet" />
     <title>@ViewData["Title"] - Upwork</title>
 
@@ -12,475 +13,682 @@
 
 <body>
     <!--navbar-->
-    <nav class="bg-dark-cyan">
+    <nav class="navbar bg-dark-cyan">
         <div class="container">
-            <div class="d-flex justify-content-between align-content-start">
-                <a class="navbar-brand text-light" href="#"><b><span class="text-green">Up</span>work</b></a>
-                <div>
-                    <ul data-cy="nav-right" class="nav-right nav-align nav-d-flex align-items-center d-flex">
-                        <li data-cy="user-menu-mobile" class="d-lg-none nav-dropdown nav-dropdown-account nav-arrow-end">
-                            <button type="button" aria-expanded="false" data-cy="menu-trigger" class="nav-item">
-                                <div class="nav-item-label">
-                                    <span class="sr-only">Account Settings</span>
-                                    <img loading="lazy" alt="" src="https://www.upwork.com/profile-portraits/c1z_ngiHXzS48X_SgfIDMrSaPC67eK_VRP38IUwAHc3lbp0X5qzbTq8WcgLcOjSFTJ"
-                                         class="nav-avatar nav-user-avatar">
-                                    <div class="account-info nav-d-flex nav-d-lg-none flex-1 align-items-center">
-                                        <div class="account-name">
-                                            Huda Heikal
-                                        </div>
-                                    </div> <!---->
-                                </div>
-                                <span icon-name="dropdown-caret" size="" aria-hidden="true" class="up-s-nav-icon nav-caret nav-d-lg-none  ">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" width="14" height="14" role="img">
-                                        <path d="M.37,5l5.75,5.92a1.23,1.23,0,0,0,1.78,0L13.64,5a1.31,1.31,0,0,0,0-1.83,1.27,1.27,0,0,0-.86-.37H1.25A1.27,1.27,0,0,0,0,4v0A1.28,1.28,0,0,0,.37,5Z">
-                                        </path>
-                                    </svg>
-                                </span>
-                            </button>
-                            <ul data-cy="dropdown-menu" class="nav-dropdown-menu mw-350">
-                                <li class="nav-status nav-d-flex">
-                                    <button type="button" aria-label="Appear online to other users" data-cy="user-menu-visible-trigger" aria-pressed="true" class="nav-btn-status active">
-                                        Online
-                                    </button> <button type="button" aria-label="Appear invisible to other users" data-cy="user-menu-invisible-trigger" aria-pressed="false" class="nav-btn-status">
-                                        Invisible
-                                    </button>
-                                </li>
-                                <li>
-                                    <ul class="nav-dropdown-list nav-dropdown-scroll">
-                                        <li data-cy="organization-d1000891536" class="active">
-                                            <a target="_self" data-cy="menu-item-trigger" href="javascript:" class="nav-menu-item">
-                                                <img loading="lazy" alt="" src="https://www.upwork.com/profile-portraits/c1z_ngiHXzS48X_SgfIDMrSaPC67eK_VRP38IUwAHc3lbp0X5qzbTq8WcgLcOjSFTJ" class="nav-avatar">
-                                                <div class="flex-1">
-                                                    <div>
-                                                        Huda Heikal
-                                                    </div> <div class="org-type">
-                                                        Freelancer
-                                                    </div> <span class="sr-only">
-                                                        , Current User
-                                                    </span>
-                                                </div> <!---->
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-options-desktop">
-                                    <ul>
-                                        <li>
-                                            <a target="_self" data-cy="menu-item-trigger" href="/freelancers/settings/contactInfo" class="nav-menu-item">
-                                                <span icon-name="settings" size="" aria-hidden="true" class="up-s-nav-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" width="14" height="14" role="img"><path fill-rule="evenodd" d="M7 9.45A2.49 2.49 0 0 1 4.48 7 2.49 2.49 0 0 1 7 4.55c1.39 0 2.52 1.1 2.52 2.45A2.49 2.49 0 0 1 7 9.45zm5.35-1.76a5.24 5.24 0 0 0 0-1.38l1.52-1.15c.13-.1.17-.3.08-.45L12.51 2.3c-.08-.16-.28-.21-.44-.16l-1.79.7a5.27 5.27 0 0 0-1.21-.68L8.79.29A.35.35 0 0 0 8.44 0H5.56a.35.35 0 0 0-.35.3l-.27 1.85c-.44.17-.85.41-1.22.68l-1.8-.7a.36.36 0 0 0-.43.16L.05 4.71c-.1.16-.05.34.09.45l1.52 1.15a5.32 5.32 0 0 0 0 1.38L.14 8.84c-.14.1-.18.3-.09.45l1.44 2.42c.09.16.28.21.44.16l1.79-.7c.37.28.78.5 1.22.68l.27 1.86c.02.16.17.29.35.29h2.88c.18 0 .33-.13.35-.3l.28-1.85c.44-.17.84-.41 1.21-.68l1.8.7c.16.06.35 0 .43-.16l1.44-2.42a.35.35 0 0 0-.08-.45L12.35 7.7z"></path></svg></span>Settings
-                                            </a>
-                                        </li>
-                                        <li><button type="button" data-cy="logout-trigger" class="link-logout nav-menu-item"><form method="post" action="/ab/account-security/logout" aria-hidden="true"></form> <span icon-name="remove" size="" aria-hidden="true" class="up-s-nav-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" width="14" height="14" role="img"><path d="M6 12H2V2h4V0H0v14h6v-2z"></path> <path d="M14 7L9.4 1.5 7.9 2.8 10.6 6H3v2h7.6l-2.7 3.2 1.5 1.3L14 7z"></path></svg></span> <span>Log out</span></button></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li data-cy="menu" class="dropdow">
-                            <a target="_self" href="#" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" data-cy="menu-trigger" class="dropdown-toggle">
-                                <span class="nav-item-label">Find Work</span>
-                                <span icon-name="dropdown-caret" size="" aria-hidden="true" class="up-s-nav-icon nav-caret nav-d-lg-none  ">
-                                </span>
-                            </a>
-                            <ul data-cy="dropdown-menu" class="dropdown-menu mw-240">
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/find-work/" class="dropdown-item">
-                                        Find Work
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/jobs/search/saved/" class="dropdown-item">
-                                        Saved Jobs
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/proposals/" class="dropdown-item">
-                                        Proposals
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/freelancers/~01ef04f851ee2d8979" class="dropdown-item">
-                                        Profile
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/my-stats/" class="dropdown-item">
-                                        My Stats
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/freelancers/settings/readiness-test/" class="dropdown-item">
-                                        Upwork Readiness Test
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/services/my-list/?ref=fl_nav" class="dropdown-item">
-                                        My Project Dashboard
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li data-cy="menu" class="dropdown ">
-                            <a target="_self" href="#" role="button" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" class="dropdown-toggle">
-                                <span class="nav-item-label">My Jobs</span>
-                                <span icon-name="dropdown-caret" size="" aria-hidden="true" class="up-s-nav-icon nav-caret nav-d-lg-none  ">
-                                </span>
-                            </a>
-                            <ul data-cy="dropdown-menu" class="dropdown-menu mw-240" aria-labelledby="dropdownMenuLink">
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/f/home/" class="dropdown-item">
-                                        My Jobs
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/f/contracts/" class="dropdown-item">
-                                        All Contracts
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/workdiary/freelancer/" class="dropdown-item">
-                                        Work Diary
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li data-cy="menu" class="dropdown ">
-                            <a target="_self" href="/ab/reports/in-progress" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" class="dropdown-toggle">
-                                <span class="nav-item-label">Reports</span> <span icon-name="dropdown-caret" size="" aria-hidden="true" class="up-s-nav-icon nav-caret nav-d-lg-none  ">
-                                </span>
-                            </a>
-                            <ul class="dropdown-menu " aria-labelledby="dropdownMenuLink">
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/reports/in-progress" class="dropdown-item">
-                                        Overview
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/reports/freelancer" class="dropdown-item">
-                                        My Reports
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/payments/reports/earnings" class="dropdown-item">
-                                        Billings &amp; Earnings
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/nx/plans/connects/history" class="dropdown-item">
-                                        Connects History
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/payments/reports/earnings-history" class="dropdown-item">
-                                        Transaction History
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/payments/reports/certificate-of-earnings.pdf" class="dropdown-item">
-                                        Certificate of Earnings
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class=" dropdown">
-                            <a target="_self" data-cy="menu-item-trigger" href="/messages/" class="nav-menu-item nav-item">
-                                <span class="nav-item-label">
-                                    Messages
-                                    <span style="display:inline-block;width:20px;"></span>
-                                </span>
-                            </a>
-                        </li>
-                        <li class="dropdown " data-toggle="dropdown">
-                            <button type="button" aria-expanded="false" class="dropdown-toggle">
-                                @*<span data-cy="help-menu-label" aria-labelledby="nav-help-label" class="nav-item-label">*@
-                                @*<span id="nav-help-label" class="nav-d-lg-none">Help</span>*@
-                                <span icon-name="question" size="md" aria-hidden="true" class="up-s-nav-icon nav-icon">
-                                    <i class="fas fa-question"></i>
-                                </span> <!---->
-                                <span data-cy="tooltip" class="tooltip">Help </span>
-                                @*</span>*@
-                            </button>
-                            <ul data-cy="dropdown-menu" class="dropdown-menu ">
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="https://support.upwork.com/login" class="dropdown-item">
-                                        <span>
-                                            Help and Support
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="http://community.upwork.com" class="dropdown-item">
-                                        <span>
-                                            Community and Forums
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="https://support.upwork.com/hc/en-us/requests/" class="dropdown-item">
-                                        <span data-cy="disputes" class="nav-d-flex align-items-center">
-                                            <div class="flex-1">
-                                                Disputes
-                                            </div> <!---->
-                                        </span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li> <!---->
-                        <li data-cy="notifications-link" aria-labelledby="nav-notifications-label">
-                            <a target="_self" data-cy="menu-item-trigger" href="/ab/notifications" class="nav-menu-item nav-item">
-                                <span class="nav-item-label">
-                                    <span id="nav-notifications-label" class="nav-d-lg-none">
-                                        <span icon-name="notification" size="md" aria-hidden="true" class="up-s-nav-icon nav-icon">
-                                            <i class="far fa-bell"></i>
-                                        </span> <!---->
-                                    </span>
+            <a class="navbar-brand text-light"><span class="text-green">Up</span>work</a>
+            <ul class="d-flex">
+                <li data-cy="menu" class="dropdown p-2 my-2">
+                    <a target="_self" href="#" role="button" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" class="dropdown-toggle">
+                        <span class="nav-item-label">Find work</span>
+
+                    </a>
+                    <ul data-cy="dropdown-menu" class="dropdown-menu mw-240" aria-labelledby="dropdownMenuLink">
+                        <li>
+                            <a target="_self" data-cy="menu-item-trigger" href="/ab/f/home/" class="dropdown-item">
+                                Find Work
                             </a>
                         </li>
                         <li>
-                            <a href="/ab/flservices/contracts/" aria-labelledby="nav-direct-contracts" target="_self" class="nav-item">
-                                <span class="nav-item-label">
-                                    <span icon-name="direct-contracts" size="md" aria-hidden="true" class="up-s-nav-icon nav-icon">
-                                        <i class="far fa-paper-plane"></i>
-                                    </span>
-                                    <span data-cy="tooltip" class="tooltip">
-                                        Direct Contracts
-                                    </span>
+                            <a target="_self" data-cy="menu-item-trigger" href="/ab/f/contracts/" class="dropdown-item">
+                                Saved Jobs
                             </a>
-                        </li> <!---->
-                        <li data-cy="user-menu" class="nav-d-none nav-d-lg-block dropdown nav-dropdown-account nav-arrow-end" data-toggle="dropdown">
-                            <button type="button" aria-expanded="false" data-cy="menu-trigger" class="dropdown-toggle">
-                                <div class="nav-item-label dropdown-item">
-                                    <span class="sr-only">Account Settings</span>
-                                    <img loading="lazy" alt="" src="" class="nav-avatar nav-user-avatar">
-                                    <div class="account-info nav-d-flex nav-d-lg-none flex-1 align-items-center">
-                                        <div class="account-name">
-                                            Huda Heikal
-                                        </div>
-                                    </div> <!---->
-                                </div>
-                            </button> <ul data-cy="dropdown-menu" class="dropdown-menu mw-350">
-                                <li class="nav-status nav-d-flex dropdown-item">
-                                    <button type="button" aria-label="Appear online to other users" data-cy="user-menu-visible-trigger" aria-pressed="true" class="nav-btn-status active">
-                                        Online
-                                    </button> <button type="button" aria-label="Appear invisible to other users" data-cy="user-menu-invisible-trigger" aria-pressed="false" class="nav-btn-status">
-                                        Invisible
-                                    </button>
-                                </li>
-                                <li class="dropdown-item">
-                                    <ul class="nav-dropdown-list nav-dropdown-scroll">
-                                        <li data-cy="organization-d1000891536" class="active">
-                                            <a target="_self" data-cy="menu-item-trigger" href="javascript:" class="nav-menu-item">
-                                                <img loading="lazy" alt="" src=""> <div class="flex-1">
-                                                    <div>
-                                                        User Name
-                                                    </div> <div class="org-type">
-                                                        Freelancer
-                                                    </div> <span class="sr-only">
-                                                        , Current User
-                                                    </span>
-                                                </div> <!---->
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-options-mobile nav-d-lg-none dropdown-item">
-                                    <ul>
-                                        <li>
-                                            <a target="_self" data-cy="menu-item-trigger" href="/freelancers/settings/contactInfo" class="nav-menu-item nav-item">
-                                                <span icon-name="settings" size="" aria-hidden="true" class="up-s-nav-icon">
-                                                    <i class="fas fa-cog"></i>
-                                                </span>
-                                                Settings
-                                            </a>
-                                        </li>
-                                        <li data-cy="logout-trigger-mobile">
-                                            <button data-cy="menu-item-trigger" class="nav-menu-item link-logout nav-item text-light">
-                                                <span icon-name="remove" size="" aria-hidden="true" class="up-s-nav-icon">
-                                                    <i class="fas fa-sign-out-alt"></i>
-                                                </span>Log out
-                                                <form id="nav-logout-mobile" method="post" action="/ab/account-security/logout" aria-hidden="true">
-                                                </form>
-                                            </button>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
+                        </li>
+                        <li>
+                            <a target="_self" data-cy="menu-item-trigger" href="/ab/workdiary/freelancer/" class="dropdown-item">
+                                Proposals
+                            </a>
+                        </li>
+                        <li>
+                            <a target="_self" data-cy="menu-item-trigger" href="/ab/workdiary/freelancer/" class="dropdown-item">
+                                Profile
+                            </a>
+                        </li>
+                        <li>
+                            <a target="_self" data-cy="menu-item-trigger" href="/ab/workdiary/freelancer/" class="dropdown-item">
+                                My Stats
+                            </a>
+                        </li>
+                        <li>
+                            <a target="_self" data-cy="menu-item-trigger" href="/ab/workdiary/freelancer/" class="dropdown-item">
+                                Upwork Readiness Test
+                            </a>
+                        </li>
+                        <li>
+                            <a target="_self" data-cy="menu-item-trigger" href="/ab/workdiary/freelancer/" class="dropdown-item">
+                                My Project Dashboard
+                            </a>
                         </li>
                     </ul>
-                </div>
+                </li>
+                <li data-cy="menu" class="dropdown p-2 my-2">
+                    <a target="_self" href="#" role="button" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" class="dropdown-toggle">
+                        <span class="nav-item-label">My Jobs</span>
 
-            </div>
-        </div>
-    </nav>
-    <!--End of navbar-->
-    <div class="center">
-        @RenderBody();
+                    </a>
+                    <ul data-cy="dropdown-menu" class="dropdown-menu mw-240" aria-labelledby="dropdownMenuLink">
+                        <li>
+                            <a target="_self" data-cy="menu-item-trigger" href="/ab/f/home/" class="dropdown-item">
+                                My Jobs
+                            </a>
+                        </li>
+                        <li>
+                            <a target="_self" data-cy="menu-item-trigger" href="/ab/f/contracts/" class="dropdown-item">
+                                All Contracts
+                            </a>
+                        </li>
+                        <li>
+                            <a target="_self" data-cy="menu-item-trigger" href="/ab/workdiary/freelancer/" class="dropdown-item">
+                                Work Diary
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 
-    </div>
-    <!--Footer-->
-    <footer role="contentinfo" class="up-footer text-center py-3">
-        <div role="heading" aria-level="2" class="sr-only">
-            Footer navigation
-        </div>
-        <div class="container">
-            <div class="up-footer-items justify-content-between d-flex">
-                <div>
-                    <ul class="up-footer-list">
-                        <li class="up-footer-list-item">
-                            <a href="/about/" target="_self" class="up-footer-list-link">
-                                About Us
+                <li data-cy="menu" class="dropdown p-2 my-2">
+                    <a target="_self" href="/ab/reports/in-progress" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" class="dropdown-toggle">
+                        <span class="nav-item-label">Reports</span>
+                    </a>
+                    <ul class="dropdown-menu " aria-labelledby="dropdownMenuLink">
+                        <li>
+                            <a target="_self" data-cy="menu-item-trigger" href="/ab/reports/in-progress" class="dropdown-item">
+                                Overview
                             </a>
                         </li>
-                        <li class="up-footer-list-item">
-                            <a href="javascript:" target="_self" data-cy="feedback-link" class="up-footer-list-link">
-                                Feedback
+                        <li>
+                            <a target="_self" data-cy="menu-item-trigger" href="/ab/reports/freelancer" class="dropdown-item">
+                                My Reports
                             </a>
                         </li>
-                        <li class="up-footer-list-item">
-                            <a href="http://community.upwork.com" target="_self" class="up-footer-list-link">
-                                Community
+                        <li>
+                            <a target="_self" data-cy="menu-item-trigger" href="/ab/payments/reports/earnings" class="dropdown-item">
+                                Billings &amp; Earnings
                             </a>
                         </li>
-                    </ul>
-                </div><div>
-                    <ul class="up-footer-list">
-                        <li class="up-footer-list-item">
-                            <a href="/trust-and-safety/security/" target="_self" class="up-footer-list-link">
-                                Trust, Safety &amp; Security
+                        <li>
+                            <a target="_self" data-cy="menu-item-trigger" href="/nx/plans/connects/history" class="dropdown-item">
+                                Connects History
                             </a>
                         </li>
-                        <li class="up-footer-list-item">
-                            <a href="https://support.upwork.com/login" target="_self" class="up-footer-list-link">
-                                Help &amp; Support
+                        <li>
+                            <a target="_self" data-cy="menu-item-trigger" href="/ab/payments/reports/earnings-history" class="dropdown-item">
+                                Transaction History
                             </a>
                         </li>
-                        <li class="up-footer-list-item">
-                            <a href="/ppc/foundation/" target="_self" class="up-footer-list-link">
-                                Upwork Foundation
+                        <li>
+                            <a target="_self" data-cy="menu-item-trigger" href="/ab/payments/reports/certificate-of-earnings.pdf" class="dropdown-item">
+                                Certificate of Earnings
                             </a>
                         </li>
                     </ul>
-                </div><div>
-                    <ul class="up-footer-list">
-                        <li class="up-footer-list-item">
-                            <a href="/legal#terms" target="_self" class="up-footer-list-link">
-                                Terms of Service
+                </li>
+                <li class="p-2 my-2">
+                    <a target="_self" data-cy="menu-item-trigger" href="/messages/" class="nav-menu-item nav-item">
+                        <span class="nav-item-label">
+                            Messages
+                            <span style="display:inline-block;width:20px;"></span>
+                        </span>
+                    </a>
+                </li>
+
+                <li data-cy="menu" class="dropdown p-2 my-2">
+                    <button role="button" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" class="dropdown-toggle">
+                        <span data-bs-toggle="tooltip" data-bs-placement="top" title="Help">
+                            <i class="fas fa-question"></i>
+                        </span>
+                    </button>
+                    <ul data-cy="dropdown-menu" class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                        <li>
+                            <a target="_self" data-cy="menu-item-trigger" href="/ab/f/home/" class="dropdown-item">
+                                Help and support
                             </a>
                         </li>
-                        <li class="up-footer-list-item">
-                            <a href="/legal#privacy" target="_self" class="up-footer-list-link">
-                                Privacy Policy
+                        <li>
+                            <a target="_self" data-cy="menu-item-trigger" href="/ab/f/contracts/" class="dropdown-item">
+                                Community and forums
                             </a>
                         </li>
-                        <li class="up-footer-list-item">
-                            <a href="/legal#accessibility" target="_self" class="up-footer-list-link">
-                                Accessibility
-                            </a>
-                        </li>
-                    </ul>
-                </div><div>
-                    <ul class="up-footer-list">
-                        <li class="up-footer-list-item">
-                            <a href="/downloads?source=Footer" target="_self" class="up-footer-list-link">
-                                Desktop App
-                            </a>
-                        </li>
-                        <li class="up-footer-list-item">
-                            <a href="/legal#cookie-policy" target="_self" class="up-footer-list-link">
-                                Cookie Policy
-                            </a>
-                        </li>
-                        <li class="up-footer-list-item">
-                            <a href="/enterprise" target="_self" class="up-footer-list-link">
-                                Enterprise Solutions
+                        <li>
+                            <a target="_self" data-cy="menu-item-trigger" href="/ab/workdiary/freelancer/" class="dropdown-item">
+                                Disputes
                             </a>
                         </li>
                     </ul>
+                </li>
+                <li class=" p-2 my-2">
+                    <a href="#" target="_self">
+
+                        <i class="far fa-bell"></i>
+
+                    </a>
+
+
+
+                </li>
+
+                <li class="p-2 my-2">
+                    <a href="#" target="_self" data-bs-toggle="tooltip" data-bs-placement="top" title="Direct Contact">
+                        <i class="far fa-paper-plane"></i>
+                    </a>
+                </li>
+
+                <li data-cy="menu" class="dropdown my-2">
+           
+                    <img src="~/Images/16938730_371690419878868_4123771690068118215_n.jpg" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" class="dropdown-toggle img-fluid profile-img"/>
+
+
+                    <ul data-cy="dropdown-menu" class="dropdown-menu dropdown-menu-right profile-menue" aria-labelledby="dropdownMenuLink">
+                        <li class="dropdown-item ">
+                            <div class="status">
+                                <a target="_self" data-cy="menu-item-trigger" href="/ab/f/home/" class="btn active  profile-status">
+                                    inline
+                                </a>
+                                <a target="_self" data-cy="menu-item-trigger" href="/ab/f/home/" class="btn profile-status">
+                                    invisable
+                                </a>
+                            </div>
+                            
+                        </li>
+                        <li >
+                            <a target="_self" data-cy="menu-item-trigger" href="/ab/f/contracts/" class="dropdown-item">
+                               <img src="~/Images/16938730_371690419878868_4123771690068118215_n.jpg" class="img-fluid rounded-circle" />
+                                User Name
+                            </a>
+                        </li>
+                        <li>
+                            <a target="_self" data-cy="menu-item-trigger" href="/ab/workdiary/freelancer/" class="dropdown-item">
+                                <i class="fas fa-cog"></i>
+                                Setting
+                            </a>
+                        </li>
+                        <li>
+                            <a target="_self" data-cy="menu-item-trigger" href="/ab/workdiary/freelancer/" class="dropdown-item">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Logout
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+
                 </div>
-            </div>
-            <div class="up-footer-social justify-content-between d-flex">
-                <div class="up-footer-social-icons d-flex">
-                    <div role="heading" aria-level="3" class="up-footer-social-header">
-                        Follow us
-                    </div>
-                    <ul class="up-footer-social-list d-flex">
-                        <li class="up-footer-social-list-item">
-                            <a href="https://www.facebook.com/upwork" title="Visit Upwork on Facebook" target="_blank" rel="noopener noreferrer" class="up-footer-social-list-link">
-                                <span class="sr-only">Visit Upwork on Facebook</span>
-                                <div class="up-icon">
-                                    <i class="fab fa-facebook-f"></i>
+            </nav>
+
+            <!--<nav class="bg-dark-cyan navbar ">
+                <div class="container">-->
+                        @*<div class="d-flex justify-content-between align-content-center py-3">*@
+                        <!--<a class=" text-light" href="#"><b><span class="text-green">Up</span>work</b></a>
+            <ul class=" d-flex">
+                <!--<li class="d-lg-none nav-dropdown nav-dropdown-account nav-arrow-end">
+                    <button type="button" aria-expanded="false" data-cy="menu-trigger" class="nav-item">
+                        <div class="nav-item-label">
+                            <span class="sr-only">Account Settings</span>
+                            <img loading="lazy" alt="" src="https://www.upwork.com/profile-portraits/c1z_ngiHXzS48X_SgfIDMrSaPC67eK_VRP38IUwAHc3lbp0X5qzbTq8WcgLcOjSFTJ"
+                                 class="nav-avatar nav-user-avatar">
+                            <div class="account-info nav-d-flex nav-d-lg-none flex-1 align-items-center">
+                                <div class="account-name">
+                                    Huda Heikal
                                 </div>
-                            </a>
-                        </li>
-                        <li class="up-footer-social-list-item">
-                            <a href="https://www.linkedin.com/company/upwork" title="Read Upwork company news on LinkedIn" target="_blank" rel="noopener noreferrer" class="up-footer-social-list-link">
-                                <span class="sr-only">Read Upwork company news on LinkedIn</span>
-                                <div class="up-icon">
-                                    <i class="fab fa-linkedin-in"></i>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="up-footer-social-list-item">
-                            <a href="https://twitter.com/Upwork" title="Follow  on Twitter" target="_blank" rel="noopener noreferrer"
-                               class="up-footer-social-list-link">
-                                <span class="sr-only">Follow Twitter</span>
-                                <div class="up-icon">
-                                    <i class="fab fa-twitter"></i>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="up-footer-social-list-item">
-                            <a href="https://www.youtube.com/channel/UCvxGFOnwUBDHHcxuPqhe4CQ" title="Watch Upwork videos on YouTube" target="_blank" rel="noopener noreferrer" class="up-footer-social-list-link">
-                                <span class="sr-only">Watch Upwork videos on YouTube</span>
-                                <div class="up-icon">
-                                    <i class="fab fa-youtube"></i>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="up-footer-social-list-item">
-                            <a href="https://www.instagram.com/upworkinc/" title="Follow Upwork on Instagram" target="_blank" rel="noopener noreferrer" class="up-footer-social-list-link">
-                                <span class="sr-only">Follow Upwork on Instagram</span>
-                                <div class="up-icon">
-                                    <i class="fab fa-instagram"></i>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="up-footer-social-icons up-footer-download d-flex">
-                    <div role="heading" aria-level="3" class="up-footer-social-header">
-                        Mobile app
-                    </div>
-                    <ul class="up-footer-social-list d-flex">
-                        <li class="up-footer-social-list-item">
-                            <a href="https://apps.apple.com/us/developer/upwork-global-inc/id329377609" title="Download Upwork app from iTunes" target="_blank" rel="noopener noreferrer" class="up-footer-social-list-link">
-                                <span class="sr-only">Download Upwork app from iTunes</span> <div class="up-icon">
-                                    <i class="fab fa-apple"></i>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="up-footer-social-list-item">
-                            <a href="https://play.google.com/store/apps/dev?id=8802639270489632480" title="Download Upwork app from Google Play" target="_blank" rel="noopener noreferrer" class="up-footer-social-list-link">
-                                <span class="sr-only">Download Upwork app from Google Play</span>
-                                <div class="up-icon">
-                                    <i class="fab fa-android"></i>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div> <p class="up-footer-copyright">
-                <span>
-                    © 2015 - 2021 Upwork® Global Inc.
+                            </div>-->
+                        <!---->
+                        <!--</div>
+                <span icon-name="dropdown-caret" size="" aria-hidden="true" class="up-s-nav-icon nav-caret nav-d-lg-none  ">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" width="14" height="14" role="img">
+                        <path d="M.37,5l5.75,5.92a1.23,1.23,0,0,0,1.78,0L13.64,5a1.31,1.31,0,0,0,0-1.83,1.27,1.27,0,0,0-.86-.37H1.25A1.27,1.27,0,0,0,0,4v0A1.28,1.28,0,0,0,.37,5Z">
+                        </path>
+                    </svg>
                 </span>
-            </p>
-        </div> <!---->
-    </footer> <!---->
-    <!-- End Footer-->
-    <!--Scripts-->
-    <script src="https://kit.fontawesome.com/fa50145e5d.js" crossorigin="anonymous"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+            </button>
+            <ul data-cy="dropdown-menu" class="nav-dropdown-menu mw-350">
+                <li class="nav-status nav-d-flex">
+                    <button type="button" aria-label="Appear online to other users" data-cy="user-menu-visible-trigger" aria-pressed="true" class="nav-btn-status active">
+                        Online
+                    </button> <button type="button" aria-label="Appear invisible to other users" data-cy="user-menu-invisible-trigger" aria-pressed="false" class="nav-btn-status">
+                        Invisible
+                    </button>
+                </li>
+                <li>
+                    <ul class="nav-dropdown-list nav-dropdown-scroll">
+                        <li data-cy="organization-d1000891536" class="active">
+                            <a target="_self" data-cy="menu-item-trigger" href="javascript:" class="nav-menu-item">
+                                <img loading="lazy" alt="" src="https://www.upwork.com/profile-portraits/c1z_ngiHXzS48X_SgfIDMrSaPC67eK_VRP38IUwAHc3lbp0X5qzbTq8WcgLcOjSFTJ" class="nav-avatar">
+                                <div class="flex-1">
+                                    <div>
+                                        Huda Heikal
+                                    </div> <div class="org-type">
+                                        Freelancer
+                                    </div> <span class="sr-only">
+                                        , Current User
+                                    </span>
+                                </div>-->
+                        <!---->
+                        <!--</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-options-desktop">
+                        <ul>
+                            <li>
+                                <a target="_self" data-cy="menu-item-trigger" href="/freelancers/settings/contactInfo" class="nav-menu-item">
+                                    <span icon-name="settings" size="" aria-hidden="true" class="up-s-nav-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" width="14" height="14" role="img"><path fill-rule="evenodd" d="M7 9.45A2.49 2.49 0 0 1 4.48 7 2.49 2.49 0 0 1 7 4.55c1.39 0 2.52 1.1 2.52 2.45A2.49 2.49 0 0 1 7 9.45zm5.35-1.76a5.24 5.24 0 0 0 0-1.38l1.52-1.15c.13-.1.17-.3.08-.45L12.51 2.3c-.08-.16-.28-.21-.44-.16l-1.79.7a5.27 5.27 0 0 0-1.21-.68L8.79.29A.35.35 0 0 0 8.44 0H5.56a.35.35 0 0 0-.35.3l-.27 1.85c-.44.17-.85.41-1.22.68l-1.8-.7a.36.36 0 0 0-.43.16L.05 4.71c-.1.16-.05.34.09.45l1.52 1.15a5.32 5.32 0 0 0 0 1.38L.14 8.84c-.14.1-.18.3-.09.45l1.44 2.42c.09.16.28.21.44.16l1.79-.7c.37.28.78.5 1.22.68l.27 1.86c.02.16.17.29.35.29h2.88c.18 0 .33-.13.35-.3l.28-1.85c.44-.17.84-.41 1.21-.68l1.8.7c.16.06.35 0 .43-.16l1.44-2.42a.35.35 0 0 0-.08-.45L12.35 7.7z"></path></svg></span>Settings
+                                </a>
+                            </li>
+                            <li><button type="button" data-cy="logout-trigger" class="link-logout nav-menu-item"><form method="post" action="/ab/account-security/logout" aria-hidden="true"></form> <span icon-name="remove" size="" aria-hidden="true" class="up-s-nav-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" width="14" height="14" role="img"><path d="M6 12H2V2h4V0H0v14h6v-2z"></path> <path d="M14 7L9.4 1.5 7.9 2.8 10.6 6H3v2h7.6l-2.7 3.2 1.5 1.3L14 7z"></path></svg></span> <span>Log out</span></button></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>-->
+                        <!--<li class="dropdow">
+                <a target="_self" href="#" data-toggle="dropdown"class="dropdown-toggle">
+                    <span class="nav-item-label">Find Work</span>
+                    <span icon-name="dropdown-caret" size="" aria-hidden="true" class="up-s-nav-icon nav-caret nav-d-lg-none  ">
+                    </span>
+                </a>
+                <ul data-cy="dropdown-menu" class="dropdown-menu mw-240">
+                    <li>
+                        <a target="_self" data-cy="menu-item-trigger" href="/ab/find-work/" class="dropdown-item">
+                            Find Work
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_self" data-cy="menu-item-trigger" href="/ab/jobs/search/saved/" class="dropdown-item">
+                            Saved Jobs
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_self" data-cy="menu-item-trigger" href="/ab/proposals/" class="dropdown-item">
+                            Proposals
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_self" data-cy="menu-item-trigger" href="/freelancers/~01ef04f851ee2d8979" class="dropdown-item">
+                            Profile
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_self" data-cy="menu-item-trigger" href="/my-stats/" class="dropdown-item">
+                            My Stats
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_self" data-cy="menu-item-trigger" href="/freelancers/settings/readiness-test/" class="dropdown-item">
+                            Upwork Readiness Test
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_self" data-cy="menu-item-trigger" href="/services/my-list/?ref=fl_nav" class="dropdown-item">
+                            My Project Dashboard
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li data-cy="menu" class="dropdown ">
+                <a target="_self" href="#" role="button" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" class="dropdown-toggle">
+                    <span class="nav-item-label">My Jobs</span>
+                    <span icon-name="dropdown-caret" size="" aria-hidden="true" class="up-s-nav-icon nav-caret nav-d-lg-none  ">
+                    </span>
+                </a>
+                <ul data-cy="dropdown-menu" class="dropdown-menu mw-240" aria-labelledby="dropdownMenuLink">
+                    <li>
+                        <a target="_self" data-cy="menu-item-trigger" href="/ab/f/home/" class="dropdown-item">
+                            My Jobs
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_self" data-cy="menu-item-trigger" href="/ab/f/contracts/" class="dropdown-item">
+                            All Contracts
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_self" data-cy="menu-item-trigger" href="/ab/workdiary/freelancer/" class="dropdown-item">
+                            Work Diary
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li data-cy="menu" class="dropdown ">
+                <a target="_self" href="/ab/reports/in-progress" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" class="dropdown-toggle">
+                    <span class="nav-item-label">Reports</span> <span icon-name="dropdown-caret" size="" aria-hidden="true" class="up-s-nav-icon nav-caret nav-d-lg-none  ">
+                    </span>
+                </a>
+                <ul class="dropdown-menu " aria-labelledby="dropdownMenuLink">
+                    <li>
+                        <a target="_self" data-cy="menu-item-trigger" href="/ab/reports/in-progress" class="dropdown-item">
+                            Overview
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_self" data-cy="menu-item-trigger" href="/ab/reports/freelancer" class="dropdown-item">
+                            My Reports
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_self" data-cy="menu-item-trigger" href="/ab/payments/reports/earnings" class="dropdown-item">
+                            Billings &amp; Earnings
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_self" data-cy="menu-item-trigger" href="/nx/plans/connects/history" class="dropdown-item">
+                            Connects History
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_self" data-cy="menu-item-trigger" href="/ab/payments/reports/earnings-history" class="dropdown-item">
+                            Transaction History
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_self" data-cy="menu-item-trigger" href="/ab/payments/reports/certificate-of-earnings.pdf" class="dropdown-item">
+                            Certificate of Earnings
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class=" dropdown">
+                <a target="_self" data-cy="menu-item-trigger" href="/messages/" class="nav-menu-item nav-item">
+                    <span class="nav-item-label">
+                        Messages
+                        <span style="display:inline-block;width:20px;"></span>
+                    </span>
+                </a>
+            </li>
+            <li class="dropdown " data-toggle="dropdown">
+                <button type="button" aria-expanded="false" class="dropdown-toggle">-->
+                        @*<span data-cy="help-menu-label" aria-labelledby="nav-help-label" class="nav-item-label">*@
+                        @*<span id="nav-help-label" class="nav-d-lg-none">Help</span>*@
+                        <!--<span icon-name="question" size="md" aria-hidden="true" class="up-s-nav-icon nav-icon">
+                <i class="fas fa-question"></i>
+            </span>-->
+                        <!---->
+                        <!--<span data-cy="tooltip" class="tooltip">Help </span>-->
+                        @*</span>*@
+                        <!--</button>
+                <ul data-cy="dropdown-menu" class="dropdown-menu ">
+                    <li>
+                        <a target="_self" data-cy="menu-item-trigger" href="https://support.upwork.com/login" class="dropdown-item">
+                            <span>
+                                Help and Support
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_self" data-cy="menu-item-trigger" href="http://community.upwork.com" class="dropdown-item">
+                            <span>
+                                Community and Forums
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_self" data-cy="menu-item-trigger" href="https://support.upwork.com/hc/en-us/requests/" class="dropdown-item">
+                            <span data-cy="disputes" class="nav-d-flex align-items-center">
+                                <div class="flex-1">
+                                    Disputes
+                                </div>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li data-cy="notifications-link" aria-labelledby="nav-notifications-label">
+                <a target="_self" data-cy="menu-item-trigger" href="/ab/notifications" class="nav-menu-item nav-item">
+                    <span class="nav-item-label">
+                        <span id="nav-notifications-label" class="nav-d-lg-none">
+                            <span icon-name="notification" size="md" aria-hidden="true" class="up-s-nav-icon nav-icon">
+                                <i class="far fa-bell"></i>
+                            </span>-->
+                        <!---->
+                        <!--</span>
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="/ab/flservices/contracts/" aria-labelledby="nav-direct-contracts" target="_self" class="nav-item">
+                    <span class="nav-item-label">
+                        <span icon-name="direct-contracts" size="md" aria-hidden="true" class="up-s-nav-icon nav-icon">
+                            <i class="far fa-paper-plane"></i>
+                        </span>
+                        <span data-cy="tooltip" class="tooltip">
+                            Direct Contracts
+                        </span>
+                    </span>
+                </a>
+            </li>-->
+                        <!---->
+                        <!--<li data-cy="user-menu" class="nav-d-none nav-d-lg-block dropdown nav-dropdown-account nav-arrow-end" data-toggle="dropdown">
+                <button type="button" aria-expanded="false" data-cy="menu-trigger" class="dropdown-toggle">
+                    <div class="nav-item-label dropdown-item">
+                        <span class="sr-only">Account Settings</span>
+                        <img loading="lazy" alt="" src="" class="nav-avatar nav-user-avatar">
+                        <div class="account-info nav-d-flex nav-d-lg-none flex-1 align-items-center">
+                            <div class="account-name">
+                                Huda Heikal
+                            </div>
+                        </div>-->
+                        <!---->
+                        <!--</div>
+            </button> <ul data-cy="dropdown-menu" class="dropdown-menu mw-350">
+                <li class="nav-status nav-d-flex dropdown-item">
+                    <button type="button" aria-label="Appear online to other users" data-cy="user-menu-visible-trigger" aria-pressed="true" class="nav-btn-status active">
+                        Online
+                    </button> <button type="button" aria-label="Appear invisible to other users" data-cy="user-menu-invisible-trigger" aria-pressed="false" class="nav-btn-status">
+                        Invisible
+                    </button>
+                </li>
+                <li class="dropdown-item">
+                    <ul class="nav-dropdown-list nav-dropdown-scroll">
+                        <li data-cy="organization-d1000891536" class="active">
+                            <a target="_self" data-cy="menu-item-trigger" href="javascript:" class="nav-menu-item">
+                                <img loading="lazy" alt="" src=""> <div class="flex-1">
+                                    <div>
+                                        User Name
+                                    </div> <div class="org-type">
+                                        Freelancer
+                                    </div> <span class="sr-only">
+                                        , Current User
+                                    </span>
+                                </div>-->
+                        <!---->
+                        <!--</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-options-mobile nav-d-lg-none dropdown-item">
+                                <ul>
+                                    <li>
+                                        <a target="_self" data-cy="menu-item-trigger" href="/freelancers/settings/contactInfo" class="nav-menu-item nav-item">
+                                            <span icon-name="settings" size="" aria-hidden="true" class="up-s-nav-icon">
+                                                <i class="fas fa-cog"></i>
+                                            </span>
+                                            Settings
+                                        </a>
+                                    </li>
+                                    <li data-cy="logout-trigger-mobile">
+                                        <button data-cy="menu-item-trigger" class="nav-menu-item link-logout nav-item text-light">
+                                            <span icon-name="remove" size="" aria-hidden="true" class="up-s-nav-icon">
+                                                <i class="fas fa-sign-out-alt"></i>
+                                            </span>Log out
+                                            <form id="nav-logout-mobile" method="post" action="/ab/account-security/logout" aria-hidden="true">
+                                            </form>
+                                        </button>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>-->
+                        @*</div>*@
+                        @*</nav>-->*@
+                        <!--End of navbar-->
+                        <div class="center">
+                            @RenderBody();
+
+                        </div>
+                        <!--Footer-->
+                        <footer role="contentinfo" class="up-footer text-center py-3">
+                            <div role="heading" aria-level="2" class="sr-only">
+                                Footer navigation
+                            </div>
+                            <div class="container">
+                                <div class="up-footer-items justify-content-between d-flex">
+                                    <div>
+                                        <ul class="up-footer-list">
+                                            <li class="up-footer-list-item">
+                                                <a href="/about/" target="_self" class="up-footer-list-link">
+                                                    About Us
+                                                </a>
+                                            </li>
+                                            <li class="up-footer-list-item">
+                                                <a href="javascript:" target="_self" data-cy="feedback-link" class="up-footer-list-link">
+                                                    Feedback
+                                                </a>
+                                            </li>
+                                            <li class="up-footer-list-item">
+                                                <a href="http://community.upwork.com" target="_self" class="up-footer-list-link">
+                                                    Community
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div><div>
+                                        <ul class="up-footer-list">
+                                            <li class="up-footer-list-item">
+                                                <a href="/trust-and-safety/security/" target="_self" class="up-footer-list-link">
+                                                    Trust, Safety &amp; Security
+                                                </a>
+                                            </li>
+                                            <li class="up-footer-list-item">
+                                                <a href="https://support.upwork.com/login" target="_self" class="up-footer-list-link">
+                                                    Help &amp; Support
+                                                </a>
+                                            </li>
+                                            <li class="up-footer-list-item">
+                                                <a href="/ppc/foundation/" target="_self" class="up-footer-list-link">
+                                                    Upwork Foundation
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div><div>
+                                        <ul class="up-footer-list">
+                                            <li class="up-footer-list-item">
+                                                <a href="/legal#terms" target="_self" class="up-footer-list-link">
+                                                    Terms of Service
+                                                </a>
+                                            </li>
+                                            <li class="up-footer-list-item">
+                                                <a href="/legal#privacy" target="_self" class="up-footer-list-link">
+                                                    Privacy Policy
+                                                </a>
+                                            </li>
+                                            <li class="up-footer-list-item">
+                                                <a href="/legal#accessibility" target="_self" class="up-footer-list-link">
+                                                    Accessibility
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div><div>
+                                        <ul class="up-footer-list">
+                                            <li class="up-footer-list-item">
+                                                <a href="/downloads?source=Footer" target="_self" class="up-footer-list-link">
+                                                    Desktop App
+                                                </a>
+                                            </li>
+                                            <li class="up-footer-list-item">
+                                                <a href="/legal#cookie-policy" target="_self" class="up-footer-list-link">
+                                                    Cookie Policy
+                                                </a>
+                                            </li>
+                                            <li class="up-footer-list-item">
+                                                <a href="/enterprise" target="_self" class="up-footer-list-link">
+                                                    Enterprise Solutions
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="up-footer-social justify-content-between d-flex">
+                                    <div class="up-footer-social-icons d-flex">
+                                        <div role="heading" aria-level="3" class="up-footer-social-header">
+                                            Follow us
+                                        </div>
+                                        <ul class="up-footer-social-list d-flex">
+                                            <li class="up-footer-social-list-item">
+                                                <a href="https://www.facebook.com/upwork" title="Visit Upwork on Facebook" target="_blank" rel="noopener noreferrer" class="up-footer-social-list-link">
+                                                    <span class="sr-only">Visit Upwork on Facebook</span>
+                                                    <div class="up-icon">
+                                                        <i class="fab fa-facebook-f"></i>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="up-footer-social-list-item">
+                                                <a href="https://www.linkedin.com/company/upwork" title="Read Upwork company news on LinkedIn" target="_blank" rel="noopener noreferrer" class="up-footer-social-list-link">
+                                                    <span class="sr-only">Read Upwork company news on LinkedIn</span>
+                                                    <div class="up-icon">
+                                                        <i class="fab fa-linkedin-in"></i>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="up-footer-social-list-item">
+                                                <a href="https://twitter.com/Upwork" title="Follow  on Twitter" target="_blank" rel="noopener noreferrer"
+                                                   class="up-footer-social-list-link">
+                                                    <span class="sr-only">Follow Twitter</span>
+                                                    <div class="up-icon">
+                                                        <i class="fab fa-twitter"></i>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="up-footer-social-list-item">
+                                                <a href="https://www.youtube.com/channel/UCvxGFOnwUBDHHcxuPqhe4CQ" title="Watch Upwork videos on YouTube" target="_blank" rel="noopener noreferrer" class="up-footer-social-list-link">
+                                                    <span class="sr-only">Watch Upwork videos on YouTube</span>
+                                                    <div class="up-icon">
+                                                        <i class="fab fa-youtube"></i>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="up-footer-social-list-item">
+                                                <a href="https://www.instagram.com/upworkinc/" title="Follow Upwork on Instagram" target="_blank" rel="noopener noreferrer" class="up-footer-social-list-link">
+                                                    <span class="sr-only">Follow Upwork on Instagram</span>
+                                                    <div class="up-icon">
+                                                        <i class="fab fa-instagram"></i>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="up-footer-social-icons up-footer-download d-flex">
+                                        <div role="heading" aria-level="3" class="up-footer-social-header">
+                                            Mobile app
+                                        </div>
+                                        <ul class="up-footer-social-list d-flex">
+                                            <li class="up-footer-social-list-item">
+                                                <a href="https://apps.apple.com/us/developer/upwork-global-inc/id329377609" title="Download Upwork app from iTunes" target="_blank" rel="noopener noreferrer" class="up-footer-social-list-link">
+                                                    <span class="sr-only">Download Upwork app from iTunes</span> <div class="up-icon">
+                                                        <i class="fab fa-apple"></i>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="up-footer-social-list-item">
+                                                <a href="https://play.google.com/store/apps/dev?id=8802639270489632480" title="Download Upwork app from Google Play" target="_blank" rel="noopener noreferrer" class="up-footer-social-list-link">
+                                                    <span class="sr-only">Download Upwork app from Google Play</span>
+                                                    <div class="up-icon">
+                                                        <i class="fab fa-android"></i>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div> <p class="up-footer-copyright">
+                                    <span>
+                                        © 2015 - 2021 Upwork® Global Inc.
+                                    </span>
+                                </p>
+                            </div> <!---->
+                        </footer> <!---->
+                        <!-- End Footer-->
+                        <!--Scripts-->
+                        <script src="https://kit.fontawesome.com/fa50145e5d.js" crossorigin="anonymous"></script>
+                        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+                        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+                        @await RenderSectionAsync("Scripts", required: false)
 </body>
 
 </html>

@@ -17,11 +17,6 @@ nav {
     color: #6fda44;
 }
 
-.text-green:hover {
-        color: #6fda44d2;
-        border-bottom: 1px solid #6fda44d2;
-    }
-
 .bg-green {
     background-color: #6fda44;
 }
@@ -29,44 +24,54 @@ nav {
 .bg-dark-cyan {
     background-color: #1d4354;
 }
-
-section {
-    padding: 1.2rem 0.3rem;
-
-
-}
-
-
-nav p {
-    padding-top: .5125rem;
-    padding-bottom: .3125rem;
-    font-size: 0.6;
-    font-weight: 500;
-}
 nav a{
     color:white;
 }
-nav a:hover {
+nav a:hover , nav i:hover {
     color: #6fda44;
     text-decoration:none;
 }
 .center {
     background-color: #f1f2f4;
 }
-nav i{
-    color:white;
-}
 nav button{
     border:none;
     background-color:transparent;
     color:white;
 }
-/*******footer*********/
+.dropdown-toggle::after{
+    display:none;
+}
+nav .profile-img{
+    width:3rem;
+    height:3rem;
+    border-radius:50%;
+}
+nav .dropdown a.active {
+    background-color: #6fda44;
+    color:#fff;
+}
+nav .dropdown-item img {
+    width:2rem;
+    height:2rem;
+}
+nav .profile-menue .status {
+    border: 1px solid #a0a0a0;
+    border-radius:0.4rem;
+}
+nav .profile-menue .profile-status {
+    padding: 0.3rem 2rem;
+}
+nav .profile-menue .profile-status:hover {
+    background-color: #47691b;
+    color: #fff;
+}
 
-    footer a:hover {
-        color: #fff;
-        border-bottom: 1px #fff solid;
-    }
+/*******footer*********/
+footer a:hover {
+    color: #fff;
+    border-bottom: 1px #fff solid;
+}
 
 footer p {
     margin-bottom: 0rem;
