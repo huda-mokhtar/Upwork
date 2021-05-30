@@ -24,9 +24,7 @@ nav {
 .bg-dark-cyan {
     background-color: #1d4354;
 }
-nav a{
-    color:white;
-}
+
 nav a:hover , nav i:hover {
     color: #6fda44;
     text-decoration:none;
@@ -34,13 +32,14 @@ nav a:hover , nav i:hover {
 .center {
     background-color: #f1f2f4;
 }
-nav button{
-    border:none;
-    background-color:transparent;
-    color:white;
+nav button {
+    border: none;
+    background-color: transparent;
+    color: white;
 }
-.dropdown-toggle::after{
-    display:none;
+
+.dropdown-toggle::after {
+   /* display: none;*/
 }
 nav .profile-img{
     width:3rem;
@@ -67,6 +66,49 @@ nav .profile-menue .profile-status:hover {
     color: #fff;
 }
 
+.input-group {
+    border: 0;
+    border-radius: 0.3rem;
+}
+
+    .input-group i {
+        color:#fff;
+        font-size: 0.7rem;
+    }
+
+.input-group-text {
+    background-color: transparent;
+    border: 0;
+}
+
+.input-group-field {
+    border: 0;
+    background-color:transparent;
+}
+
+
+@media screen and (max-width: 768px) {
+    .dropdown-menu {
+        background-color: #1d4354;
+        color: #fff;
+        border: 0;
+    }
+    nav li.nav-item {
+        border-bottom: 1px solid #336278;
+        padding:0.7rem 0.3rem;
+    }
+    .dropdown-toggle::after {
+        display: inline-block;
+        margin-left:80%;
+    }
+        .dropdown-menu a.dropdown-item {
+            color: #fff;
+        }
+        .dropdown-menu a.dropdown-item:hover {
+            color: black;
+        }
+}
+
 /*******footer*********/
 footer a:hover {
     color: #fff;
@@ -85,9 +127,9 @@ footer p {
 
 footer i {
     color: #656565;
-    border-radius:50%;
-    background-color:gainsboro;
-    padding:0.4rem;
-    margin:.4rem;
+    border-radius: 50%;
+    background-color: #f2f2f2;
+    padding: 0.4rem;
+    margin: .4rem;
 }
 /******* end footer*********/
