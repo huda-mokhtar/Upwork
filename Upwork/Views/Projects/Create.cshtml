@@ -1,51 +1,75 @@
 ﻿@model Upwork.Models.Project
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create project ";
+}
+@section Style {
+    <link href="~/css/CreateProject.css" rel="stylesheet" />
 }
 
-<h1>Create</h1>
-
-<h4>Project</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Requierments" class="control-label"></label>
-                <input asp-for="Requierments" class="form-control" />
-                <span asp-validation-for="Requierments" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SimultaneousProjects" class="control-label"></label>
-                <input asp-for="SimultaneousProjects" class="form-control" />
-                <span asp-validation-for="SimultaneousProjects" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FreelancerId" class="control-label"></label>
-                <select asp-for="FreelancerId" class ="form-control" asp-items="ViewBag.FreelancerId"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+<div class="container">
+    <!--Steps nav-->
+    <div class="">
+        <nav class="steps">
+            <ul class=" d-flex justify-content-between">
+                <li>
+                    <button class="step-btn">
+                        <p class="step-number text-center"> 1 </p>
+                        <p class="step-name">OverView</p>
+                    </button>
+                </li>
+                <li>
+                    <button class="step-btn">
+                        <p class="step-number text-center"> 2 </p>
+                        <p class="step-name">Pricing</p>
+                    </button>
+                </li>
+                <li>
+                    <button class="step-btn">
+                        <p class="step-number text-center"> 3 </p>
+                        <p class="step-name">Gallary</p>
+                    </button>
+                </li>
+                <li>
+                    <button class="step-btn">
+                        <p class="step-number text-center"> 4 </p>
+                        <p class="step-name">Description</p>
+                    </button>
+                </li>
+                <li>
+                    <button class="step-btn">
+                        <p class="step-number text-center"> 5 </p>
+                        <p class="step-name">Requiements</p>
+                    </button>
+                </li>
+                <li>
+                    <button class="step-btn">
+                        <p class="step-number text-center"> 6 </p>
+                        <p class="step-name">Review</p>
+                    </button>
+                </li>
+            </ul>
+        </nav>
     </div>
+    <!-- end Steps nav-->
+
+    <!--content-->
+    <div class="row">
+        <div class="col-lg-8 col-12">
+            <div class="bg-white" id="form-content">
+                <h1>Form</h1>
+            </div>
+        </div>
+        <div class="col-lg-4 col-12">
+            <div class=" bg-white" id="form-description">
+                <h1>Description</h1>
+            </div>
+           
+        </div>
+    </div>
+    <!-- end content-->
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

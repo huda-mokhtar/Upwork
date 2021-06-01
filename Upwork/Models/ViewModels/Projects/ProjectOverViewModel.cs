@@ -13,7 +13,7 @@ namespace Upwork.Models.ViewModels
         [Required]
         public string Title { get; set; }
 
-
+        [Required]
         [ForeignKey("SubCategory")]
         public int SubCategoryId { get; set; }
         public SubCategory SubCategory { get; set; }
