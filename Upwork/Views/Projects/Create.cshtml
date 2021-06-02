@@ -12,37 +12,37 @@
     <div class="">
         <nav class="steps">
             <ul class=" d-flex justify-content-between">
-                <li>
-                    <button class="step-btn">
+                <li class="step-item">
+                    <button class="step-btn current">
                         <p class="step-number text-center"> 1 </p>
                         <p class="step-name">OverView</p>
                     </button>
                 </li>
-                <li>
+                <li class="step-item">
                     <button class="step-btn">
                         <p class="step-number text-center"> 2 </p>
                         <p class="step-name">Pricing</p>
                     </button>
                 </li>
-                <li>
+                <li class="step-item">
                     <button class="step-btn">
                         <p class="step-number text-center"> 3 </p>
                         <p class="step-name">Gallary</p>
                     </button>
                 </li>
-                <li>
+                <li class="step-item">
                     <button class="step-btn">
                         <p class="step-number text-center"> 4 </p>
                         <p class="step-name">Description</p>
                     </button>
                 </li>
-                <li>
+                <li class="step-item">
                     <button class="step-btn">
                         <p class="step-number text-center"> 5 </p>
                         <p class="step-name">Requiements</p>
                     </button>
                 </li>
-                <li>
+                <li >
                     <button class="step-btn">
                         <p class="step-number text-center"> 6 </p>
                         <p class="step-name">Review</p>
@@ -55,22 +55,88 @@
 
     <!--content-->
     <div class="row">
+        <!--step form-->
         <div class="col-lg-8 col-12">
             <div class="bg-white" id="form-content">
-                <h1>Form</h1>
+
+                <div class="form-head">
+                    <div class="container">
+                        <h4> <b>Project Overview </b></h4>
+                    </div>
+                </div>
+                <form class="py-3 container" asp-action="Create" method="post">
+                    <div class="">
+                        <div class="form-group my-2">
+                            <label>Tell the client what you will deliver and how it benefits them</label>
+                            <input asp-for="Title" class="form-control" placeholder="You will get " />
+                            <span asp-validation-for="Title" class="text-danger my-2"></span>
+                            <div class="container examples my-2">
+                                <b>Some title example</b>
+                                <ul class="description-list container">
+                                    <li>
+                                        <p>You will get an amazing logo designed for your business</p>
+                                    </li>
+                                    <li>
+                                        <p>You will get 3 hours of social media marketing consultation.</p>
+                                    </li>
+                                    <li>
+                                        <p>You will get a revamped resume tailored to your next job.</p>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
+        <!--end form-->
+
+        <!--step description-->
         <div class="col-lg-4 col-12">
-            <div class=" bg-white" id="form-description">
-                <h1>Description</h1>
+            <div id="step-description" class=" bg-white py-4">
+                <div class="container">
+                    <h6><b>Start your Project </b></h6>
+                    <ul class="description-list container">
+                        <li>
+                            <p>Help clients find your project. Tell the client what they’ll get and how it will benefit them.</p>
+                        </li>
+                        <li>
+                            <p>A compelling title helps you stand out.</p>
+                        </li>
+                        <li>
+                            <p>Include any unique features your project offers.</p>
+                        </li>
+                    </ul>
+                    <div class="text-center">
+                        <img src="~/Images/search.PNG"  class="img-fluid" />
+                    </div>
+                    <p><b>Looking for some inspiration?</b></p>
+                    <p>Browse other <a href="#" class="text-green"> projects on Upwork.</a> </p>
+                </div>
+                
             </div>
            
         </div>
+        <!--end description-->
     </div>
     <!-- end content-->
 </div>
 
 
 @section Scripts {
+    @*<script>
+        $.ajax({
+            url: "https://localhost:44367/projects/CreateOverView",
+            type: "GET",
+            success: (res) => {
+                $("#form-content").html(res);
+            },
+            error: (e) => {
+                console.log(e);
+            }
+        })
+    </script>*@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
 }

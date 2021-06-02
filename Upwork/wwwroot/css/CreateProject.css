@@ -1,7 +1,20 @@
 ﻿.steps {
     color: #808080;
-    padding:0.7rem 0;
-    margin-bottom:0.5rem;
+    padding-top:2rem;
+    padding-bottom:1rem;
+}
+
+.steps .step-item{
+    position:relative;
+    width:15%;
+}
+.steps .step-item:after {
+   content: "";
+    border-top: 1px solid rgba(128,128,128,0.4);
+    position: absolute;
+    top: 25%;
+    left: 27%;
+    width: 105%;
 }
 .step-btn{
     padding:0.7rem;
@@ -16,10 +29,36 @@
     height:2rem;
     border-radius:50%;
 }
+.steps .current {
+    color: #14a800;
+}
+.current .step-number {
+    border: 2px solid #14a800;
+}
 #form-content {
     border: 1px solid #e0e0e0;
-    border-radius:0.3rem;
+    border-radius: 0.3rem;
 }
-#form-description {
+#step-description {
     border-top: 4px solid #1d4354;
+    margin-bottom:0.7rem;
+}
+.form-head{
+    border-bottom:1px solid #e0e0e0;
+    padding:0.8rem 0;
+    margin-top:0.7rem;
+    margin-bottom:0.7rem;
+}
+.description-list li{
+    list-style-type:disc;
+}
+#step-description a.text-green:hover{
+    color:#14a800;
+}
+input:hover {
+    border: 2px solid #14a800;
+}
+.examples{
+    color:#808080;
+    font-size:0.8rem;
 }
