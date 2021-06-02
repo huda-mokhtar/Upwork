@@ -7,6 +7,10 @@ using Upwork.Models;
 
 namespace Upwork.services
 {
+    public interface IProject
+    {
+        Project Create(Project project);
+    }
     public class ProjectDB : IProject
     {
         private ApplicationDbContext db ;

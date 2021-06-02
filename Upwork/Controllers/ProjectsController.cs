@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Upwork.Data;
 using Upwork.Models;
+using Upwork.services;
 
 namespace Upwork.Controllers
 {
@@ -49,12 +50,11 @@ namespace Upwork.Controllers
         public IActionResult Create()
         {
             ViewData["FreelancerId"] = new SelectList(_context.Freelancers, "FreelancerId", "FreelancerId");
+            ViewData["SubCategory"]= new SelectList(_context.SubCategories, "SubCategoryId", "Name");
             return View();
         }
 
         // POST: Projects/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ProjectId,Title,Description,Requierments,SimultaneousProjects,FreelancerId")] Project project)
@@ -68,7 +68,11 @@ namespace Upwork.Controllers
             ViewData["FreelancerId"] = new SelectList(_context.Freelancers, "FreelancerId", "FreelancerId", project.FreelancerId);
             return View(project);
         }
-
+        //Get:Skills
+        public async Task<IActionResult> GetSkills(int SubCategoryId)
+        {
+            return PartialView(_context.Skills.ToList());
+        }
         // GET: Projects/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {

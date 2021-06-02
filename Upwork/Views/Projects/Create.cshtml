@@ -84,7 +84,11 @@
                                     </li>
                                 </ul>
                             </div>
-                            
+                            <div class="form-group">
+                                <label  class="control-label col-md-2"></label>
+                                <select asp-for="SubCategoryId" class="form-control col-md-10" asp-items="ViewBag.SubCategory"></select>
+                            </div>
+
                         </div>
                     </div>
                 </form>
@@ -125,9 +129,9 @@
 
 
 @section Scripts {
-    @*<script>
+    <script>
         $.ajax({
-            url: "https://localhost:44367/projects/CreateOverView",
+            url: "https://localhost:44367/projects/GetSkills",
             type: "GET",
             success: (res) => {
                 $("#form-content").html(res);
@@ -136,7 +140,7 @@
                 console.log(e);
             }
         })
-    </script>*@
+    </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
 }
