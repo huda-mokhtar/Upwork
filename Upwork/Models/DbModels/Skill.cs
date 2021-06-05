@@ -22,6 +22,7 @@ namespace Upwork.Models
         public int? SubCategoryId { get; set; }
         public SubCategory SubCategory { get; set; }
         public virtual List<Freelancer_Skill> Freelancers { get; set; }
-        public  List<ProjectSkills> Projects { get; set; }
+        public List<ProjectSkills> Projects { get; set; }
+     
     }
 }

@@ -746,12 +746,20 @@ namespace Upwork.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+<<<<<<< HEAD
+                    b.Property<int>("SbcategoryId")
+=======
                     b.Property<int?>("SubCategoryId")
+>>>>>>> dc6d058570b036d68e4646772c6ae6b573e782fd
                         .HasColumnType("int");
 
                     b.HasKey("SkillId");
 
+<<<<<<< HEAD
+                    b.HasIndex("SbcategoryId");
+=======
                     b.HasIndex("SubCategoryId");
+>>>>>>> dc6d058570b036d68e4646772c6ae6b573e782fd
 
                     b.ToTable("Skills");
                 });
@@ -1131,8 +1139,15 @@ namespace Upwork.Data.Migrations
             modelBuilder.Entity("Upwork.Models.Skill", b =>
                 {
                     b.HasOne("Upwork.Models.SubCategory", "SubCategory")
+<<<<<<< HEAD
+                        .WithMany("skills")
+                        .HasForeignKey("SbcategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+=======
                         .WithMany("Skills")
                         .HasForeignKey("SubCategoryId");
+>>>>>>> dc6d058570b036d68e4646772c6ae6b573e782fd
 
                     b.Navigation("SubCategory");
                 });
@@ -1257,9 +1272,13 @@ namespace Upwork.Data.Migrations
                 {
                     b.Navigation("Freelancers");
 
+<<<<<<< HEAD
+                    b.Navigation("skills");
+=======
                     b.Navigation("Projects");
 
                     b.Navigation("Skills");
+>>>>>>> dc6d058570b036d68e4646772c6ae6b573e782fd
                 });
 
             modelBuilder.Entity("Upwork.Models.Tags", b =>

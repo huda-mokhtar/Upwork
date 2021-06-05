@@ -85,10 +85,10 @@
                                 </ul>
                             </div>
                             <div class="form-group">
-                                <label  class="control-label col-md-2"></label>
+                                <label class="control-label col-md-2"></label>
                                 <select asp-for="SubCategoryId" class="form-control col-md-10" asp-items="ViewBag.SubCategory"></select>
                             </div>
-
+                            <div id="skills"></div>
                         </div>
                     </div>
                 </form>
@@ -117,8 +117,7 @@
                     </div>
                     <p><b>Looking for some inspiration?</b></p>
                     <p>Browse other <a href="#" class="text-green"> projects on Upwork.</a> </p>
-                </div>
-                
+                </div>  
             </div>
            
         </div>
@@ -134,7 +133,8 @@
             url: "https://localhost:44367/projects/GetSkills",
             type: "GET",
             success: (res) => {
-                $("#form-content").html(res);
+                $("#skills").html(res);
+                console.log(res);
             },
             error: (e) => {
                 console.log(e);

@@ -71,6 +71,7 @@ namespace Upwork.Controllers
         //Get:Skills
         public async Task<IActionResult> GetSkills(int SubCategoryId)
         {
+            //var SkillsList=_context.Skills.Find(a)
             return PartialView(_context.Skills.ToList());
         }
         // GET: Projects/Edit/5
