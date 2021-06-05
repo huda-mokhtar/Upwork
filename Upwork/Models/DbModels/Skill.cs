@@ -18,6 +18,9 @@ namespace Upwork.Models
         [Required(ErrorMessage = "Skill name is required!")]
         public string Name { get; set; }
 
+        [ForeignKey("SubCategory")]
+        public int? SubCategoryId { get; set; }
+        public SubCategory SubCategory { get; set; }
         public virtual List<Freelancer_Skill> Freelancers { get; set; }
         public  List<ProjectSkills> Projects { get; set; }
     }
