@@ -1,0 +1,141 @@
+﻿@model Upwork.Models.Project
+
+@{
+    ViewData["Title"] = "Create project ";
+}
+@section Style {
+    <link href="~/css/CreateProject.css" rel="stylesheet" />
+}
+
+<div class="container">
+    <!--Steps nav-->
+    <div class="">
+        <nav class="steps">
+            <ul class=" d-flex justify-content-between">
+                <li class="step-item">
+                    <button class="step-btn ">
+                        <p class="step-number text-center"> 1 </p>
+                        <p class="step-name">OverView</p>
+                    </button>
+                </li>
+                <li class="step-item">
+                    <button class="step-btn">
+                        <p class="step-number text-center"> 2 </p>
+                        <p class="step-name">Pricing</p>
+                    </button>
+                </li>
+                <li class="step-item">
+                    <button class="step-btn">
+                        <p class="step-number text-center"> 3 </p>
+                        <p class="step-name">Gallary</p>
+                    </button>
+                </li>
+                <li class="step-item">
+                    <button class="step-btn current">
+                        <p class="step-number text-center"> 4 </p>
+                        <p class="step-name">Description</p>
+                    </button>
+                </li>
+                <li class="step-item">
+                    <button class="step-btn">
+                        <p class="step-number text-center"> 5 </p>
+                        <p class="step-name">Requiements</p>
+                    </button>
+                </li>
+                <li>
+                    <button class="step-btn">
+                        <p class="step-number text-center"> 6 </p>
+                        <p class="step-name">Review</p>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <!-- end Steps nav-->
+    <!--content-->
+    <div class="row">
+        <!--step form-->
+        <div class="col-lg-8 col-12">
+            <div class="bg-white" id="form-content">
+                <div class="form-head">
+                    <div class="container">
+                        <h4> <b>Project description </b></h4>
+                    </div>
+                </div>
+                <div class="py-3 container">
+                    <h4><b>Project summary</b></h4>
+                    <p>Briefly explain what sets you and your project apart.</p>
+                    <textarea asp-for="Description" class="up-textarea" placeholder="EXAMPLE: You will get a polished logo design that will bring your company to the next level. With over 5 years of experience in freelance and agency environments, I care deeply about helping startups tell their story through design. The work I deliver is 100% original and high quality">
+                    </textarea>
+                    <div class="form-head"></div>
+                    <h4><b>Project steps</b></h4>
+                    <p>List the steps involved in delivering your project.</p>
+                    <ul class="  justify-content-between">
+                        <li class="step-item">
+                            <div class="step-btn current ">
+                                <p class="step-number text-center"> 1 </p>
+                                <span>Client purchases the project and sends requirements.</span>
+                            </div>
+                        </li>
+                        <li class="step-item">
+                            <div class="step-btn current">
+                                <p class="step-number text-center"> 2 </p>
+                                <span class="step-name">
+                                    You complete the project following the steps that you add here.
+                                </span>
+                            </div>
+                        </li>
+                        <li class="step-item">
+                            <div class="step-btn current">
+                                <p class="step-number text-center"> 3 </p>
+                                <span class="step-name">Client reviews and approves your work, and you get paid.</span>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="form-head"></div>
+                    <h4>Frequently asked questions</h4>
+                    <p>Answers to common questions your clients ask.</p>
+
+                    <div class="end">
+                        <div class="row d-flex justify-content-between">
+                            <div class="btn-cancle text-left col-6">
+                                <a href="">Back</a>
+                            </div>
+                            <div class="btn-cancle text-right col-3">
+                                <a href="">Cancle</a>
+                            </div>
+                            <div class="btn-save text-right col-3">
+                                <a href="">Save &amp; Continue</a>
+                            </div>
+                        </div>
+                    </div>
+                        </div>
+                    </div>
+                </div>
+        <!--end form-->
+        <!--step description-->
+        <div class="col-lg-4 col-12">
+            <div id="step-description" class=" bg-white py-4">
+                <div class="container">
+                    <h6><b>Project details </b></h6>
+                    <ul class="description-list container">
+                        <li>
+                            <p>Add more details about your offering and why clients should work with you.</p>
+                        </li>
+                        <li>
+                            <p>Show potential clients the steps you take to complete your project.</p>
+                        </li>
+                        <li>
+                            <p>Address common client questions to save the back and forth.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <!--end description-->
+    </div>
+    <!-- end content-->
+</div>
+
+@section Scripts {}

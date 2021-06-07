@@ -86,9 +86,32 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-2"></label>
-                                <select asp-for="SubCategoryId" class="form-control col-md-10" asp-items="ViewBag.SubCategory"></select>
+                                <select onchange="selected(this.value)" asp-for="SubCategoryId" class="form-control col-md-10" asp-items="ViewBag.SubCategory"><option value="">-</option></select>
                             </div>
                             <div id="skills"></div>
+                            <div class="form-head"></div>
+                            <div class="form-group">
+                                <label>
+                                    Search Tags(Optional)
+                                </label>
+                                <span>Add up to 5</span>
+                                <input class="form-control" placeholder=" Start Typing To view" />
+                            </div>
+                            <div class="end">
+                                <div class="row d-flex justify-content-between">
+                                    <div class="text-left col-6">
+                                      
+                                    </div>
+                                    <div class="text-right col-3">
+                                        <button class="btn-cancle ">Cancle</button>
+                                    </div>
+                                    <div class=" text-right col-3">
+                                        <button class="btn-save">Save &amp; Continue</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                           
                         </div>
                     </div>
                 </form>
@@ -126,20 +149,20 @@
     <!-- end content-->
 </div>
 
-
 @section Scripts {
     <script>
-        $.ajax({
-            url: "https://localhost:44367/projects/GetSkills",
-            type: "GET",
-            success: (res) => {
-                $("#skills").html(res);
-                console.log(res);
-            },
-            error: (e) => {
-                console.log(e);
-            }
-        })
+        function selected( event) {
+            $.ajax({
+                url: "https://localhost:44367/projects/GetSkills/"+event+"",
+                type: "GET",
+                success: (res) => {
+                    $("#skills").html(res);
+                },
+                error: (e) => {
+                    console.log(e);
+                }
+            })
+        }
     </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 

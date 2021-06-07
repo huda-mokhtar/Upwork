@@ -57,7 +57,7 @@ namespace Upwork.Controllers
         // POST: Projects/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProjectId,Title,Description,Requierments,SimultaneousProjects,FreelancerId")] Project project)
+        public async Task<IActionResult> Create( Project project)
         {
             if (ModelState.IsValid)
             {
@@ -69,11 +69,24 @@ namespace Upwork.Controllers
             return View(project);
         }
         //Get:Skills
-        public async Task<IActionResult> GetSkills(int SubCategoryId)
+        public async Task<IActionResult> GetSkills(int Id)
         {
-            //var SkillsList=_context.Skills.Find(a)
-            return PartialView(_context.Skills.ToList());
+            var SkillsList = _context.Skills.Where(a => a.SubCategoryId ==Id);
+            return PartialView(SkillsList.ToList());
         }
+
+        //Get:Gallary{
+        public async Task<IActionResult> Gallary()
+        {
+            return View();
+        }
+
+        //Get Description
+        public async Task<IActionResult> Description()
+        {
+            return View();
+        }
+
         // GET: Projects/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -91,9 +104,7 @@ namespace Upwork.Controllers
             return View(project);
         }
 
-        // POST: Projects/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ProjectId,Title,Description,Requierments,SimultaneousProjects,FreelancerId")] Project project)
