@@ -81,6 +81,7 @@ input:hover {
     border-radius: 10rem;
     padding: 0.5rem;
     color: #14a800;
+    border-color: transparent;
 }
 .btn-cancle a {
     color: #14a800;

@@ -14,12 +14,12 @@ namespace Upwork.Models
         public int ProjectId { get; set; }
         [Required]
         public string Title { get; set; }
-        [Required]
+       
         public string Description { get; set; }
-        [Required]
+        
         public string Requierments { get; set; }
-        [Required]
-        public int SimultaneousProjects { get; set; }
+       
+        public int? SimultaneousProjects { get; set; }
 
         [ForeignKey("Freelancer")]
         public string FreelancerId { get; set; }
