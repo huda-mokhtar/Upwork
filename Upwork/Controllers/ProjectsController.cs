@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Upwork.Data;
 using Upwork.Models;
+using Upwork.Models.ViewModels;
 using Upwork.services;
 
 namespace Upwork.Controllers
@@ -92,8 +93,6 @@ namespace Upwork.Controllers
         }
 
         // POST: Projects/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ProjectId,Title,Description,Requierments,SimultaneousProjects,FreelancerId")] Project project)
@@ -157,9 +156,33 @@ namespace Upwork.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        //GET:Projects/Pricing
+        [HttpGet]
+        [Route("Projects/pricing")]
+        public async Task<IActionResult> CreatePrice() //(ProjectOverViewModel model)
+        {
+            //ViewData["OverView"] = ModelBinderAttribute;
+            List < Level > levels =  _context.Levels.ToList();
+            // ViewBag["Levels"] = levels[1];
+            ViewData["Levels"] = _context.Levels.ToList();
+            return View();
+        }
+        
+        //GET:Projects/Pricing
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("Projects/pricing")]
+        public async Task<IActionResult> CreatePrice(ProjectLevel model)
+        {
+            ViewData["Levels"] =  _context.Levels.ToList();
+            return View();
+        }
+
         private bool ProjectExists(int id)
         {
             return _context.Projects.Any(e => e.ProjectId == id);
         }
+
+        
     }
 }
