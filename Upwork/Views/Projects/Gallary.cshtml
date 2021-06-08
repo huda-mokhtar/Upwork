@@ -1,0 +1,173 @@
+﻿@model Upwork.Models.Project
+
+@{
+    ViewData["Title"] = "Create project ";
+}
+@section Style {
+    <link href="~/css/CreateProject.css" rel="stylesheet" />
+}
+
+<div class="container">
+    <!--Steps nav-->
+    <div class="">
+        <nav class="steps">
+            <ul class=" d-flex justify-content-between">
+                <li class="step-item">
+                    <button class="step-btn ">
+                        <p class="step-number text-center"> 1 </p>
+                        <p class="step-name">OverView</p>
+                    </button>
+                </li>
+                <li class="step-item">
+                    <button class="step-btn">
+                        <p class="step-number text-center"> 2 </p>
+                        <p class="step-name">Pricing</p>
+                    </button>
+                </li>
+                <li class="step-item">
+                    <button class="step-btn current">
+                        <p class="step-number text-center"> 3 </p>
+                        <p class="step-name">Gallary</p>
+                    </button>
+                </li>
+                <li class="step-item">
+                    <button class="step-btn">
+                        <p class="step-number text-center"> 4 </p>
+                        <p class="step-name">Description</p>
+                    </button>
+                </li>
+                <li class="step-item">
+                    <button class="step-btn">
+                        <p class="step-number text-center"> 5 </p>
+                        <p class="step-name">Requiements</p>
+                    </button>
+                </li>
+                <li>
+                    <button class="step-btn">
+                        <p class="step-number text-center"> 6 </p>
+                        <p class="step-name">Review</p>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <!-- end Steps nav-->
+    <!--content-->
+    <div class="row">
+        <!--step form-->
+        <div class="col-lg-8 col-12">
+            <div class="bg-white" id="form-content">
+
+                <div class="form-head">
+                    <div class="container">
+                        <h4> <b>Create a stunning image gallery </b></h4>
+                    </div>
+                </div>
+                <form class="py-3 container" asp-action="Create" method="post">
+                    <div class="">
+                        <div class="form-group my-2">
+                            <h4>Showcase your best work</h4>
+                            <div class=" examples my-2">
+                                <span>
+                                    Upload images (JPEG or PNG) that are under 10 MB and have a 4:3 aspect ratio.
+                                </span>
+                            </div>
+                            <div class="container">
+                                <div class="file-upload">
+                                    @*<button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Image</button>*@
+
+                                    <div class="image-upload-wrap">
+                                        <input class="file-upload-input" type='file' onchange="read(this);" accept="image/*" />
+                                        <div class="drag-text">
+                                            <h3>Drag image here or browse</h3>
+                                        </div>
+                                    </div>
+                                    <div class="file-upload-content">
+                                        <img class="file-upload-image" src="#" alt="your image" />
+                                        <div class="image-title-wrap">
+                                            <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="end">
+                                <div class="row d-flex justify-content-between">
+                                    <div class="btn-cancle text-left col-6">
+                                        <a href="">Back</a>
+                                    </div>
+                                    <div class="btn-cancle text-right col-3">
+                                        <a href="">Cancle</a>
+                                    </div>
+                                    <div class="btn-save text-right col-3">
+                                        <a href="">Save &amp; Continue</a>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--end form-->
+        <!--step description-->
+        <div class="col-lg-4 col-12">
+            <div id="step-description" class=" bg-white py-4">
+                <div class="container">
+                    <h6><b>Image gallery tips </b></h6>
+                    <ul class="description-list container">
+                        <li>
+                            <p>Clients are more likely to purchase projects that have unique, professional images.</p>
+                        </li>
+                        <li>
+                            <p>Upload images that showcase your work from your portfolio or stock images that illustrate the kind of work that you do (as long as you own the copyright.)</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <!--end description-->
+    </div>
+    <!-- end content-->
+</div>
+
+@section Scripts {
+    @*<script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>*@
+    <script>
+        function read(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('.image-upload-wrap').hide();
+
+                    $('.file-upload-image').attr('src', e.target.result);
+                    $('.file-upload-content').show();
+
+                    $('.image-title').html(input.files[0].name);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            } //else {
+            //    removeUpload();
+            //}
+        }
+
+        function removeUpload() {
+            $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+            $('.file-upload-content').hide();
+            $('.image-upload-wrap').show();
+        }
+        $('.image-upload-wrap').bind('dragover', function () {
+            $('.image-upload-wrap').addClass('image-dropping');
+        });
+        $('.image-upload-wrap').bind('dragleave', function () {
+            $('.image-upload-wrap').removeClass('image-dropping');
+        });
+
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}
+
