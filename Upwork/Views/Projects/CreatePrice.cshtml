@@ -66,57 +66,95 @@
                         <h4> <b>Price & scope</b></h4>
                     </div>
                 </div>
-                <form class="py-3 container" asp-action="CreatePrice" method="post">
-                    <div class="form-group">
-                        @*<input type="hidden" asp-for="ProjectId"  class="form-control" value="@ViewBag.OverView.ProjectId"></input>*@
+                <form class="py-3" asp-action="CreatePrice" method="post">
+                    <div class="container">
+                        <div class="form-group">
+                            @*<input type="hidden" asp-for="ProjectId"  class="form-control" value="@ViewBag.OverView.ProjectId"></input>*@
+                        </div>
+                        <div class="row justify-content-between">
+                            <div class="col-md-6">
+                                <h6><b>Create pricing tiers</b></h6>
+                                <p class="desc">Customize your project with 1 or 3 pricing tiers</p>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label>3 tiers </label>
+                                <label class="switch ml-1">
+                                    <input type="checkbox" checked>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+
+
+                        </div>
+                        <div class=" row justify-content-end mt-3 text-center">
+                            @foreach (var item in ViewBag.Levels)
+                            {
+                                <div class="col-3">
+                                    <label asp-for="LevelId" ><b> @item.Name </b></label>
+                                    <input asp-for="LevelId" type="hidden" value="@item.LevelId" />
+                                </div>
+                            }
+
+
+                        </div>
+                        <div class="row justify-content-center mt-3">
+                            <div class="col-3">
+                                <label asp-for="DeleverDays"><b>DeleverDays</b></label>
+                            </div>
+                            <div class="col-3">
+                                <input asp-for="DeleverDays" class="form-control" />
+                            </div>
+                            <div class="col-3">
+                                <input asp-for="DeleverDays" class="form-control" />
+                            </div>
+                            <div class="col-3">
+                                <input asp-for="DeleverDays" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row justify-content-center mt-3 price">
+                            <div class="col-3">
+                                <label asp-for="Price"><b>Price</b></label>
+                            </div>
+                            <div class="col-3">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">$</span>
+                                    <input type="text" class="form-control"  placeholder="0.00">
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">$</span>
+                                    <input type="text" class="form-control" placeholder="0.00">
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">$</span>
+                                    <input type="text" class="form-control" placeholder="0.00">
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="row justify-content-between">
-                        <div class="col-md-6">
-                            <h6><b>Create pricing tiers</b></h6>
-                            <p class="desc">Customize your project with 1 or 3 pricing tiers</p>
+
+                    <div class="end pt-3 mt-3">
+                        <div class="container">
+                            <div class="d-flex justify-content-between">
+                                <div class="col-2">
+                                    <div class="devBtnLight m-0 p-2 text-center">
+                                        <h6 class="m-0 p-0">Back</h6>
+                                    </div>
+                                </div>
+                                <div class="col-5">
+                                    <button class="btn-cancle ">Cancle</button>
+                                    <button class="btn-save">Save &amp; Continue</button>
+                                </div>
+
+                            </div>
                         </div>
 
-                        <div class="col-md-3">
-                            <label>3 tiers </label>
-                            <label class="switch ml-1">
-                                <input type="checkbox" checked>
-                                <span class="slider round"></span>
-                            </label>
-                        </div>
+                    </div>
 
-
-                    </div>
-                    <table class="table text-center">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                @foreach (var item in ViewBag.Levels)
-                                {
-                                    <th>@item.Name</th>
-                                }
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr></tr>
-                        </tbody>
-                    </table>
-                    <div class="form-group">
-                        <label asp-for="LevelId" class="control-label"></label>
-                        @*<input asp-for="LevelId" class="form-control" type="checkbox"></input>*@
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Price" class="control-label"></label>
-                        <input asp-for="Price" class="form-control" />
-                        <span asp-validation-for="Price" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="DeleverDays" class="control-label"></label>
-                        <input asp-for="DeleverDays" class="form-control" />
-                        <span asp-validation-for="DeleverDays" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" value="Create" class="btn btn-primary" />
-                    </div>
                 </form>
             </div>
         </div>

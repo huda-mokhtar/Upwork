@@ -42,7 +42,7 @@
                         <p class="step-name">Requiements</p>
                     </div>
                 </li>
-                <li >
+                <li>
                     <div class="step-btn">
                         <p class="step-number text-center"> 6 </p>
                         <p class="step-name">Review</p>
@@ -52,7 +52,6 @@
         </nav>
     </div>
     <!-- end Steps nav-->
-
     <!--content-->
     <div class="row">
         <!--step form-->
@@ -64,8 +63,8 @@
                         <h4> <b>Project Overview </b></h4>
                     </div>
                 </div>
-                <form class="py-3 container" asp-action="Create" method="post">
-                    <div class="">
+                <form class="py-3 " asp-action="Create" method="post">
+                    <div class="container">
                         <div class="form-group my-2">
                             <label>Tell the client what you will deliver and how it benefits them</label>
                             <input asp-for="Title" class="form-control" placeholder="You will get " />
@@ -84,41 +83,35 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-2"></label>
-                                <select onchange="selected(this.value)" asp-for="SubCategoryId" class="form-control col-md-10" asp-items="ViewBag.SubCategory"><option value="">-</option></select>
-                            </div>
-                            <div id="skills"></div>
-                            <div class="form-head"></div>
-                            <div class="form-group">
-                                <label>
-                                    Search Tags(Optional)
-                                </label>
-                                <span>Add up to 5</span>
-                                <input class="form-control" asp-for="Tags" placeholders=" Start Typing To view" />
-                            </div>
-                            <div class="end">
-                                <div class="row d-flex justify-content-between">
-                                    <div class="text-left col-6">
-                                      
-                                    </div>
-                                    <div class="text-right col-3">
-                                        <button class="btn-cancle ">Cancle</button>
-                                    </div>
-                                    <div class=" text-right col-3">
-                                        <button class="btn-save">Save &amp; Continue</button>
-                                    </div>
+                        </div>
+                        <div class="form-group my-2">
+                            <label class="control-label col-md-2"></label>
+                            <select onchange="selected(this.value)" asp-for="SubCategoryId" class="form-control" asp-items="ViewBag.SubCategory"><option value="">-</option></select>
+                        </div>
+                        <div id="skills"></div>
+                        <div class="form-head"></div>
+                        <div class="form-group">
+                            <label>
+                                Search Tags(Optional)
+                            </label>
+                            <span>Add up to 5</span>
+                            <input class="form-control" asp-for="Tags" placeholders=" Start Typing To view" />
+                        </div>
 
-                                </div>
+                    </div>
+
+                    <div class="end pt-3">
+                        <div class="container">
+                            <div class="d-flex justify-content-end">
+                                <button class="btn-cancle d-inline ">Cancle</button>
+                                <button class="btn-save d-inline ml-2">Save &amp; Continue</button>
                             </div>
-                           
                         </div>
                     </div>
                 </form>
             </div>
         </div>
         <!--end form-->
-
         <!--step description-->
         <div class="col-lg-4 col-12">
             <div id="step-description" class=" bg-white py-4">
@@ -136,13 +129,13 @@
                         </li>
                     </ul>
                     <div class="text-center">
-                        <img src="~/Images/search.PNG"  class="img-fluid" />
+                        <img src="~/Images/search.PNG" class="img-fluid" />
                     </div>
                     <p><b>Looking for some inspiration?</b></p>
                     <p>Browse other <a href="#" class="text-green"> projects on Upwork.</a> </p>
-                </div>  
+                </div>
             </div>
-           
+
         </div>
         <!--end description-->
     </div>
@@ -151,9 +144,9 @@
 
 @section Scripts {
     <script>
-        function selected( event) {
+        function selected(event) {
             $.ajax({
-                url: "https://localhost:44367/projects/GetSkills/"+event+"",
+                url: "https://localhost:44367/projects/GetSkills/" + event + "",
                 type: "GET",
                 success: (res) => {
                     $("#skills").html(res);

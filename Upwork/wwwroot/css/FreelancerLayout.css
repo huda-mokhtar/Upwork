@@ -92,11 +92,20 @@ a {
 .input-group-text {
     background-color: transparent;
     border: 0;
+    color:#fff;
 }
 
 .input-group-field {
     border: 0;
     background-color: transparent;
+    color:#fff;
+}
+.input-group-field:focus {
+    outline: 0;
+    box-shadow: 0 0 0 0 none;
+    border:0;
+    background-color: #143240;
+    color:#fff;
 }
 
 
