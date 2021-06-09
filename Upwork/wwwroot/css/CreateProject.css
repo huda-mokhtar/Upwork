@@ -1,68 +1,166 @@
 ﻿.steps {
     color: #808080;
-    padding-top:2rem;
-    padding-bottom:1rem;
+    padding-top: 2rem;
+    padding-bottom: 1rem;
 }
 
-.steps .step-item{
-    position:relative;
-    width:15%;
+    .steps .step-item {
+        position: relative;
+        width: 15%;
+    }
+
+        .steps .step-item:after {
+            content: "";
+            border-top: 1px solid rgba(128,128,128,0.4);
+            position: absolute;
+            top: 25%;
+            left: 27%;
+            width: 105%;
+        }
+
+.step-btn {
+    padding: 0.7rem;
+    border: none;
+    background-color: transparent;
 }
-.steps .step-item:after {
-   content: "";
-    border-top: 1px solid rgba(128,128,128,0.4);
-    position: absolute;
-    top: 25%;
-    left: 27%;
-    width: 105%;
+
+.step-number {
+    border: 2px solid #808080;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
 }
-.step-btn{
-    padding:0.7rem;
-    border:none;
-    background-color:transparent;
-   
-    text-align:center;
-}
-.step-number{
-    border:2px solid #808080;
-    width:2rem;
-    height:2rem;
-    border-radius:50%;
-}
+
 .steps .current {
     color: #14a800;
 }
+
 .current .step-number {
     border: 2px solid #14a800;
 }
+
 #form-content {
     border: 1px solid #e0e0e0;
     border-radius: 0.3rem;
-    margin-bottom:4rem;
+    margin-bottom: 4rem;
 }
+
 #step-description {
     border-top: 4px solid #1d4354;
-    margin-bottom:0.7rem;
+    margin-bottom: 0.7rem;
 }
-.form-head{
-    border-bottom:1px solid #e0e0e0;
-    padding:0.8rem 0;
-    margin-top:0.7rem;
-    margin-bottom:0.7rem;
+
+.form-head {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0.8rem 0;
+    margin-top: 0.7rem;
+    margin-bottom: 0.7rem;
 }
-.description-list li{
-    list-style-type:disc;
+
+.description-list li {
+    list-style-type: disc;
 }
-#step-description a.text-green:hover{
-    color:#14a800;
+
+#step-description a.text-green:hover {
+    color: #14a800;
 }
-input:hover {
-    border: 2px solid #14a800;
+
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border: 1px solid #14a800;
+    outline: 0;
+    box-shadow: 0 0 0 1px #14a800;
 }
-.examples{
-    color:#808080;
-    font-size:0.8rem;
+
+.examples {
+    color: #808080;
+    font-size: 0.8rem;
 }
+
+.desc {
+    font-size: 0.8rem;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 3.7rem;
+    height: 2.1rem;
+}
+
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 1.7rem;
+        width: 1.7rem;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+input:checked + .slider {
+    background-color: #14a800;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(1.7rem);
+    -ms-transform: translateX(1.7rem);
+    transform: translateX(1.7rem);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 2.1rem;
+}
+
+.slider.round:before {
+   border-radius: 50%;
+}
+
+.price .input-group {
+    border: 1px solid #e0e0e0;
+}
+.price .input-group-text {
+    color: #808080;
+}
+.price .form-control {
+    border:none;
+}
+.price .form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border: none;
+    outline: 0;
+    box-shadow: 0 0 0 0 none;
+}
+
+
+
 .btn-save {
     background: #14a800;
     border-radius: 10rem;
@@ -70,12 +168,15 @@ input:hover {
     padding: 0.2rem;
     color: #fff;
 }
-.btn-save button {
-    color: #fff;
-}
-.btn-save a:hover {
-    text-decoration: none;
-}
+
+    .btn-save button {
+        color: #fff;
+    }
+
+    .btn-save a:hover {
+        text-decoration: none;
+    }
+
 .btn-cancle {
     background: #fff;
     border-radius: 10rem;
@@ -83,20 +184,38 @@ input:hover {
     color: #14a800;
     border-color: transparent;
 }
-.btn-cancle a {
-    color: #14a800;
-}
-.btn-cancle a:hover {
-    text-decoration:none;
-}
+
+    .btn-cancle a {
+        color: #14a800;
+    }
+
+        .btn-cancle a:hover {
+            text-decoration: none;
+        }
+
 .end {
     border-top: 1px solid #e0e0e0;
-    margin:0.3rem;
 }
+
+.devBtnLight {
+    color: #29b816;
+    cursor: pointer;
+    background-color: white;
+    border-radius: 1.8rem;
+    border: 1px solid rgb(172, 172, 172);
+}
+
+
+    .devBtnLight:hover {
+        background-color: rgb(247, 247, 247);
+        color: rgba(0, 128, 0, 0.925);
+    }
+
+
 .file-upload {
     background-color: #f1f2f4;
-    width: 10rem ;
-    height:10rem;
+    width: 10rem;
+    height: 10rem;
     padding: 10px;
 }
 
@@ -148,11 +267,11 @@ input:hover {
     position: relative;
 }
 
-.image-dropping,
-.image-upload-wrap:hover {
-    background-color: #f1f2f4;
-    border: 1px solid #f1f2f4;
-}
+    .image-dropping,
+    .image-upload-wrap:hover {
+        background-color: #f1f2f4;
+        border: 1px solid #f1f2f4;
+    }
 
 .image-title-wrap {
     padding: 0 15px 15px 15px;
@@ -163,11 +282,10 @@ input:hover {
     text-align: center;
 }
 
-.drag-text h3 {
-    font-weight: 100;
-    color: #15824B;
-
-}
+    .drag-text h3 {
+        font-weight: 100;
+        color: #15824B;
+    }
 
 .file-upload-image {
     width: 10rem;
@@ -188,19 +306,51 @@ input:hover {
     text-transform: uppercase;
 }
 
-.remove-image:hover {
-    background: #c13b2a;
-    color: #ffffff;
-    transition: all .2s ease;
-    cursor: pointer;
-}
+    .remove-image:hover {
+        background: #c13b2a;
+        color: #ffffff;
+        transition: all .2s ease;
+        cursor: pointer;
+    }
 
-.remove-image:active {
-    border: 0;
-    transition: all .2s ease;
-}
+    .remove-image:active {
+        border: 0;
+        transition: all .2s ease;
+    }
 /*________________________Description*/
 .up-textarea {
     width: 100%;
 }
-
+/*****Requierment********/
+.add-btn{
+    font-size:0.9rem;
+    font-weight:500;
+}
+.add-btn:hover{
+    color: rgba(0, 128, 0, 0.925);
+}
+.fa-plus {
+    font-size: 0.6rem;
+    background-color: #14a800;
+    color:#fff;
+    padding:2px;
+    border-radius:50%;
+}
+.add-form{
+    padding:0.6rem 0;
+    background-color:#f2f2f2;
+    display:none;
+}
+.form-check-input:checked {
+    border: 1px solid #14a800;
+    box-shadow: 0px 0px 0px 1px #14a800;
+    background-color:#14a800;
+}
+.add-form .btn-cancle{
+    background-color:transparent;
+}
+.add-form .btn-save{
+   padding:0.1rem 0.8rem;
+   border-radius:46%;
+}
+/*****end Requierment********/

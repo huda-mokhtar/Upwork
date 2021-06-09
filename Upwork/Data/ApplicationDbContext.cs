@@ -50,6 +50,7 @@ namespace Upwork.Data
 
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<ProjectImages> ProjectImages { get; set; }
+        public virtual DbSet<Level> Levels { get; set; }
         public virtual DbSet<ProjectLevel> ProjectLevels { get; set; }
         public virtual DbSet<ProjectQuestion> ProjectQuestions { get; set; }
         public virtual DbSet<ProjectSteps> ProjectSteps { get; set; }

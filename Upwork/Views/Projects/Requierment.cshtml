@@ -60,60 +60,69 @@
 
                 <div class="form-head">
                     <div class="container">
-                        <h4> <b>Project Overview </b></h4>
+                        <h4> <b>Requirements for the client </b></h4>
                     </div>
                 </div>
-                <form class="py-3 " asp-action="Create" method="post">
+                <div class="form-head">
                     <div class="container">
-                        <div class="form-group my-2">
-                            <label>Tell the client what you will deliver and how it benefits them</label>
-                            <input asp-for="Title" class="form-control" placeholder="You will get " />
-                            <span asp-validation-for="Title" class="text-danger my-2"></span>
-                            <div class="container examples my-2">
-                                <b>Some title example</b>
-                                <ul class="description-list container">
-                                    <li>
-                                        <p>You will get an amazing logo designed for your business</p>
-                                    </li>
-                                    <li>
-                                        <p>You will get 3 hours of social media marketing consultation.</p>
-                                    </li>
-                                    <li>
-                                        <p>You will get a revamped resume tailored to your next job.</p>
-                                    </li>
-                                </ul>
+                        <div class="row justify-content-between my-2">
+                            <div class="col-7 ">
+                                <h6><b>What do you need to start?</b></h6>
+                                <p>Specify what you need from your client to start this project.</p>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-2"></label>
-                                <select onchange="selected(this.value)" asp-for="SubCategoryId" class="form-control col-md-10" asp-items="ViewBag.SubCategory"><option value="">-</option></select>
+                            <div class="col-4">
+
+                                <button type="button" class="text-green btn add-btn" onclick="displayForm()">Add your Requierment <i class="fas fa-plus"></i> </button>
+
                             </div>
-                            <div id="skills"></div>
-                            <div class="form-head"></div>
-                            <div class="form-group">
-                                <label>
-                                    Search Tags(Optional)
-                                </label>
-                                <span>Add up to 5</span>
-                                <input class="form-control" asp-for="Tags" placeholders=" Start Typing To view" />
-                            </div>
-                            <div class="end">
-                                <div class="row d-flex justify-content-between">
-                                    <div class="text-left col-6">
-                                      
+                        </div>
+                        <form class="add-form my-2">
+                            <div class="container">
+                                <textarea class="form-control" rows="3" placeholder="Enter a question that can be answered by freeform text, multiple choice or by uploading a file."></textarea>
+                                <div class="row justify-content-end">
+
+                                    <div class="col-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="inlineFormCheck">
+                                            <label class="fs-6" for="inlineFormCheck">
+                                                <b> Mandatory requirement</b>
+                                            </label>
+                                        </div>
                                     </div>
-                                    <div class="text-right col-3">
-                                        <button class="btn-cancle ">Cancle</button>
-                                    </div>
-                                    <div class=" text-right col-3">
-                                        <button class="btn-save">Save &amp; Continue</button>
+                                </div>
+                                <div class="end pt-3 mt-3">
+                                    <div class="container">
+                                        <div class="d-flex justify-content-end">
+                                            <div class="col-4">
+                                                <button class="btn-cancle">Cancle</button>
+                                                <button class="btn-save">Add</button>
+                                            </div>
+
+                                        </div>
                                     </div>
 
                                 </div>
                             </div>
-                           
+                        </form>
+                    </div>
+                </div>
+                <div class="py-3 mt-3">
+                    <div class="container">
+                        <div class="d-flex justify-content-between">
+                            <div class="col-2">
+                                <div class="devBtnLight m-0 p-2 text-center">
+                                    <h6 class="m-0 p-0">Back</h6>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <button class="btn-cancle ">Cancle</button>
+                                <button class="btn-save">Save &amp; Continue</button>
+                            </div>
+
                         </div>
                     </div>
-                </form>
+
+                </div>
             </div>
         </div>
         <!--end form-->
@@ -121,16 +130,13 @@
         <div class="col-lg-4 col-12">
             <div id="step-description" class=" bg-white py-4">
                 <div class="container">
-                    <h6><b>Start your Project </b></h6>
+                    <h6><b>Define what you need from your client upfront</b></h6>
                     <ul class="description-list container">
                         <li>
-                            <p>Help clients find your project. Tell the client what they’ll get and how it will benefit them.</p>
+                            <p>After a client purchases your project, they will be required to answer questions you define before the contract officially starts.</p>
                         </li>
                         <li>
-                            <p>A compelling title helps you stand out.</p>
-                        </li>
-                        <li>
-                            <p>Include any unique features your project offers.</p>
+                            <p>The due date for your project is defined by the number of days to deliver, starting from when the client submits these requirements.</p>
                         </li>
                     </ul>
                     <div class="text-center">
@@ -149,19 +155,13 @@
 
 @section Scripts {
     <script>
-        function selected(event) {
-            $.ajax({
-                url: "https://localhost:44367/projects/GetSkills/" + event + "",
-                type: "GET",
-                success: (res) => {
-                    $("#skills").html(res);
-                },
-                error: (e) => {
-                    console.log(e);
-                }
-            })
+        function displayForm() {
+            $(".add-form").css("display", "block");
+            /*$("").css("background-color", "yellow");*/
         }
     </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
+
 }
+
