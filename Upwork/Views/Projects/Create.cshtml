@@ -83,34 +83,29 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-2"></label>
-                                <select onchange="selected(this.value)" asp-for="SubCategoryId" class="form-control col-md-10" asp-items="ViewBag.SubCategory"><option value="">-</option></select>
-                            </div>
-                            <div id="skills"></div>
-                            <div class="form-head"></div>
-                            <div class="form-group">
-                                <label>
-                                    Search Tags(Optional)
-                                </label>
-                                <span>Add up to 5</span>
-                                <input class="form-control" asp-for="Tags" placeholders=" Start Typing To view" />
-                            </div>
-                            <div class="end">
-                                <div class="row d-flex justify-content-between">
-                                    <div class="text-left col-6">
-                                      
-                                    </div>
-                                    <div class="text-right col-3">
-                                        <button class="btn-cancle ">Cancle</button>
-                                    </div>
-                                    <div class=" text-right col-3">
-                                        <button class="btn-save">Save &amp; Continue</button>
-                                    </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2"></label>
+                            <select onchange="selected(this.value)" asp-for="SubCategoryId" class="form-control" asp-items="ViewBag.SubCategory"><option value="">-</option></select>
+                        </div>
+                        <div id="skills"></div>
+                        <div class="form-head"></div>
+                        <div class="form-group">
+                            <label>
+                                Search Tags(Optional)
+                            </label>
+                            <span>Add up to 5</span>
+                            <input class="form-control" asp-for="Tags" placeholders=" Start Typing To view" />
+                        </div>
 
-                                </div>
+                    </div>
+                    <div class="end pt-3">
+                        <div class="container">
+                            <div class="d-flex justify-content-end">
+                                <button class="btn-cancle d-inline ">Cancle</button>
+                                <button class="btn-save d-inline ml-2">Save &amp; Continue</button>
                             </div>
-                           
+
                         </div>
                     </div>
                 </form>
