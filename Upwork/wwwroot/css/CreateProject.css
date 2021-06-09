@@ -160,6 +160,7 @@ input:checked + .slider:before {
 }
 
 
+
 .btn-save {
     background: #14a800;
     border-radius: 10rem;
@@ -320,3 +321,36 @@ input:checked + .slider:before {
 .up-textarea {
     width: 100%;
 }
+/*****Requierment********/
+.add-btn{
+    font-size:0.9rem;
+    font-weight:500;
+}
+.add-btn:hover{
+    color: rgba(0, 128, 0, 0.925);
+}
+.fa-plus {
+    font-size: 0.6rem;
+    background-color: #14a800;
+    color:#fff;
+    padding:2px;
+    border-radius:50%;
+}
+.add-form{
+    padding:0.6rem 0;
+    background-color:#f2f2f2;
+    display:none;
+}
+.form-check-input:checked {
+    border: 1px solid #14a800;
+    box-shadow: 0px 0px 0px 1px #14a800;
+    background-color:#14a800;
+}
+.add-form .btn-cancle{
+    background-color:transparent;
+}
+.add-form .btn-save{
+   padding:0.1rem 0.8rem;
+   border-radius:46%;
+}
+/*****end Requierment********/

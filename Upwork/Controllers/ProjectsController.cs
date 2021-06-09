@@ -180,18 +180,25 @@ namespace Upwork.Controllers
         {
             //ViewData["OverView"] = ModelBinderAttribute;
             List < Level > levels =  _context.Levels.ToList();
-            // ViewBag["Levels"] = levels[1];
             ViewData["Levels"] = _context.Levels.ToList();
             return View();
         }
         
-        //GET:Projects/Pricing
+        //POST:Projects/Pricing
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Projects/pricing")]
         public async Task<IActionResult> CreatePrice(ProjectLevel model)
         {
             ViewData["Levels"] =  _context.Levels.ToList();
+            return View();
+        }
+
+        //GET:Projects/Requierments
+        [HttpGet]
+        [Route("Projects/Requierments")]
+        public async Task<IActionResult> Requierment() 
+        {
             return View();
         }
 
