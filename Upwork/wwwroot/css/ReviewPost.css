@@ -1,0 +1,255 @@
+﻿.myDrafts {
+    margin: 0;
+    padding: 7px;
+    border-top: 1px solid rgba(0, 0, 0, 0.125)
+}
+
+    .myDrafts a {
+        color: #14a800;
+        font-size: 14px;
+    }
+
+        .myDrafts a:hover {
+            color: green;
+        }
+
+.last a {
+    color: #149702;
+    font-weight: 600;
+}
+
+    .last a:hover {
+        color: rgb(3, 119, 3);
+    }
+
+
+.devBtnGreen {
+    cursor: pointer;
+    background-color: #14a800;
+    border-radius: 30px;
+}
+
+    .devBtnGreen:hover {
+        background-color: rgba(0, 128, 0, 0.925);
+    }
+
+.seconedHeaders {
+    color: #222222;
+    font-size: 17px;
+    font-weight: 550;
+}
+
+.devBtnLight {
+    color: #29b816;
+    cursor: pointer;
+    background-color: white;
+    border-radius: 30px;
+    border: 1px solid rgb(172, 172, 172);
+}
+
+
+    .devBtnLight:hover {
+        background-color: rgb(247, 247, 247);
+        color: rgba(0, 128, 0, 0.925);
+    }
+
+.editIcon {
+    display: inline;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    border-radius: 50%;
+    border: 0.1rem solid #c5c4c4;
+    color: #656565;
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+    .editIcon:hover {
+        background-color: #e0e0e0be;
+    }
+
+.skillsDiv {
+    color: white;
+    cursor: pointer;
+    background-color: #336278;
+    border-radius: 30px;
+    border: 1px solid #aec1ca;
+    font-size: smaller;
+}
+
+    .skillsDiv:hover {
+        background-color: #084a64
+    }
+
+.thirdHeaders {
+    color: #222222;
+    font-size: 16px;
+    font-weight: 550;
+}
+
+.FourthHeaders {
+    color: #2b2a2af6;
+    font-size: 15px;
+    font-weight: 550;
+}
+
+.checkbox {
+    display: inline-flex;
+    cursor: pointer;
+    position: relative;
+    padding: 3px;
+}
+
+    .checkbox:hover {
+        background-color: rgba(238, 237, 237, 0.973);
+    }
+
+    .checkbox > div {
+        color: rgb(32, 31, 31);
+        font-size: 15px;
+        font-weight: 400;
+        padding-bottom: 3px;
+    }
+
+    .checkbox > input {
+        position: relative;
+        height: 18px;
+        width: 18px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        -o-appearance: none;
+        appearance: none;
+        border: 1px solid #656565;
+        border-radius: 4px;
+        outline: none;
+        background-color: white;
+        cursor: pointer;
+    }
+
+        .checkbox > input:checked {
+            border: 1px solid #14a800;
+            background-color: #14a800;
+        }
+
+            .checkbox > input:checked + div::before {
+                content: '\2713';
+                display: block;
+                text-align: center;
+                color: white;
+                position: absolute;
+                margin-top: 0;
+                font-weight: 660;
+                font-weight: bold;
+                left: 0.4rem;
+                margin: 0;
+                bottom: 0.2rem;
+                padding-bottom: 4px;
+            }
+
+.checkbox2 > input:checked + div::before {
+    left: 0.25rem;
+    top: 0.65rem;
+    bottom: 0.2rem;
+    padding-bottom: 1px;
+}
+
+.checkbox > input:active {
+    border: 2px solid #14a800;
+}
+
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #3ce026d8;
+    outline: 0;
+    box-shadow: 0 0 0 0.1rem #81e774;
+}
+
+.select option:hover {
+    background-color: green;
+}
+
+.radio-group {
+    position: relative;
+}
+
+
+.radio {
+    display: inline-block;
+    border-radius: 5px 5px;
+    border: 2px solid lightgrey;
+    cursor: pointer;
+}
+
+.radioBody {
+    cursor: pointer;
+}
+
+    .radioBody:hover {
+        background-color: rgba(238, 237, 237, 0.973);
+        ;
+    }
+
+.radio.selected {
+    border-color: rgb(74, 180, 74);
+}
+
+input[type='radio']:checked:after {
+    background-color: #ffa500;
+}
+/* .radiobox:checked::after{
+        background-color: green;
+    } */
+/*.radiobox{
+      color: green!important;
+    }*/
+.radioBox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkround {
+    position: absolute;
+    top: 3px;
+    height: 16px;
+    width: 16px;
+    background-color: #fff;
+    border-color: lightgrey;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 50%;
+}
+
+
+/* When the radio button is checked, add a blue background */
+.radioBox input:checked ~ .checkround {
+    background-color: #fff;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkround:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.radioBox input:checked ~ .checkround:after {
+    display: block;
+}
+
+.radioBox input:checked ~ .checkround {
+    border-color: #14a800;
+}
+
+/* Style the indicator (dot/circle) */
+.radioBox .checkround:after {
+    left: 1px;
+    top: 1px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #14a800;
+}
