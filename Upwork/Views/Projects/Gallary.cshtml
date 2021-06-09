@@ -64,7 +64,7 @@
                     </div>
                 </div>
                 <form class="py-3 container" asp-action="Create" method="post">
-                    <div class="">
+                    <div class="container">
                         <div class="form-group my-2">
                             <h4>Showcase your best work</h4>
                             <div class=" examples my-2">
@@ -72,7 +72,6 @@
                                     Upload images (JPEG or PNG) that are under 10 MB and have a 4:3 aspect ratio.
                                 </span>
                             </div>
-                            <div class="container">
                                 <div class="file-upload">
                                     @*<button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Image</button>*@
 
@@ -89,24 +88,28 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="end">
-                                <div class="row d-flex justify-content-between">
-                                    <div class="btn-cancle text-left col-6">
-                                        <a href="">Back</a>
-                                    </div>
-                                    <div class="btn-cancle text-right col-3">
-                                        <a href="">Cancle</a>
-                                    </div>
-                                    <div class="btn-save text-right col-3">
-                                        <a href="">Save &amp; Continue</a>
-                                    </div>
-
-                                </div>
-                            </div>
-
                         </div>
                     </div>
+
+                    <div class="end pt-3 mt-3">
+                        <div class="container">
+                            <div class="d-flex justify-content-between">
+                                <div class="col-2">
+                                    <div class="devBtnLight m-0 p-2 text-center">
+                                        <h6 class="m-0 p-0">Back</h6>
+                                    </div>
+                                </div>
+                                <div class="col-5">
+                                    <button class="btn-cancle ">Cancle</button>
+                                    <button class="btn-save">Save &amp; Continue</button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                      
                 </form>
             </div>
         </div>
