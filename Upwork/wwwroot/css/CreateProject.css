@@ -34,7 +34,7 @@
 
 .steps .current {
     color: #14a800;
-    font-weight: bold;
+    font-weight: 500;
 }
 .done{
     font-weight:500;
@@ -100,6 +100,44 @@
 .desc {
     font-size: 0.8rem;
 }
+.btn-save {
+    background: #14a800;
+    border-radius: 10rem;
+    border-color: transparent;
+    padding: 0.2rem;
+    color: #fff;
+}
+
+.btn-save button {
+    color: #fff;
+}
+
+.btn-cancle {
+    background: #fff;
+    border-radius: 10rem;
+    padding: 0.5rem;
+    color: #14a800;
+    border-color: transparent;
+}
+.end {
+    border-top: 1px solid #e0e0e0;
+}
+
+.devBtnLight {
+    color: #29b816;
+    cursor: pointer;
+    background-color: white;
+    border-radius: 1.8rem;
+    border: 1px solid rgb(172, 172, 172);
+}
+
+
+.devBtnLight:hover {
+    background-color: rgb(247, 247, 247);
+    color: rgba(0, 128, 0, 0.925);
+}
+
+/********pricing**********/
 
 .switch {
     position: relative;
@@ -177,45 +215,9 @@ input:checked + .slider:before {
     outline: 0;
     box-shadow: 0 0 0 0 none;
 }
+/********end pricing**********/
 
-.btn-save {
-    background: #14a800;
-    border-radius: 10rem;
-    border-color: transparent;
-    padding: 0.2rem;
-    color: #fff;
-}
-
-.btn-save button {
-    color: #fff;
-}
-
-.btn-cancle {
-    background: #fff;
-    border-radius: 10rem;
-    padding: 0.5rem;
-    color: #14a800;
-    border-color: transparent;
-}
-.end {
-    border-top: 1px solid #e0e0e0;
-}
-
-.devBtnLight {
-    color: #29b816;
-    cursor: pointer;
-    background-color: white;
-    border-radius: 1.8rem;
-    border: 1px solid rgb(172, 172, 172);
-}
-
-
-.devBtnLight:hover {
-    background-color: rgb(247, 247, 247);
-    color: rgba(0, 128, 0, 0.925);
-}
-
-
+/************Gallary*****************/
 .file-upload {
     background-color: #f1f2f4;
     width: 10rem;
@@ -295,10 +297,12 @@ input:checked + .slider:before {
     border: 0;
     transition: all .2s ease;
 }
-/*________________________Description*/
+/************end Gallary*****************/
+/******Description***************/
 .up-textarea {
     width: 100%;
 }
+/******end Description***************/
 /*****Requierment********/
 .add-btn{
     font-size:0.9rem;
