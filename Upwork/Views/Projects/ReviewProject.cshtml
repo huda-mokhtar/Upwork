@@ -1,0 +1,169 @@
+﻿@model Upwork.Models.ProjectLevel
+
+@{
+    ViewData["Title"] = "project catalog";
+}
+
+<!--style sheet-->
+@section Style {
+    <link href="~/css/CreateProject.css" rel="stylesheet" />
+}
+<!--end style sheet-->
+
+<div class="container">
+    <!--Steps nav-->
+    <div class="">
+        <nav class="steps">
+            <ul class=" d-flex justify-content-between">
+                <li class="step-item">
+                    <div class="step-btn done">
+                        <p class="step-number text-center"> <i class="fas fa-check"></i> </p>
+                        <p class="step-name">OverView</p>
+                    </div>
+                </li>
+                <li class="step-item">
+                    <div class="step-btn done">
+                        <p class="step-number text-center"> <i class="fas fa-check"></i> </p>
+                        <p class="step-name">Pricing</p>
+                    </div>
+                </li>
+                <li class="step-item">
+                    <div class="step-btn done">
+                        <p class="step-number text-center"> <i class="fas fa-check"></i> </p>
+                        <p class="step-name">Gallary</p>
+                    </div>
+                </li>
+                <li class="step-item">
+                    <div class="step-btn done">
+                        <p class="step-number text-center"> <i class="fas fa-check"></i> </p>
+                        <p class="step-name">Description</p>
+                    </div>
+                </li>
+                <li class="step-item">
+                    <div class="step-btn done">
+                        <p class="step-number text-center"> <i class="fas fa-check"></i> </p>
+                        <p class="step-name">Requiements</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="step-btn current">
+                        <p class="step-number text-center "> <i class="fas fa-pen"></i> </p>
+                        <p class="step-name">Review</p>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <!-- end Steps nav-->
+    <!--content-->
+    <div class="row">
+        <!--step form-->
+        <div class="col-lg-8 col-12">
+            <div class="bg-white" id="form-content">
+
+                <div class="form-head">
+                    <div class="container">
+                        <h4> <b>Finalize</b></h4>
+                    </div>
+                </div>
+                <form class="py-3" asp-action="CreatePrice" method="post">
+                    <div class="container">
+                        <div class="form-group my-2 border-bottom py-4">
+                            <label class="my-1">
+                                <b> Maximum number of simultaneous projects </b>
+                            </label>
+                            <div class="description-list my-1">
+                                <p>You will get an amazing logo designed for your business</p>
+                            </div>
+                            <input type="number" class="form-control col-2" />
+                            <span class="text-danger my-2"></span>
+                        </div>
+                        <div class="form-group my-3 py-4">
+                            <h6 class="my-1">
+                                <b>
+                                    Copyright Notice
+                                </b>
+                            </h6>
+                            <div class="description-list my-1">
+                                <p>
+                                    By submitting your project, you declare that you either own or have rights to the material posted and that posting these materials does not infringe on any third party's rights. You also acknowledge that you understand your project will be reviewed and evaluated by Upwork to ensure it meets Upwork's requirements.
+
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group my-2 py-2">
+                            <label><b>Terms of Service</b></label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="gridCheck">
+                                <label class="form-check-label" for="gridCheck">
+                                    I understand and agree to the <a href="#" class="text-green"> Upwork Terms of Service </a> , including the <a href="#" class="text-green"> User Agreement </a> and <a href="#" class="text-green" > Privacy Policy </a>.
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group my-3 py-4">
+                            <label><b>Privacy Notice </b></label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="gridCheck">
+                                <label class="form-check-label" for="gridCheck">
+                                    By submitting this project and activating it, I understand that it will appear in Upwork search results visible to the general public and will show up in search engine results, even if my profile visibility is set to Private or Upwork Users Only.
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="end pt-3 mt-3">
+                        <div class="container">
+                            <div class="d-flex justify-content-between">
+                                <div class="col-2">
+                                    <div class="devBtnLight m-0 p-2 text-center">
+                                        <h6 class="m-0 p-0">Back</h6>
+                                    </div>
+                                </div>
+                                <div class="col-5">
+                                    <button class="btn-cancle ">Cancle</button>
+                                    <button class="btn-save">Save &amp; Continue</button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        <!--end form-->
+        <!--step description-->
+        <div class="col-lg-4 col-12">
+            <div id="step-description" class=" bg-white py-4">
+                <div class="container">
+                    <h6>
+                        <i class="far fa-calendar-alt decription-icon"></i>
+                        <b>Your project visibility </b>
+                    </h6>
+                    <div class="description-list container">
+
+                        <p class="desc">When you have reached your project maximum, your project will automatically be hidden from other clients. As soon as you complete an open project, your project will once again be viewable by clients.</p>
+
+                    </div>
+                    <h6>
+                        <i class="fas fa-mobile-alt decription-icon"></i>
+                        <b>Download the mobile app </b>
+                    </h6>
+                    <div class="description-list container">
+
+                        <p class="desc">Don’t forget to download the mobile app and turn on notifications so you know when a client purchases your project so you can get ready to start working!</p>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--end description-->
+    </div>
+    <!-- end content-->
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}

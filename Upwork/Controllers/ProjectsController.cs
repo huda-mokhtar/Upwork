@@ -201,6 +201,14 @@ namespace Upwork.Controllers
         {
             return View();
         }
+        
+        //GET:Projects/Requierments
+        [HttpGet]
+        [Route("Projects/Review")]
+        public async Task<IActionResult> ReviewProject() 
+        {
+            return View();
+        }
 
         private bool ProjectExists(int id)
         {
