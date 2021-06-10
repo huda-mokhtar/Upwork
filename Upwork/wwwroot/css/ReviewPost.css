@@ -253,3 +253,6 @@ input[type='radio']:checked:after {
     border-radius: 50%;
     background: #14a800;
 }
+.rotate {
+    transform: rotate(-180deg);
+}

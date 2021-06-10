@@ -41,7 +41,7 @@
             </div>
             <div class="col-2 text-light  p-2 devBtnGreen"
                  style=" width:auto ; height: auto;">
-                <a class="h6 m-0 p-0 text-light" asp-action="PostJob"> Post a Job </a>
+                <h6 class="m-0 p-0"> Post a Job </h6>
             </div>
         </div>
         <div class="row " style="margin-top: 35px;">
@@ -54,7 +54,7 @@
                             <div class="col-7 text-left">
                                 <h4>My Postings</h4>
                             </div>
-                            <div class="col-4 text-right"><a href="#">All Postings</a></div>
+                            <div class="col-4 text-right"><a href="#" class="greenLinks">All Postings</a></div>
                         </div>
                     </div>
                     <div class="myDrafts">
@@ -112,7 +112,7 @@
                             <div class="col-7 text-left ml-1">
                                 <h4>My Drafts</h4>
                             </div>
-                            <div class="col-4 text-right"><a href="#">All Drafts</a></div>
+                            <div class="col-4 text-right"><a href="#" class="greenLinks">All Drafts</a></div>
                         </div>
                     </div>
                     <div class="myDrafts">
@@ -128,9 +128,15 @@
                             <div class="col-2 text-right" style="width: 50px; height: 50px; margin: 0;padding:0;">
                                 <div class="container text-right"
                                      style="width: 48px; height: 48px; margin: 0;padding:0;">
-                                    <span class=" circlee-points container-circlee ">
+                                    <span class=" circlee-points container-circlee " data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
                                         <i class="fa fa-ellipsis-h 2x" style="color:rgb(83, 83, 83) ;"></i>
                                     </span>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">Edit Draft</a>
+                                        <a class="dropdown-item" href="#">Remove Draft</a>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -148,9 +154,15 @@
                             <div class="col-2 text-right" style="width: 50px; height: 50px; margin: 0;padding:0;">
                                 <div class="container text-right"
                                      style="width: 48px; height: 48px; margin: 0;padding:0;">
-                                    <span class=" circlee-points container-circlee">
+                                    <span class=" circlee-points container-circlee" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
                                         <i class="fa fa-ellipsis-h 2x" style="color:rgb(83, 83, 83) ;"></i>
                                     </span>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">Edit Draft</a>
+                                        <a class="dropdown-item" href="#">Remove Draft</a>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -168,9 +180,15 @@
                             <div class="col-2 text-right" style="width: 50px; height: 50px; margin: 0;padding:0;">
                                 <div class="container text-right"
                                      style="width: 48px; height: 48px; margin: 0;padding:0;">
-                                    <span class=" circlee-points container-circlee">
+                                    <span class=" circlee-points container-circlee" data-toggle="dropdown"
+                                          aria-haspopup="true" aria-expanded="false">
                                         <i class="fa fa-ellipsis-h 2x" style="color:rgb(83, 83, 83) ;"></i>
                                     </span>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">Edit Draft</a>
+                                        <a class="dropdown-item" href="#">Remove Draft</a>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -182,7 +200,7 @@
                             <div class="col-7 text-left ">
                                 <h4>My Positions</h4>
                             </div>
-                            <div class="col-4 text-right"><a href="#">All Positions</a></div>
+                            <div class="col-4 text-right"><a href="#" class="greenLinks">All Positions</a></div>
                         </div>
                     </div>
                     <div class="card-body text-center p-5">
@@ -206,8 +224,8 @@
                                     <h4>How to work with talent</h4>
                                 </div>
                                 <div class="col-3 text-right">
-                                    <a class="card-link" data-toggle="collapse"
-                                       href="#collapseOne"><i class="fa fa-angle-down fa-2x "></i></a>
+                                    <a class="card-link" data-toggle="collapse" id="rotateLink"
+                                       href="#collapseOne"><i id="rotateAngle" class="fa fa-angle-down fa-2x text-success"></i></a>
                                 </div>
                             </div>
                             <div class="container text-left m-0 p-6">
@@ -309,7 +327,7 @@
                                 <div class="container text-left m-0">
                                     <p class="m-1 p-6" style="color:rgb(39, 39, 39) ; font-size: smaller;">
                                         Visit our
-                                        <a href="">Help Center</a> to learn more tips for finding the right talent.
+                                        <a href="" class="greenLinks">Help Center</a> to learn more tips for finding the right talent.
                                     </p>
                                 </div>
                             </div>
@@ -318,15 +336,11 @@
                 </div>
             </div>
             <div class="col-4 ml-1">
-
-
                 <section>
                     <div class="container">
                         <div class="row">
-
                             <div class="col-12 ">
                                 <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
-
                                     <div class="carousel-inner">
                                         <div class="carousel-item active">
                                             <div class="card">
@@ -387,7 +401,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
 
@@ -408,4 +421,14 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        $("#rotateLink").click(function () {
+            $("#rotateAngle").toggleClass("rotate");
+        });
+
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
 

@@ -28,12 +28,12 @@
             color: #14a800;
         }
 
-a {
+.dropdown-menu a, .steps a, .greenLinks {
     color: #14a800;
     font-size: smaller;
 }
 
-    a:hover {
+    .dropdown-menu a:hover, .steps a:hover, .greenLinks:hover {
         color: green;
     }
 
@@ -102,10 +102,6 @@ a {
         background-color: rgb(247, 247, 247);
         color: rgba(0, 128, 0, 0.925);
     }
-.form-control:focus {
-    color: #495057;
-    background-color: #fff;
-    border-color: #3ce026d8;
-    outline: 0;
-    box-shadow: 0 0 0 0.1rem #81e774;
+.rotate {
+    transform: rotate(-180deg);
 }

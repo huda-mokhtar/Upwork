@@ -9,7 +9,7 @@
                 <div class="card-header bg-white">
                     <div class="row p-3 " style="display:-webkit-box; -webkit-box-align:center; ">
                         <div class="col-8 text-left m-0 ">
-                            <h2>Now just finish and review your job post.</h2>
+                            <h2 style="color: #1d4354; font:  bold 28px Rza;">Now just finish and review your job post.</h2>
                         </div>
 
                         <div class="col-3  text-right m-0">
@@ -99,8 +99,8 @@
                                     <p class="mb-2" style="font-size: 14px; color: #656565;">Narrow down your candidates</p>
                                 </div>
                                 <div class="col-2 m-0 text-right">
-                                    <a class="card-link" data-toggle="collapse"
-                                       href="#collapseOne" style="color: #656565;;"><i class="fa fa-angle-down fa-2x "></i></a>
+                                    <a class="card-link rotateLink1" data-toggle="collapse"
+                                       href="#collapseOne" style="color: #656565;;"><i class="fa fa-angle-down fa-2x rotateAngle1"></i></a>
                                 </div>
                             </div>
                             <div id="collapseOne" class="collapse" data-parent="#accordion">
@@ -154,8 +154,8 @@
                                     <p class="mb-2" style="font-size: 14px; color: #656565;">Hours per week, hire date, and more</p>
                                 </div>
                                 <div class="col-2 m-0 text-right">
-                                    <a class="card-link" data-toggle="collapse"
-                                       href="#collapseTwo" style="color: #656565;;"><i class="fa fa-angle-down fa-2x "></i></a>
+                                    <a class="card-link rotateLink2" data-toggle="collapse"
+                                       href="#collapseTwo" style="color: #656565;;"><i class="fa fa-angle-down fa-2x rotateAngle2"></i></a>
                                 </div>
                             </div>
                             <div id="collapseTwo" class="row collapse m-0 p-0 mb-3 " data-parent="#accordion">
@@ -495,8 +495,8 @@
                                     <p class="mb-2" style="font-size: 14px; color: #656565;">Adjust visibility and add coworkers</p>
                                 </div>
                                 <div class="col-2 m-0 text-right">
-                                    <a class="card-link" data-toggle="collapse"
-                                       href="#collapseThree" style="color: #656565;;"><i class="fa fa-angle-down fa-2x "></i></a>
+                                    <a class="card-link rotateLink3" data-toggle="collapse"
+                                       href="#collapseThree" style="color: #656565;;"><i class="fa fa-angle-down fa-2x rotateAngle3"></i></a>
                                 </div>
                             </div>
                             <div id="collapseThree" class="collapse m-0 p-0 mb-3" data-parent="#accordion">
@@ -557,8 +557,8 @@
                                     <p class="mb-2" style="font-size: 14px; color: #656565;">Request specific freelancers or agencies</p>
                                 </div>
                                 <div class="col-2 m-0 text-right">
-                                    <a class="card-link" data-toggle="collapse"
-                                       href="#collapseFour" style="color: #656565;;"><i class="fa fa-angle-down fa-2x "></i></a>
+                                    <a class="card-link rotateLink4" data-toggle="collapse"
+                                       href="#collapseFour" style="color: #656565;;"><i class="fa fa-angle-down fa-2x rotateAngle4"></i></a>
                                 </div>
                             </div>
                             <div id="collapseFour" class="collapse ml-2 mb-3" data-parent="#accordion">
@@ -604,3 +604,31 @@
     </div>
 
 </div>
+@section Scripts {
+    <script>
+
+        $(".rotateLink1").click(function () {
+            console.log
+            $(".rotateAngle1").toggleClass("rotate");
+            console.log($('.rotateAngle'));
+        });
+        $(".rotateLink2").click(function () {
+            console.log
+            $(".rotateAngle2").toggleClass("rotate");
+            console.log($('.rotateAngle'));
+        });
+        $(".rotateLink3").click(function () {
+            console.log
+            $(".rotateAngle3").toggleClass("rotate");
+            console.log($('.rotateAngle'));
+        });
+        $(".rotateLink4").click(function () {
+            console.log
+            $(".rotateAngle4").toggleClass("rotate");
+            console.log($('.rotateAngle'));
+        });
+
+
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

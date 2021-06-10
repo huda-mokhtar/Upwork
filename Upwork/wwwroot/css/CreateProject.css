@@ -19,6 +19,14 @@
      width: 105%;
 }
 
+/*.steps .step-item:after {
+    content: "";
+    border-top: 1px solid rgba(128,128,128,0.4);
+    position: absolute;
+    top: 25%;
+    left: 27%;
+}*/
+
 .step-btn {
     padding: 0.7rem;
     border: none;
@@ -297,12 +305,15 @@ input:checked + .slider:before {
     border: 0;
     transition: all .2s ease;
 }
+
 /************end Gallary*****************/
 /******Description***************/
 .up-textarea {
     width: 100%;
 }
 /******end Description***************/
+
+
 /*****Requierment********/
 .add-btn{
     font-size:0.9rem;
@@ -331,8 +342,16 @@ input:checked + .slider:before {
 .add-form .btn-cancle{
     background-color:transparent;
 }
-.add-form .btn-save{
-   padding:0.1rem 0.8rem;
-   border-radius:46%;
+.add-form .btn-save {
+    padding: 0.1rem 1rem;
+    border-radius: 1rem;
 }
 /*****end Requierment********/
+/**description**/
+.fa-check {
+    color: #14a800;
+}
+.addspan {
+    color: #656565;
+    font-size: small;
+}
