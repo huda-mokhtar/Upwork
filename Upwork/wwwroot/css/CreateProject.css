@@ -294,6 +294,14 @@ input:checked + .slider:before {
 .up-textarea {
     width: 100%;
 }
+.add-checked-icon{
+    color: #14a800;
+}
+
+.addspan {
+    color: #656565;
+    font-size: small;
+}
 /******end Description***************/
 
 
@@ -305,12 +313,12 @@ input:checked + .slider:before {
 .add-btn:hover{
     color: rgba(0, 128, 0, 0.925);
 }
-.fa-plus {
+.add-icon {
     font-size: 0.6rem;
     background-color: #14a800;
-    color:#fff;
-    padding:2px;
-    border-radius:50%;
+    color: #fff;
+    padding: 2px;
+    border-radius: 50%;
 }
 .add-form{
     padding:0.6rem 0;
@@ -330,11 +338,3 @@ input:checked + .slider:before {
     border-radius: 1rem;
 }
 /*****end Requierment********/
-/**description**/
-.fa-check {
-    color: #14a800;
-}
-.addspan {
-    color: #656565;
-    font-size: small;
-}

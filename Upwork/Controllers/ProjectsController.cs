@@ -13,7 +13,7 @@ using Upwork.Models.ViewModels;
 using Upwork.Models.ViewModels.Projects;
 using Upwork.services;
 using Microsoft.AspNetCore.Hosting;
-
+using Upwork.Models.DbModels;
 
 namespace Upwork.Controllers
 {
@@ -65,7 +65,7 @@ namespace Upwork.Controllers
         // POST: Projects/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create( Project project)
+        public async Task<IActionResult> Create( Project project, Dictionary<string, bool> Skills)
         {
             if (ModelState.IsValid)
             {
@@ -73,6 +73,15 @@ namespace Upwork.Controllers
   
                 _context.Add(project);
                 await _context.SaveChangesAsync();
+                foreach (KeyValuePair<string, bool> item in Skills)
+                {
+                    if (item.Value == true)
+                    {
+                        ProjectSkills skill = new ProjectSkills() { ProjectId = project.ProjectId , SkillId = int.Parse(item.Key) };
+                        _context.ProjectSkills.Add(skill);
+                        await _context.SaveChangesAsync();
+                    }
+                }
                 HttpContext.Session.SetString("ProjectId",project.ProjectId.ToString());
                 return RedirectToAction(nameof(CreatePrice));
             }

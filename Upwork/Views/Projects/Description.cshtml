@@ -215,13 +215,13 @@
         function AddQuestion() {
             var Question = $("#Question").val();
             var Answer = $("#Answer").val();
-            $(".Questions").append("<li><i class='fa fa-check'></i> " + Question + "</br><span class='addspan ml-3'>" + Answer + "</span></li>");
+            $(".Questions").append("<li><i class='fa fa-check add-checked-icon'></i> <b>" + Question + "</b> <p class='addspan ml-3'>" + Answer + "</p></li>");
             $("#Add-Question").hide();
         }
         function AddStep() {
             var Step = $("#step").val();
             var Description = $("#description").val();
-            $(".Steps").append("<li><i class='fa fa-check'></i> " + Step + "</br><span class='addspan ml-3'>" + Description + "</span></li>");
+            $(".Steps").append("<li><i class='fa fa-check add-checked-icon'></i>  <b>" + Step + "</b><p class='addspan ml-3'>" + Description + "</p></li>");
             $("#Add-Step").hide();
         }
     </script>
