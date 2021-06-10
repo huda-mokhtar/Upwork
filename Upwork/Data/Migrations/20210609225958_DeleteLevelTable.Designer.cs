@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Upwork.Data;
 
 namespace Upwork.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210609225958_DeleteLevelTable")]
+    partial class DeleteLevelTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -576,9 +578,6 @@ namespace Upwork.Data.Migrations
                     b.Property<string>("FreelancerId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Requierments")
                         .HasColumnType("nvarchar(max)");
 
@@ -611,6 +610,30 @@ namespace Upwork.Data.Migrations
                     b.HasIndex("SubCategoryId");
 
                     b.ToTable("Projects");
+                });
+
+            modelBuilder.Entity("Upwork.Models.ProjectImages", b =>
+                {
+                    b.Property<int>("ImgId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsCoverd")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ImgId");
+
+                    b.HasIndex("ProjectId");
+
+                    b.ToTable("ProjectImages");
                 });
 
             modelBuilder.Entity("Upwork.Models.ProjectQuestion", b =>
@@ -1015,6 +1038,17 @@ namespace Upwork.Data.Migrations
                     b.Navigation("SubCategory");
                 });
 
+            modelBuilder.Entity("Upwork.Models.ProjectImages", b =>
+                {
+                    b.HasOne("Upwork.Models.Project", "Project")
+                        .WithMany("Images")
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Project");
+                });
+
             modelBuilder.Entity("Upwork.Models.ProjectQuestion", b =>
                 {
                     b.HasOne("Upwork.Models.Project", "Project")
@@ -1151,6 +1185,8 @@ namespace Upwork.Data.Migrations
 
             modelBuilder.Entity("Upwork.Models.Project", b =>
                 {
+                    b.Navigation("Images");
+
                     b.Navigation("Questions");
 
                     b.Navigation("Skills");

@@ -1,4 +1,4 @@
-﻿@model Upwork.Models.Project
+﻿@model Upwork.Models.ViewModels.Projects.ImageModel
 
 @{
     ViewData["Title"] = "Create project ";
@@ -63,7 +63,7 @@
                         <h4> <b>Create a stunning image gallery </b></h4>
                     </div>
                 </div>
-                <form class="py-3 container" asp-action="Create" method="post">
+                <form class="py-3" asp-action="Gallary" method="post" enctype="multipart/form-data">
                     <div class="container">
                         <div class="form-group my-2">
                             <h4>Showcase your best work</h4>
@@ -73,10 +73,8 @@
                                 </span>
                             </div>
                                 <div class="file-upload">
-                                    @*<button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Image</button>*@
-
                                     <div class="image-upload-wrap">
-                                        <input class="file-upload-input" type='file' onchange="read(this);" accept="image/*" />
+                                        <input required asp-for="Image" class="file-upload-input" type='file' onchange="read(this);" accept="image/*" />
                                         <div class="drag-text">
                                             <h3>Drag image here or browse</h3>
                                         </div>
@@ -84,7 +82,9 @@
                                     <div class="file-upload-content">
                                         <img class="file-upload-image" src="#" alt="your image" />
                                         <div class="image-title-wrap">
-                                            <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
+                                            <button type="button" onclick="removeUpload()" class="remove-image">
+                                                <i class="far fa-trash-alt"></i>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
