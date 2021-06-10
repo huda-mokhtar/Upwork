@@ -1,0 +1,162 @@
+﻿
+.radio-group {
+    position: relative;
+}
+
+.radio {
+    display: inline-block;
+    border-radius: 5px 5px;
+    border: 2px solid lightgrey;
+    cursor: pointer;
+}
+
+.radioBody {
+    cursor: pointer;
+}
+
+.radio.selected {
+    border-color: rgb(74, 180, 74);
+}
+
+input[type='radio']:checked:after {
+    background-color: #ffa500;
+}
+/* .radiobox:checked::after{
+        background-color: green;
+    } */
+/*.radiobox{
+      color: green!important;
+    }*/
+.radioBox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkround {
+    position: absolute;
+    top: 3px;
+    height: 20px;
+    width: 20px;
+    background-color: #fff;
+    border-color: lightgrey;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 50%;
+}
+
+.checkroundForBudget {
+    position: absolute;
+    top: 5px;
+    height: 20px;
+    width: 20px;
+    background-color: #fff;
+    border-color: lightgrey;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 50%;
+    right: 5px;
+}
+
+
+/* When the radio button is checked, add a blue background */
+.radioBox input:checked ~ .checkround {
+    background-color: #fff;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkround:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.radioBox input:checked ~ .checkround:after {
+    display: block;
+}
+
+.radioBox input:checked ~ .checkround {
+    border-color: rgb(74, 180, 74);
+}
+
+/* Style the indicator (dot/circle) */
+.radioBox .checkround:after {
+    left: 2px;
+    top: 2px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgb(74, 180, 74);
+}
+
+.has-search .form-control {
+    padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}
+
+.add i {
+    cursor: pointer;
+}
+
+.progress {
+    /*display: -ms-flexbox;*/
+    display: flex;
+    height: 8px;
+    overflow: hidden;
+    font-size: 0.75rem;
+    background-color: #2b5468;
+    border-radius: 0.25rem;
+}
+
+.success {
+    color: #14a800;
+}
+
+a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+.back {
+    border-radius: 40px;
+    border-color: #d1d1d1;
+    font-weight: 500;
+    background-color:white;
+}
+.continueBtn {
+    background-color: #e0e0e0;
+    border-radius: 40px;
+    color: #a0a0a0;
+}
+.continueBtnEnable {
+    background-color: #14a800;
+    border-radius: 40px;
+    color: white;
+}
+
+.editScope {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    border-radius: 50%;
+    border: 0.1rem solid #c5c4c4;
+    color: #656565;
+    margin: 0px;
+    cursor: pointer;
+}
+
+    .editScope:hover {
+        background-color: #e0e0e0be;
+    }

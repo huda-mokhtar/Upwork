@@ -6,6 +6,9 @@
     <title>@ViewData["Title"] | Upwork</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link href="~/css/FreelancerLayout.css" rel="stylesheet" />
+    <link href="~/css/ClientHome.css" rel="stylesheet" />
+    <link href="~/css/PostAJob.css" rel="stylesheet" />
+
     @await RenderSectionAsync("Style", required: false)
 </head>
 <body>
@@ -386,6 +389,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/PostAJob.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

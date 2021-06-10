@@ -1,0 +1,119 @@
+﻿@{
+    ViewData["Title"] = "Post Job Page";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-white">
+                    <h4>Getting Started</h4>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">What would you like to do?</h5>
+                    <div class="align-content-center border-dark p-3">
+                        <div class="row">
+                            <div class="col-12">
+                                <form method="post" action="send.php">
+                                    <div class="radio-group">
+                                        <div class="row">
+                                            <div class="col-12 radioBox">
+                                                <label for="one" class="col-12 p-0">
+                                                    <div class="radioBody">
+                                                        <div class="text-left">
+                                                            <input type="radio" id="one" name="Expertise-Level" checked />
+                                                            <span class="checkround"></span>
+                                                            <p class="ml-5">Create a new job post</p>
+
+                                                            <div class="container-fluid align-content-center border-dark">
+                                                                <div class="row">
+                                                                    <div class="col-12 p-0">
+                                                                        <form method="post" action="send.php">
+                                                                            <div class="radio-group">
+                                                                                <div class="container">
+                                                                                    <div class="row">
+                                                                                        <div class='col-4 mr-3 mt-3 mb-3 card text-center radio radioBox ml-0' data-value="OneOne">
+                                                                                            <label for="oneone">
+                                                                                                <div class="card-body radioBody">
+                                                                                                    <div class="text-right">
+                                                                                                        <input type="radio" id="oneone" name="newJob" />
+                                                                                                        <span class="checkround"></span>
+                                                                                                    </div>
+                                                                                                    <i class="fa fa-clock-o mb-3" aria-hidden="true"></i>
+                                                                                                    <h6 class="card-title mb-3">Short term or part time work</h6>
+                                                                                                    <p class="card-text text-muted p-0 mb-0">Less than 30 hrs/week</p>
+                                                                                                    <p class="card-text text-muted p-0">Less than 3 months</p>
+                                                                                                </div>
+                                                                                            </label>
+                                                                                        </div>
+                                                                                        <div class='col-4 m-3 card text-center radio radioBox' data-value="OneTwo">
+                                                                                            <label for="onetwo">
+                                                                                                <div class="card-body radioBody">
+                                                                                                    <div class="text-right">
+                                                                                                        <input type="radio" id="onetwo" name="newJob" />
+                                                                                                        <span class="checkround"></span>
+                                                                                                    </div>
+                                                                                                    <i class="fa fa-calendar-plus-o mb-3" aria-hidden="true"></i>
+                                                                                                    <h6 class="card-title mb-3">Designated, longer term work</h6>
+                                                                                                    <p class="card-text text-muted p-0 mb-0">More than 30 hrs/week</p>
+                                                                                                    <p class="card-text text-muted p-0">3+ months</p>
+                                                                                                </div>
+                                                                                            </label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                            <div class="col-12 radioBox">
+                                                <label for="two">
+                                                    <div class="radioBody">
+                                                        <div class="text-left">
+                                                            <input type="radio" id="two" name="Expertise-Level" />
+                                                            <span class="checkround"></span>
+                                                            <p class="ml-5">Edit an existing draft</p>
+                                                        </div>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                            <div class="col-12 radioBox">
+                                                <label for="three">
+                                                    <div class="radioBody">
+                                                        <div class="text-left">
+                                                            <input type="radio" id="three" name="Expertise-Level" />
+                                                            <span class="checkround"></span>
+                                                            <p class="ml-5">Reuse a previous job post</p>
+                                                        </div>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-footer bg-white">
+                    <div class="container-fluid">
+                        <div class="row text-right">
+                            <div class="offset-8 col-2">
+                                <button class="btn text-success bg-white">Cancel</button>
+                            </div>
+                            <div class="col-2" id="gotoSteps">
+                                <a class="btn continueBtn" asp-action="Steps" disabled-link>Continue</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

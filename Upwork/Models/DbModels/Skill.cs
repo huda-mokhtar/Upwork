@@ -23,6 +23,7 @@ namespace Upwork.Models
         public SubCategory SubCategory { get; set; }
         public virtual List<Freelancer_Skill> Freelancers { get; set; }
         public List<ProjectSkills> Projects { get; set; }
-     
+
+        public List<JobSkills> jobSkills { get; set; }
     }
 }
