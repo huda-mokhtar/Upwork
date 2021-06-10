@@ -71,22 +71,48 @@
                         <div class="form-head"></div>
                         <h4><b>Project steps</b></h4>
                         <p>List the steps involved in delivering your project.</p>
-                        <ul class="  justify-content-between">
-                            <li class="step-item">
+                        <ul class=" container justify-content-between">
+                            <li class="step-item row">
                                 <div class="step-btn current d-flex">
                                     <p class="step-number text-center"> 1 </p>
                                     <span> Client purchases the project and sends requirements.</span>
                                 </div>
                             </li>
-                            <li class="step-item">
-                                <div class="step-btn current d-flex">
-                                    <p class="step-number text-center"> 2 </p>
-                                    <span class="step-name">
-                                        You complete the project following the steps that you add here.
-                                    </span>
+                            <li class="step-item ">
+                                <div class="row">
+                                    <div class="step-btn current d-flex col-9">
+                                        <p class="step-number text-center"> 2 </p>
+                                        <span class="step-name">
+                                            You complete the project following the steps that you add here.
+                                        </span>
+                                    </div>
+                                    <div class="col-3">
+                                        <button type="button" class="text-green btn add-btn" onclick="displayFormStep()">Add your Step <i class="fas fa-plus"></i> </button>
+                                    </div>
+                                </div>
+                                <ul class="Steps ml-5">
+                                </ul>
+                                <div class="add-form my-2" id="Add-Step">
+                                    <div class="container">
+                                        <input class="form-control mb-2 mt-2" id="step" rows="1" placeholder="Step name" />
+                                        <textarea class="form-control" rows="3" id="description" placeholder="Step Description"></textarea>
+                                        <div class="end pt-3 mt-3">
+                                            <div class="container">
+                                                <div class="d-flex justify-content-end">
+                                                    <div class="col-4">
+                                                        <button class="btn-cancle" type="button">Cancle</button>
+                                                        <button class="btn-save" type="button" onclick="AddStep()">Add</button>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
                                 </div>
                             </li>
-                            <li class="step-item">
+
+                            <li class="step-item row">
                                 <div class="step-btn current d-flex">
                                     <p class="step-number text-center"> 3 </p>
                                     <span class="step-name">Client reviews and approves your work, and you get paid.</span>
@@ -96,47 +122,38 @@
                         <div class="form-head"></div>
                         <div class="container">
                             <div class="row justify-content-between my-2">
-                                <div class="col-8">
+                                <div class="col-9">
                                     <h4>Frequently asked questions</h4>
                                     <p>Answers to common questions your clients ask.</p>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-3">
                                     <button type="button" class="text-green btn add-btn" onclick="displayForm()">Add a question <i class="fas fa-plus"></i> </button>
                                 </div>
 
                             </div>
-                                <div class="add-form my-2" >
-                                    <div class="container">
-                                        <textarea class="form-control" rows="3" placeholder="Enter a question that can be answered by freeform text, multiple choice or by uploading a file."></textarea>
-                                        <div class="row justify-content-end">
-
-                                            <div class="col-4">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="inlineFormCheck">
-                                                    <label class="fs-6" for="inlineFormCheck">
-                                                        <b> Mandatory requirement</b>
-                                                    </label>
+                            <ul class="Questions ml-5" >
+                              
+                            </ul>
+                            <div class="add-form my-2" id="Add-Question">
+                                <div class="container">
+                                    <input class="form-control mb-2 mt-2" id="Question" rows="1" placeholder="Question" />
+                                    <textarea class="form-control" rows="3" id="Answer" placeholder="Answer"></textarea>
+                                    <div class="end pt-3 mt-3">
+                                        <div class="container">
+                                            <div class="d-flex justify-content-end">
+                                                <div class="col-4">
+                                                    <button class="btn-cancle">Cancle</button>
+                                                    <button class="btn-save" type="button"  onclick="AddQuestion();"> Add</button>
                                                 </div>
+
                                             </div>
                                         </div>
-                                        <div class="end pt-3 mt-3">
-                                            <div class="container">
-                                                <div class="d-flex justify-content-end">
-                                                    <div class="col-4">
-                                                        <button class="btn-cancle">Cancle</button>
-                                                        <button class="btn-save">Add</button>
-                                                    </div>
 
-                                                </div>
-                                            </div>
-
-                                        </div>
                                     </div>
                                 </div>
-                            
+                            </div>
                         </div>
                     </div>
-
                     <div class="end pt-3 mt-3">
                         <div class="container">
                             <div class="d-flex justify-content-between">
@@ -185,9 +202,27 @@
 
 @section Scripts {
     <script>
+        $(function () {
+         
+        });
+
         function displayForm() {
-            $(".add-form").css("display", "block");
-            /*$("").css("background-color", "yellow");*/
+            $("#Add-Question").toggle();
+        }
+        function displayFormStep() {
+            $("#Add-Step").toggle();
+        }
+        function AddQuestion() {
+            var Question = $("#Question").val();
+            var Answer = $("#Answer").val();
+            $(".Questions").append("<li><i class='fa fa-check'></i> " + Question + "</br><span class='addspan ml-3'>" + Answer + "</span></li>");
+            $("#Add-Question").hide();
+        }
+        function AddStep() {
+            var Step = $("#step").val();
+            var Description = $("#description").val();
+            $(".Steps").append("<li><i class='fa fa-check'></i> " + Step + "</br><span class='addspan ml-3'>" + Description + "</span></li>");
+            $("#Add-Step").hide();
         }
     </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
