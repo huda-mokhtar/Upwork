@@ -29,10 +29,15 @@ namespace Upwork.Models
         public int SubCategoryId { get; set; }
         public SubCategory SubCategory { get; set; }
 
-        public List<ProjectImages> Images { get; set; }
+        public int? StarterDeliverDays { get; set; }
+        public int? StandardDeliverDays { get; set; }
+        public int? AdvancedDeliverDays { get; set; }
+        public int? StarterPrice { get; set; }
+        public int? StandardPrice { get; set; }
+        public int? AdvancedPrice { get; set; }
+        public string Image { get; set; }
         public List<ProjectSteps> Steps { get; set; }
         public List<ProjectQuestion> Questions { get; set; }
-        public List<ProjectLevel> Levels { get; set; }
         public List<ProjectTags> Tags  { get; set; }
         public List<ProjectSkills> Skills  { get; set; }
     }
