@@ -1,0 +1,211 @@
+﻿.radio-group {
+    position: relative;
+}
+
+
+.radio {
+    display: inline-block;
+    border-radius: 5px 5px;
+    border: 2px solid lightgrey;
+    cursor: pointer;
+}
+
+
+
+    .radio.selected {
+        border-color: rgb(74, 180, 74);
+    }
+
+input[type='radio']:checked:after {
+    background-color: #ffa500;
+}
+/* .radiobox:checked::after{
+        background-color: green;
+    } */
+/*.radiobox{
+      color: green!important;
+    }*/
+.radioBox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkround {
+    position: absolute;
+    top: 3px;
+    height: 16px;
+    width: 16px;
+    background-color: #fff;
+    border-color: lightgrey;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 50%;
+}
+
+
+/* When the radio button is checked, add a blue background */
+.radioBox input:checked ~ .checkround {
+    background-color: #fff;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkround:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.radioBox input:checked ~ .checkround:after {
+    display: block;
+}
+
+.radioBox input:checked ~ .checkround {
+    border-color: #14a800;
+}
+
+/* Style the indicator (dot/circle) */
+.radioBox .checkround:after {
+    left: 1px;
+    top: 1px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #14a800;
+}
+
+.editIcon {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    border-radius: 50%;
+    border: 0.1rem solid #c5c4c4;
+    color: #656565;
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+    .editIcon:hover {
+        background-color: #e0e0e0be;
+    }
+
+.imgContainer {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.toProfile i {
+    color: #14a800;
+}
+
+.toProfile a {
+    color: #14a800;
+    font-weight: 600;
+}
+
+    .toProfile a:hover {
+        color: green;
+    }
+
+.container-freelancer {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    border-radius: 50%;
+    border: 0.1rem solid rgb(184, 184, 184);
+    padding-top: 5px;
+    cursor: pointer;
+}
+
+.circlee-points {
+    background-color: white;
+}
+
+    .circlee-points :hover {
+        background-color: rgb(238, 236, 236);
+        border-radius: 50%;
+        margin: 5px 0px 0px 0px;
+        padding: 0;
+    }
+
+.circlee-like {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    border-radius: 50%;
+    border: 0.1rem solid rgb(184, 184, 184);
+    padding-top: 5px;
+    cursor: pointer;
+    background-color: rgb(238, 236, 236);
+}
+
+    .circlee-like:hover {
+        background-color: rgba(57, 177, 57, 0.562);
+    }
+
+.circlee-dislike {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    border-radius: 50%;
+    border: 0.1rem solid rgb(184, 184, 184);
+    padding-top: 5px;
+    cursor: pointer;
+    background-color: rgb(238, 236, 236);
+}
+
+    .circlee-dislike:hover {
+        background-color: rgba(199, 56, 56, 0.747);
+    }
+
+.jobs {
+    margin: 0;
+    padding: 7px;
+    border-top: 1px solid rgba(0, 0, 0, 0.125)
+}
+
+    .jobs a {
+        color: black;
+        font-size: 17px;
+        font-weight: 480;
+    }
+
+    .jobs:hover {
+        background-color: rgba(250, 250, 250, 0.932);
+    }
+
+        .jobs:hover a {
+            color: #14a800;
+        }
+
+.lightFont {
+    color: rgb(122, 122, 122);
+    font-size: 14px;
+}
+
+.jobDescription {
+    font-size: 15px;
+    color: rgb(43, 38, 38);
+}
+
+.jobSkills {
+    color: #224e63;
+    background-color: #e9e9e9;
+    border-radius: 35px;
+    border: 1px solid #e9e9e9;
+    font-size: smaller;
+}
+
+    .jobSkills:hover {
+        background-color: #c7c7c7
+    }
+
+.checked {
+    color: #14a800;
+}
