@@ -1,0 +1,19 @@
+﻿@model Upwork.Models.ProjectQuestion
+<form  method="post class="add-form my-2" id="Add-Question">
+    <div class="container">
+        <input class="form-control mb-2 mt-2" id="Question" asp-for="QuestionContent" rows="1" placeholder="Question" />
+        <textarea class="form-control" rows="3" id="Answer" asp-for="Answer" placeholder="Answer"></textarea>
+        <div class="end pt-3 mt-3">
+            <div class="container">
+                <div class="d-flex justify-content-end">
+                    <div class="col-4">
+                        <button class="btn-cancle">Cancle</button>
+                        <button class="btn-save"  asp-action="GetQuestion" asp-controller="ProjectQuestions" type="submit">Add</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+ @*onclick="AddQuestion();*@

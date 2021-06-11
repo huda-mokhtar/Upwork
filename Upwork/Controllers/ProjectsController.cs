@@ -61,7 +61,6 @@ namespace Upwork.Controllers
             ViewData["SubCategory"]= new SelectList(_context.SubCategories, "SubCategoryId", "Name");
             return View();
         }
-
         // POST: Projects/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -169,13 +168,34 @@ namespace Upwork.Controllers
         {
             return View();
         }
+
         //Post Description
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Description(Project project)
+        public async Task<IActionResult> Description(ProjectDescription model)
         {
-            return RedirectToAction(nameof(Create));
+            
+            if (HttpContext.Session.GetString("ProjectId") != null)
+            {
+                var projectId = int.Parse(HttpContext.Session.GetString("ProjectId"));
+                if (ModelState.IsValid)
+                {
+                    ProjectQuestion projectQuestion = new ProjectQuestion() { ProjectId = projectId, QuestionContent = model.Questions[0], Answer = model.Answers[0] };
+                    _context.ProjectQuestions.Add(projectQuestion);
+                    _context.SaveChanges();
+                    var project= _context.Projects.FirstOrDefault(a => a.ProjectId == projectId);
+                    project.Description = model.Description;
+                    _context.SaveChanges();
+                    return RedirectToAction(nameof(Requierment));
+                }
+                else
+                {
+                    return RedirectToAction(nameof(Create));
+                }
+            }
+            return View();
         }
+
             // GET: Projects/Edit/5
             public async Task<IActionResult> Edit(int? id)
         {
@@ -259,21 +279,67 @@ namespace Upwork.Controllers
 
        
         //GET:Projects/Requierments
-        [HttpGet]
         [Route("Projects/Requierments")]
         public async Task<IActionResult> Requierment() 
         {
             return View();
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Requierment(Project model)
+        {
+
+            if (HttpContext.Session.GetString("ProjectId") != null)
+            {
+                var projectId = int.Parse(HttpContext.Session.GetString("ProjectId"));
+                model.ProjectId = projectId;
+                if (ModelState.IsValid)
+                {
+                  
+                    var project = _context.Projects.FirstOrDefault(a => a.ProjectId == projectId);
+                    project.Requierments = model.Requierments;
+                    _context.SaveChanges();
+                    return RedirectToAction(nameof(ReviewProject));
+                }
+                else
+                {
+                    return RedirectToAction(nameof(Create));
+                }
+            }
+            return View();
+        }
         
         //GET:Projects/Requierments
-        [HttpGet]
         [Route("Projects/Review")]
         public async Task<IActionResult> ReviewProject() 
         {
             return View();
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ReviewProject(Project model)
+        {
 
+            if (HttpContext.Session.GetString("ProjectId") != null)
+            {
+                var projectId = int.Parse(HttpContext.Session.GetString("ProjectId"));
+                model.ProjectId = projectId;
+                if (ModelState.IsValid)
+                {
+
+                    var project = _context.Projects.FirstOrDefault(a => a.ProjectId == projectId);
+                    project.SimultaneousProjects = model.SimultaneousProjects;
+                    _context.SaveChanges();
+                    return RedirectToAction(nameof(ReviewProject));
+                }
+                else
+                {
+                    return RedirectToAction(nameof(Create));
+                }
+            }
+            return View();
+        }
         private bool ProjectExists(int id)
         {
             return _context.Projects.Any(e => e.ProjectId == id);
