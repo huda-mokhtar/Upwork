@@ -74,16 +74,18 @@
                                 <button type="button" class="text-green btn add-btn" onclick="displayForm()">Add your Requierment <i class="fas fa-plus add-icon"></i> </button>
                             </div>
                         </div>
+                        <ul class="Requirements ml-5">
+                        </ul>
                         <form class="add-form my-2">
                             <div class="container">
-                                <textarea class="form-control" asp-for="Requierments" rows="3" placeholder="Enter a question that can be answered by freeform text, multiple choice or by uploading a file."></textarea>
-                              
+                                <textarea class="form-control"id="require" asp-for="Requierments" rows="3" placeholder="Enter a question that can be answered by freeform text, multiple choice or by uploading a file."></textarea>
+
                                 <div class="end pt-3 mt-3">
                                     <div class="container">
                                         <div class="d-flex justify-content-end">
                                             <div class="col-4">
-                                                <button class="btn-cancle">Cancle</button>
-                                                <button class="btn-save">Add</button>
+                                                <button class="btn-cancle" type="button" onclick="Cancle()">Cancle</button>
+                                                <button class="btn-save" type="button" onclick="AddRequirement()">Add</button>
                                             </div>
 
                                         </div>
@@ -103,8 +105,8 @@
                                 </div>
                             </div>
                             <div class="col-5">
-                                <button class="btn-cancle ">Cancle</button>
-                                <button class="btn-save">Save &amp; Continue</button>
+                                <button class="btn-cancle" type="button">Cancle</button>
+                                <button class="btn-save" type="submit">Save &amp; Continue</button>
                             </div>
 
                         </div>
@@ -144,8 +146,15 @@
 @section Scripts {
     <script>
         function displayForm() {
-            $(".add-form").css("display", "block");
-            /*$("").css("background-color", "yellow");*/
+            $(".add-form").show();
+        }
+        function AddRequirement() {
+            var require = $("#require").val();
+            $(".Requirements").append("<li><i class='fa fa-check add-checked-icon'></i> <b><span id='' name=''>" + require + "</span></b> </li>");
+            $(".add-form").hide();
+        }
+        function Cancle(){
+            $(".add-form").hide();
         }
     </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

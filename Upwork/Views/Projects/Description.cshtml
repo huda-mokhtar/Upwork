@@ -99,7 +99,7 @@
                                             <div class="container">
                                                 <div class="d-flex justify-content-end">
                                                     <div class="col-4">
-                                                        <button class="btn-cancle" type="button">Cancle</button>
+                                                        <button class="btn-cancle" type="button" onclick="CancleStep()">Cancle</button>
                                                         <button class="btn-save" type="button" onclick="AddStep()">Add</button>
                                                     </div>
 
@@ -126,7 +126,7 @@
                                     <p>Answers to common questions your clients ask.</p>
                                 </div>
                                 <div class="col-3">
-                                    <button type="button" class="text-green btn add-btn" onclick="displayForm()">Add a question <i class="fas fa-plus"></i> </button>
+                                    <button type="button" class="text-green btn add-btn" onclick="displayFormQestion()">Add a question <i class="fas fa-plus"></i> </button>
                                 </div>
 
                             </div>
@@ -140,7 +140,7 @@
                                         <div class="container">
                                             <div class="d-flex justify-content-end">
                                                 <div class="col-4">
-                                                    <button class="btn-cancle">Cancle</button>
+                                                    <button class="btn-cancle" type="button" onclick="CancleQusetion()">Cancle</button>
                                                     <button class="btn-save" type="button" onclick="AddQuestion();"> Add</button>
                                                 </div>
 
@@ -203,25 +203,33 @@
         $(function () {
 
         });
-
-        function displayForm() {
-            $("#Add-Question").toggle();
-        }
+        
         function displayFormStep() {
-            $("#Add-Step").toggle();
+            $("#Add-Step").show();
+        }
+        function CancleStep() {
+            $("#Add-Step").hide();
+        }
+        function AddStep() {
+            var Step = $("#step").val();
+            var Description = $("#description").val();
+            $(".Steps").append("<li><i class='fa fa-check add-checked-icon'></i>  <b>" + Step + "</b><p class='addspan ml-3'>" + Description + "</p></li>");
+            $("#Add-Step").hide();
+        }
+
+        function displayFormQestion() {
+            $("#Add-Question").show();
+        }
+        function CancleQusetion() {
+            $("#Add-Question").hide();
         }
         function AddQuestion() {
             var Question = $("#Question").val();
             var Answer = $("#Answer").val();
             $(".Questions").append("<li><i class='fa fa-check add-checked-icon'></i> <b><span id='' name=''>" + Question + "</span></b> <p class='addspan ml-3'>" + Answer + "</p></li>");
             $("#Add-Question").hide();
-            }
-            function AddStep() {
-                var Step = $("#step").val();
-                var Description = $("#description").val();
-            $(".Steps").append("<li><i class='fa fa-check add-checked-icon'></i>  <b>" + Step + "</b><p class='addspan ml-3'>" + Description + "</p></li>");
-            $("#Add-Step").hide();
-            }
+        }
+            
     </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
