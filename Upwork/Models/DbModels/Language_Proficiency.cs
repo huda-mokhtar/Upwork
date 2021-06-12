@@ -23,7 +23,7 @@ namespace Upwork.Models
         public string Description { get; set; }
 
         public virtual List<Freelancer_Language> FreelancerLanguages { get; set; }
-        public virtual List<PostAJob> PostAJobs { get; set; }
+        public virtual List<Jobs> Jobs { get; set; }
 
     }
 }
