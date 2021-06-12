@@ -130,6 +130,23 @@
         $("#prorBar").children()[0].setAttribute("aria-valuenow", "25");
         $("#prorBar").children()[0].classList.add("w-25");
         $("#progressTitle").css("color", " #95df00");
+        $("#NextStep").text("Next:Skills");
+        $("#NextStep").attr("href", "/Client/PostJobSkills");
+        $('#titleInput').keyup(function () {
+            if ($(this).val().length > 0) {
+                $("#titleExamples").addClass('d-none');
+                $("#catogery").removeClass('d-none');
+
+                $("#continue").children()[0].classList.add('continueBtnEnable');
+                $("#continue").children()[0].classList.remove('continueBtn');
+            } else {
+                $("#catogery").addClass('d-none');
+                $("#titleExamples").removeClass('d-none');
+
+                $("#continue").children()[0].classList.add('continueBtn');
+                $("#continue").children()[0].classList.remove('continueBtnEnable');
+            }
+        })
     </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

@@ -118,7 +118,7 @@ input[type='radio']:checked:after {
     border-radius: 0.25rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
-.add i {
+.add p i, .remove p i {
     cursor: pointer;
 }
 
@@ -150,13 +150,29 @@ a:hover {
     background-color: #e0e0e0;
     border-radius: 40px;
     color: #a0a0a0;
+    pointer-events: none;
 }
 .continueBtnEnable {
     background-color: #14a800;
     border-radius: 40px;
     color: white;
 }
-
+.addskills {
+    background-color: #f2f2f2;
+    border-radius: 12px;
+    width: fit-content;
+    height: fit-content;
+    padding: 0px 10px;
+    color: #1d4354;
+}
+.skillAdded {
+    background-color: #1d4354;
+    color: white;
+    border-radius: 12px;
+    width: fit-content;
+    height: fit-content;
+    padding: 0px 10px;
+}
 .editScope {
     display: inline-block;
     width: 30px;

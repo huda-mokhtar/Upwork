@@ -18,34 +18,31 @@
                     <span class="fa fa-search form-control-feedback"></span>
                     <input type="search" class="form-control" placeholder="Search skills or add your own">
                 </div>
-                <div style="display: none;">
+                <div class="d-none" id="skillsAdded">
                     <p class="text-muted">Selected skills</p>
-                    <div class="text-center mb-2 mr-1" style="background-color: #1d4354; color: white; border-radius: 12px; width:fit-content ; height: fit-content; padding: 0px 10px;">
-                        <p class="m-0 add">Mockup<i class="fa fa-times pl-1" aria-hidden="true"></i></p>
-                    </div>
                 </div>
                 <h5 class="card-title pb-3">Popular skills</h5>
                 <div class="container-fluid">
-                    <div class="row">
-                        <div class="text-center mb-2 mr-1" style="background-color: #f2f2f2; border-radius: 12px; width:fit-content ; height: fit-content; padding: 0px 10px; color: #1d4354;">
-                            <p class="add m-0">Mockup<i class="fa fa-plus pl-1" aria-hidden="true"></i></p>
+                    <div class="row" id="defaultSkills">
+                        <div class="text-center mb-2 mr-1 addskills add">
+                            <p class="m-0">Mockup<i class="fa fa-plus pl-1" aria-hidden="true"></i></p>
                         </div>
-                        <div class="text-center mb-2 mr-1" style="background-color: #f2f2f2; border-radius: 12px; width:fit-content ; height: fit-content; padding: 0px 10px; color: #1d4354;">
-                            <p class="add m-0">Prototype<i class="fa fa-plus pl-1" aria-hidden="true"></i></p>
+                        <div class="text-center mb-2 mr-1 addskills add">
+                            <p class="m-0">Prototype<i class="fa fa-plus pl-1" aria-hidden="true"></i></p>
                         </div>
-                        <div class="text-center mb-2 mr-1" style="background-color: #f2f2f2; border-radius: 12px; width:fit-content ; height: fit-content; padding: 0px 10px; color: #1d4354;">
-                            <p class="add m-0">Wireframes<i class="fa fa-plus pl-1" aria-hidden="true"></i></p>
+                        <div class="text-center mb-2 mr-1 addskills add">
+                            <p class="m-0">Wireframes<i class="fa fa-plus pl-1" aria-hidden="true"></i></p>
                         </div>
-                        <div class="text-center mb-2 mr-1" style="background-color: #f2f2f2; border-radius: 12px; width:fit-content ; height: fit-content; padding: 0px 10px; color: #1d4354;">
-                            <p class="add m-0">Web Design<i class="fa fa-plus pl-1" aria-hidden="true"></i></p>
+                        <div class="text-center mb-2 mr-1 addskills add">
+                            <p class="m-0">Web Design<i class="fa fa-plus pl-1" aria-hidden="true"></i></p>
                         </div>
-                        <div class="text-center mb-2 mr-1" style="background-color: #f2f2f2; border-radius: 12px; width:fit-content ; height: fit-content; padding: 0px 10px; color: #1d4354;">
-                            <p class="add m-0">Adobe XD<i class="fa fa-plus pl-1" aria-hidden="true"></i></p>
+                        <div class="text-center mb-2 mr-1 addskills add">
+                            <p class="m-0">Adobe XD<i class="fa fa-plus pl-1" aria-hidden="true"></i></p>
                         </div>
-                        <div class="text-center mb-2 mr-1" style="background-color: #f2f2f2; border-radius: 12px; width:fit-content ; height: fit-content; padding: 0px 10px; color: #1d4354;">
-                            <p class="add m-0">User Flows<i class="fa fa-plus pl-1" aria-hidden="true"></i></p>
+                        <div class="text-center mb-2 mr-1 addskills add">
+                            <p class="m-0">User Flows<i class="fa fa-plus pl-1" aria-hidden="true"></i></p>
                         </div>
-                        <a href="#" style="color: #14a800;">see more</a>
+                        <a href="#" style="color: #14a800;" id="seeMore">see more</a>
                     </div>
                 </div>
 
@@ -104,6 +101,62 @@
         $("#prorBar").children()[0].classList.add("w-50");
         $("#progressTitle").css("color", " #95df00");
         $("#progressSkills").css("color", " #95df00");
+        $("#NextStep").text("Next:Scope");
+        $("#NextStep").attr("href", "/Client/PostJobScope");
+
+        $('#defaultSkills').on('click', '.add', function (event) {
+
+            var el = $(this).parent()[0];
+            console.log($(this));
+            $(this).children()[0].firstElementChild.classList.remove("fa-plus");
+            $(this).children()[0].firstElementChild.classList.add("fa-times");
+            $(this).removeClass("addskills");
+            $(this).addClass("skillAdded");
+            $(this).remove();
+            $(this).removeClass("add");
+            $(this).addClass("remove");
+            
+            console.log($(this))
+            $("#skillsAdded").removeClass("d-none");
+            $("#skillsAdded").append($(this));
+            if ($("#skillsAdded").children().length > 1) {
+                $("#continue").children()[0].classList.add('continueBtnEnable');
+                $("#continue").children()[0].classList.remove('continueBtn');
+            }
+            if ($("#defaultSkills").children().length <= 1) {
+                $("#defaultSkills").addClass("d-none");
+            }
+        });
+
+        $('#skillsAdded').on('click', '.remove', function (event) {
+            
+            //var el2 = $(this).parent()[0];
+            //console.log(el2);
+            //$("#continue").children()[0].classList.add('continueBtnEnable');
+            //$("#continue").children()[0].classList.remove('continueBtn');
+            $(this).children()[0].firstElementChild.classList.add("fa-plus");
+            $(this).children()[0].firstElementChild.classList.remove("fa-times");
+            $(this).addClass("addskills");
+            $(this).removeClass("skillAdded");
+            $(this).remove();
+            $(this).removeClass("remove");
+            $(this).addClass("add");
+            
+
+            console.log($(this))
+        /*$("#skillsAdded").removeClass("d-none");*/
+            $(this).insertBefore("#seeMore");
+            //$("#defaultSkills").append(el2);
+            console.log($("#skillsAdded").children().length);
+            if ($("#skillsAdded").children().length <= 1) {
+                $("#continue").children()[0].classList.remove('continueBtnEnable');
+                $("#continue").children()[0].classList.add('continueBtn');
+                $("#skillsAdded").addClass("d-none");
+            }
+            if ($("#defaultSkills").children().length > 1) {
+                $("#defaultSkills").removeClass("d-none");
+            }
+        });
     </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
