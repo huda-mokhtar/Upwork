@@ -59,32 +59,60 @@ namespace Upwork.Controllers
         {
             ViewData["FreelancerId"] = new SelectList(_context.Freelancers, "FreelancerId", "FreelancerId");
             ViewData["SubCategory"]= new SelectList(_context.SubCategories, "SubCategoryId", "Name");
-            return View();
+            if (HttpContext.Session.GetString("ProjectId") != null)
+            {
+                var projectId = int.Parse(HttpContext.Session.GetString("ProjectId"));
+               var project = _context.Projects.FirstOrDefault(a => a.ProjectId == projectId);
+                return View(project);
+            }
+                return View();
         }
         // POST: Projects/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create( Project project, Dictionary<string, bool> Skills)
         {
-            if (ModelState.IsValid)
+            if (HttpContext.Session.GetString("ProjectId") != null)
             {
-                project.FreelancerId = "a123";
-  
-                _context.Add(project);
+                var projectId = int.Parse(HttpContext.Session.GetString("ProjectId"));
+                var projectOld=_context.Projects.FirstOrDefault(a => a.ProjectId == projectId);
+                projectOld.Title = project.Title;
+                projectOld.SubCategoryId = project.SubCategoryId;
+               
                 await _context.SaveChangesAsync();
                 foreach (KeyValuePair<string, bool> item in Skills)
                 {
                     if (item.Value == true)
                     {
-                        ProjectSkills skill = new ProjectSkills() { ProjectId = project.ProjectId , SkillId = int.Parse(item.Key) };
-                        _context.ProjectSkills.Add(skill);
+                        var skills=_context.ProjectSkills.FirstOrDefault(a => a.ProjectId == projectId);
+                        skills.SkillId = int.Parse(item.Key);
                         await _context.SaveChangesAsync();
                     }
                 }
-                HttpContext.Session.SetString("ProjectId",project.ProjectId.ToString());
                 return RedirectToAction(nameof(CreatePrice));
             }
-            ViewData["FreelancerId"] = new SelectList(_context.Freelancers, "FreelancerId", "FreelancerId", project.FreelancerId);
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    project.FreelancerId = "a123";
+
+                    _context.Add(project);
+                    await _context.SaveChangesAsync();
+                    foreach (KeyValuePair<string, bool> item in Skills)
+                    {
+                        if (item.Value == true)
+                        {
+                            ProjectSkills skill = new ProjectSkills() { ProjectId = project.ProjectId, SkillId = int.Parse(item.Key) };
+                            _context.ProjectSkills.Add(skill);
+                            await _context.SaveChangesAsync();
+                        }
+                    }
+                    HttpContext.Session.SetString("ProjectId", project.ProjectId.ToString());
+                    return RedirectToAction(nameof(CreatePrice));
+                }
+            }
+                ViewData["FreelancerId"] = new SelectList(_context.Freelancers, "FreelancerId", "FreelancerId", project.FreelancerId);
             return View(project);
         }
         //Get:Skills
