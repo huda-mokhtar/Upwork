@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Upwork.Data;
 
 namespace Upwork.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210612121642_Client-Model")]
+    partial class ClientModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -338,25 +340,25 @@ namespace Upwork.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("BudgetFrom")
+                    b.Property<int>("BudgetFrom")
                         .HasColumnType("int");
 
-                    b.Property<int?>("BudgetTo")
+                    b.Property<int>("BudgetTo")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("Duration")
+                    b.Property<int>("Duration")
                         .HasColumnType("int");
 
-                    b.Property<bool?>("IsDraft")
+                    b.Property<bool>("IsDraft")
                         .HasColumnType("bit");
 
                     b.Property<string>("JobDescription")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Language_ProficiencyId")
+                    b.Property<int>("Language_ProficiencyId")
                         .HasColumnType("int");
 
                     b.Property<string>("LevelOfExperience")
@@ -365,16 +367,16 @@ namespace Upwork.Data.Migrations
                     b.Property<string>("Scope")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("TalentType")
+                    b.Property<bool>("TalentType")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("TimeRequirement")
+                    b.Property<bool>("TimeRequirement")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("TypeOfBudget")
+                    b.Property<bool>("TypeOfBudget")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("subCategoryId")
+                    b.Property<int>("subCategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("title")
@@ -896,11 +898,15 @@ namespace Upwork.Data.Migrations
                 {
                     b.HasOne("Upwork.Models.Language_Proficiency", "Language_Proficiency")
                         .WithMany("PostAJobs")
-                        .HasForeignKey("Language_ProficiencyId");
+                        .HasForeignKey("Language_ProficiencyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Upwork.Models.SubCategory", "subCategory")
                         .WithMany("PostAJobs")
-                        .HasForeignKey("subCategoryId");
+                        .HasForeignKey("subCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Language_Proficiency");
 
