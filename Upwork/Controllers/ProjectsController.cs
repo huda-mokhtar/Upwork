@@ -197,7 +197,7 @@ namespace Upwork.Controllers
         }
 
             // GET: Projects/Edit/5
-            public async Task<IActionResult> Edit(int? id)
+       public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {

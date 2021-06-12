@@ -1,59 +1,161 @@
 ﻿@model IEnumerable<Upwork.Models.Project>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Project List";
 }
-
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Requierments)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SimultaneousProjects)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Freelancer)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Requierments)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SimultaneousProjects)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Freelancer.FreelancerId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ProjectId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ProjectId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ProjectId">Delete</a>
-            </td>
-        </tr>
+@section Style {
+    <link href="~/css/IndexProject.css" rel="stylesheet" />
 }
-    </tbody>
-</table>
+<div class="container">
+    <div id="Project-list" class="wrapper">
+        <div class="container">
+            <!--Head-->
+            <div class="row justify-content-between">
+                <h2>Projects</h2>
+                <a asp-action="create" class="devBtnGreen text-center px-3 ">
+                    Create Project
+                </a>
+            </div>
+            <!--end head-->
+            <!--project tabs-->
+            <div class="">
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Approved</button>
+                        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Draft</button>
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+
+                        <div class="project">
+                            <div class="container">
+                                <div class="row align-items-center">
+                                    <div class="col-10">
+                                        <div class="d-flex">
+                                            <img src="~/Images/16938730_371690419878868_4123771690068118215_n.jpg" class="project-img" />
+                                            <p class="project-title">You will get .net fullstack developer will deliver and how it benefits them</p>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="col-2">
+                                        <div class=""
+                                             style="width: 3rem; height: 3rem; margin: 0;padding:0;">
+                                            <span class=" circlee-points container-circlee" data-toggle="dropdown"
+                                                  aria-haspopup="true" aria-expanded="false">
+                                                <i class="fa fa-ellipsis-h 2x" style="color:rgb(83, 83, 83) ;"></i>
+                                            </span>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="#">Edit</a>
+                                                <a class="dropdown-item" href="#">Remove</a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+
+                    </div>
+                </div>
+
+            </div>
+            <!--end project tabs-->
+        </div>
+    </div>
+    <div class="wrapper">
+        <!--Head-->
+        <div class="row border-bottom pb-4 pt-2">
+            <div class="container">
+                <h4>How Project Catalog works</h4>
+            </div>
+        </div>
+        <!--end head-->
+        <div class="row">
+            <div class="col-md-3 col-12 my-4 ">
+                <div class="card">
+                    <img src="~/Images/projectcatalog1.PNG" class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title text-center">1. Get an order</h5>
+                        <p class="card-text text-center">You can start communicating via Upwork Messages.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-12 my-4 ">
+                <div class="card">
+                    <img src="~/Images/projectcatalog2.PNG" class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title text-center">1. Get an order</h5>
+                        <p class="card-text text-center">You can start communicating via Upwork Messages.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-12 my-4 ">
+                <div class="card">
+                    <img src="~/Images/projectcatalog3.PNG" class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title text-center">1. Get an order</h5>
+                        <p class="card-text text-center">You can start communicating via Upwork Messages.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-12 my-4 ">
+                <div class="card">
+                    <img src="~/Images/projectcatalog4.PNG" class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title text-center">1. Get an order</h5>
+                        <p class="card-text text-center">You can start communicating via Upwork Messages.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="wrapper">
+        <!--Head-->
+        <div class="row border-bottom pb-4 pt-2">
+            <div class="container">
+                <h4>FAQs</h4>
+            </div>
+        </div>
+        <!--end head-->
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        Accordion Item #1
+                    </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                        Accordion Item #2
+                    </button>
+                </h2>
+                <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                        Accordion Item #3
+                    </button>
+                </h2>
+                <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
