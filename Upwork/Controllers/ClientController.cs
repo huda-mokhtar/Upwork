@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +25,13 @@ namespace Upwork.Controllers
         }
         public IActionResult PostJob()
         {
+            /*ViewData["SubCategory"] = new SelectList(_context.SubCategories, "SubCategoryId", "Name");
+            if (HttpContext.Session.GetString("JobId") != null)
+            {
+                var JobId = int.Parse(HttpContext.Session.GetString("JobId"));
+                var job = _context.PostAJobs.FirstOrDefault(a => a.Id == JobId);
+                return View(job);
+            }*/
             return View();
         }
         public IActionResult PostJobTitle()
