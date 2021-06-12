@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Upwork.Models.DbModels
 {
+<<<<<<< HEAD:Upwork/Models/DbModels/Jobs.cs
     public class Jobs
     {
         public int Id { get; set; }
@@ -14,6 +15,14 @@ namespace Upwork.Models.DbModels
 
         public string Title { get; set; }
 
+=======
+    public class Job
+    {
+        public int Id { get; set; }
+        public bool IsDeraft { get; set; }
+        public string type { get; set; }
+        public string title { get; set; }
+>>>>>>> 05748ae46fb84f5d4f1b8ae7933503847b3caf6f:Upwork/Models/DbModels/Job.cs
         [ForeignKey("subCategory")]
         public int? subCategoryId { get; set; }
         public SubCategory subCategory { get; set; }

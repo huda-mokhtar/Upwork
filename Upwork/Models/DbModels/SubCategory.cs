@@ -27,7 +27,7 @@ namespace Upwork.Models
         public virtual List<Freelancer> Freelancers { get; set; }
         public virtual List<Project> Projects { get; set; }
         public virtual List<Skill> Skills { get; set; }
-
         public virtual List<Jobs> Jobs { get; set; }
+
     }
 }

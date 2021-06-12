@@ -36,9 +36,7 @@ namespace Upwork.Models
         public int? StandardPrice { get; set; }
         public int? AdvancedPrice { get; set; }
         public string Image { get; set; }
-
-
-        public bool IsDraft { get; set; }
+        public bool IsDraft { get; set; } = true;
         public string QuestionContent { get; set; }
         public string QuestionAnswer { get; set; }
         public string StepName { get; set; }
