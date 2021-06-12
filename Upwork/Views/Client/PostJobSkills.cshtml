@@ -1,0 +1,111 @@
+﻿@{
+    ViewData["Title"] = "Steps";
+    Layout = "_PostJobStepsLayout";
+}
+<div>
+    @section leftSide{
+        <div id="Skills">
+            <div style="padding-top: 85px;">
+                <h2>What skills does your work require?</h2>
+            </div>
+        </div>
+    }
+    @section RightSide{
+        <div id="JobSkills">
+            <h5>Search skills or add your own</h5>
+            <form class="w-100">
+                <div class="form-group has-search">
+                    <span class="fa fa-search form-control-feedback"></span>
+                    <input type="search" class="form-control" placeholder="Search skills or add your own">
+                </div>
+                <div style="display: none;">
+                    <p class="text-muted">Selected skills</p>
+                    <div class="text-center mb-2 mr-1" style="background-color: #1d4354; color: white; border-radius: 12px; width:fit-content ; height: fit-content; padding: 0px 10px;">
+                        <p class="m-0 add">Mockup<i class="fa fa-times pl-1" aria-hidden="true"></i></p>
+                    </div>
+                </div>
+                <h5 class="card-title pb-3">Popular skills</h5>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="text-center mb-2 mr-1" style="background-color: #f2f2f2; border-radius: 12px; width:fit-content ; height: fit-content; padding: 0px 10px; color: #1d4354;">
+                            <p class="add m-0">Mockup<i class="fa fa-plus pl-1" aria-hidden="true"></i></p>
+                        </div>
+                        <div class="text-center mb-2 mr-1" style="background-color: #f2f2f2; border-radius: 12px; width:fit-content ; height: fit-content; padding: 0px 10px; color: #1d4354;">
+                            <p class="add m-0">Prototype<i class="fa fa-plus pl-1" aria-hidden="true"></i></p>
+                        </div>
+                        <div class="text-center mb-2 mr-1" style="background-color: #f2f2f2; border-radius: 12px; width:fit-content ; height: fit-content; padding: 0px 10px; color: #1d4354;">
+                            <p class="add m-0">Wireframes<i class="fa fa-plus pl-1" aria-hidden="true"></i></p>
+                        </div>
+                        <div class="text-center mb-2 mr-1" style="background-color: #f2f2f2; border-radius: 12px; width:fit-content ; height: fit-content; padding: 0px 10px; color: #1d4354;">
+                            <p class="add m-0">Web Design<i class="fa fa-plus pl-1" aria-hidden="true"></i></p>
+                        </div>
+                        <div class="text-center mb-2 mr-1" style="background-color: #f2f2f2; border-radius: 12px; width:fit-content ; height: fit-content; padding: 0px 10px; color: #1d4354;">
+                            <p class="add m-0">Adobe XD<i class="fa fa-plus pl-1" aria-hidden="true"></i></p>
+                        </div>
+                        <div class="text-center mb-2 mr-1" style="background-color: #f2f2f2; border-radius: 12px; width:fit-content ; height: fit-content; padding: 0px 10px; color: #1d4354;">
+                            <p class="add m-0">User Flows<i class="fa fa-plus pl-1" aria-hidden="true"></i></p>
+                        </div>
+                        <a href="#" style="color: #14a800;">see more</a>
+                    </div>
+                </div>
+
+                <!-- Button trigger modal -->
+                <a href="#" style="color: #14a800;" data-toggle="modal" data-target="#exampleModalLong"><i class="fa fa-undo" aria-hidden="true"></i> Change your skill category</a>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">
+                                    Change category
+                                </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <h6>Category</h6>
+                                <div class="container-fluid align-content-center border-dark">
+                                    <div class="row pb-3">
+                                        <select class="custom-select" aria-label="Default select example">
+                                            <option selected>Open this select menu</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                    </div>
+                                    <h6>Specialty</h6>
+                                    <div class="row form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-outline">
+                                        <select class="custom-select" aria-label="Default select example">
+                                            <option selected>Open this select menu</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn text-success bg-white" data-dismiss="modal">Cancel</button>
+                                <button class="btn btn-success" style="border-radius: 30px;">Apply</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    }
+
+</div>
+@section Scripts2 {
+    <script>
+        $("#prorBar").children()[0].setAttribute("aria-valuenow", "50");
+        $("#prorBar").children()[0].classList.add("w-50");
+        $("#progressTitle").css("color", " #95df00");
+        $("#progressSkills").css("color", " #95df00");
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
