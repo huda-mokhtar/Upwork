@@ -35,26 +35,8 @@ namespace Upwork.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Projects/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var project = await _context.Projects
-                .Include(p => p.Freelancer)
-                .FirstOrDefaultAsync(m => m.ProjectId == id);
-            if (project == null)
-            {
-                return NotFound();
-            }
-
-            return View(project);
-        }
-
-        // GET: Projects/Create
+        // GET: Projects/CreateOverView
         public IActionResult Create()
         {
             ViewData["FreelancerId"] = new SelectList(_context.Freelancers, "FreelancerId", "FreelancerId");
@@ -67,34 +49,33 @@ namespace Upwork.Controllers
             }
                 return View();
         }
-        // POST: Projects/Create
+        // POST: Projects/CreateOverView
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create( Project project, Dictionary<string, bool> Skills)
         {
-            if (HttpContext.Session.GetString("ProjectId") != null)
+            if (ModelState.IsValid)
             {
-                var projectId = int.Parse(HttpContext.Session.GetString("ProjectId"));
-                var projectOld=_context.Projects.FirstOrDefault(a => a.ProjectId == projectId);
-                projectOld.Title = project.Title;
-                projectOld.SubCategoryId = project.SubCategoryId;
+                if (HttpContext.Session.GetString("ProjectId") != null)
+                {
+                    var projectId = int.Parse(HttpContext.Session.GetString("ProjectId"));
+                    var projectOld=_context.Projects.FirstOrDefault(a => a.ProjectId == projectId);
+                    projectOld.Title = project.Title;
+                    projectOld.SubCategoryId = project.SubCategoryId;
                
-                await _context.SaveChangesAsync();
-                foreach (KeyValuePair<string, bool> item in Skills)
-                {
-                    if (item.Value == true)
+                    await _context.SaveChangesAsync();
+                    foreach (KeyValuePair<string, bool> item in Skills)
                     {
-                        var skills=_context.ProjectSkills.FirstOrDefault(a => a.ProjectId == projectId);
-                        skills.SkillId = int.Parse(item.Key);
-                        await _context.SaveChangesAsync();
+                        if (item.Value == true)
+                        {
+                            var skills=_context.ProjectSkills.FirstOrDefault(a => a.ProjectId == projectId);
+                            skills.SkillId = int.Parse(item.Key);
+                            await _context.SaveChangesAsync();
+                        }
                     }
+                    return RedirectToAction(nameof(CreatePrice));
                 }
-                return RedirectToAction(nameof(CreatePrice));
-            }
-            else
-            {
-                if (ModelState.IsValid)
-                {
+                else{
                     project.FreelancerId = "a123";
 
                     _context.Add(project);
@@ -126,7 +107,15 @@ namespace Upwork.Controllers
         [Route("Projects/pricing")]
         public async Task<IActionResult> CreatePrice() 
         {
-            //ViewData["OverView"] = ModelBinderAttribute;
+            if (HttpContext.Session.GetString("ProjectId")!=null)
+            {
+                var projectId = int.Parse(HttpContext.Session.GetString("ProjectId"));
+                var project = _context.Projects.FirstOrDefault(a => a.ProjectId == projectId);
+                if (project.StarterPrice != null)
+                {
+                    return View(project);
+                }
+            }
             return View();
         }
 
@@ -159,6 +148,17 @@ namespace Upwork.Controllers
         //Get:Gallary{
         public async Task<IActionResult> Gallary()
         {
+            if (HttpContext.Session.GetString("ProjectId") != null)
+            {
+                var projectId = int.Parse(HttpContext.Session.GetString("ProjectId"));
+                var project = _context.Projects.FirstOrDefault(a => a.ProjectId == projectId);
+                if (project.Image != null)
+                {
+                    var projectImage = new ImageModel();
+                    projectImage.imageName = project.Image;
+                    return View(projectImage);
+                }
+            }
             return View();
         }
         //Post Gallary
@@ -194,13 +194,22 @@ namespace Upwork.Controllers
         //Get Description
         public async Task<IActionResult> Description()
         {
+            if (HttpContext.Session.GetString("ProjectId") != null)
+            {
+                var projectId = int.Parse(HttpContext.Session.GetString("ProjectId"));
+                var project = _context.Projects.FirstOrDefault(a => a.ProjectId == projectId);
+                if (project.Description != null)
+                {
+                    return View(project);
+                }
+            }
             return View();
         }
 
         //Post Description
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Description(ProjectDescription model)
+        public async Task<IActionResult> Description(Project model)
         {
             
             if (HttpContext.Session.GetString("ProjectId") != null)
@@ -208,8 +217,7 @@ namespace Upwork.Controllers
                 var projectId = int.Parse(HttpContext.Session.GetString("ProjectId"));
                 if (ModelState.IsValid)
                 {
-                    ProjectQuestion projectQuestion = new ProjectQuestion() { ProjectId = projectId, QuestionContent = model.Questions[0], Answer = model.Answers[0] };
-                    _context.ProjectQuestions.Add(projectQuestion);
+                
                     _context.SaveChanges();
                     var project= _context.Projects.FirstOrDefault(a => a.ProjectId == projectId);
                     project.Description = model.Description;
@@ -225,7 +233,7 @@ namespace Upwork.Controllers
         }
 
             // GET: Projects/Edit/5
-            public async Task<IActionResult> Edit(int? id)
+       public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -275,6 +283,16 @@ namespace Upwork.Controllers
             return View(project);
         }
 
+
+        public async Task<IActionResult> Cancel(Project project)
+        {
+            if (HttpContext.Session.GetString("ProjectId") != null)
+            {
+                HttpContext.Session.Remove("ProjectId"); 
+            }
+                return RedirectToAction(nameof(Index));
+        }
+
         // GET: Projects/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -310,6 +328,16 @@ namespace Upwork.Controllers
         [Route("Projects/Requierments")]
         public async Task<IActionResult> Requierment() 
         {
+            if (HttpContext.Session.GetString("ProjectId") != null)
+            {
+                var projectId = int.Parse(HttpContext.Session.GetString("ProjectId"));
+                var project = _context.Projects.FirstOrDefault(a => a.ProjectId == projectId);
+                if (project.Requierments != null)
+                {
+                   
+                    return View(project);
+                }
+            }
             return View();
         }
 
@@ -342,6 +370,15 @@ namespace Upwork.Controllers
         [Route("Projects/Review")]
         public async Task<IActionResult> ReviewProject() 
         {
+            if (HttpContext.Session.GetString("ProjectId") != null)
+            {
+                var projectId = int.Parse(HttpContext.Session.GetString("ProjectId"));
+                var project = _context.Projects.FirstOrDefault(a => a.ProjectId == projectId);
+                if (project.SimultaneousProjects != null)
+                {
+                    return View(project);
+                }
+            }
             return View();
         }
         [HttpPost]

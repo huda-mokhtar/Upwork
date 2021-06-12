@@ -49,8 +49,6 @@ namespace Upwork.Data
         public virtual DbSet<SubCategory> SubCategories { get; set; }
 
         public virtual DbSet<Project> Projects { get; set; }
-        public virtual DbSet<ProjectQuestion> ProjectQuestions { get; set; }
-        public virtual DbSet<ProjectSteps> ProjectSteps { get; set; }
         public virtual DbSet<Tags> Tags { get; set; }
         public virtual DbSet<ProjectTags> ProjectTags { get; set; }
         public virtual DbSet<ProjectSkills> ProjectSkills { get; set; }

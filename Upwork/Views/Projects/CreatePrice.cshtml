@@ -84,88 +84,40 @@
 
 
                         </div>
-                        <div id="three-tires-form">
-                            <div class=" row justify-content-end mt-3 text-center">
-
-                                <div class="col-3">
-                                    <label><b> Starter </b></label>
+                        <div id="three-tires-form " class="price">
+                            <div class="row">
+                                <div class="col-md-3 pt-4">
+                                    <h6 class="my-3"><b>DeleverDays</b></h6>
+                                    <h6 class="" style="margin-top:2rem;margin-bottom:2rem;"><b>Pricing</b></h6>
                                 </div>
-                                <div class="col-3">
-                                    <label><b> Stander </b></label>
-                                </div>
-                                <div class="col-3">
-                                    <label><b> Advanced </b></label>
-                                </div>
-
-                            </div>
-                            <div class="row justify-content-center mt-3">
-                                <div class="col-3">
-                                    <label><b>DeleverDays</b></label>
-                                </div>
-                                <div class="col-3">
-                                    <input asp-for="StarterDeliverDays" class="form-control" min="1" required />
-                                </div>
-                                <div class="col-3">
-                                    <input asp-for="StandardDeliverDays" class="form-control" min="1"  />
-                                </div>
-                                <div class="col-3">
-                                    <input asp-for="AdvancedDeliverDays" class="form-control" min="1"  />
-                                </div>
-                            </div>
-                            <div class="row justify-content-center mt-3 price">
-                                <div class="col-3">
-                                    <label><b>Price</b></label>
-                                </div>
-                                <div class="col-3">
+                                <div class="col-md-3">
+                                    <h6 class="text-center"><b> Starter </b></h6>
+                                    <input asp-for="StarterDeliverDays" class="form-control my-3" min="1" required />
                                     <div class="input-group mb-3">
                                         <span class="input-group-text">$</span>
                                         <input asp-for="StarterPrice" type="text" class="form-control" placeholder="0.00" min="1" required>
                                     </div>
                                 </div>
-                                <div class="col-3">
+                                <div class="col-md-3 tire-toggle">
+                                    <h6 class="text-center"><b> Stander </b></h6>
+                                    <input asp-for="StandardDeliverDays" class="form-control my-3" min="1" />
                                     <div class="input-group mb-3">
                                         <span class="input-group-text">$</span>
-                                        <input asp-for="StandardPrice" type="text" class="form-control" placeholder="0.00" min="1" >
+                                        <input asp-for="StandardPrice" type="text" class="form-control" placeholder="0.00" min="1" required>
                                     </div>
                                 </div>
-                                <div class="col-3">
+                                <div class="col-md-3 tire-toggle">
+                                    <h6 class="text-center"><b> Advanced </b></h6>
+                                    <input asp-for="AdvancedDeliverDays" class="form-control my-3" min="1" />
                                     <div class="input-group mb-3">
                                         <span class="input-group-text">$</span>
-                                        <input asp-for="AdvancedPrice" type="text" class="form-control" placeholder="0.00" min="1" >
+                                        <input asp-for="AdvancedPrice" type="text" class="form-control" placeholder="0.00" min="1">
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div id="one-tire-form" style="display:none;">
-                            <div class=" row justify-content-end mt-3">
 
-                                <div class="col-6">
-                                    <label><b> Starter </b></label>
-                                </div>
-
-                            </div>
-                            <div class="row  mt-3">
-                                <div class="col-6">
-                                    <label><b>DeleverDays</b></label>
-                                </div>
-                                <div class="col-3">
-                                    <input asp-for="StarterDeliverDays" class="form-control" min="1" required />
-                                </div>
-                               
-                            </div>
-                            <div class="row  mt-3 price">
-                                <div class="col-6">
-                                    <label><b>Price</b></label>
-                                </div>
-                                <div class="col-3">
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text">$</span>
-                                        <input asp-for="StarterPrice" type="text" class="form-control" placeholder="0.00" min="1" required>
-                                    </div>
-                                </div>
-                                
-                            </div>
                         </div>
+
                     </div>
                     <div class="end pt-3 mt-3">
                         <div class="container">
@@ -211,12 +163,11 @@
     <!-- end content-->
 </div>
 @section Scripts {
-<script>
-    function tireFormToggle() {
-        $("#three-tires-form").toggle();
-        $("#one-tire-form").toggle();
-    }
-</script>
+    <script>
+        function tireFormToggle() {
+            $(".tire-toggle").toggle();
+        }
+    </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
 }
