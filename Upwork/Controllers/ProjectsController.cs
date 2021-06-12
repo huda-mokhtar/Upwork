@@ -381,6 +381,7 @@ namespace Upwork.Controllers
                 model.ProjectId = projectId;
                     var project = _context.Projects.FirstOrDefault(a => a.ProjectId == projectId);
                     project.SimultaneousProjects = model.SimultaneousProjects;
+                    project.IsDraft = false;
                     _context.SaveChanges();
                     return RedirectToAction(nameof(Index));
             }
