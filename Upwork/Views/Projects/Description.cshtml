@@ -1,4 +1,4 @@
-﻿@model Upwork.Models.ViewModels.Projects.ProjectDescription
+﻿@model Upwork.Models.Project
 @{
     ViewData["Title"] = "Create project ";
     int  i = 0;
@@ -134,8 +134,8 @@
                             </ul>
                             <div class="add-form my-2" id="Add-Question">
                                 <div class="container">
-                                    <input class="form-control mb-2 mt-2" id="Question" asp-for="Questions[i]" rows="1" placeholder="Question" />
-                                    <textarea class="form-control" rows="3" id="Answer" asp-for="Answers[i]" placeholder="Answer"></textarea>
+                                    <input class="form-control mb-2 mt-2" id="Question" asp-for="QuestionContent" rows="1" placeholder="Question" />
+                                    <textarea class="form-control" rows="3" id="Answer" asp-for="QuestionAnswer" placeholder="Answer"></textarea>
                                     <div class="end pt-3 mt-3">
                                         <div class="container">
                                             <div class="d-flex justify-content-end">
@@ -157,7 +157,7 @@
                             <div class="d-flex justify-content-between">
                                 <div class="col-2">
                                     <div class="devBtnLight m-0 p-2 text-center">
-                                        <h6 class="m-0 p-0">@Html.ActionLink("Gallary", "Create", "Projects")</h6>
+                                        <h6 class="m-0 p-0">@Html.ActionLink("Back", "Gallary", "Projects")</h6>
                                     </div>
                                 </div>
                                 <div class="col-5">
