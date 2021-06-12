@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Upwork.Data;
 
 namespace Upwork.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210612123946_AddJobsModel")]
+    partial class AddJobsModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -335,6 +337,8 @@ namespace Upwork.Data.Migrations
                     b.Property<int?>("Duration")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsDeraft")
+                        .HasColumnType("bit");
 
                     b.Property<string>("JobDescription")
                         .HasColumnType("nvarchar(max)");
@@ -653,12 +657,6 @@ namespace Upwork.Data.Migrations
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("QuestionAnswer")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("QuestionContent")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Requierments")
                         .HasColumnType("nvarchar(max)");
 
@@ -677,12 +675,6 @@ namespace Upwork.Data.Migrations
                     b.Property<int?>("StarterPrice")
                         .HasColumnType("int");
 
-                    b.Property<string>("StepDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StepName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("SubCategoryId")
                         .HasColumnType("int");
 
@@ -697,6 +689,55 @@ namespace Upwork.Data.Migrations
                     b.HasIndex("SubCategoryId");
 
                     b.ToTable("Projects");
+                });
+
+            modelBuilder.Entity("Upwork.Models.ProjectQuestion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Answer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("QuestionContent")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProjectId");
+
+                    b.ToTable("ProjectQuestions");
+                });
+
+            modelBuilder.Entity("Upwork.Models.ProjectSteps", b =>
+                {
+                    b.Property<int>("StepId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.HasKey("StepId");
+
+                    b.HasIndex("ProjectId");
+
+                    b.ToTable("ProjectSteps");
                 });
 
             modelBuilder.Entity("Upwork.Models.ProjectTags", b =>
@@ -1086,6 +1127,28 @@ namespace Upwork.Data.Migrations
                     b.Navigation("SubCategory");
                 });
 
+            modelBuilder.Entity("Upwork.Models.ProjectQuestion", b =>
+                {
+                    b.HasOne("Upwork.Models.Project", "Project")
+                        .WithMany("Questions")
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Project");
+                });
+
+            modelBuilder.Entity("Upwork.Models.ProjectSteps", b =>
+                {
+                    b.HasOne("Upwork.Models.Project", "Project")
+                        .WithMany("Steps")
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Project");
+                });
+
             modelBuilder.Entity("Upwork.Models.ProjectTags", b =>
                 {
                     b.HasOne("Upwork.Models.Project", "Project")
@@ -1207,7 +1270,11 @@ namespace Upwork.Data.Migrations
 
             modelBuilder.Entity("Upwork.Models.Project", b =>
                 {
+                    b.Navigation("Questions");
+
                     b.Navigation("Skills");
+
+                    b.Navigation("Steps");
 
                     b.Navigation("Tags");
                 });

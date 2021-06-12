@@ -278,6 +278,16 @@ namespace Upwork.Controllers
             return View(project);
         }
 
+
+        public async Task<IActionResult> Cancel(Project project)
+        {
+            if (HttpContext.Session.GetString("ProjectId") != null)
+            {
+                HttpContext.Session.Remove("ProjectId"); 
+            }
+                return RedirectToAction(nameof(Index));
+        }
+
         // GET: Projects/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

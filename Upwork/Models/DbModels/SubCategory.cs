@@ -28,6 +28,6 @@ namespace Upwork.Models
         public virtual List<Project> Projects { get; set; }
         public virtual List<Skill> Skills { get; set; }
 
-        public virtual List<PostAJob> PostAJobs { get; set; }
+        public virtual List<Job> Jobs { get; set; }
     }
 }

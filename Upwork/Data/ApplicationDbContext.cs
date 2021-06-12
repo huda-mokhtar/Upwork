@@ -52,6 +52,9 @@ namespace Upwork.Data
         public virtual DbSet<Tags> Tags { get; set; }
         public virtual DbSet<ProjectTags> ProjectTags { get; set; }
         public virtual DbSet<ProjectSkills> ProjectSkills { get; set; }
+
+
+      
         public virtual DbSet<JobSkills> JobSkills { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -62,7 +65,7 @@ namespace Upwork.Data
             builder.Entity<Freelancer_Skill>().HasKey(o => new { o.SkillId, o.FreelancerId });
             builder.Entity<ProjectTags>().HasKey(o => new { o.ProjectId, o.TagsId });
             builder.Entity<ProjectSkills>().HasKey(o => new { o.ProjectId, o.SkillId });
-            builder.Entity<JobSkills>().HasKey(o => new { o.skillId, o.PostAJobId });
+            builder.Entity<JobSkills>().HasKey(o => new { o.skillId, o.jobId });
 
         }
 
