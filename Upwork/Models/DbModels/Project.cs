@@ -36,8 +36,10 @@ namespace Upwork.Models
         public int? StandardPrice { get; set; }
         public int? AdvancedPrice { get; set; }
         public string Image { get; set; }
-        public List<ProjectSteps> Steps { get; set; }
-        public List<ProjectQuestion> Questions { get; set; }
+        public string QuestionContent { get; set; }
+        public string QuestionAnswer { get; set; }
+        public string StepName { get; set; }
+        public string StepDescription { get; set; }
         public List<ProjectTags> Tags  { get; set; }
         public List<ProjectSkills> Skills  { get; set; }
     }

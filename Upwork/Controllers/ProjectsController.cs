@@ -154,7 +154,9 @@ namespace Upwork.Controllers
                 var project = _context.Projects.FirstOrDefault(a => a.ProjectId == projectId);
                 if (project.Image != null)
                 {
-                    return View(project);
+                    var projectImage = new ImageModel();
+                    projectImage.imageName = project.Image;
+                    return View(projectImage);
                 }
             }
             return View();
@@ -207,7 +209,7 @@ namespace Upwork.Controllers
         //Post Description
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Description(ProjectDescription model)
+        public async Task<IActionResult> Description(Project model)
         {
             
             if (HttpContext.Session.GetString("ProjectId") != null)
@@ -215,8 +217,7 @@ namespace Upwork.Controllers
                 var projectId = int.Parse(HttpContext.Session.GetString("ProjectId"));
                 if (ModelState.IsValid)
                 {
-                    ProjectQuestion projectQuestion = new ProjectQuestion() { ProjectId = projectId, QuestionContent = model.Questions[0], Answer = model.Answers[0] };
-                    _context.ProjectQuestions.Add(projectQuestion);
+                
                     _context.SaveChanges();
                     var project= _context.Projects.FirstOrDefault(a => a.ProjectId == projectId);
                     project.Description = model.Description;
@@ -323,6 +324,7 @@ namespace Upwork.Controllers
                 var project = _context.Projects.FirstOrDefault(a => a.ProjectId == projectId);
                 if (project.Requierments != null)
                 {
+                   
                     return View(project);
                 }
             }
@@ -362,7 +364,7 @@ namespace Upwork.Controllers
             {
                 var projectId = int.Parse(HttpContext.Session.GetString("ProjectId"));
                 var project = _context.Projects.FirstOrDefault(a => a.ProjectId == projectId);
-                if (project.Requierments != null)
+                if (project.SimultaneousProjects != null)
                 {
                     return View(project);
                 }
