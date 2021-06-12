@@ -1,5 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Steps";
+    Layout = "_ClientLayout";
 }
 <div class="container m-0 py-4 px-5 mx-auto">
     <div class="card px-4" style="height: fit-content; margin: 30px -30px;">
@@ -7,23 +8,26 @@
             <div class="col-6" style="display: flex;">
                 <div class="p-4 text-white" style="height: inherit; border-radius: .25rem 0 0 .25rem; background-color: #1d4354; margin-left: -24px;">
                     <div class="progress" id="prorBar">
-                        <div class="progress-bar w-25" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="background-color: #95df00;"></div>
+                        <div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="background-color: #95df00;"></div>
                     </div>
                     <div class="row pt-2">
                         <div class="col-3">
-                            <small style="color: #95df00;">Title</small>
+                            <small id="progressTitle">Title</small>
                         </div>
                         <div class="col-3 text-center">
-                            <small>Skills</small>
+                            <small id="progressSkills">Skills</small>
                         </div>
                         <div class="col-3 text-center">
-                            <small>Scope</small>
+                            <small id="progressScope">Scope</small>
                         </div>
                         <div class="col-3 text-center">
-                            <small>Budget</small>
+                            <small id="progressBudget">Budget</small>
                         </div>
                     </div>
-                    <div id="title">
+                    <div>
+                        @RenderSection("leftSide", false)
+                    </div>
+                    <div id="title" class="d-none">
                         <div style="padding-top: 85px;">
                             <h1 class="mb-3">Let's start with a strong title.</h1>
                             <p class="mb-4">This helps your job post stand out to the right candidates. It’s the first thing they’ll see, so make it count!</p>
@@ -40,12 +44,21 @@
                             <p class="mb-4">These aren’t final answers, but this information helps us recommend the right talent for what you need.</p>
                         </div>
                     </div>
+                    <div id="budget" class="d-none">
+                        <div style="padding-top: 85px;">
+                            <h1 class="mb-3">Tell us about your budget.</h1>
+                            <p class="mb-4">This will help us match you to talent within your range.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-6" style="padding: 30px 15px;">
                 <div class="row m-0" style="padding-top: 125px;">
                     <div class="col-12 px-3">
-                        <div id="Jobtitle">
+                        <div>
+                            @RenderSection("RightSide", false)
+                        </div>
+                        <div id="Jobtitle" class="d-none">
                             <h5 class="mb-2">Write a title for your job post</h5>
                             <form class="w-100">
                                 <div class="form-group">
@@ -413,7 +426,7 @@
                         </div>
                         <div id="JobBudget" class="d-none">
                             <div class="row m-0">
-                                <div class="col-12 py-2 px-0">
+                                <div class="col-12 p-0">
                                     <div class="container-fluid align-content-center p-0">
                                         <div class="row m-0">
                                             <div class="col-12 p-0">
@@ -442,7 +455,7 @@
                                                                                 <input type="radio" id="onetwo" name="Budget" />
                                                                                 <span class="checkroundForBudget"></span>
                                                                             </div>
-                                                                            <i class="fa fa-usd mb-3" aria-hidden="true"></i>
+                                                                            <i class="fa fa-usd mb-3" aria-hidden="true" style="transform: rotate(45deg); background-color:black; color: white; padding: 2px;"></i>
                                                                             <h6 class="card-title mb-3">Project budget</h6>
                                                                         </div>
                                                                     </label>
@@ -455,8 +468,63 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 py-2 px-0">
-
+                            </div>
+                            <div class="row m-0">
+                                <div class="col-12 mt-3 pt-2 px-0">
+                                    <div class="row">
+                                        <div class="col">
+                                            <p class="my-1">From</p>
+                                            <div>
+                                                <div class="d-inline">
+                                                    <div class="form-group has-search d-inline">
+                                                        <span class="form-control-feedback text-dark"><strong>$</strong></span>
+                                                        <input type="number" class="form-control-dolars d-inline">
+                                                    </div>
+                                                </div>
+                                                <span class="d-inline" aria-hidden="true">/hour</span>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <p class="my-1">To</p>
+                                            <div>
+                                                <div class="d-inline">
+                                                    <div class="form-group has-search d-inline">
+                                                        <span class="form-control-feedback text-dark"><strong>$</strong></span>
+                                                        <input type="number" class="form-control-dolars d-inline">
+                                                    </div>
+                                                </div>
+                                                <span class="d-inline" aria-hidden="true">/hour</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2">
+                                        <small class="text-muted">This is the average rate for similar projects.</small>
+                                    </div>
+                                </div>
+                                <div class="mt-3 pt-2">
+                                    <p class="mb-3">
+                                        <span class="text-muted">
+                                            Professionals tend to charge <strong class="text-dark">$12&nbsp;-&nbsp;$26</strong>/hour (USD) for ux/ui design projects like yours. Experts may charge higher rates.
+                                        </span>
+                                    </p>
+                                    <img src="Screenshot (532).png" class="w-100">
+                                </div>
+                            </div>
+                            <div class="row m-0 d-none">
+                                <div class="col-12  mt-4 pt-4 px-0">
+                                    <p class="mb-2">Maximum project budget (USD)</p>
+                                    <div class="col-6 p-0">
+                                        <div class="d-inline">
+                                            <div class="form-group has-search d-inline">
+                                                <span class="fa fa-usd form-control-feedback"></span>
+                                                <input type="number" class="form-control-dolars d-inline">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="text-muted mt-3 mb-4">
+                                        You will have the option to create milestones which divide your project
+                                        into manageable phases.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -465,7 +533,7 @@
                         <div class="row m-0 d-flex">
                             <div class="col-6"></div>
                             <div class="col-3 p-0" id="back">
-                                <button class="btn success mr-3 py-2 px-4 back" >Back</button>
+                                <button class="btn success mr-3 py-2 px-4 back">Back</button>
                             </div>
                             <div class="col-3 text-right p-0 " id="continue">
                                 <button class="btn w-100 py-2 px-4 continueBtn" id="NextStep" disabled="true">Next:Skills</button>
@@ -477,4 +545,7 @@
         </div>
     </div>
 </div>
+@section Scripts{
+    @await RenderSectionAsync("Scripts2", required: false)
+}
 

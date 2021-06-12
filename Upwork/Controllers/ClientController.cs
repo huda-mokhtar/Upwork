@@ -25,7 +25,19 @@ namespace Upwork.Controllers
         {
             return View();
         }
-        public IActionResult Steps()
+        public IActionResult PostJobTitle()
+        {
+            return View();
+        }
+        public IActionResult PostJobSkills()
+        {
+            return View();
+        }
+        public IActionResult PostJobScope()
+        {
+            return View();
+        }
+        public IActionResult PostJobBudget()
         {
             return View();
         }
