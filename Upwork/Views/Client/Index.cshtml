@@ -1,9 +1,10 @@
 ﻿@{
     ViewData["Title"] = "Client Home ";
+    Layout = "_ClientLayout";
 }
-@section Style {
-    <link href="~/css/ClientHome.css" rel="stylesheet" />
-}
+@*@section Style {
+        <link href="~/css/ClientHome.css" rel="stylesheet" />
+    }*@
 <div class="text-center">
     <div class="container ">
         <div class="row" style="display:-webkit-box; -webkit-box-align:center;">
@@ -41,7 +42,7 @@
             </div>
             <div class="d-none d-lg-block col-lg-2 mt-5 text-light  p-2 devBtnGreen"
                  style=" width:auto ; height: auto;">
-                <h6 class="m-0 p-0"> Post a Job </h6>
+                <a class="m-0 p-0 text-light" asp-action="PostJob"> Post a Job </a>
             </div>
         </div>
         <div class="row " style="margin-top: 35px;">
@@ -129,7 +130,7 @@
                                 <div class="container text-right"
                                      style="width: 48px; height: 48px; margin: 0;padding:0;">
                                     <span class=" circlee-points container-circlee " data-toggle="dropdown"
-                                            aria-haspopup="true" aria-expanded="false">
+                                          aria-haspopup="true" aria-expanded="false">
                                         <i class="fa fa-ellipsis-h 2x" style="color:rgb(83, 83, 83) ;"></i>
                                     </span>
                                     <div class="dropdown-menu">
@@ -155,7 +156,7 @@
                                 <div class="container text-right"
                                      style="width: 48px; height: 48px; margin: 0;padding:0;">
                                     <span class=" circlee-points container-circlee" data-toggle="dropdown"
-                                            aria-haspopup="true" aria-expanded="false">
+                                          aria-haspopup="true" aria-expanded="false">
                                         <i class="fa fa-ellipsis-h 2x" style="color:rgb(83, 83, 83) ;"></i>
                                     </span>
                                     <div class="dropdown-menu">

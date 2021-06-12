@@ -1,5 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Post Job Page";
+    Layout = "_ClientLayout";
 }
 
 <div class="container">
@@ -108,7 +109,7 @@
                                 <button class="btn text-success bg-white">Cancel</button>
                             </div>
                             <div class="col-2" id="gotoSteps">
-                                <a class="btn continueBtn" asp-action="Steps" disabled-link>Continue</a>
+                                <a class="btn continueBtn" asp-action="PostJobTitle">Continue</a>
                             </div>
                         </div>
                     </div>
@@ -117,3 +118,18 @@
         </div>
     </div>
 </div>
+@section Scripts{ 
+<script>
+    $('.radio-group .container .row .radioBox').click(function () {
+        console.log($(this))
+        //console.log($(this)[0].children[0].children[0].children[0])
+        //$(this)[0].children[0].children[0].children[0].checked=true;
+        $(this).parent().find('.radioBox').removeClass('selected');
+        $(this).addClass('selected');
+        console.log($("#gotoSteps").children()[0]);
+        $("#gotoSteps").children()[0].classList.remove('continueBtn');
+        $("#gotoSteps").children()[0].classList.add('continueBtnEnable');
+        var val = $(this).attr('data-value');
+    });
+</script>
+}
