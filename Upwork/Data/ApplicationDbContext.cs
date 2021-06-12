@@ -52,9 +52,6 @@ namespace Upwork.Data
         public virtual DbSet<Tags> Tags { get; set; }
         public virtual DbSet<ProjectTags> ProjectTags { get; set; }
         public virtual DbSet<ProjectSkills> ProjectSkills { get; set; }
-
-
-        public virtual DbSet<PostAJob> PostAJobs { get; set; }
         public virtual DbSet<JobSkills> JobSkills { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
