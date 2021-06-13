@@ -12,10 +12,10 @@
         </div>
     }
     @section RightSide{
-        <div id="JobScope">
+        <div>
             <div class="row m-0">
-                <div class="col-12 py-2 px-0">
-                    <form method="post" action="send.php" class="d-none">
+                <div class="col-12 py-2 px-0" id="JobScope">
+                    <form method="post" action="send.php" id="scopeForm">
                         <div class="radio-group">
                             <div class="row m-0">
                                 <div class="col-12 radioBox px-0">
@@ -57,22 +57,22 @@
                             </div>
                         </div>
                     </form>
-                    <div class="row m-0">
+                    <div class="row m-0 d-none" id="scopeDetails">
                         <div class="col-10 p-0">
                             <h5 class="mb-1">Large</h5>
                             <span class="m-0 text-muted" style="font-size: 12px;">Longer term or complex initiatives (ex. design and build a full website)</span>
                         </div>
                         <div class="col-2 p-0 text-right">
-                            <div class="editScope">
+                            <div class="editScope" id="editScopeIcon">
                                 <i class="fa fa-pencil" aria-hidden="true"></i>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 py-2 px-0" style="border-top: 1px solid #d1d1d1;">
-                    <div class="d-none">
-                        <h4 class="m-0">What level of experience will it need?</h4>
-                        <form method="post" action="send.php">
+                <div class="col-12 py-2 px-0 d-none" id="jobTimeContainer" style="border-top: 1px solid #d1d1d1;">
+                    <div class="d-none" id="timeJobContaine">
+                            <h4 class="m-0"> How long will your work take?</h4>
+                        <form method="post" action="send.php" id="jobTimeForm">
                             <div class="radio-group">
                                 <div class="row m-0">
                                     <div class="col-12 radioBox px-0">
@@ -112,7 +112,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="row m-0">
+                    <div class="row m-0 d-none" id="jobTimeDetails">
                         <div class="col-10 p-0">
                             <h5 class="mb-1">More than 6 months</h5>
                         </div>
@@ -123,11 +123,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 py-2 px-0" style="border-top: 1px solid #d1d1d1;">
-                    <div class="d-none">
-                        <h4 class="m-0">How long will your work take?</h4>
+
+                <div class="col-12 py-2 px-0 d-none" id="jobExperianceContainer" style="border-top: 1px solid #d1d1d1;">
+                    <div>
+                            <h4 class="m-0">What level of experience will it need?</h4>
                         <p class="text-muted mb-2">This won't restrict any proposals, but helps match expertise to your budget.</p>
-                        <form method="post" action="send.php">
+                        <form method="post" action="send.php" id="jobExperianceForm">
                             <div class="radio-group">
                                 <div class="row m-0">
                                     <div class="col-12 radioBox px-0">
@@ -170,7 +171,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="row m-0">
+                    <div class="row m-0 d-none" id="jobExperianceDetails">
                         <div class="col-10 p-0">
                             <h5 class="mb-1">Entry level</h5>
                         </div>
@@ -185,15 +186,4 @@
         </div>
     }
 </div>
-@section Scripts2 {
-    <script>
-        $("#prorBar").children()[0].setAttribute("aria-valuenow", "75");
-        $("#prorBar").children()[0].classList.add("w-75");
-        $("#progressTitle").css("color", " #95df00");
-        $("#progressSkills").css("color", " #95df00");
-        $("#progressScope").css("color", " #95df00");
-
-    </script>
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
 

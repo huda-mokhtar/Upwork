@@ -121,12 +121,12 @@
 @section Scripts{ 
 <script>
     $('.radio-group .container .row .radioBox').click(function () {
-        console.log($(this))
+        //console.log($(this))
         //console.log($(this)[0].children[0].children[0].children[0])
         //$(this)[0].children[0].children[0].children[0].checked=true;
         $(this).parent().find('.radioBox').removeClass('selected');
         $(this).addClass('selected');
-        console.log($("#gotoSteps").children()[0]);
+        //console.log($("#gotoSteps").children()[0]);
         $("#gotoSteps").children()[0].classList.remove('continueBtn');
         $("#gotoSteps").children()[0].classList.add('continueBtnEnable');
         var val = $(this).attr('data-value');
