@@ -317,7 +317,6 @@ namespace Upwork.Data.Migrations
                 });
 
             modelBuilder.Entity("Upwork.Models.DbModels.Jobs", b =>
-
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -336,7 +335,7 @@ namespace Upwork.Data.Migrations
                     b.Property<int?>("Duration")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsDeraft")
+                    b.Property<bool>("IsDraft")
                         .HasColumnType("bit");
 
                     b.Property<string>("JobDescription")
@@ -363,7 +362,7 @@ namespace Upwork.Data.Migrations
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("TypeOfBudget")
+                    b.Property<bool?>("TypeOfBudget")
                         .HasColumnType("bit");
 
                     b.Property<int?>("subCategoryId")
@@ -877,9 +876,7 @@ namespace Upwork.Data.Migrations
                     b.Navigation("Country");
                 });
 
-
             modelBuilder.Entity("Upwork.Models.DbModels.Jobs", b =>
-
                 {
                     b.HasOne("Upwork.Models.Language_Proficiency", "Language_Proficiency")
                         .WithMany("Jobs")
@@ -899,7 +896,6 @@ namespace Upwork.Data.Migrations
                     b.HasOne("Upwork.Models.DbModels.Jobs", "Jobs")
                         .WithMany("jobsSkills")
                         .HasForeignKey("JobsId")
-
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1173,7 +1169,6 @@ namespace Upwork.Data.Migrations
 
                     b.Navigation("Users");
                 });
-
 
             modelBuilder.Entity("Upwork.Models.DbModels.Jobs", b =>
                 {

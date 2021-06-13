@@ -1,4 +1,4 @@
-﻿
+﻿@model Upwork.Models.DbModels.Jobs
 
 @{
     ViewData["Title"] = "Post Job Page";
@@ -12,7 +12,7 @@
                 <div class="card-header bg-white">
                     <h4>Getting Started</h4>
                 </div>
-                <form method="post" action="send.php">
+                <form asp-action="PostJob" method="post">
                     <div class="card-body">
                         <h5 class="card-title">What would you like to do?</h5>
                         <div class="align-content-center border-dark p-3">
@@ -122,6 +122,7 @@
         </div>
     </div>
 </div>
+
 @section Scripts{
     <script>
         $('.radio-group .container .row .radioBox').click(function () {
@@ -136,4 +137,5 @@
             var val = $(this).attr('data-value');
         });
     </script>
+
 }
