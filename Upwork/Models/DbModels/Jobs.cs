@@ -10,6 +10,8 @@ namespace Upwork.Models.DbModels
     {
         public int Id { get; set; }
 
+        public bool IsDraft { get; set; } = true;
+
         public string Type { get; set; }
 
         public string Title { get; set; }
