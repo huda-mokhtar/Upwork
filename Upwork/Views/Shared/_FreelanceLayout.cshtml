@@ -6,6 +6,9 @@
     <title>@ViewData["Title"] | Upwork</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link href="~/css/FreelancerLayout.css" rel="stylesheet" />
+    <link href="~/css/ClientHome.css" rel="stylesheet" />
+    <link href="~/css/PostAJob.css" rel="stylesheet" />
+
     @await RenderSectionAsync("Style", required: false)
 </head>
 <body>
@@ -20,8 +23,8 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <form>
-                        <div class="input-group my-2">
-                            <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
+                        <div class="input-group my-2 ">
+                            <span class="input-group-text" id="basic-addon1" ><i class="fas fa-search"></i></span>
                             <input type="search" class="form-control input-group-field" placeholder="search">
                         </div>
                     </form>
@@ -31,6 +34,7 @@
                                 <span class="nav-item-label">Find work</span>
 
                             </a>
+                            
                             <ul data-cy="dropdown-menu" class="dropdown-menu mw-240" aria-labelledby="dropdownMenuLink">
                                 <li>
                                     <a target="_self" data-cy="menu-item-trigger" href="/ab/f/home/" class="dropdown-item">
@@ -214,7 +218,7 @@
         <!--end  navbar-->
     </header>
     <!--Content-->
-    <div class="center">
+    <div class="center" >
         @RenderBody()
     </div>
     <!--end Content-->
@@ -303,11 +307,11 @@
                 </div>
             </div>
             <div class="up-footer-social justify-content-between d-flex">
-                <div class="up-footer-social-icons d-flex">
-                    <div role="heading" aria-level="3" class="up-footer-social-header">
+                <div class="up-footer-social-icons d-flex" style="display:-webkit-box; -webkit-box-align:center; ">
+                    <div role="heading" aria-level="3" class="up-footer-social-header m-auto">
                         Follow us
                     </div>
-                    <ul class="up-footer-social-list d-flex">
+                    <ul class="up-footer-social-list d-flex m-auto">
                         <li class="up-footer-social-list-item">
                             <a href="https://www.facebook.com/upwork" title="Visit Upwork on Facebook" target="_blank" rel="noopener noreferrer" class="up-footer-social-list-link">
                                 <span class="sr-only">Visit Upwork on Facebook</span>
@@ -352,10 +356,10 @@
                     </ul>
                 </div>
                 <div class="up-footer-social-icons up-footer-download d-flex">
-                    <div role="heading" aria-level="3" class="up-footer-social-header">
+                    <div role="heading" aria-level="3" class="up-footer-social-header m-auto">
                         Mobile app
                     </div>
-                    <ul class="up-footer-social-list d-flex">
+                    <ul class="up-footer-social-list d-flex m-auto">
                         <li class="up-footer-social-list-item">
                             <a href="https://apps.apple.com/us/developer/upwork-global-inc/id329377609" title="Download Upwork app from iTunes" target="_blank" rel="noopener noreferrer" class="up-footer-social-list-link">
                                 <span class="sr-only">Download Upwork app from iTunes</span> <div class="up-icon">
@@ -385,7 +389,6 @@
     <script src="https://kit.fontawesome.com/fa50145e5d.js" crossorigin="anonymous"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

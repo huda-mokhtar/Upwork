@@ -49,14 +49,11 @@ namespace Upwork.Data
         public virtual DbSet<SubCategory> SubCategories { get; set; }
 
         public virtual DbSet<Project> Projects { get; set; }
-        public virtual DbSet<ProjectImages> ProjectImages { get; set; }
-        public virtual DbSet<ProjectLevel> ProjectLevels { get; set; }
-        public virtual DbSet<ProjectQuestion> ProjectQuestions { get; set; }
-        public virtual DbSet<ProjectSteps> ProjectSteps { get; set; }
         public virtual DbSet<Tags> Tags { get; set; }
         public virtual DbSet<ProjectTags> ProjectTags { get; set; }
         public virtual DbSet<ProjectSkills> ProjectSkills { get; set; }
-
+        public virtual DbSet<Jobs> Jobs { get; set; }
+        public virtual DbSet<JobsSkills> JobsSkills { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -64,11 +61,13 @@ namespace Upwork.Data
             builder.Entity<Freelancer_Experience>().HasKey(o => new { o.JobTitleId, o.CountryId, o.CompanyId, o.FreelancerId });
             builder.Entity<Freelancer_Language>().HasKey(o => new { o.LanguageId, o.FreelancerId });
             builder.Entity<Freelancer_Skill>().HasKey(o => new { o.SkillId, o.FreelancerId });
-            builder.Entity<ProjectLevel>().HasKey(o => new { o.ProjectId, o.LevelId });
             builder.Entity<ProjectTags>().HasKey(o => new { o.ProjectId, o.TagsId });
             builder.Entity<ProjectSkills>().HasKey(o => new { o.ProjectId, o.SkillId });
+
+            builder.Entity<JobsSkills>().HasKey(o => new { o.JobsId, o.skillId });
+
         }
 
-      
+
     }
 }

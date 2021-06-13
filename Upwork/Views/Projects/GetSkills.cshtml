@@ -5,10 +5,11 @@
 <div class="row">
     @foreach (var i in Model)
     {
-        <div class="col-3">
-            <input name="AreChecked" id="@i.SkillId"  type="checkbox" value="@i.SkillId" />
-            @i.Name
-            <br />
-        </div>
+    <div class="col-3">
+        @*<input name="AreChecked" id="@i.SkillId"  type="checkbox" value="@i.SkillId" />
+        @i.Name*@
+        @Html.DisplayFor(modelItem => i.Name) 
+        @Html.CheckBox($@"Skills.{i.SkillId}")
+    </div>
     }
 </div>

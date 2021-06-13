@@ -1,0 +1,459 @@
+﻿@{
+    ViewData["Title"] = "Freelancer Home ";
+}
+@section Style {
+    <link href="~/css/FreelanceHomePage.css" rel="stylesheet" />
+}
+<div class="container">
+    <div class="row mb-4 mt-0 mx-0 p-0">
+        <div class="col-3 col-lg-2 text-left p-0 m-0 mt-5">
+            <h3 style="color: #1d4354; font:  bold 25px Rza;">Find Work</h3>
+        </div>
+        <div class="col-9 col-lg-7 mx-auto p-0 mt-5">
+            <div class="input-group mx-auto" style="width: 93%;">
+                <input type="text" class="form-control " placeholder="Search for jobs">
+                <div class="input-group-append">
+                    <button class="btn btn-success" type="button">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="d-none d-lg-block col-lg-3 mt-5">
+        </div>
+    </div>
+    <div class="row my-5 mx-0 p-0">
+        <div class="d-none d-md-block col-md-2 text-left p-0 m-0">
+            <form method="post" action="send.php" class="my-4">
+                <div class="radio-group">
+                    <div class="row">
+                        <div class="col-12 radioBox mb-1">
+                            <label for="allJobs" class="col-12 p-0 mb-0">
+                                <div class="mb-0">
+                                    <div class="text-left mb-0">
+                                        <input type="radio" id="allJobs" name="filterJobs" checked />
+                                        <span class="checkround"></span>
+                                        <p class="ml-4" style="font-weight: 630px;">My Feed</p>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="col-12 radioBox mb-1">
+                            <label for="bestMatches" class="col-12 p-0 m-0 mb-0">
+                                <div class="mb-0">
+                                    <div class="text-left mb-0">
+                                        <input type="radio" id="bestMatches" name="filterJobs" />
+                                        <span class="checkround"></span>
+                                        <p class="ml-4" style="font-weight: 630px;">Best Matches</p>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="col-12 radioBox mb-1">
+                            <label for="recommended" class="col-12 p-0 m-0 mb-0">
+                                <div class="mb-0">
+                                    <div class="text-left mb-0">
+                                        <input type="radio" id="recommended" name="filterJobs" />
+                                        <span class="checkround"></span>
+                                        <p class="ml-4" style="font-weight: 630px;">Recommended</p>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+            <div class="">
+                <h5>
+                    My Categories
+                </h5>
+                <p class="text-success">
+                    Web Development
+                </p>
+                <div class="editIcon mx-0">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-10 col-lg-7 text-center m-0 p-0">
+
+            <div class="card mr-4 ml-3 mb-5">
+                <div class="card-header bg-white">
+                    <div class="row p-2 " style="display:-webkit-box; -webkit-box-align:center; ">
+                        <div class="col-8 text-left m-0 ">
+                            <h5 style="color: black;font-size: 22px;font-weight: 500;">My Feed</h5>
+                        </div>
+                        <div class="col-4 text-right">
+                            <div class="m-0 text-right dropdown">
+                                <div class=" circlee-points container-freelancer " data-toggle="dropdown"
+                                     aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-ellipsis-h 2x " style="color:rgb(83, 83, 83) ;"></i>
+                                </div>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">RSS</a>
+                                    <a class="dropdown-item" href="#">Atom</a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body jobs">
+                    <div class=" my-2 mx-2">
+                        <div class="row" style="display:-webkit-box; -webkit-box-align:center; ">
+                            <div class="col-9 text-left m-0 ">
+                                <a href="">NODEJS developer for several tasks </a>
+                            </div>
+                            <div class="col-3 text-right">
+
+                                <div class="circlee-like">
+                                    <i class="fa fa-heart-o 2x" style="color:rgb(83, 83, 83) ;"></i>
+                                </div>
+                                <div class="circlee-dislike container-freelancer">
+                                    <i class="fa fa-thumbs-o-down 2x" style="color:rgb(83, 83, 83) ;"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="my-3">
+                        <div class="row mx-2">
+                            <div class="lightFont">
+                                Fixed-price - Entery level - Est.Budget:50$ - Posted 1 hour
+                            </div>
+                        </div>
+                        <div class="row mx-2 my-1">
+                            <div class="jobDescription p-0 m-0 text-left">
+                                This is a long term job position, I have tasks in nodejs, first task is to get a simple example of socket.io working, I can't connect the client with the server and I don't know why. I believe it is a path setup or something. I will pay you for tasks.
+
+                                For this first task my budget is USD 10.
+                                I need the first task completed in less than one day.
+
+                                Thanks,
+
+                            </div>
+                        </div>
+                        <div class="row mx-2 my-3">
+                            <div class="skills">
+                                <div style="display:inline-flex;">
+                                    <div class="jobSkills px-2 py-1 mr-2">API</div>
+                                    <div class="jobSkills px-2 py-1 mr-2">NodeJS</div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row mx-2 my-2">
+                            <div class="lightFont">
+                                Proposals : <span style="display:inline-block ;font-weight: 500;">Less than 5</span>
+                            </div>
+                        </div>
+
+                        <div class="row  mx-1 my-3 p-0">
+                            <div class="col-12 col-md-11 m-0 p-0">
+                                <div class="row m-0" style="display:-webkit-box; -webkit-box-align:center; ">
+
+
+                                    <div class="col-4 col-md-3 m-0 p-0 mr-1" style="display:-webkit-box; -webkit-box-align:center; ">
+                                        <i class="fa fa-check-circle mr-1" style="color: #1f57c3; display: inline-block;" aria-hidden="true"></i>
+                                        <p class="lightFont my-auto">
+                                            Payment verified
+                                        </p>
+                                    </div>
+                                    <div class="col-4 col-md-3 m-0 p-0">
+                                        <div style="color: grey;">
+                                            <i class="fa fa-star checked mx-0 px-0" aria-hidden="true"></i>
+                                            <i class="fa fa-star checked mx-0 px-0" aria-hidden="true"></i>
+                                            <i class="fa fa-star checked mx-0 px-0" aria-hidden="true"></i>
+                                            <i class="fa fa-star mx-0 px-0" aria-hidden="true"></i>
+                                            <i class="fa fa-star mx-0 px-0" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-3 m-0 p-0">
+                                        <p class="lightFont my-auto">$60k+ spent</p>
+                                    </div>
+                                    <div class="col-2 m-0 p-0" style="display:-webkit-box; -webkit-box-align:center; ">
+
+                                        <i class="fa fa-map-marker mr-1" aria-hidden="true" style="color: black;"></i>
+                                        <p class="lightFont my-auto">
+                                            Egypt
+                                        </p>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="card-body jobs">
+                    <div class=" my-2 mx-2">
+                        <div class="row" style="display:-webkit-box; -webkit-box-align:center; ">
+                            <div class="col-9 text-left m-0 ">
+                                <a href="">C# WinForm, DataGridView, Multiple Header, Merged Header Columns </a>
+                            </div>
+                            <div class="col-3 text-right">
+
+                                <div class="circlee-like">
+                                    <i class="fa fa-heart-o 2x" style="color:rgb(83, 83, 83) ;"></i>
+                                </div>
+                                <div class="circlee-dislike container-freelancer">
+                                    <i class="fa fa-thumbs-o-down 2x" style="color:rgb(83, 83, 83) ;"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="my-3">
+                        <div class="row mx-2">
+                            <div class="lightFont">
+                                Fixed-price - Entery level - Est.Budget:50$ - Posted 1 hour
+                            </div>
+                        </div>
+                        <div class="row mx-2 my-1">
+                            <div class="jobDescription p-0 m-0 text-left">
+                                We are creating a POS application. We need someone with experience working with POS peripherals to start ASAP
+                            </div>
+                        </div>
+                        <div class="row mx-2 my-3">
+                            <div class="skills">
+                                <div style="display:inline-flex;">
+                                    <div class="jobSkills px-2 py-1 mr-2">Bootstrap</div>
+                                    <div class="jobSkills px-2 py-1 mr-2">JavaScript</div>
+                                    <div class="jobSkills px-2 py-1 mr-2">CSS</div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row mx-2 my-2">
+                            <div class="lightFont">
+                                Proposals : <span style="display:inline-block ;font-weight: 500;">Less than 10</span>
+                            </div>
+                        </div>
+
+                        <div class="row  mx-1 my-3 p-0">
+                            <div class="col-12 col-md-11 m-0 p-0">
+                                <div class="row m-0" style="display:-webkit-box; -webkit-box-align:center; ">
+
+
+                                    <div class="col-4 col-md-3 m-0 p-0 mr-1" style="display:-webkit-box; -webkit-box-align:center; ">
+                                        <i class="fa fa-check-circle mr-1" style="color: #1f57c3; display: inline-block;" aria-hidden="true"></i>
+                                        <p class="lightFont my-auto">
+                                            Payment verified
+                                        </p>
+                                    </div>
+                                    <div class="col-4 col-md-3 m-0 p-0">
+                                        <div style="color: grey;">
+                                            <i class="fa fa-star checked mx-0 px-0" aria-hidden="true"></i>
+                                            <i class="fa fa-star checked mx-0 px-0" aria-hidden="true"></i>
+                                            <i class="fa fa-star checked mx-0 px-0" aria-hidden="true"></i>
+                                            <i class="fa fa-star checked mx-0 px-0" aria-hidden="true"></i>
+                                            <i class="fa fa-star checked mx-0 px-0" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-3 m-0 p-0">
+                                        <p class="lightFont my-auto">$100k+ spent</p>
+                                    </div>
+                                    <div class="col-2 m-0 p-0" style="display:-webkit-box; -webkit-box-align:center; ">
+
+                                        <i class="fa fa-map-marker mr-1" aria-hidden="true" style="color: black;"></i>
+                                        <p class="lightFont my-auto">
+                                            Germany
+                                        </p>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="card-body jobs">
+                    <div class=" my-2 mx-2">
+                        <div class="row" style="display:-webkit-box; -webkit-box-align:center; ">
+                            <div class="col-9 text-left m-0 ">
+                                <a href="">NODEJS developer for several tasks </a>
+                            </div>
+                            <div class="col-3 text-right">
+
+                                <div class="circlee-like">
+                                    <i class="fa fa-heart-o 2x" style="color:rgb(83, 83, 83) ;"></i>
+                                </div>
+                                <div class="circlee-dislike container-freelancer">
+                                    <i class="fa fa-thumbs-o-down 2x" style="color:rgb(83, 83, 83) ;"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="my-3">
+                        <div class="row mx-2">
+                            <div class="lightFont">
+                                Fixed-price - Entery level - Est.Budget:50$ - Posted 1 hour
+                            </div>
+                        </div>
+                        <div class="row mx-2 my-1">
+                            <div class="jobDescription p-0 m-0 text-left">
+                                This is a long term job position, I have tasks in nodejs, first task is to get a simple example of socket.io working, I can't connect the client with the server and I don't know why. I believe it is a path setup or something. I will pay you for tasks.
+
+                                For this first task my budget is USD 10.
+                                I need the first task completed in less than one day.
+
+                                Thanks,
+
+                            </div>
+                        </div>
+                        <div class="row mx-2 my-3">
+                            <div class="skills">
+                                <div style="display:inline-flex;">
+                                    <div class="jobSkills px-2 py-1 mr-2">API</div>
+                                    <div class="jobSkills px-2 py-1 mr-2">NodeJS</div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row mx-2 my-2">
+                            <div class="lightFont">
+                                Proposals : <span style="display:inline-block ;font-weight: 500;">Less than 5</span>
+                            </div>
+                        </div>
+
+                        <div class="row  mx-1 my-3 p-0">
+                            <div class="col-12 col-md-11 m-0 p-0">
+                                <div class="row m-0" style="display:-webkit-box; -webkit-box-align:center; ">
+
+
+                                    <div class="col-4 col-md-3 m-0 p-0 mr-1" style="display:-webkit-box; -webkit-box-align:center; ">
+                                        <i class="fa fa-check-circle mr-1" style="color: #1f57c3; display: inline-block;" aria-hidden="true"></i>
+                                        <p class="lightFont my-auto">
+                                            Payment verified
+                                        </p>
+                                    </div>
+                                    <div class="col-4 col-md-3 m-0 p-0">
+                                        <div style="color: grey;">
+                                            <i class="fa fa-star checked mx-0 px-0" aria-hidden="true"></i>
+                                            <i class="fa fa-star checked mx-0 px-0" aria-hidden="true"></i>
+                                            <i class="fa fa-star checked mx-0 px-0" aria-hidden="true"></i>
+                                            <i class="fa fa-star mx-0 px-0" aria-hidden="true"></i>
+                                            <i class="fa fa-star mx-0 px-0" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-3 m-0 p-0">
+                                        <p class="lightFont my-auto">$40k+ spent</p>
+                                    </div>
+                                    <div class="col-2 m-0 p-0" style="display:-webkit-box; -webkit-box-align:center; ">
+
+                                        <i class="fa fa-map-marker mr-1" aria-hidden="true" style="color: black;"></i>
+                                        <p class="lightFont my-auto">
+                                            Egypt
+                                        </p>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+        <div class="d-none d-lg-block col-lg-3">
+            <div class="row">
+                <div class="m-0 p-0" style="display:-webkit-box; -webkit-box-align:center; ">
+                    <img src="~/Images/Wafaa1.jpg" class="imgContainer" />
+                    <h6>My Profile</h6>
+                </div>
+            </div>
+            <div class="row toProfile mt-3" style="display:-webkit-box; -webkit-box-align:center; ">
+                <i class="fa fa-eye mx-2" aria-hidden="true"></i>
+                <a href="">View Profile</a>
+            </div>
+            <div class="my-4 mx-0">
+                <div class="mx-0">
+                    <p style="font-weight: 600;" class="mb-1">Visibility</p>
+                </div>
+                <div class="row mx-0" style="display:-webkit-box; -webkit-box-align:center;">
+                    <i class="fa fa-globe mr-2" aria-hidden="true"></i>
+                    <p class="my-auto">Public</p>
+                    <div class="editIcon">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="my-4 mx-0">
+                <div class="mx-0 my-1">
+                    <p style="font-weight: 600;" class="mb-1">Hours</p>
+                </div>
+                <div class="row mx-0 my-0" style="display:-webkit-box; -webkit-box-align:center;">
+                    <div class="col-1  m-0 p-0 mr-1">
+                        <i class="fa fa-clock-o mr-1" aria-hidden="true"></i>
+                    </div>
+                    <div class="col-8 m-0 p-0">
+                        <p class="my-auto ">More than 30 hrs/week</p>
+                    </div>
+                    <div class="col-2 m-0 p-0 text-left">
+                        <div class="editIcon">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="my-4 mx-0">
+                <div class="mx-0">
+                    <p style="font-weight: 600;" class="mb-1">Profile completion</p>
+                </div>
+                <div class="progress" style="height: 10px;">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>
+                </div>
+            </div>
+            <div class="row toProfile mt-1 mx-0" style="display:-webkit-box; -webkit-box-align:center; ">
+                <i class="fa fa-plus-circle mr-2" aria-hidden="true"></i>
+                <a href="">Add a linked social account</a>
+            </div>
+
+            <div class="my-4 mx-0">
+                <div class="mx-0 my-0">
+                    <p style="font-weight: 600;" class="mb-1">Your Project Catalog</p>
+                </div>
+                <div class="row toProfile mx-0" style="display:-webkit-box; -webkit-box-align:center; ">
+                    <i class="fa fa-file-text-o mr-2" aria-hidden="true"></i>
+                    <a href="">My Project Dashboard</a>
+                </div>
+            </div>
+
+            <div class="my-4 mx-0">
+                <div class="mx-0 my-0">
+                    <p style="font-weight: 600;" class="mb-1">Proposals</p>
+                </div>
+                <div class="row toProfile mx-0" style="display:-webkit-box; -webkit-box-align:center; ">
+                    <a href="">70 avaliable connects</a>
+                </div>
+            </div>
+
+
+
+
+        </div>
+    </div>
+</div>
+

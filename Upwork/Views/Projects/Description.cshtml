@@ -1,38 +1,37 @@
 ﻿@model Upwork.Models.Project
-
 @{
     ViewData["Title"] = "Create project ";
+    int  i = 0;
 }
 @section Style {
     <link href="~/css/CreateProject.css" rel="stylesheet" />
 }
-
 <div class="container">
     <!--Steps nav-->
     <div class="">
         <nav class="steps">
             <ul class=" d-flex justify-content-between">
                 <li class="step-item">
-                    <button class="step-btn ">
-                        <p class="step-number text-center"> 1 </p>
+                    <button class="step-btn done ">
+                        <p class="step-number text-center"> <i class="fas fa-check"></i> </p>
                         <p class="step-name">OverView</p>
                     </button>
                 </li>
                 <li class="step-item">
-                    <button class="step-btn">
-                        <p class="step-number text-center"> 2 </p>
+                    <button class="step-btn done">
+                        <p class="step-number text-center"> <i class="fas fa-check"></i> </p>
                         <p class="step-name">Pricing</p>
                     </button>
                 </li>
                 <li class="step-item">
-                    <button class="step-btn">
-                        <p class="step-number text-center"> 3 </p>
+                    <button class="step-btn done">
+                        <p class="step-number text-center"> <i class="fas fa-check"></i> </p>
                         <p class="step-name">Gallary</p>
                     </button>
                 </li>
                 <li class="step-item">
                     <button class="step-btn current">
-                        <p class="step-number text-center"> 4 </p>
+                        <p class="step-number text-center"> <i class="fas fa-pen"></i>  </p>
                         <p class="step-name">Description</p>
                     </button>
                 </li>
@@ -62,56 +61,117 @@
                         <h4> <b>Project description </b></h4>
                     </div>
                 </div>
-                <div class="py-3 container">
-                    <h4><b>Project summary</b></h4>
-                    <p>Briefly explain what sets you and your project apart.</p>
-                    <textarea asp-for="Description" class="up-textarea" placeholder="EXAMPLE: You will get a polished logo design that will bring your company to the next level. With over 5 years of experience in freelance and agency environments, I care deeply about helping startups tell their story through design. The work I deliver is 100% original and high quality">
-                    </textarea>
-                    <div class="form-head"></div>
-                    <h4><b>Project steps</b></h4>
-                    <p>List the steps involved in delivering your project.</p>
-                    <ul class="  justify-content-between">
-                        <li class="step-item">
-                            <div class="step-btn current ">
-                                <p class="step-number text-center"> 1 </p>
-                                <span>Client purchases the project and sends requirements.</span>
-                            </div>
-                        </li>
-                        <li class="step-item">
-                            <div class="step-btn current">
-                                <p class="step-number text-center"> 2 </p>
-                                <span class="step-name">
-                                    You complete the project following the steps that you add here.
-                                </span>
-                            </div>
-                        </li>
-                        <li class="step-item">
-                            <div class="step-btn current">
-                                <p class="step-number text-center"> 3 </p>
-                                <span class="step-name">Client reviews and approves your work, and you get paid.</span>
-                            </div>
-                        </li>
-                    </ul>
-                    <div class="form-head"></div>
-                    <h4>Frequently asked questions</h4>
-                    <p>Answers to common questions your clients ask.</p>
+                <form class="py-3" asp-action="Description" method="post">
+                    <div class="py-3 container">
+                        <h4><b>Project summary</b></h4>
+                        <p>Briefly explain what sets you and your project apart.</p>
+                        <textarea rows="4" asp-for="Description" class="form-control" placeholder="EXAMPLE: You will get a polished logo design that will bring your company to the next level. With over 5 years of experience in freelance and agency environments, I care deeply about helping startups tell their story through design. The work I deliver is 100% original and high quality">
+                        </textarea>
+                        <div class="form-head"></div>
+                        <h4><b>Project steps</b></h4>
+                        <p>List the steps involved in delivering your project.</p>
+                        <ul class=" container justify-content-between">
+                            <li class="step-item row">
+                                <div class="step-btn current d-flex">
+                                    <p class="step-number text-center"> 1 </p>
+                                    <span> Client purchases the project and sends requirements.</span>
+                                </div>
+                            </li>
+                            <li class="step-item ">
+                                <div class="row">
+                                    <div class="step-btn current d-flex col-9">
+                                        <p class="step-number text-center"> 2 </p>
+                                        <span class="step-name">
+                                            You complete the project following the steps that you add here.
+                                        </span>
+                                    </div>
+                                    <div class="col-3">
+                                        <button type="button" class="text-green btn add-btn" onclick="displayFormStep()">Add your Step <i class="fas fa-plus"></i> </button>
+                                    </div>
+                                </div>
+                                <ul class="Steps ml-5">
+                                </ul>
+                                <div class="add-form my-2" id="Add-Step">
+                                    <div class="container">
+                                        <input class="form-control mb-2 mt-2" asp-for="StepName" id="step" rows="1" placeholder="Step name" />
+                                        <textarea class="form-control" rows="3" asp-for="StepDescription" id="description" placeholder="Step Description"></textarea>
+                                        <div class="end pt-3 mt-3">
+                                            <div class="container">
+                                                <div class="d-flex justify-content-end">
+                                                    <div class="col-4">
+                                                        <button class="btn-cancle" type="button" onclick="CancleStep()">Cancle</button>
+                                                        <button class="btn-save" type="button" onclick="AddStep()">Add</button>
+                                                    </div>
 
-                    <div class="end">
-                        <div class="row d-flex justify-content-between">
-                            <div class="btn-cancle text-left col-6">
-                                <a href="">Back</a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="step-item row">
+                                <div class="step-btn current d-flex">
+                                    <p class="step-number text-center"> 3 </p>
+                                    <span class="step-name">Client reviews and approves your work, and you get paid.</span>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="form-head"></div>
+                        <div class="container">
+                            <div class="row justify-content-between my-2">
+                                <div class="col-9">
+                                    <h4>Frequently asked questions</h4>
+                                    <p>Answers to common questions your clients ask.</p>
+                                </div>
+                                <div class="col-3">
+                                    <button type="button" class="text-green btn add-btn" onclick="displayFormQestion()">Add a question <i class="fas fa-plus"></i> </button>
+                                </div>
+
                             </div>
-                            <div class="btn-cancle text-right col-3">
-                                <a href="">Cancle</a>
-                            </div>
-                            <div class="btn-save text-right col-3">
-                                <a href="">Save &amp; Continue</a>
+                            <ul class="Questions ml-5">
+                            </ul>
+                            <div class="add-form my-2" id="Add-Question">
+                                <div class="container">
+                                    <input class="form-control mb-2 mt-2" id="Question" asp-for="QuestionContent" rows="1" placeholder="Question" />
+                                    <textarea class="form-control" rows="3" id="Answer" asp-for="QuestionAnswer" placeholder="Answer"></textarea>
+                                    <div class="end pt-3 mt-3">
+                                        <div class="container">
+                                            <div class="d-flex justify-content-end">
+                                                <div class="col-4">
+                                                    <button class="btn-cancle" type="button" onclick="CancleQusetion()">Cancle</button>
+                                                    <button class="btn-save" type="button" onclick="AddQuestion();"> Add</button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <div class="end pt-3 mt-3">
+                        <div class="container">
+                            <div class="d-flex justify-content-between">
+                                <div class="col-2">
+                                    <div class="devBtnLight m-0 p-2 text-center">
+                                        <h6 class="m-0 p-0">@Html.ActionLink("Back", "Gallary", "Projects")</h6>
+                                    </div>
+                                </div>
+                                <div class="col-5">
+                                    <button class="btn-cancle ">Cancle</button>
+                                    <button class="btn-save">Save &amp; Continue</button>
+                                </div>
+
+                            </div>
                         </div>
+
                     </div>
-                </div>
+                </form>
+            </div>
+        </div>
         <!--end form-->
         <!--step description-->
         <div class="col-lg-4 col-12">
@@ -138,4 +198,38 @@
     <!-- end content-->
 </div>
 
-@section Scripts {}
+@section Scripts {
+    <script>
+        $(function () {
+
+        });
+        
+        function displayFormStep() {
+            $("#Add-Step").show();
+        }
+        function CancleStep() {
+            $("#Add-Step").hide();
+        }
+        function AddStep() {
+            var Step = $("#step").val();
+            var Description = $("#description").val();
+            $(".Steps").append("<li><i class='fa fa-check add-checked-icon'></i>  <b>" + Step + "</b><p class='addspan ml-3'>" + Description + "</p></li>");
+            $("#Add-Step").hide();
+        }
+
+        function displayFormQestion() {
+            $("#Add-Question").show();
+        }
+        function CancleQusetion() {
+            $("#Add-Question").hide();
+        }
+        function AddQuestion() {
+            var Question = $("#Question").val();
+            var Answer = $("#Answer").val();
+            $(".Questions").append("<li><i class='fa fa-check add-checked-icon'></i> <b><span id='' name=''>" + Question + "</span></b> <p class='addspan ml-3'>" + Answer + "</p></li>");
+            $("#Add-Question").hide();
+        }
+            
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

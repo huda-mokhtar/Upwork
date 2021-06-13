@@ -1,0 +1,164 @@
+﻿ @model Upwork.Models.Project
+
+@{
+    ViewData["Title"] = "Create project ";
+}
+@section Style {
+    <link href="~/css/CreateProject.css" rel="stylesheet" />
+}
+
+<div class="container">
+    <!--Steps nav-->
+    <div class="">
+        <nav class="steps">
+            <ul class=" d-flex justify-content-between">
+                <li class="step-item">
+                    <div class="step-btn done">
+                        <p class="step-number text-center"> <i class="fas fa-check"></i> </p>
+                        <p class="step-name">OverView</p>
+                    </div>
+                </li>
+                <li class="step-item">
+                    <div class="step-btn done">
+                        <p class="step-number text-center"> <i class="fas fa-check"></i> </p>
+                        <p class="step-name">Pricing</p>
+                    </div>
+                </li>
+                <li class="step-item">
+                    <div class="step-btn done">
+                        <p class="step-number text-center"> <i class="fas fa-check"></i> </p>
+                        <p class="step-name">Gallary</p>
+                    </div>
+                </li>
+                <li class="step-item">
+                    <div class="step-btn done">
+                        <p class="step-number text-center"> <i class="fas fa-check"></i> </p>
+                        <p class="step-name">Description</p>
+                    </div>
+                </li>
+                <li class="step-item">
+                    <div class="step-btn current">
+                        <p class="step-number text-center"> <i class="fas fa-pen"></i> </p>
+                        <p class="step-name">Requiements</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="step-btn">
+                        <p class="step-number text-center"> 6 </p>
+                        <p class="step-name">Review</p>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <!-- end Steps nav-->
+    <!--content-->
+    <div class="row">
+        <!--step form-->
+        <div class="col-lg-8 col-12">
+            <div class="bg-white" id="form-content">
+                <div class="form-head">
+                    <div class="container">
+                        <h4> <b>Requirements for the client </b></h4>
+                    </div>
+                </div>
+                <form  asp-action="Requierment" method="post" class="py-3">
+                    <div class="container py-3">
+                        <div class="row justify-content-between my-2">
+                            <div class="col-7 ">
+                                <h6><b>What do you need to start?</b></h6>
+                                <p>Specify what you need from your client to start this project.</p>
+                            </div>
+                            <div class="col-4">
+                                <button type="button" class="text-green btn add-btn" onclick="displayForm()">Add your Requierment <i class="fas fa-plus add-icon"></i> </button>
+                            </div>
+                        </div>
+                        <ul class="Requirements ml-5">
+                        </ul>
+                        <div class="add-form my-2">
+                            <div class="container">
+                                <textarea class="form-control" id="require" required asp-for="Requierments" rows="3" placeholder="Enter a question that can be answered by freeform text, multiple choice or by uploading a file."></textarea>
+                                <div class="end pt-3 mt-3">
+                                    <div class="container">
+                                        <div class="d-flex justify-content-end">
+                                            <div class="col-4">
+                                                <button class="btn-cancle" type="button" onclick="Cancle()">Cancle</button>
+                                                <button class="btn-save" type="button" onclick="AddRequirement()">Add</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="py-3 mt-3 end">
+                        <div class="container">
+                            <div class="d-flex justify-content-between">
+                                <div class="col-2">
+                                    <div class="devBtnLight m-0 p-2 text-center">
+                                        <h6 class="m-0 p-0">@Html.ActionLink("Back", "Description", "Projects")</h6>
+                                    </div>
+                                </div>
+                                <div class="col-5">
+                                    <button class="btn-cancle" type="button">Cancle</button>
+                                    <button class="btn-save" type="submit">Save &amp; Continue</button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+        <!--end form-->
+        <!--step description-->
+        <div class="col-lg-4 col-12">
+            <div id="step-description" class=" bg-white py-4">
+                <div class="container">
+                    <h6><b>Define what you need from your client upfront</b></h6>
+                    <ul class="description-list container">
+                        <li>
+                            <p>After a client purchases your project, they will be required to answer questions you define before the contract officially starts.</p>
+                        </li>
+                        <li>
+                            <p>The due date for your project is defined by the number of days to deliver, starting from when the client submits these requirements.</p>
+                        </li>
+                    </ul>
+                    <div class="text-center">
+                        <img src="~/Images/search.PNG" class="img-fluid" />
+                    </div>
+                    <p><b>Looking for some inspiration?</b></p>
+                    <p>Browse other <a href="#" class="text-green"> projects on Upwork.</a> </p>
+                </div>
+            </div>
+
+        </div>
+        <!--end description-->
+        <!-- end content-->
+    </div>
+
+@section Scripts {
+    <script>
+        function displayForm() {
+            $(".add-form").show();
+        }
+        function AddRequirement() {
+            var require = $("#require").val();
+            $(".Requirements").append("<li><i class='fa fa-check add-checked-icon'></i> <b><span id='' name=''>" + require + "</span></b> </li>");
+            $(".add-form").hide();
+        }
+        function Cancle(){
+            $(".add-form").hide();
+        }
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+}
+

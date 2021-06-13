@@ -1,0 +1,173 @@
+﻿@model Upwork.Models.Project
+
+@{
+    ViewData["Title"] = "project catalog";
+}
+
+<!--style sheet-->
+@section Style {
+    <link href="~/css/CreateProject.css" rel="stylesheet" />
+}
+<!--end style sheet-->
+
+<div class="container">
+    <!--Steps nav-->
+    <div class="">
+        <nav class="steps">
+            <ul class=" d-flex justify-content-between">
+                <li class="step-item">
+                    <div class="step-btn done">
+                        <p class="step-number text-center"><i class="fas fa-check"></i> </p>
+                        <p class="step-name">OverView</p>
+                    </div>
+                </li>
+                <li class="step-item">
+                    <div class="step-btn current">
+                        <p class="step-number text-center"> <i class="fas fa-pen"></i> </p>
+                        <p class="step-name">Pricing</p>
+                    </div>
+                </li>
+                <li class="step-item">
+                    <div class="step-btn">
+                        <p class="step-number text-center"> 3 </p>
+                        <p class="step-name">Gallary</p>
+                    </div>
+                </li>
+                <li class="step-item">
+                    <div class="step-btn">
+                        <p class="step-number text-center"> 4 </p>
+                        <p class="step-name">Description</p>
+                    </div>
+                </li>
+                <li class="step-item">
+                    <div class="step-btn">
+                        <p class="step-number text-center"> 5 </p>
+                        <p class="step-name">Requiements</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="step-btn">
+                        <p class="step-number text-center"> 6 </p>
+                        <p class="step-name">Review</p>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <!-- end Steps nav-->
+    <!--content-->
+    <div class="row">
+        <!--step form-->
+        <div class="col-lg-8 col-12">
+            <div class="bg-white" id="form-content">
+
+                <div class="form-head">
+                    <div class="container">
+                        <h4> <b>Price & scope</b></h4>
+                    </div>
+                </div>
+                <form class="py-3" asp-action="CreatePrice" method="post">
+                    <div class="container">
+                        <div class="row justify-content-between">
+                            <div class="col-md-6">
+                                <h6><b>Create pricing tiers</b></h6>
+                                <p class="desc">Customize your project with 1 or 3 pricing tiers</p>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label>3 tiers </label>
+                                <label class="switch ml-1">
+                                    <input type="checkbox" checked onchange="tireFormToggle()">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+
+
+                        </div>
+                        <div id="three-tires-form " class="price">
+                            <div class="row">
+                                <div class="col-md-3 pt-4">
+                                    <h6 class="my-3"><b>DeleverDays</b></h6>
+                                    <h6 class="" style="margin-top:2rem;margin-bottom:2rem;"><b>Pricing</b></h6>
+                                </div>
+                                <div class="col-md-3">
+                                    <h6 class="text-center"><b> Starter </b></h6>
+                                    <input asp-for="StarterDeliverDays" class="form-control my-3" min="1" required />
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">$</span>
+                                        <input asp-for="StarterPrice" type="text" class="form-control" placeholder="0.00" min="1" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 tire-toggle">
+                                    <h6 class="text-center"><b> Stander </b></h6>
+                                    <input asp-for="StandardDeliverDays" class="form-control my-3" min="1" />
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">$</span>
+                                        <input asp-for="StandardPrice" type="text" class="form-control" placeholder="0.00" min="1" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 tire-toggle">
+                                    <h6 class="text-center"><b> Advanced </b></h6>
+                                    <input asp-for="AdvancedDeliverDays" class="form-control my-3" min="1" />
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">$</span>
+                                        <input asp-for="AdvancedPrice" type="text" class="form-control" placeholder="0.00" min="1">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="end pt-3 mt-3">
+                        <div class="container">
+                            <div class="d-flex justify-content-between">
+                                <div class="col-2">
+                                    <div class="devBtnLight m-0 p-2 text-center">
+                                        <h6 class="m-0 p-0">@Html.ActionLink("Back", "Create", "Projects")</h6>
+                                    </div>
+                                </div>
+                                <div class="col-5">
+                                    <button class="btn-cancle" type="button">Cancle</button>
+                                    <button class="btn-save" type="submit">Save &amp; Continue</button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        <!--end form-->
+        <!--step description-->
+        <div class="col-lg-4 col-12">
+            <div id="step-description" class=" bg-white py-4">
+                <div class="container">
+                    <h6><b>Pricing setup </b></h6>
+                    <ul class="description-list container">
+                        <li>
+                            <p class="desc">Detail the scope and pricing of your project so clients understand what they will receive.</p>
+                        </li>
+                        <li>
+                            <p class="desc"> Build 1 or 3 tiers to provide different pricing options for your clients.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <!--end description-->
+    </div>
+    <!-- end content-->
+</div>
+@section Scripts {
+    <script>
+        function tireFormToggle() {
+            $(".tire-toggle").toggle();
+        }
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}

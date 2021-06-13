@@ -36,6 +36,7 @@ a {
 
 .center {
     background-color: #f1f2f4;
+    margin-bottom:0.3rem;
 }
 
 .navbar button {
@@ -91,11 +92,20 @@ a {
 .input-group-text {
     background-color: transparent;
     border: 0;
+    color:#fff;
 }
 
 .input-group-field {
     border: 0;
     background-color: transparent;
+    color:#fff;
+}
+.input-group-field:focus {
+    outline: 0;
+    box-shadow: 0 0 0 0 none;
+    border:0;
+    background-color: #143240;
+    color:#fff;
 }
 
 
@@ -157,3 +167,10 @@ footer i {
     margin: .4rem;
 }
 /******* end footer*********/
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #3ce026d8;
+    outline: 0;
+    box-shadow: 0 0 0 0.1rem #81e774;
+}

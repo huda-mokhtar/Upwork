@@ -1,0 +1,435 @@
+﻿@{
+    ViewData["Title"] = "Client Home ";
+    Layout = "_ClientLayout";
+}
+@*@section Style {
+        <link href="~/css/ClientHome.css" rel="stylesheet" />
+    }*@
+<div class="text-center">
+    <div class="container ">
+        <div class="row" style="display:-webkit-box; -webkit-box-align:center;">
+            <div class="col-lg-6 col-12 mt-5" style="display:-webkit-box; -webkit-box-align:center;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-5">
+                            <div class="h3">Client Name</div>
+                        </div>
+                        <div class="col-6 text-left mt-2">
+                            <i class="fa fa-user-plus" aria-hidden="true"></i>
+                            <span data-bs-toggle="tooltip" data-bs-placement="top" title="Help"
+                                  class="bg-primary text-light container-circlee-qes">
+                                <i class="fa fa-question" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-none d-lg-block col-lg-4 mt-5 text-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-3 mt-2 ">
+                            <span data-bs-toggle="tooltip" data-bs-placement="top" title="Help"
+                                  class="bg-primary text-light container-circlee-qes">
+                                <i class="fa fa-question "></i>
+                            </span>
+                        </div>
+                        <div class="col-9  p-2 devBtnLight "
+                             style=" width:auto ; height: auto;">
+                            <h6 class="m-0 p-0">Browse Project Cataloge</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-none d-lg-block col-lg-2 mt-5 text-light  p-2 devBtnGreen"
+                 style=" width:auto ; height: auto;">
+                <a class="m-0 p-0 text-light" asp-action="PostJob"> Post a Job </a>
+            </div>
+        </div>
+        <div class="row " style="margin-top: 35px;">
+            <div class="col-12 col-lg-7 m-0 p-0 "
+                 style=" border-top-left-radius: 0.25rem; border-top-right-radius: 0.25rem;border-bottom-right-radius: 0.25rem; border-bottom-left-radius: 0.25rem; ">
+
+                <div class="card mb-4">
+                    <div class="card-header bg-white">
+                        <div class="row" style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
+                            <div class="col-7 text-left">
+                                <h4>My Postings</h4>
+                            </div>
+                            <div class="col-4 text-right"><a href="#" class="greenLinks">All Postings</a></div>
+                        </div>
+                    </div>
+                    <div class="myDrafts">
+                        <div class="row m-0 p-0"
+                             style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
+                            <div class="col-9 text-left ml-1">
+                                <a href="" class="braek">
+                                    UX/UI designer to bring website mockup and prototype to
+                                    life
+                                </a>
+                            </div>
+                            <div class="col-2 text-right" style="width: 50px; height: 50px; margin: 0;padding:0;">
+                                <div class="container text-right dropdown "
+                                     style="width: 48px; height: 48px; margin: 0;padding:0;">
+                                    <span class=" circlee-points container-circlee " data-toggle="dropdown"
+                                          aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-ellipsis-h 2x "
+                                           style="color:rgb(83, 83, 83) ;"></i>
+                                    </span>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">Action</a>
+                                        <a class="dropdown-item" href="#">Another action</a>
+                                        <a class="dropdown-item" href="#">Something else here</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#">Separated link</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row m-0 p-0 mt-1"
+                             style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
+                            <div class="col-5 text-left ml-1">
+                                <p class="mb-0">Hourly</p>
+                                <p>Public - Created 1 hour ago</p>
+                            </div>
+                            <div class="col-2 mr-1">
+                                <p class="mb-0" style="color: black; font-size: 16px;">0</p>
+                                <p>Proposals</p>
+                            </div>
+                            <div class="col-2 ">
+                                <p class="mb-0 " style="color: black; font-size: 16px;">0</p>
+                                <p>Messaged</p>
+                            </div>
+                            <div class="col-2 ">
+                                <p class="mb-0" style="color: black; font-size: 16px;">2</p>
+                                <p>Hired</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-4">
+                    <div class="card-header bg-white">
+                        <div class="row" style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
+                            <div class="col-7 text-left ml-1">
+                                <h4>My Drafts</h4>
+                            </div>
+                            <div class="col-4 text-right"><a href="#" class="greenLinks">All Drafts</a></div>
+                        </div>
+                    </div>
+                    <div class="myDrafts">
+                        <div class="row m-0 p-0"
+                             style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
+                            <div class="col-9 text-left ml-1">
+                                <a href="" class="braek">
+                                    Build
+                                    responsive WordPress site with booking/payment
+                                </a>
+                                <p>Saved 1 day ago </p>
+                            </div>
+                            <div class="col-2 text-right" style="width: 50px; height: 50px; margin: 0;padding:0;">
+                                <div class="container text-right"
+                                     style="width: 48px; height: 48px; margin: 0;padding:0;">
+                                    <span class=" circlee-points container-circlee " data-toggle="dropdown"
+                                          aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-ellipsis-h 2x" style="color:rgb(83, 83, 83) ;"></i>
+                                    </span>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">Edit Draft</a>
+                                        <a class="dropdown-item" href="#">Remove Draft</a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="myDrafts">
+                        <div class="row m-0 p-0"
+                             style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
+                            <div class="col-9 text-left ml-1">
+                                <a href="" class="braek">
+                                    Build responsive WordPress site with
+                                    booking/payment
+                                </a>
+                                <p>Saved 1 day ago </p>
+                            </div>
+                            <div class="col-2 text-right" style="width: 50px; height: 50px; margin: 0;padding:0;">
+                                <div class="container text-right"
+                                     style="width: 48px; height: 48px; margin: 0;padding:0;">
+                                    <span class=" circlee-points container-circlee" data-toggle="dropdown"
+                                          aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-ellipsis-h 2x" style="color:rgb(83, 83, 83) ;"></i>
+                                    </span>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">Edit Draft</a>
+                                        <a class="dropdown-item" href="#">Remove Draft</a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="myDrafts ">
+                        <div class="row m-0 p-0"
+                             style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
+                            <div class="col-9 text-left ml-1">
+                                <a href="" class="braek">
+                                    Build responsive WordPress site with
+                                    booking/payment
+                                </a>
+                                <p>Saved 1 day ago </p>
+                            </div>
+                            <div class="col-2 text-right" style="width: 50px; height: 50px; margin: 0;padding:0;">
+                                <div class="container text-right"
+                                     style="width: 48px; height: 48px; margin: 0;padding:0;">
+                                    <span class=" circlee-points container-circlee" data-toggle="dropdown"
+                                          aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-ellipsis-h 2x" style="color:rgb(83, 83, 83) ;"></i>
+                                    </span>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">Edit Draft</a>
+                                        <a class="dropdown-item" href="#">Remove Draft</a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-4">
+                    <div class="card-header bg-white">
+                        <div class="row" style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
+                            <div class="col-7 text-left ">
+                                <h4>My Positions</h4>
+                            </div>
+                            <div class="col-4 text-right"><a href="#" class="greenLinks">All Positions</a></div>
+                        </div>
+                    </div>
+                    <div class="card-body text-center p-5">
+                        <div class="row text-center">
+                            <div class="col-4" style="margin: auto;">
+                                <div class=" text-light p-2 devBtnGreen"
+                                     style="width:auto ; height: auto;">
+                                    <h6 class="m-0 p-0"> Post a Job </h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="accordion" class="mb-4">
+                    <div class="card ">
+                        <div class="card-header bg-white p-6">
+                            <div class="row m-0 p-6"
+                                 style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
+
+                                <div class="col-9 text-left ">
+                                    <h4>How to work with talent</h4>
+                                </div>
+                                <div class="col-3 text-right">
+                                    <a class="card-link" data-toggle="collapse" id="rotateLink"
+                                       href="#collapseOne"><i id="rotateAngle" class="fa fa-angle-down fa-2x text-success"></i></a>
+                                </div>
+                            </div>
+                            <div class="container text-left m-0 p-6">
+                                <p class="m-1 p-6" style="color:rgb(122, 122, 122) ; font-size: smaller;">
+                                    Connect
+                                    with a talent community that numbers in the millions, fast and at no cost.
+                                </p>
+                            </div>
+                        </div>
+                        <div id="collapseOne" class="collapse" data-parent="#accordion">
+                            <div class="steps card-body p-3">
+                                <div class="container m-0">
+                                    <div class="row m-0 p-0">
+                                        <div class="col-2 text-center m-0 p-0">
+                                            <img src="~/Images/11.png" width="75px" />
+                                        </div>
+                                        <div class="col-9 p-1 m-0 text-left ml-1">
+                                            <h6 class="pb-1">1. Post a job to the marketplace</h6>
+                                            <p style="color:rgb(39, 39, 39) ; font-size: smaller;">
+                                                What would you like to get done? Make sure you provide enough detail
+                                                for great talent to identify if it's right for them.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="steps card-body p-3">
+                                <div class="container m-0">
+                                    <div class="row m-0 p-0 ">
+                                        <div class="col-2 m-0 p-0 text-center">
+                                            <img src="~/Images/21.png" />
+                                        </div>
+                                        <div class="col-9 p-1 m-0 ml-1 text-left">
+                                            <h6 class="pb-1">2. Talent sends you proposals</h6>
+                                            <p style="color:rgb(39, 39, 39) ; font-size: smaller;">
+                                                With a strong job post, you should receive offers within hours. You
+                                                can always edit your post, or send an invite to reach out to talent
+                                                directly.
+                                            </p>
+                                            <p class="mb-0 mt-3"
+                                               style="color:rgb(39, 39, 39) ; font-size: smaller;">
+                                                Not getting proposals? Try editing your post.
+                                                <br />
+
+                                            </p>
+                                            <a href="">
+                                                Check out examples of effective job posts
+                                            </a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="steps card-body p-3">
+                                <div class="container">
+                                    <div class="row m-0 p-0">
+                                        <div class="col-2 m-0 p-0 text-center">
+                                            <img src="~/Images/31.png" />
+                                        </div>
+                                        <div class="col-9 p-1 m-0 ml-1  text-left">
+                                            <h6 class="pb-1">3. Review proposals</h6>
+                                            <p style="color:rgb(39, 39, 39) ; font-size: smaller;">
+                                                Here's your chance to ask questions about talent’s work experience,
+                                                set expectations for what you need, and discuss terms of the
+                                                engagement.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="steps card-body p-3">
+                                <div class="container">
+                                    <div class="row m-0 p-0">
+                                        <div class="col-2 m-0 p-0 text-center">
+                                            <img src="~/Images/41.png" />
+                                        </div>
+                                        <div class="col-9 p-1 m-0 ml-1 text-left">
+                                            <h6 class="pb-1">4. Send a contract offer and start working</h6>
+                                            <p style="color:rgb(39, 39, 39) ; font-size: smaller;">
+                                                Once you both agree to your terms, start collaborating with simple,
+                                                seamless, and secure tools like chat, file sharing, and the Work
+                                                Diary. You only pay for work you authorize.
+
+                                            </p>
+                                            <a href="" class="mt-3">
+                                                Learn about payments
+                                            </a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-white">
+                                <div class="row m-0 p-6">
+                                    <div class="col-9 text-left ">
+                                        <h6>Questions?</h6>
+                                    </div>
+                                </div>
+                                <div class="container text-left m-0">
+                                    <p class="m-1 p-6" style="color:rgb(39, 39, 39) ; font-size: smaller;">
+                                        Visit our
+                                        <a href="" class="greenLinks">Help Center</a> to learn more tips for finding the right talent.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-8 mx-auto col-lg-4 ml-1">
+                <section>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 ">
+                                <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
+                                    <div class="carousel-inner">
+                                        <div class="carousel-item active">
+                                            <div class="card">
+                                                <img class="img-fluid" alt="100%x280"
+                                                     src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1080&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjMyMDc0fQ&amp;s=ee8417f0ea2a50d53a12665820b54e23">
+                                                <div class="card-body mt-3 text-center">
+                                                    <h4 class="card-title">Special title treatment</h4>
+                                                    <p class="card-text mt-2">
+                                                        With supporting text below as a
+                                                        natural
+                                                        lead-in to additional content.
+                                                    </p>
+                                                    <div class="w-100 text-center">
+                                                        <div class=" m-auto w-50 m-2 p-2 devBtnLight">
+                                                            <a class="text-center ">Learn More</a>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="carousel-item">
+                                            <div class="card">
+                                                <img class="img-fluid" alt="100%x280"
+                                                     src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1080&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjMyMDc0fQ&amp;s=ee8417f0ea2a50d53a12665820b54e23">
+                                                <div class="card-body mt-3">
+                                                    <h4 class="card-title">Special title treatment</h4>
+                                                    <p class="card-text mt-2">
+                                                        With supporting text below as a
+                                                        natural
+                                                        lead-in to additional content.
+                                                    </p>
+                                                    <div class="w-100 text-center">
+                                                        <div class=" m-auto w-50 m-2 p-2 devBtnLight">
+                                                            <a class="text-center ">Learn More</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="carousel-item">
+                                            <div class="card">
+                                                <img class="img-fluid" alt="100%x280"
+                                                     src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1080&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjMyMDc0fQ&amp;s=ee8417f0ea2a50d53a12665820b54e23">
+                                                <div class="card-body mt-3">
+                                                    <h4 class="card-title">Special title treatment</h4>
+                                                    <p class="card-text mt-2">
+                                                        With supporting text below as a
+                                                        natural
+                                                        lead-in to additional content.
+                                                    </p>
+                                                    <div class="w-100 text-center">
+                                                        <div class=" m-auto w-50 m-2 p-2  devBtnLight">
+                                                            <a class="text-center ">Learn More</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 text-center mt-2">
+                                <a class="btn btn-success mb-3 mr-1" href="#carouselExampleIndicators2"
+                                   role="button" data-slide="prev">
+                                    <i class="fa fa-arrow-left"></i>
+                                </a>
+                                <a class="btn btn-success mb-3 " href="#carouselExampleIndicators2" role="button"
+                                   data-slide="next">
+                                    <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $("#rotateLink").click(function () {
+            $("#rotateAngle").toggleClass("rotate");
+        });
+
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

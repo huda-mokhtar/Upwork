@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using Upwork.Models.DbModels;
 
 namespace Upwork.Models
 {
@@ -22,6 +23,7 @@ namespace Upwork.Models
         public string Description { get; set; }
 
         public virtual List<Freelancer_Language> FreelancerLanguages { get; set; }
+        public virtual List<Jobs> Jobs { get; set; }
 
     }
 }
