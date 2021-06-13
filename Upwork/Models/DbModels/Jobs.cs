@@ -32,7 +32,7 @@ namespace Upwork.Models.DbModels
         public bool? TimeRequirement { get; set; }
         public bool? TalentType { get; set; }
 
-        public DateTime CreateDate { get; set; }
+        public string CreateDate { get; set; }
         public List<JobsSkills> jobsSkills { get; set; }
     }
 }
