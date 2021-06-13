@@ -19,10 +19,10 @@
                         <div class="radio-group">
                             <div class="row m-0">
                                 <div class="col-12 radioBox px-0">
-                                    <label for="onejob">
+                                    <label for="job-lg">
                                         <div class="radioBody">
                                             <div class="text-left py-2">
-                                                <input type="radio" id="onejob" name="job-level" />
+                                                <input type="radio" id="job-lg" name="job-level" />
                                                 <span class="checkround my-2"></span>
                                                 <h5 class="ml-4">Large</h5>
                                                 <small class="text-muted ml-4">Longer term or complex initiatives (ex. design and build a full website)</small>
@@ -31,10 +31,10 @@
                                     </label>
                                 </div>
                                 <div class="col-12 radioBox px-0">
-                                    <label for="twojob">
+                                    <label for="job-md">
                                         <div class="radioBody">
                                             <div class="text-left py-2">
-                                                <input type="radio" id="twojob" name="job-level" />
+                                                <input type="radio" id="job-md" name="job-level" />
                                                 <span class="checkround my-2"></span>
                                                 <h5 class="ml-4">Medium</h5>
                                                 <small class="text-muted ml-4">Well-defined projects (ex. a landing page)</small>
@@ -43,10 +43,10 @@
                                     </label>
                                 </div>
                                 <div class="col-12 radioBox px-0">
-                                    <label for="threejob">
+                                    <label for="job-sm">
                                         <div class="radioBody">
                                             <div class="text-left py-2">
-                                                <input type="radio" id="threejob" name="job-level" />
+                                                <input type="radio" id="job-sm" name="job-level" />
                                                 <span class="checkround my-2"></span>
                                                 <h5 class="ml-4">Small</h5>
                                                 <small class="text-muted ml-4">Quick and straightforward tasks (ex. update text and images on a webpage)</small>
@@ -59,8 +59,8 @@
                     </form>
                     <div class="row m-0 d-none" id="scopeDetails">
                         <div class="col-10 p-0">
-                            <h5 class="mb-1">Large</h5>
-                            <span class="m-0 text-muted" style="font-size: 12px;">Longer term or complex initiatives (ex. design and build a full website)</span>
+                            <h5 class="mb-1" id="jobScopeName">Large</h5>
+                            <span class="m-0 text-muted" id="jobScopeDesc" style="font-size: 12px;">Longer term or complex initiatives (ex. design and build a full website)</span>
                         </div>
                         <div class="col-2 p-0 text-right">
                             <div class="editScope" id="editScopeIcon">
@@ -70,16 +70,16 @@
                     </div>
                 </div>
                 <div class="col-12 py-2 px-0 d-none" id="jobTimeContainer" style="border-top: 1px solid #d1d1d1;">
-                    <div class="d-none" id="timeJobContaine">
-                            <h4 class="m-0"> How long will your work take?</h4>
+                    <div id="timeJobContaine">
+                        <h4 class="m-0"> How long will your work take?</h4>
                         <form method="post" action="send.php" id="jobTimeForm">
                             <div class="radio-group">
                                 <div class="row m-0">
                                     <div class="col-12 radioBox px-0">
-                                        <label for="twoOne">
+                                        <label for="more6">
                                             <div class="radioBody">
                                                 <div class="text-left py-2">
-                                                    <input type="radio" id="twoOne" name="time" />
+                                                    <input type="radio" id="more6" name="time" />
                                                     <span class="checkround my-2"></span>
                                                     <h5 class="ml-4">More than 6 months</h5>
                                                 </div>
@@ -87,10 +87,10 @@
                                         </label>
                                     </div>
                                     <div class="col-12 radioBox px-0">
-                                        <label for="twoTwo">
+                                        <label for="between3-6">
                                             <div class="radioBody">
                                                 <div class="text-left py-2">
-                                                    <input type="radio" id="twoTwo" name="time" />
+                                                    <input type="radio" id="between3-6" name="time" />
                                                     <span class="checkround my-2"></span>
                                                     <h5 class="ml-4">3 to 6 months</h5>
                                                 </div>
@@ -98,10 +98,10 @@
                                         </label>
                                     </div>
                                     <div class="col-12 radioBox px-0">
-                                        <label for="twoThree">
+                                        <label for="less3">
                                             <div class="radioBody">
                                                 <div class="text-left py-2">
-                                                    <input type="radio" id="twoThree" name="time" />
+                                                    <input type="radio" id="less3" name="time" />
                                                     <span class="checkround my-2"></span>
                                                     <h5 class="ml-4">1 to 3 months</h5>
                                                 </div>
@@ -114,10 +114,10 @@
                     </div>
                     <div class="row m-0 d-none" id="jobTimeDetails">
                         <div class="col-10 p-0">
-                            <h5 class="mb-1">More than 6 months</h5>
+                            <h5 class="mb-1" id="timeSelected">More than 6 months</h5>
                         </div>
                         <div class="col-2 p-0 text-right">
-                            <div class="editScope">
+                            <div class="editScope" id="editTimeIcon">
                                 <i class="fa fa-pencil" aria-hidden="true"></i>
                             </div>
                         </div>
@@ -125,8 +125,8 @@
                 </div>
 
                 <div class="col-12 py-2 px-0 d-none" id="jobExperianceContainer" style="border-top: 1px solid #d1d1d1;">
-                    <div>
-                            <h4 class="m-0">What level of experience will it need?</h4>
+                    <div id="jobExpContainer">
+                        <h4 class="m-0">What level of experience will it need?</h4>
                         <p class="text-muted mb-2">This won't restrict any proposals, but helps match expertise to your budget.</p>
                         <form method="post" action="send.php" id="jobExperianceForm">
                             <div class="radio-group">
@@ -137,7 +137,7 @@
                                                 <div class="text-left py-2">
                                                     <input type="radio" id="threeOne" name="level-of-experience" />
                                                     <span class="checkround my-2"></span>
-                                                    <h5 class="ml-4">Entry</h5>
+                                                    <h5 class="ml-4">Entry level</h5>
                                                     <small class="text-muted ml-4">Looking for someone relatively new to this field</small>
                                                 </div>
                                             </div>
@@ -149,7 +149,7 @@
                                                 <div class="text-left py-2">
                                                     <input type="radio" id="threeTwo" name="level-of-experience" />
                                                     <span class="checkround my-2"></span>
-                                                    <h5 class="ml-4">Intermediate</h5>
+                                                    <h5 class="ml-4">Intermediate level</h5>
                                                     <small class="text-muted ml-4">Looking for substantial experience in this field</small>
                                                 </div>
                                             </div>
@@ -161,7 +161,7 @@
                                                 <div class="text-left py-2">
                                                     <input type="radio" id="threeThree" name="level-of-experience" />
                                                     <span class="checkround my-2"></span>
-                                                    <h5 class="ml-4">Expert</h5>
+                                                    <h5 class="ml-4">Expert level</h5>
                                                     <small class="text-muted ml-4">Looking for comprehensive and deep expertise in this field</small>
                                                 </div>
                                             </div>
@@ -173,10 +173,10 @@
                     </div>
                     <div class="row m-0 d-none" id="jobExperianceDetails">
                         <div class="col-10 p-0">
-                            <h5 class="mb-1">Entry level</h5>
+                            <h5 class="mb-1" id="ExpSelected">Entry level</h5>
                         </div>
                         <div class="col-2 p-0 text-right">
-                            <div class="editScope">
+                            <div class="editScope" id="editExpIcon">
                                 <i class="fa fa-pencil" aria-hidden="true"></i>
                             </div>
                         </div>
@@ -186,4 +186,71 @@
         </div>
     }
 </div>
+
+@section Scripts2 {
+    <script>
+        $("#prorBar").children()[0].setAttribute("aria-valuenow", "75");
+        $("#prorBar").children()[0].classList.add("w-75");
+        $("#progressTitle").css("color", " #95df00");
+        $("#progressSkills").css("color", " #95df00");
+        $("#NextStep").text("Next:Budget");
+        $("#NextStep").attr("href", "/Client/PostJobBudget");
+
+        
+        $("#scopeForm .radio-group .row .radioBox").click(function () {
+
+            let JobScope = $(this).children()[0].firstElementChild.firstElementChild.firstElementChild.nextElementSibling.nextElementSibling.textContent;
+            let JobScopeDesc = $(this).children()[0].firstElementChild.firstElementChild.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.textContent;
+            $("#jobScopeName").text(JobScope);
+            $("#jobScopeDesc").text(JobScopeDesc);
+            $("#scopeForm").addClass("d-none");
+            $("#scopeDetails").removeClass("d-none");
+            $("#jobTimeContainer").removeClass("d-none");
+
+            // console.log($(this).children()[0].firstElementChild.firstElementChild.lastElementChild.text());
+            //console.log($(this).children()[0].firstElementChild.firstElementChild.firstElementChild.nextElementSibling.nextElementSibling.textContent);
+        });
+
+        $("#editScopeIcon").click(function () {
+            $("#scopeDetails").addClass("d-none");
+            $("#scopeForm").removeClass("d-none");
+        });
+
+        $("#jobTimeForm .radio-group .row .radioBox").click(function () {
+
+            let timeselected = $(this).children()[0].firstElementChild.firstElementChild.firstElementChild.nextElementSibling.nextElementSibling.textContent;
+            $("#timeSelected").text(timeselected);
+            $("#timeJobContaine").addClass("d-none");
+            $("#jobTimeDetails").removeClass("d-none");
+            $("#jobExperianceContainer").removeClass("d-none");
+
+        });
+
+        $("#editTimeIcon").click(function () {
+            $("#timeJobContaine").removeClass("d-none");
+            $("#jobTimeDetails").addClass("d-none");
+        });
+
+
+        $("#jobExperianceForm .radio-group .row .radioBox").click(function () {
+
+            let Expselected = $(this).children()[0].firstElementChild.firstElementChild.firstElementChild.nextElementSibling.nextElementSibling.textContent;
+            $("#ExpSelected").text(Expselected);
+            $("#jobExpContainer").addClass("d-none");
+            $("#jobExperianceDetails").removeClass("d-none");
+            $("#continue").children()[0].classList.add('continueBtnEnable');
+            $("#continue").children()[0].classList.remove('continueBtn');
+        });
+
+        $("#editExpIcon").click(function () {
+            $("#jobExpContainer").removeClass("d-none");
+            $("#jobExperianceDetails").addClass("d-none");
+        });
+       
+
+
+        
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
 
