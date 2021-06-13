@@ -26,6 +26,22 @@ namespace Upwork.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+        public async Task<IActionResult> Profile(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            Freelancer freelancer = await _context.Freelancers.Include(a=>a.City)
+                .Include(a=>a.Category)
+                .Include(a=>a.Languages)
+                .Include(a=>a.Projects)
+                .Include(a=>a.SubCategory)
+                .Include(a=>a.User)
+                 .FirstOrDefaultAsync(a => a.FreelancerId == id);
+            return View(freelancer);
+        }
+
         // GET: Freelancers/Details/5
         public async Task<IActionResult> Details(string id)
         {
