@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +13,12 @@ namespace Upwork.Controllers
     public class ClientController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IHostingEnvironment _hostenviroment;
 
-        public ClientController(ApplicationDbContext context)
+        public ClientController(ApplicationDbContext context, IHostingEnvironment hostingEnvironment)
         {
             _context = context;
+            _hostenviroment = hostingEnvironment;
         }
         public IActionResult Index()
         {
@@ -24,7 +29,19 @@ namespace Upwork.Controllers
         {
             return View();
         }
-        public IActionResult Steps()
+        public IActionResult PostJobTitle()
+        {
+            return View();
+        }
+        public IActionResult PostJobSkills()
+        {
+            return View();
+        }
+        public IActionResult PostJobScope()
+        {
+            return View();
+        }
+        public IActionResult PostJobBudget()
         {
             return View();
         }
