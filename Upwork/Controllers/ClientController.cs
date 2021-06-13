@@ -28,5 +28,9 @@ namespace Upwork.Controllers
         {
             return View();
         }
+        public IActionResult ReviewJobPosting()
+        {
+            return View();
+        }
     }
 }
