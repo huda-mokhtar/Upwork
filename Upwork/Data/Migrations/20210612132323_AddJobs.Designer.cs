@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Upwork.Data;
 
 namespace Upwork.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210612132323_AddJobs")]
+    partial class AddJobs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -317,7 +319,6 @@ namespace Upwork.Data.Migrations
                 });
 
             modelBuilder.Entity("Upwork.Models.DbModels.Jobs", b =>
-
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -336,9 +337,6 @@ namespace Upwork.Data.Migrations
                     b.Property<int?>("Duration")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsDeraft")
-                        .HasColumnType("bit");
-
                     b.Property<string>("JobDescription")
                         .HasColumnType("nvarchar(max)");
 
@@ -351,10 +349,10 @@ namespace Upwork.Data.Migrations
                     b.Property<string>("Scope")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("TalentType")
+                    b.Property<bool>("TalentType")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("TimeRequirement")
+                    b.Property<bool>("TimeRequirement")
                         .HasColumnType("bit");
 
                     b.Property<string>("Title")
@@ -376,21 +374,6 @@ namespace Upwork.Data.Migrations
                     b.HasIndex("subCategoryId");
 
                     b.ToTable("Jobs");
-                });
-
-            modelBuilder.Entity("Upwork.Models.DbModels.JobsSkills", b =>
-                {
-                    b.Property<int>("JobsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("skillId")
-                        .HasColumnType("int");
-
-                    b.HasKey("JobsId", "skillId");
-
-                    b.HasIndex("skillId");
-
-                    b.ToTable("JobsSkills");
                 });
 
             modelBuilder.Entity("Upwork.Models.DbModels.ProjectSkills", b =>
@@ -877,9 +860,7 @@ namespace Upwork.Data.Migrations
                     b.Navigation("Country");
                 });
 
-
             modelBuilder.Entity("Upwork.Models.DbModels.Jobs", b =>
-
                 {
                     b.HasOne("Upwork.Models.Language_Proficiency", "Language_Proficiency")
                         .WithMany("Jobs")
@@ -892,26 +873,6 @@ namespace Upwork.Data.Migrations
                     b.Navigation("Language_Proficiency");
 
                     b.Navigation("subCategory");
-                });
-
-            modelBuilder.Entity("Upwork.Models.DbModels.JobsSkills", b =>
-                {
-                    b.HasOne("Upwork.Models.DbModels.Jobs", "Jobs")
-                        .WithMany("jobsSkills")
-                        .HasForeignKey("JobsId")
-
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Upwork.Models.Skill", "skill")
-                        .WithMany("jobsSkills")
-                        .HasForeignKey("skillId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Jobs");
-
-                    b.Navigation("skill");
                 });
 
             modelBuilder.Entity("Upwork.Models.DbModels.ProjectSkills", b =>
@@ -1174,12 +1135,6 @@ namespace Upwork.Data.Migrations
                     b.Navigation("Users");
                 });
 
-
-            modelBuilder.Entity("Upwork.Models.DbModels.Jobs", b =>
-                {
-                    b.Navigation("jobsSkills");
-                });
-
             modelBuilder.Entity("Upwork.Models.Degree", b =>
                 {
                     b.Navigation("FreelancerEducations");
@@ -1230,8 +1185,6 @@ namespace Upwork.Data.Migrations
             modelBuilder.Entity("Upwork.Models.Skill", b =>
                 {
                     b.Navigation("Freelancers");
-
-                    b.Navigation("jobsSkills");
 
                     b.Navigation("Projects");
                 });

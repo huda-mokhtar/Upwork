@@ -15,29 +15,16 @@ namespace Upwork.Controllers
         {
             _context = context;
         }
-
-        // GET: Projects
         public IActionResult Index()
         {
             return View();
         }
+
         public IActionResult PostJob()
         {
             return View();
         }
-        public IActionResult PostJobTitle()
-        {
-            return View();
-        }
-        public IActionResult PostJobSkills()
-        {
-            return View();
-        }
-        public IActionResult PostJobScope()
-        {
-            return View();
-        }
-        public IActionResult PostJobBudget()
+        public IActionResult Steps()
         {
             return View();
         }

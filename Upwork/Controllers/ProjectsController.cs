@@ -154,7 +154,9 @@ namespace Upwork.Controllers
                 var project = _context.Projects.FirstOrDefault(a => a.ProjectId == projectId);
                 if (project.Image != null)
                 {
-                    return View(project);
+                    var projectImage = new ImageModel();
+                    projectImage.imageName = project.Image;
+                    return View(projectImage);
                 }
             }
             return View();
@@ -207,26 +209,20 @@ namespace Upwork.Controllers
         //Post Description
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Description(ProjectDescription model)
+        public async Task<IActionResult> Description(Project model)
         {
-            
             if (HttpContext.Session.GetString("ProjectId") != null)
             {
                 var projectId = int.Parse(HttpContext.Session.GetString("ProjectId"));
-                if (ModelState.IsValid)
-                {
-                    ProjectQuestion projectQuestion = new ProjectQuestion() { ProjectId = projectId, QuestionContent = model.Questions[0], Answer = model.Answers[0] };
-                    _context.ProjectQuestions.Add(projectQuestion);
-                    _context.SaveChanges();
+                
                     var project= _context.Projects.FirstOrDefault(a => a.ProjectId == projectId);
                     project.Description = model.Description;
-                    _context.SaveChanges();
+                    project.QuestionContent = model.QuestionContent;
+                    project.QuestionContent = model.QuestionAnswer;
+                    project.StepName = model.StepName;
+                    project.StepDescription = model.StepDescription;
+                     _context.SaveChanges();
                     return RedirectToAction(nameof(Requierment));
-                }
-                else
-                {
-                    return RedirectToAction(nameof(Create));
-                }
             }
             return View();
         }
@@ -282,6 +278,16 @@ namespace Upwork.Controllers
             return View(project);
         }
 
+
+        public async Task<IActionResult> Cancel(Project project)
+        {
+            if (HttpContext.Session.GetString("ProjectId") != null)
+            {
+                HttpContext.Session.Remove("ProjectId"); 
+            }
+                return RedirectToAction(nameof(Index));
+        }
+
         // GET: Projects/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -314,7 +320,6 @@ namespace Upwork.Controllers
 
        
         //GET:Projects/Requierments
-        [Route("Projects/Requierments")]
         public async Task<IActionResult> Requierment() 
         {
             if (HttpContext.Session.GetString("ProjectId") != null)
@@ -323,12 +328,12 @@ namespace Upwork.Controllers
                 var project = _context.Projects.FirstOrDefault(a => a.ProjectId == projectId);
                 if (project.Requierments != null)
                 {
+                   
                     return View(project);
                 }
             }
             return View();
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Requierment(Project model)
@@ -338,20 +343,17 @@ namespace Upwork.Controllers
             {
                 var projectId = int.Parse(HttpContext.Session.GetString("ProjectId"));
                 model.ProjectId = projectId;
-                if (ModelState.IsValid)
-                {
                   
-                    var project = _context.Projects.FirstOrDefault(a => a.ProjectId == projectId);
-                    project.Requierments = model.Requierments;
-                    _context.SaveChanges();
-                    return RedirectToAction(nameof(ReviewProject));
-                }
-                else
-                {
-                    return RedirectToAction(nameof(Create));
-                }
+                var project = _context.Projects.FirstOrDefault(a => a.ProjectId == projectId);
+                project.Requierments = model.Requierments;
+                _context.SaveChanges();
+                return RedirectToAction(nameof(ReviewProject));
             }
-            return View();
+            else
+            {
+                return RedirectToAction(nameof(Create));
+            }
+            
         }
         
         //GET:Projects/Requierments
@@ -362,7 +364,7 @@ namespace Upwork.Controllers
             {
                 var projectId = int.Parse(HttpContext.Session.GetString("ProjectId"));
                 var project = _context.Projects.FirstOrDefault(a => a.ProjectId == projectId);
-                if (project.Requierments != null)
+                if (project.SimultaneousProjects != null)
                 {
                     return View(project);
                 }
@@ -373,25 +375,19 @@ namespace Upwork.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ReviewProject(Project model)
         {
-
             if (HttpContext.Session.GetString("ProjectId") != null)
             {
                 var projectId = int.Parse(HttpContext.Session.GetString("ProjectId"));
                 model.ProjectId = projectId;
-                if (ModelState.IsValid)
-                {
-
                     var project = _context.Projects.FirstOrDefault(a => a.ProjectId == projectId);
                     project.SimultaneousProjects = model.SimultaneousProjects;
+                    project.IsDraft = false;
                     _context.SaveChanges();
-                    return RedirectToAction(nameof(ReviewProject));
-                }
-                else
-                {
-                    return RedirectToAction(nameof(Create));
-                }
+                    return RedirectToAction(nameof(Index));
             }
-            return View();
+            else{
+                    return RedirectToAction(nameof(Create));
+            }
         }
         private bool ProjectExists(int id)
         {

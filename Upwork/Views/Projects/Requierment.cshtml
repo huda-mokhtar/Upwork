@@ -57,14 +57,13 @@
         <!--step form-->
         <div class="col-lg-8 col-12">
             <div class="bg-white" id="form-content">
-
                 <div class="form-head">
                     <div class="container">
                         <h4> <b>Requirements for the client </b></h4>
                     </div>
                 </div>
-                <div class="form-head">
-                    <div class="container">
+                <form  asp-action="Requierment" method="post" class="py-3">
+                    <div class="container py-3">
                         <div class="row justify-content-between my-2">
                             <div class="col-7 ">
                                 <h6><b>What do you need to start?</b></h6>
@@ -76,10 +75,9 @@
                         </div>
                         <ul class="Requirements ml-5">
                         </ul>
-                        <form class="add-form my-2">
+                        <div class="add-form my-2">
                             <div class="container">
-                                <textarea class="form-control"id="require" required asp-for="Requierments" rows="3" placeholder="Enter a question that can be answered by freeform text, multiple choice or by uploading a file."></textarea>
-
+                                <textarea class="form-control" id="require" required asp-for="Requierments" rows="3" placeholder="Enter a question that can be answered by freeform text, multiple choice or by uploading a file."></textarea>
                                 <div class="end pt-3 mt-3">
                                     <div class="container">
                                         <div class="d-flex justify-content-end">
@@ -93,28 +91,31 @@
 
                                 </div>
                             </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="py-3 mt-3">
-                    <div class="container">
-                        <div class="d-flex justify-content-between">
-                            <div class="col-2">
-                                <div class="devBtnLight m-0 p-2 text-center">
-                                    <h6 class="m-0 p-0">@Html.ActionLink("Back", "Description", "Projects")</h6>
-                                </div>
-                            </div>
-                            <div class="col-5">
-                                <button class="btn-cancle" type="button">Cancle</button>
-                                <button class="btn-save" type="submit">Save &amp; Continue</button>
-                            </div>
-
                         </div>
                     </div>
+                    <div class="py-3 mt-3 end">
+                        <div class="container">
+                            <div class="d-flex justify-content-between">
+                                <div class="col-2">
+                                    <div class="devBtnLight m-0 p-2 text-center">
+                                        <h6 class="m-0 p-0">@Html.ActionLink("Back", "Description", "Projects")</h6>
+                                    </div>
+                                </div>
+                                <div class="col-5">
+                                    <button class="btn-cancle" type="button">Cancle</button>
+                                    <button class="btn-save" type="submit">Save &amp; Continue</button>
+                                </div>
 
-                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </form>
+
             </div>
         </div>
+
         <!--end form-->
         <!--step description-->
         <div class="col-lg-4 col-12">
@@ -139,9 +140,8 @@
 
         </div>
         <!--end description-->
+        <!-- end content-->
     </div>
-    <!-- end content-->
-</div>
 
 @section Scripts {
     <script>
