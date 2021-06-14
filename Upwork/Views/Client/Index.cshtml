@@ -40,10 +40,10 @@
                     </div>
                 </div>
             </div>
-            <div class="d-none d-lg-block col-lg-2 mt-5 text-light  p-2 devBtnGreen"
+            <a class="btn d-none d-lg-block col-lg-2 mt-5 text-light  py-2 px-5 devBtnGreen" asp-action="PostJob"
                  style=" width:auto ; height: auto;">
-                <a class="m-0 p-0 text-light" asp-action="PostJob"> Post a Job </a>
-            </div>
+                <h6 class="m-0 p-0"> Post a Job </h6>
+            </a>
         </div>
         <div class="row " style="margin-top: 35px;">
             <div class="col-12 col-lg-7 m-0 p-0 "
@@ -135,7 +135,7 @@
                                     </span>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="#">Edit Draft</a>
-                                        <a class="dropdown-item" href="#">Remove Draft</a>
+                                        <p class="dropdown-item removeDraft">Remove Draft</p>
 
                                     </div>
                                 </div>
@@ -161,7 +161,7 @@
                                     </span>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="#">Edit Draft</a>
-                                        <a class="dropdown-item" href="#">Remove Draft</a>
+                                        <p class="dropdown-item  removeDraft" >Remove Draft</p>
 
                                     </div>
                                 </div>
@@ -187,7 +187,7 @@
                                     </span>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="#">Edit Draft</a>
-                                        <a class="dropdown-item" href="#">Remove Draft</a>
+                                        <p class="dropdown-item removeDraft" >Remove Draft</a>
 
                                     </div>
                                 </div>
@@ -207,10 +207,10 @@
                     <div class="card-body text-center p-5">
                         <div class="row text-center">
                             <div class="col-4" style="margin: auto;">
-                                <div class=" text-light p-2 devBtnGreen"
-                                     style="width:auto ; height: auto;">
-                                    <h6 class="m-0 p-0"> Post a Job </h6>
-                                </div>
+                                <a class="btn text-light px-4 py-2 devBtnGreen"
+                                     style="width:auto ; height: auto;" asp-action="PostJob">
+                                    <h6 class="m-0 p-1"> Post a Job </h6>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -346,7 +346,7 @@
                                         <div class="carousel-item active">
                                             <div class="card">
                                                 <img class="img-fluid" alt="100%x280"
-                                                     src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1080&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjMyMDc0fQ&amp;s=ee8417f0ea2a50d53a12665820b54e23">
+                                                     src="~/Images/advertising2.png">
                                                 <div class="card-body mt-3 text-center">
                                                     <h4 class="card-title">Special title treatment</h4>
                                                     <p class="card-text mt-2">
@@ -366,7 +366,7 @@
                                         <div class="carousel-item">
                                             <div class="card">
                                                 <img class="img-fluid" alt="100%x280"
-                                                     src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1080&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjMyMDc0fQ&amp;s=ee8417f0ea2a50d53a12665820b54e23">
+                                                     src="~/Images/advertising.jpg">
                                                 <div class="card-body mt-3">
                                                     <h4 class="card-title">Special title treatment</h4>
                                                     <p class="card-text mt-2">
@@ -428,7 +428,10 @@
         $("#rotateLink").click(function () {
             $("#rotateAngle").toggleClass("rotate");
         });
+        $(".removeDraft").click(function () {
+            $(this).parent().parent().parent().parent().parent().remove();
 
+        });
     </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
