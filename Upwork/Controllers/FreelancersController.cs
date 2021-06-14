@@ -22,25 +22,14 @@ namespace Upwork.Controllers
         // GET: Freelancers
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Freelancers.Include(f => f.Category).Include(f => f.City).Include(f => f.SubCategory).Include(f => f.User);
-            return View(await applicationDbContext.ToListAsync());
+            var freelancer = await _context.Freelancers.FirstOrDefaultAsync(a =>a.FreelancerId == "a123");
+            var Jobs = await _context.Jobs.Where(a => a.subCategoryId == freelancer.SubCategoryId).ToListAsync();
+            // var applicationDbContext = _context.Freelancers.Include(f => f.Category).Include(f => f.City).Include(f => f.SubCategory).Include(f => f.User);
+            // return View(await applicationDbContext.ToListAsync());
+            return View(Jobs);
         }
 
-        public async Task<IActionResult> Profile(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            Freelancer freelancer = await _context.Freelancers.Include(a=>a.City)
-                .Include(a=>a.Category)
-                .Include(a=>a.Languages)
-                .Include(a=>a.Projects)
-                .Include(a=>a.SubCategory)
-                .Include(a=>a.User)
-                 .FirstOrDefaultAsync(a => a.FreelancerId == id);
-            return View(freelancer);
-        }
+      
 
         // GET: Freelancers/Details/5
         public async Task<IActionResult> Details(string id)
