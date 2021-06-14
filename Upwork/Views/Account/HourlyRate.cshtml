@@ -1,0 +1,108 @@
+﻿
+@{
+    ViewData["Title"] = "HourlyRate";
+    Layout = "~/Views/Shared/_CreateProfileLayout.cshtml";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4> Hourly Rate </h4>
+                    <p class="text-muted"> 8 of 12 </p>
+                </div>
+                <div class="card-body">
+                    <p class="card-title pb-3">
+                        Clients will see this rate on your profile and in search results once you publish
+                        your profile. You can adjust your rate every time you submit a proposal.
+                    </p>
+                    <div class="mt-1 mb-4" style="border-bottom:1px solid lightgray;padding-bottom:50px">
+                        <div class="d-flex justify-content-between row">
+                            <div class="col-7">
+                                <h6 style="padding:0;margin:0"> Hourly Rate </h6>
+                                <p style="padding:0;margin:0" class="text-muted"> Total amount the client will see </p>
+                            </div>
+                            <div class="col-1">
+                                <span class="fa-2x" style="color:forestgreen;font-weight:bold"> $ </span>
+                            </div>
+                            <div class="col-3">
+                                <input type="text" id="Total" class="form-control" />
+                            </div>
+                            <div class="col-1">
+                                <h6> /hr </h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-5" style="border-bottom:1px solid lightgray;padding-bottom:50px">
+                        <div class="d-flex justify-content-between row">
+                            <div class="col-7">
+                                <h6 style="padding:0;margin:0"> Upwork Service Fee </h6>
+                                <p style="padding:0;margin:0" class="text-muted">
+                                    The Upwork Service Fee is 20% when you begin a contract
+                                    with a new client. Once you bill over $500 with your client. the fee will be 10%
+                                </p>
+                            </div>
+                            <div class="col-1">
+                                <span class="fa-2x" style="color:forestgreen;font-weight:bold"> $ </span>
+                            </div>
+                            <div class="col-3">
+                                <p class="text-muted" id="fee"> -0.00  </p>
+                            </div>
+                            <div class="col-1">
+                                <h6> /hr </h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-1 mb-4">
+                        <div class="d-flex justify-content-between row">
+                            <div class="col-7">
+                                <h6 style="padding:0;margin:0"> You'll receive </h6>
+                                <p style="padding:0;margin:0" class="text-muted"> The estimated amount you'll receive after service fees </p>
+                            </div>
+                            <div class="col-1">
+                                <span class="fa-2x" style="color:forestgreen;font-weight:bold"> $ </span>
+                            </div>
+                            <div class="col-3">
+                                <input type="text" id="receive" value="0.00" class="form-control" />
+                            </div>
+                            <div class="col-1">
+                                <h6> /hr </h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer" style="height:100px">
+                    <div class="container-fluid">
+                        <div class="row" style="margin-top:17px">
+                            <div class="col-2">
+                                <button class="btn text-success bg-white" style="border-color:lightgrey">Back</button>
+                            </div>
+                            <div class="offset-8 text-right">
+                                <button class="btn btn-success" style="border-color:lightgrey;">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    $("#Total").keyup(function () {
+        $("#fee").html("-" + ($("#Total").val() * 20 / 100).toFixed(2));
+        $("#receive").val(($("#Total").val() * 80 / 100).toFixed(2));
+    });
+
+    $("#receive").keyup(function () {
+        $("#fee").html("-" + ($("#receive").val() / 4 ).toFixed(2));
+        $("#Total").val(($("#receive").val() * 100 / 80 ).toFixed(2));
+    });
+
+</script>
+
+}
+

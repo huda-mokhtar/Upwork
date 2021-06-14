@@ -1,0 +1,154 @@
+﻿@model UserData 
+@{
+    ViewData["Title"] = "Data";
+    Layout = "~/Views/Shared/_RegisterLayout.cshtml";
+}
+<div class="container text-center" style="padding:20px;border:1px solid lightgray;width:600px">
+    <h1>
+        Complete your free account setup
+    </h1>
+    <p> @ViewBag.Email </p>
+    <form asp-action="Data" asp-controller="Account" id="formData">
+        <div class="row mb-3">
+            <div class="input-group col-6">
+                <div class="input-group-prepend">
+                    <span class="input-group-text fa fa-user"></span>
+                </div>
+                <input type="text" asp-for="FirstName" class="form-control" placeholder="First name">
+            </div>
+
+
+            <div class="input-group col-6">
+                <div class="input-group-prepend">
+                    <span class="input-group-text fa fa-user"></span>
+                </div>
+                <input type="text" asp-for="LastName" class="form-control" placeholder="Last name">
+            </div>
+            <span class="text-danger col-6 mt-1" asp-validation-for="FirstName"></span>
+            <span class="text-danger col-6 mt-1" asp-validation-for="LastName"></span>        
+        </div>
+        <div class="row mb-3">
+            <div class="input-group col-12">
+                <div class="input-group-prepend">
+                    <span class="input-group-text fa fa-lock"></span>
+                </div>
+                <input type="password" asp-for="Password" class="form-control" placeholder="Create a password">
+            </div>
+            <span class="text-danger ml-5 mt-1" asp-validation-for="Password"></span>
+        </div>
+        <div class="row mb-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-outline">
+            <div class="col-12">
+                <select asp-for="CountryId" asp-items="ViewBag.CountryId" class="custom-select" aria-label="Default select example">
+                    <option value="none" selected disabled hidden>
+                        Select a country
+                    </option>
+                </select>
+            </div>
+            <span class="text-danger ml-5 mt-1" asp-validation-for="CountryId"></span>
+        </div>
+        <p class="text-center"> I want to: </p>
+        <div>
+            <input type="radio"  class="btn-check" value="0" hidden name="User" id="Client" autocomplete="off">
+            <label class="text-muted UserType"  id="ClientLabel"  style="border:1px solid lightgray;padding:7px 30px" for="Client"> Hire for a project </label>
+
+            <input type="radio" style="padding:0" value="1"  class="btn-check" hidden name="User" id="Freelancer" autocomplete="off">
+            <label class="text-muted UserType" id="FreelancerLabel" style="border:1px solid lightgray;padding:7px 30px" for="Freelancer"> Work as a freelancer </label>
+        </div>
+        <div id="UsernameTxt" class="row mb-3 mt-3">
+            <div class="input-group col-12">
+                <div class="input-group-prepend">
+                    <span class="input-group-text fa fa-portrait" style="font-size:22px"></span>
+                </div>
+                <input type="text" id="txtUsername" asp-for="Username" class="form-control" placeholder="Username">
+            </div>
+        </div>
+        <div class="form-check mb-3 mt-4">
+            <input asp-for="SendMe" class="form-check-input" type="checkbox" value=true id="SendMe">
+            <label class="form-check-label text-left ml-3" for="SendMe">
+                Yes! Send me genuinely useful emails every now and then to help me
+                get the most out of Upwork.
+            </label>
+        </div>
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" value=true id="Policy">
+            <label class="form-check-label text-left ml-3" for="Policy">
+                Yes, I understand and agree to the to the Upwork Terms of Service,
+                including the User Agreement and Privacy Policy.
+            </label>
+        </div>
+
+        <div class="container-fluid align-content-center text-center border-dark">
+            <div class="row pb-3">
+                <button type="submit" style="all:unset;padding: 10px 200px;text-align: center;text-decoration: none;display: inline-block;margin: 4px 2px;cursor: pointer;border-radius: 20px" class="bg-success text-white">
+                    <span>  Create My Account </span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+@section Styles {
+    <style>
+        #Content {
+            height: 900px;
+        }
+
+         .UserType:hover{
+            font-style:unset;
+            color: white;
+            background-color: #14A800;
+        }
+        .Highlight {
+            color: white;
+            background-color: #14A800;
+        }
+        .form-check:hover {
+            background-color: lightgray;
+        }
+        #UsernameTxt{
+            display:none;
+        }
+
+    </style>
+}
+
+@section Scripts{
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script>
+        $('input[type=radio][name=User]').change(function () {
+            if (this.id === "Client") {
+                $("#UsernameTxt").hide();
+                $("#txtUsername").val("");
+            }
+            else {
+                $("#UsernameTxt").show();
+
+            }
+        });
+
+      
+        $("#ClientLabel").click(function () {
+            $("#FreelancerLabel").removeClass("Highlight");
+            $("#FreelancerLabel").addClass("text-muted");
+            $("#ClientLabel").removeClass("text-muted");
+            $("#ClientLabel").addClass("Highlight");
+        });
+
+        $("#FreelancerLabel").click(function () {
+            $("#ClientLabel").removeClass("Highlight");
+            $("#ClientLabel").addClass("text-muted");
+            $("#FreelancerLabel").removeClass("text-muted");
+            $("#FreelancerLabel").addClass("Highlight");
+        });
+        $("#formData").submit(function (x) {
+            if ($("#txtUsername").val().trim() < 3 && $("#FreelancerLabel").val()==1) {
+                x.preventDefault();
+            }
+        });
+        $("#txtUsername").blur(function () {
+            if ($(this).val().trim() < 3) {
+                alert("nooooooooo");
+            }
+        });
+        
+    </script>
+}

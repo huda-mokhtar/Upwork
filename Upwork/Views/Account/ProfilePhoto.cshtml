@@ -1,0 +1,90 @@
+﻿
+@{
+    ViewData["Title"] = "ProfilePhoto";
+    Layout = "~/Views/Shared/_CreateProfileLayout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-10">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Profile Photo</h4>
+                    <p class="text-muted">10 of 12</p>
+                </div>
+                <div class="card-body" style="height:330px">
+                    <p class="card-title pb-3">Please upload a professional portrait that clearly shows your face. <span class="fa fa-question-circle" style="color:forestgreen"> </span></p>
+                    <img src="~/Images/user.png" id="image" class="offset-2" style=" width: 100px; height: 100px; border-radius: 50%;cursor:auto" />
+                    <div class="container-fluid align-content-center border-dark mt-4">
+                        <input type="file" onchange="loadFile(event)" class="foo">
+                    </div>
+                </div>
+                <div class="card-footer" style="height:100px">
+                    <div class="container-fluid">
+                        <div class="row" style="margin-top:17px">
+                            <div class="col-2">
+                                <button class="btn text-success bg-white" style="border-color:lightgrey">Back</button>
+                            </div>
+                            <div class="offset-8 text-right">
+                                <button class="btn btn-success" style="border-color:lightgrey;">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles{
+    <style>
+        .foo {
+            display: block;
+            position: relative;
+            width: 220px;
+            margin: auto;
+            cursor: pointer;
+            border: 0;
+            height: 50px;
+            outline: 0;
+            border: 1px solid lightgrey;
+            color: forestgreen;
+            text-align: center;
+            font-weight: normal;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
+            margin: 4px 2px;
+            border-radius: 20px;
+            background-color: white;
+        }
+
+            .foo:after {
+                background-color: white;
+                color: forestgreen;
+                font-size: 17px;
+                text-align: center;
+                position: absolute;
+                padding-top: 10px;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                font-family: "Font Awesome 5 Free";
+                content: "\f067  Add Profile Photo";
+                display: block;
+                border-radius: 20px;
+            }
+    </style>
+
+}
+
+@section Scripts{
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script>       
+        var loadFile = function (event) {
+            var image = document.getElementById('image');
+            image.src = URL.createObjectURL(event.target.files[0]);
+        };
+    </script>
+} 
