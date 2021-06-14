@@ -127,6 +127,12 @@
     color: #14a800;
     border-color: transparent;
 }
+.btn-cancle a {
+    color: #14a800;
+}
+.btn-cancle a:hover {
+    text-decoration: none;
+}
 .end {
     border-top: 1px solid #e0e0e0;
 }
@@ -138,9 +144,15 @@
     border-radius: 1.8rem;
     border: 1px solid rgb(172, 172, 172);
 }
+.devBtnLight a{
+    color:#29b816;
+    text-decoration:none;
+}
+.devBtnLight a:hover {
+    color: #29b816;
+}
 
-
-.devBtnLight:hover {
+.devBtnLight:hover  {
     background-color: rgb(247, 247, 247);
     color: rgba(0, 128, 0, 0.925);
 }
@@ -172,17 +184,17 @@
     transition: .4s;
 }
 
-    .slider:before {
-        position: absolute;
-        content: "";
-        height: 1.7rem;
-        width: 1.7rem;
-        left: 4px;
-        bottom: 4px;
-        background-color: white;
-        -webkit-transition: .4s;
-        transition: .4s;
-    }
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 1.7rem;
+    width: 1.7rem;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
 
 input:checked + .slider {
     background-color: #14a800;
@@ -322,7 +334,6 @@ input:checked + .slider:before {
 .add-form{
     padding:0.6rem 0;
     background-color:#f2f2f2;
-    display:none;
 }
 .form-check-input:checked {
     border: 1px solid #14a800;
