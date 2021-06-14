@@ -103,8 +103,10 @@ namespace Upwork.Controllers
                 ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "Name");
                 return View();
             }
-         //   return View();
-              return RedirectToAction("Signup");
+            ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "Name");
+
+            return View();
+           //   return RedirectToAction("Signup");
             //    return LocalRedirect("~/Identity/Account/Register");
         }
 
@@ -120,7 +122,10 @@ namespace Upwork.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Expertise");
             }
-            return View(model);
+        //    ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "Name");
+         //   return View(model);
+            return RedirectToAction("Expertise");
+
         }
 
 
@@ -130,7 +135,8 @@ namespace Upwork.Controllers
             {
                 return View(db.Skills.Take(15).ToList());
             }
-            return RedirectToAction("Signup");
+            return View(db.Skills.Take(15).ToList());
+         //   return RedirectToAction("Signup");
         }
 
         [HttpPost]
@@ -140,7 +146,9 @@ namespace Upwork.Controllers
             {
                 return RedirectToAction("ExpertiseLevel");
             }
-            return View();
+            return RedirectToAction("ExpertiseLevel");
+
+//            return View();
         }
 
         public IActionResult ExpertiseLevel()
@@ -155,7 +163,8 @@ namespace Upwork.Controllers
             {
                 return RedirectToAction("Education");
             }
-            return View();
+            return RedirectToAction("Education");
+        //    return View();
         }
 
         public IActionResult Education()
@@ -201,7 +210,7 @@ namespace Upwork.Controllers
         }
 
         [HttpPost]
-        public IActionResult HourlyRate(int x)
+        public IActionResult HourlyRate(HourlyRateViewModel model)
         {
             return RedirectToAction("Overview");    
         }
