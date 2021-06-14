@@ -146,8 +146,40 @@ namespace Upwork.Controllers
         }*/
         public IActionResult PostJobScope()
         {
+            if (HttpContext.Session.GetString("JobId") != null)
+            {
+                var jobId = int.Parse(HttpContext.Session.GetString("JobId"));
+                var jobOld = _context.Jobs.FirstOrDefault(a => a.Id == jobId);
+                return View();
+            }
+            else
+            {
+                return RedirectToAction(nameof(PostJobSkills));
+            }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
 
-            return View();
+        public async Task<IActionResult> PostJobScope(Jobs job)
+        {
+            if (ModelState.IsValid)
+            {
+                if (HttpContext.Session.GetString("JobId") != null)
+                {
+                    var jobId = int.Parse(HttpContext.Session.GetString("JobId"));
+                    var Job = _context.Jobs.FirstOrDefault(s => s.Id == jobId);
+                    Job.Scope = job.Scope;
+                    Job.Duration = job.Duration;
+                    Job.LevelOfExperience = job.LevelOfExperience;
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(PostJobBudget));
+                }
+                else
+                {
+                    return RedirectToAction(nameof(PostJobSkills));
+                }
+            }
+            return View(job);
         }
         public IActionResult PostJobBudget()
         {
