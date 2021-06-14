@@ -126,6 +126,13 @@
         $("#progressSkills").css("color", " #95df00");
         $("#progressScope").css("color", " #95df00");
         $("#progressBudget").css("color", " #95df00");
+        $("#NextStep").text("Review Job Post");
+        $("#NextStep").attr("href", "/Client/ReviewJobPosting");
+        $("#PrevStep").attr("href", "/Client/PostJobScope");
+        $("#continue").children()[0].classList.add('continueBtnEnable');
+        $("#continue").children()[0].classList.remove('continueBtn');
+
+
 
     </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
