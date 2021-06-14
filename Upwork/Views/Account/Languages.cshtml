@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewData["Title"] = "Languages";
+    Layout = "~/Views/Shared/_CreateProfileLayout.cshtml";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4> Languages </h4>
+                    <p class="text-muted"> 7 of 12 </p>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-title"> What is your English proficiency? </h6>
+                    <div class="row form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-outline col-8 mt-2 mb-4">
+                        <select class="custom-select" asp-items="ViewBag.ProficiencyId" aria-label="Default select example">
+                            <option value="none" selected disabled hidden>
+                                Select proficiency
+                            </option>
+                        </select>
+                    </div>
+                    <h6 class="card-title"> What other languages do you speak? </h6>
+
+                    <div class="row mb-1 mt-4">
+                        <div class="col-4">
+                            <h6> Language </h6>
+                        </div>
+                        <div class="col-7">
+                            <h6> Proficiency </h6>
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-4">
+                            <select class="custom-select" asp-items="ViewBag.LanguageId" aria-label="Default select example">
+                                <option value="none" selected disabled hidden>
+                                    Select language
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-7">
+                            <select class="custom-select" asp-items="ViewBag.ProficiencyId" aria-label="Default select example">
+                                <option value="none" selected disabled hidden>
+                                    Select proficiency
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-1">
+                            <a>
+                                <span style="font-size: 0.8rem; color: #656565; border: 1px solid #ccc; border-radius: 50%; padding: 0.6rem; " class="fa fa-trash-alt"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="container-fluid align-content-center border-dark">
+                        <div class="row pb-3">
+                            <button style="all:unset;border:1px solid lightgrey;color: forestgreen;padding: 10px 30px;text-align: center;text-decoration: none;display: inline-block;margin: 4px 2px;cursor: pointer;border-radius: 20px;" class="bg-white">
+                                <span class="fa fa-plus"></span> <span>  Add Employment </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>                
+                <div class="card-footer" style="height:100px">
+                    <div class="container-fluid">
+                        <div class="row" style="margin-top:17px">
+                            <div class="col-2">
+                                <button class="btn text-success bg-white" style="border-color:lightgrey">Back</button>
+                            </div>
+                            <div class="offset-8 text-right">
+                                <button class="btn btn-success" style="border-color:lightgrey;">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

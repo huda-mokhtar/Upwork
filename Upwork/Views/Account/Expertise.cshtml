@@ -1,0 +1,56 @@
+﻿@model List<Skill>
+@{
+    ViewData["Title"] = "Expertise";
+    Layout = "~/Views/Shared/_CreateProfileLayout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Expertise</h4>
+                    <p class="text-muted">3 of 12</p>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title pb-3">Select your skills</h5>
+                    <div class="container-fluid">
+                        <div class="row">
+                            @foreach (var item in Model)
+                            {
+                                <div class="text-center mb-3 mr-1" style="background-color: rgba(241, 238, 238, 0.938); border-radius: 30px; width:auto ; height: auto;">
+                                    <p class="m-2">@item.Name <i class="fa fa-plus" id="add" aria-hidden="true"></i></p>
+                                </div>
+                            }                                                     
+                        </div>
+                        <div class="row">
+                            <h6>Not what you're looking for? <span class="fa fa-question-circle" style="color:forestgreen;margin-left:10px"></span></h6>
+                            <div class="col-12 p-2 border-2 border-light">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer" style="height:100px">
+                    <div class="container-fluid">
+                        <div class="row" style="margin-top:17px">
+                            <div class="col-2">
+                                <button class="btn text-success bg-white" style="border-color:lightgrey">Back</button>
+                            </div>
+                            <div class="offset-8 text-right">
+                                <button class="btn btn-success" style="border-color:lightgrey;">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Styles{
+<style>
+    i {
+        cursor: pointer;
+    }
+</style>
+   
+}

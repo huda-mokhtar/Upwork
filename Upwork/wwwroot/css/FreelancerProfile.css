@@ -1,0 +1,68 @@
+﻿.Freelancer-photo {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+}
+
+.Address-time {
+    color: #222222;
+    font-size: 15px;
+}
+
+.editPhoto {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    border-radius: 50%;
+    border: 0.1rem solid #c5c4c4;
+    color: #656565;
+    cursor: pointer;
+}
+
+.devBtnGreen {
+    cursor: pointer;
+    background-color: #14a800;
+    border-radius: 30px;
+}
+
+    .devBtnGreen:hover {
+        background-color: rgba(0, 128, 0, 0.925);
+    }
+
+.editIcon {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    border-radius: 50%;
+    border: 0.1rem solid #c5c4c4;
+    color: #656565;
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+    .editIcon:hover {
+        background-color: #e0e0e0be;
+    }
+
+.profile {
+    background-clip: border-box;
+    border-left: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+}
+
+.FreelancerInfo {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.Freelancer-skills {
+    cursor: pointer;
+    font-size: 14px;
+    background-color: #eeeeee;
+    border-radius: 12px;
+    width: fit-content;
+    height: fit-content;
+    padding: 0px 10px;
+    color: #1b4e66de;
+    display: inline-block;
+}
