@@ -12,7 +12,7 @@
                     <h4>Category</h4>
                     <p class="text-muted">2 of 12</p>
                 </div>
-                <form>
+                <form asp-action="Category" asp-controller="Account">
                     <div class="card-body">
                         <h5 class="card-title pb-3">Tell us about the work you do</h5>
                         <h6 class="card-title">What is the main service you offer ?</h6>
@@ -24,6 +24,8 @@
                                     </option>
                                 </select>
                             </div>
+                            <span class="text-danger ml-5" asp-validation-for="CategoryId"></span>
+
                             <div class="row form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-outline" style="margin-top:20px">
                                 <select class="custom-select" asp-for="SubCategoryId" aria-label="Default select example">
                                     <option value="none" selected disabled hidden>
@@ -31,6 +33,7 @@
                                     </option>
                                 </select>
                             </div>
+                            <span class="text-danger ml-5" asp-validation-for="SubCategoryId"></span>
                         </div>
                     </div>
                     <div class="card-footer" style="height:100px">
@@ -69,9 +72,9 @@
                             $("#SubCategoryId").html("");
                             $("#SubCategoryId").append(" <option value='none' selected disabled hidden>Select a subcategory</option >");
                             for (var i = 0; i < Subservices.length; i++) {
-                                $("#SubCategoryId").append("<option value=" + Subservices[i].Id + ">" + Subservices[i].name + "</option>");
+                                $("#SubCategoryId").append("<option value=" + Subservices[i].subCategoryId + ">" + Subservices[i].name + "</option>");
                             }
-                            //  alert(JSON.stringify(Subservices));
+                  //            alert(JSON.stringify(Subservices));
                         },
                         error: function (error) {
                             alert("error");
