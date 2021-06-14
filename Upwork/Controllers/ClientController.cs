@@ -65,7 +65,38 @@ namespace Upwork.Controllers
 
         public IActionResult PostJobTitle()
         {
+            ViewData["SubCategory"] = _context.SubCategories;
+            ViewData["Category"]= new SelectList(_context.Categories, "CategoryId", "Name");
             return View();
+        }
+        public async Task<IActionResult> GetSubCategories(int Id)
+        {
+            var SubCategoryList = _context.SubCategories.Where(a => a.CategoryId == Id);
+            return Json(SubCategoryList);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public async Task<IActionResult> PostJobTitle(Jobs job)
+        {
+            if (ModelState.IsValid)
+            {
+                if (HttpContext.Session.GetString("JobId") != null)
+                {
+                    var jobId = int.Parse(HttpContext.Session.GetString("JobId"));
+                    var Job = _context.Jobs.FirstOrDefault(s => s.Id == jobId);
+                    Job.Title = job.Title;
+                    Job.subCategoryId = job.subCategoryId;
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(PostJobSkills));
+                }
+                else
+                {
+                    return RedirectToAction(nameof(PostJob));
+                }
+            }
+            return View(job);
         }
         public IActionResult PostJobSkills()
         {

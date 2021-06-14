@@ -1,0 +1,64 @@
+﻿@model SignUpViewModel
+@{
+    ViewData["Title"] = "SignUp";
+    Layout = "~/Views/Shared/_RegisterLayout.cshtml";
+}
+<div class="container text-center" style="padding:20px;border:1px solid lightgray;width:600px">
+    <h1>
+        Complete your free account setup
+    </h1>
+    <a>
+       <div class="row bg-primary col-12 mb-3 mt-3 ml-1" style="border-radius:23px;font-weight:500;padding:1px;width:550px">
+           <div>
+               <img style="border-radius:50%;width:50px;height:50px;background-color:white" src="~/Images/google.png"/>
+           </div>         
+           <div class="offset-2 col-6 pt-3 text-white">
+                Continue with Google 
+           </div>
+       </div>
+    </a>
+    <a>
+        <div class="container-fluid align-content-center text-center border-dark">
+            <div class="row pb-3">
+                <div id="AppleDiv" style="all:unset;border:1px solid black;padding: 10px 190px;text-align: center;text-decoration: none;display: inline-block;margin: 4px 2px;cursor: pointer;border-radius: 20px;background-color:#F1F2F4;color:black;font-weight:500">
+                    <span class="fa fa-apple-alt"></span>
+                    Continue with Apple
+                </div>
+            </div>
+        </div>
+    </a>
+    <div class="row ml-3">
+        <div class="col-5">
+            <hr />
+        </div>
+        <div class="col-1">
+            <p class="text-muted"> or </p>
+        </div>
+        <div class="col-5">
+            <hr />
+        </div>
+    </div>
+    <form asp-action="SignUp" asp-controller="Account">
+        <div class="row mb-3 mt-3">
+            <div class="input-group col-12">
+                <div class="input-group-prepend">
+                    <span class="input-group-text fa fa-envelope" style="font-size:22px"></span>
+                </div>
+                <input type="text" asp-for="Email" class="form-control" placeholder="Work email address">               
+            </div>           
+            <span class="text-danger ml-5 mt-2" asp-validation-for="Email"></span>
+        </div>
+        <div class="container-fluid align-content-center text-center border-dark">
+            <div class="row pb-3">
+                <button type="submit" style="all:unset;padding: 10px 200px;text-align: center;text-decoration: none;display: inline-block;margin: 4px 2px;cursor: pointer;border-radius: 20px" class="bg-success text-white">
+                    <span>  Continue with Email </span>
+                </button>
+            </div>
+        </div>
+    </form>  
+</div>
+@section Styles{
+<style>
+   
+</style> 
+}

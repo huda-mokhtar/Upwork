@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewData["Title"] = "Phone";
+    Layout = "~/Views/Shared/_CreateProfileLayout.cshtml";
+}
+
+
+<div class="container" style="margin-top:10px">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4> Phone number </h4>
+                    <p class="text-muted"> 12 of 12 </p>
+                </div>
+                <form>
+                    <div class="card-body">
+                        <h5 class="card-title pb-3"> Add your phone number. </h5>
+                        <div class="container-fluid align-content-center border-dark" style="height:150px">
+                            <h6 class="card-title"> Phone </h6>
+                            <div class="row form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-outline mb-4">
+                                <select class="custom-select col-3" aria-label="Default select example">
+                                    @foreach (var item in ViewBag.Countries) 
+                                    {
+                                        <option>
+                                            @item.Name  +@item.Key
+                                        </option>
+                                    }
+                                </select>                            
+                                <input type="text" class="form-control col-9" placeholder="Enter number" />
+                            </div>
+                            <p class="card-title"> Your phone will not be shared with clients. </p>
+                        </div>
+                    </div>
+                    <div class="card-footer mt-3" style="height:100px">
+                        <div class="container-fluid">
+                            <div class="row" style="margin-top:17px">
+                                <div class="col-2">
+                                    <button class="btn text-success bg-white" style="border-color:lightgrey">Back</button>
+                                </div>
+                                <div class="offset-8 text-right">
+                                    <button type="submit" class="btn btn-success" style="border-color:lightgrey;">Next</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
