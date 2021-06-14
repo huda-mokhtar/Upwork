@@ -100,7 +100,22 @@ namespace Upwork.Controllers
         }
         public IActionResult PostJobSkills()
         {
-            return View();
+            if (HttpContext.Session.GetString("JobId") != null)
+            {
+                var jobId = int.Parse(HttpContext.Session.GetString("JobId"));
+                var jobOld = _context.Jobs.FirstOrDefault(a => a.Id == jobId);
+                ViewData["SubCategoryId"] = jobOld.subCategoryId;
+                return View();
+            }
+            else
+            {
+                return RedirectToAction(nameof(PostJobTitle));
+            }
+        }
+        public async Task<IActionResult> GetSkills(int Id)
+        {
+            var SkillsList = _context.Skills.Where(a => a.SubCategoryId == Id);
+            return Json(SkillsList);
         }
         public IActionResult PostJobScope()
         {

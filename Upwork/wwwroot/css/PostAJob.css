@@ -45,7 +45,7 @@ input[type='radio']:checked:after {
     border-radius: 50%;
 }
 
-.checkroundForBudget {
+/*.checkround {
     position: absolute;
     top: 5px;
     height: 20px;
@@ -56,7 +56,7 @@ input[type='radio']:checked:after {
     border-width: 2px;
     border-radius: 50%;
     right: 5px;
-}
+}*/
 
 
 /* When the radio button is checked, add a blue background */
