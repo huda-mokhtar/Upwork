@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Upwork.Models.Freelancer
+@{
     ViewData["Title"] = "Freelancer Profile ";
 }
 @section Style {
@@ -15,14 +16,14 @@
                                 <div class="editPhoto mb-0 ml-0">
                                     <i class="fa fa-pencil" aria-hidden="true"></i>
                                 </div>
-                                <img src="~/Images/Wafaa1.jpg" class="Freelancer-photo my-auto" />
+                                <img src="~/Images/@Model.Image" class="Freelancer-photo my-auto" />
                             </div>
                             <div class="ml-2">
                                 <h2>Wafaa Wadea</h2>
                                 <i class="fa fa-map-marker  Address-time" aria-hidden="true"
                                    style="color: #656565;"></i>
                                 <p class="Address-time my-auto" style="display: inline-block;">
-                                    Al Mansourah , Egypt
+                                    @Model.City.Name
                                 </p>
                                 <p class="Address-time my-auto" style="display: inline-block;">
                                     – 4:56 am local time
@@ -52,7 +53,7 @@
                             </div>
                             <div class="mt-2 mb-5 mx-1">
                                 <p class="mb-0" style="font-weight: 550;">Available</p>
-                                <p>More than 30 hrs/week</p>
+                                <p>@Model.HourlyRate hrs/week</p>
                             </div>
                         </div>
 
@@ -68,6 +69,7 @@
 
                             </div>
                             <div class="mt-2 mb-0 mx-2" style="display:-webkit-box; -webkit-box-align:center;">
+
                                 <p style="font-weight: 550;" class="mb-0">English : </p>
                                 <p class=" ml-1 mb-0" style="color: #656565;">Fluent</p>
                             </div>
@@ -196,6 +198,6 @@
 
         </div>
     </div>
-  
+
 </div>
 
