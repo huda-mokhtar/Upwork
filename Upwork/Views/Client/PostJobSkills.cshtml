@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Upwork.Models.DbModels.Jobs
+
+@{
     ViewData["Title"] = "Steps";
     Layout = "_PostJobStepsLayout";
 }
@@ -13,36 +15,26 @@
     @section RightSide{
         <div id="JobSkills">
             <h5>Search skills or add your own</h5>
-            <form class="w-100">
+            <div class="w-100">
                 <div class="form-group has-search">
                     <span class="fa fa-search form-control-feedback"></span>
                     <input type="search" class="form-control" placeholder="Search skills or add your own">
                 </div>
-                <div class="d-none" id="skillsAdded">
+                <form class="d-none" id="skillsAdded" method="post" asp-action="PostJobSkills">
                     <p class="text-muted">Selected skills</p>
-                </div>
+                </form>
                 <h5 class="card-title pb-3">Popular skills</h5>
                 <div class="container-fluid">
                     <div class="row" id="defaultSkills">
-
-                        @*<div class="text-center mb-2 mr-1 addskills add">
-                            <p class="m-0">Mockup<i class="fa fa-plus pl-1" aria-hidden="true"></i></p>
-                        </div>
+                        @{ int i = 0;}
+                        @foreach (var s in ViewBag.Skills)
+                        {
                         <div class="text-center mb-2 mr-1 addskills add">
-                            <p class="m-0">Prototype<i class="fa fa-plus pl-1" aria-hidden="true"></i></p>
+                            <p class="m-0">@s.Name<i class="fa fa-plus pl-1" aria-hidden="true"></i></p>
+                            <input type="hidden" asp-for="@Model.jobsSkills[i].skillId" value="@s.SkillId" />
+                            @{ i++;}
                         </div>
-                        <div class="text-center mb-2 mr-1 addskills add">
-                            <p class="m-0">Wireframes<i class="fa fa-plus pl-1" aria-hidden="true"></i></p>
-                        </div>
-                        <div class="text-center mb-2 mr-1 addskills add">
-                            <p class="m-0">Web Design<i class="fa fa-plus pl-1" aria-hidden="true"></i></p>
-                        </div>
-                        <div class="text-center mb-2 mr-1 addskills add">
-                            <p class="m-0">Adobe XD<i class="fa fa-plus pl-1" aria-hidden="true"></i></p>
-                        </div>
-                        <div class="text-center mb-2 mr-1 addskills add">
-                            <p class="m-0">User Flows<i class="fa fa-plus pl-1" aria-hidden="true"></i></p>
-                        </div>*@
+                        }
                         <a href="#" style="color: #14a800;" id="seeMore">see more</a>
                     </div>
                 </div>
@@ -91,7 +83,7 @@
                         </div>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
     }
 
@@ -103,33 +95,8 @@
         $("#progressTitle").css("color", " #95df00");
         $("#progressSkills").css("color", " #95df00");
         $("#NextStep").text("Next:Scope");
-        $("#NextStep").attr("href", "/Client/PostJobScope");
         $("#PrevStep").attr("href", "/Client/PostJobTitle");
-        $.ajax({
-            url: "https://localhost:44367/client/GetSkills/" + @ViewBag.SubCategoryId + "",
-            type: "Get",
-            success: (res) => {
-                var obt = "";
-                for (var x = 0; x < res.length; x++) {
-                    var div = document.createElement("div");
-                    div.addClass("text-center");
-                    div.classList.add("mb-2");
-                    div.classList.add("mr-1");
-                    div.classList.add("addskills add");
-                    div.classList.add("add");
-                    div.innerHTML = "< p class='m-0'> " + res[x].name +"< i class='fa fa-plus pl-1' aria - hidden='true' ></i ></p >"
-                    //i = "< i class='fa fa-plus pl-1' aria - hidden='true' ></i >";
-                    //p = "< p class='m-0'> " + res[x].name + i + "</p >";
-                    //div = "<div class='text-center mb - 2 mr - 1 addskills add'>" + p + "</div >";
-                    obt += div;
-                }
-                $("#defaultSkills").html(obt);
-            },
-            error: (e) => {
-                console.log(e);
-            }
-        })
-        //obt.insertBefore("#seeMore");
+        
         $('#defaultSkills').on('click', '.add', function (event) {
 
             var el = $(this).parent()[0];
@@ -169,8 +136,8 @@
             $(this).addClass("add");
 
 
-           // console.log($(this))
-        /*$("#skillsAdded").removeClass("d-none");*/
+            // console.log($(this))
+            /*$("#skillsAdded").removeClass("d-none");*/
             $(this).insertBefore("#seeMore");
             //$("#defaultSkills").append(el2);
             //console.log($("#skillsAdded").children().length);
@@ -183,6 +150,10 @@
                 $("#defaultSkills").removeClass("d-none");
             }
         });
+        $("#continue").on('click', '#NextStep', function () {
+            $("#skillsAdded").append("<button type='submit' id='go'></button>");
+            $("#go").click();
+        })
     </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

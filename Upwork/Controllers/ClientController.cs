@@ -104,7 +104,8 @@ namespace Upwork.Controllers
             {
                 var jobId = int.Parse(HttpContext.Session.GetString("JobId"));
                 var jobOld = _context.Jobs.FirstOrDefault(a => a.Id == jobId);
-                ViewData["SubCategoryId"] = jobOld.subCategoryId;
+                ViewData["Skills"] = _context.Skills.Where(a => a.SubCategoryId == jobOld.subCategoryId);
+                ViewData["jobId"] = jobId;
                 return View();
             }
             else
@@ -112,13 +113,40 @@ namespace Upwork.Controllers
                 return RedirectToAction(nameof(PostJobTitle));
             }
         }
-        public async Task<IActionResult> GetSkills(int Id)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public async Task<IActionResult> PostJobSkills( Jobs job)
+        {
+            if (ModelState.IsValid)
+            {
+                if (HttpContext.Session.GetString("JobId") != null)
+                {
+                    var jobId = int.Parse(HttpContext.Session.GetString("JobId"));
+                    var Job = _context.Jobs.FirstOrDefault(s => s.Id == jobId);
+                    foreach (var item in job.jobsSkills)
+                    {
+                            JobsSkills skill = new JobsSkills() { JobsId = jobId, skillId = item.skillId};
+                            _context.JobsSkills.Add(skill);
+                            await _context.SaveChangesAsync();
+                    }
+                    return RedirectToAction(nameof(PostJobScope));
+                }
+                else
+                {
+                    return RedirectToAction(nameof(PostJobTitle));
+                }
+            }
+            return View(job);
+        }
+        /*public async Task<IActionResult> GetSkills(int Id)
         {
             var SkillsList = _context.Skills.Where(a => a.SubCategoryId == Id);
             return Json(SkillsList);
-        }
+        }*/
         public IActionResult PostJobScope()
         {
+
             return View();
         }
         public IActionResult PostJobBudget()
