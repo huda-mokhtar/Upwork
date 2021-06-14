@@ -31,8 +31,11 @@ namespace Upwork.Controllers
         // GET: Projects
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Projects.Include(p => p.Freelancer);
-            return View(await applicationDbContext.ToListAsync());
+            var Projects =  _context.Projects.Where(a => a.IsDraft == false).ToList();
+             
+            var Drafts =  _context.Projects.Where(a => a.IsDraft == true).ToList();
+            ViewData["DraftProject"] = Drafts;
+            return View(Projects);
         }
 
 
@@ -226,9 +229,81 @@ namespace Upwork.Controllers
             }
             return View();
         }
+        //GET:Projects/Requierments
+        public async Task<IActionResult> Requierment()
+        {
+            if (HttpContext.Session.GetString("ProjectId") != null)
+            {
+                var projectId = int.Parse(HttpContext.Session.GetString("ProjectId"));
+                var project = _context.Projects.FirstOrDefault(a => a.ProjectId == projectId);
+                if (project.Requierments != null)
+                {
 
-            // GET: Projects/Edit/5
-       public async Task<IActionResult> Edit(int? id)
+                    return View(project);
+                }
+            }
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Requierment(Project model)
+        {
+
+            if (HttpContext.Session.GetString("ProjectId") != null)
+            {
+                var projectId = int.Parse(HttpContext.Session.GetString("ProjectId"));
+                model.ProjectId = projectId;
+
+                var project = _context.Projects.FirstOrDefault(a => a.ProjectId == projectId);
+                project.Requierments = model.Requierments;
+                _context.SaveChanges();
+                return RedirectToAction(nameof(ReviewProject));
+            }
+            else
+            {
+                return RedirectToAction(nameof(Create));
+            }
+
+        }
+
+        //GET:Projects/ReviewProject
+        public async Task<IActionResult> ReviewProject()
+        {
+            if (HttpContext.Session.GetString("ProjectId") != null)
+            {
+                var projectId = int.Parse(HttpContext.Session.GetString("ProjectId"));
+                var project = _context.Projects.FirstOrDefault(a => a.ProjectId == projectId);
+                if (project.SimultaneousProjects != null)
+                {
+                    return View(project);
+                }
+            }
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ReviewProject(Project model)
+        {
+            if (HttpContext.Session.GetString("ProjectId") != null)
+            {
+                var projectId = int.Parse(HttpContext.Session.GetString("ProjectId"));
+                model.ProjectId = projectId;
+                var project = _context.Projects.FirstOrDefault(a => a.ProjectId == projectId);
+                project.SimultaneousProjects = model.SimultaneousProjects;
+                project.IsDraft = false;
+                _context.SaveChanges();
+                HttpContext.Session.Remove("ProjectId");
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                return RedirectToAction(nameof(Create));
+            }
+        }
+
+
+        // GET: Projects/Edit/5
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -278,7 +353,6 @@ namespace Upwork.Controllers
             return View(project);
         }
 
-
         public async Task<IActionResult> Cancel(Project project)
         {
             if (HttpContext.Session.GetString("ProjectId") != null)
@@ -319,77 +393,7 @@ namespace Upwork.Controllers
         }
 
        
-        //GET:Projects/Requierments
-        public async Task<IActionResult> Requierment() 
-        {
-            if (HttpContext.Session.GetString("ProjectId") != null)
-            {
-                var projectId = int.Parse(HttpContext.Session.GetString("ProjectId"));
-                var project = _context.Projects.FirstOrDefault(a => a.ProjectId == projectId);
-                if (project.Requierments != null)
-                {
-                   
-                    return View(project);
-                }
-            }
-            return View();
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Requierment(Project model)
-        {
-
-            if (HttpContext.Session.GetString("ProjectId") != null)
-            {
-                var projectId = int.Parse(HttpContext.Session.GetString("ProjectId"));
-                model.ProjectId = projectId;
-                  
-                var project = _context.Projects.FirstOrDefault(a => a.ProjectId == projectId);
-                project.Requierments = model.Requierments;
-                _context.SaveChanges();
-                return RedirectToAction(nameof(ReviewProject));
-            }
-            else
-            {
-                return RedirectToAction(nameof(Create));
-            }
-            
-        }
-        
-        //GET:Projects/Requierments
-        [Route("Projects/Review")]
-        public async Task<IActionResult> ReviewProject() 
-        {
-            if (HttpContext.Session.GetString("ProjectId") != null)
-            {
-                var projectId = int.Parse(HttpContext.Session.GetString("ProjectId"));
-                var project = _context.Projects.FirstOrDefault(a => a.ProjectId == projectId);
-                if (project.SimultaneousProjects != null)
-                {
-                    return View(project);
-                }
-            }
-            return View();
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ReviewProject(Project model)
-        {
-            if (HttpContext.Session.GetString("ProjectId") != null)
-            {
-                var projectId = int.Parse(HttpContext.Session.GetString("ProjectId"));
-                model.ProjectId = projectId;
-                    var project = _context.Projects.FirstOrDefault(a => a.ProjectId == projectId);
-                    project.SimultaneousProjects = model.SimultaneousProjects;
-                    project.IsDraft = false;
-                    _context.SaveChanges();
-                    return RedirectToAction(nameof(Index));
-            }
-            else{
-                    return RedirectToAction(nameof(Create));
-            }
-        }
-        private bool ProjectExists(int id)
+       private bool ProjectExists(int id)
         {
             return _context.Projects.Any(e => e.ProjectId == id);
         }

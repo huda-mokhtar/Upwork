@@ -28,12 +28,13 @@
             color: #14a800;
         }
 
-.dropdown-menu a, .steps a, .greenLinks {
+.dropdown-menu a, .steps a, .greenLinks, .dropdown-menu p{
     color: #14a800;
     font-size: smaller;
+    cursor: pointer;
 }
 
-    .dropdown-menu a:hover, .steps a:hover, .greenLinks:hover {
+    .dropdown-menu a:hover, .steps a:hover, .greenLinks:hover, .dropdown-menu p:hover {
         color: green;
     }
 

@@ -213,9 +213,7 @@ input:checked + .slider:before {
 .price .input-group-text {
     color: #808080;
 }
-.price .form-control {
-    border:none;
-}
+
 .price .form-control:focus {
     color: #495057;
     background-color: #fff;
