@@ -95,7 +95,7 @@
                                     <input asp-for="StarterDeliverDays" class="form-control my-3" min="1" required />
                                     <div class="input-group mb-3">
                                         <span class="input-group-text">$</span>
-                                        <input asp-for="StarterPrice" type="text" class="form-control" placeholder="0.00" min="1" required>
+                                        <input asp-for="StarterPrice" type="text" class="form-control" placeholder="0.00" min="5" required>
                                     </div>
                                 </div>
                                 <div class="col-md-3 tire-toggle">
@@ -103,7 +103,7 @@
                                     <input asp-for="StandardDeliverDays" class="form-control my-3" min="1" />
                                     <div class="input-group mb-3">
                                         <span class="input-group-text">$</span>
-                                        <input asp-for="StandardPrice" type="text" class="form-control" placeholder="0.00" min="1" required>
+                                        <input asp-for="StandardPrice" type="text" class="form-control" placeholder="0.00" min="5" >
                                     </div>
                                 </div>
                                 <div class="col-md-3 tire-toggle">
@@ -111,7 +111,7 @@
                                     <input asp-for="AdvancedDeliverDays" class="form-control my-3" min="1" />
                                     <div class="input-group mb-3">
                                         <span class="input-group-text">$</span>
-                                        <input asp-for="AdvancedPrice" type="text" class="form-control" placeholder="0.00" min="1">
+                                        <input asp-for="AdvancedPrice" type="text" class="form-control" placeholder="0.00" min="5">
                                     </div>
                                 </div>
                             </div>
@@ -128,7 +128,7 @@
                                     </div>
                                 </div>
                                 <div class="col-5">
-                                    <button class="btn-cancle" type="button">Cancle</button>
+                                    <button class="btn-cancle" type="button">@Html.ActionLink("Cancle", "Cancel", "Projects")</button>
                                     <button class="btn-save" type="submit">Save &amp; Continue</button>
                                 </div>
 
