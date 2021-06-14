@@ -22,10 +22,13 @@ namespace Upwork.Controllers
         // GET: Freelancers
         public async Task<IActionResult> Index()
         {
-            var freelancer = await _context.Freelancers.FirstOrDefaultAsync(a =>a.FreelancerId == "a123");
-            var Jobs = await _context.Jobs.Where(a => a.subCategoryId == freelancer.SubCategoryId).ToListAsync();
+            var freelancer = await _context.Freelancers.Include(a=>a.SubCategory).Include(a=>a.Category).FirstOrDefaultAsync(a =>a.FreelancerId == "a123");
+            var Jobs = await _context.Jobs.Include(a=>a.jobsSkills).Where(a => a.subCategoryId == freelancer.SubCategoryId && a.IsDraft == false).ToListAsync();
+            var jobskills = _context.JobsSkills.Select(s => s.skill);
             // var applicationDbContext = _context.Freelancers.Include(f => f.Category).Include(f => f.City).Include(f => f.SubCategory).Include(f => f.User);
             // return View(await applicationDbContext.ToListAsync());
+            ViewData["Skills"] = jobskills.ToList();
+            ViewData["Freelancer"] = freelancer;
             return View(Jobs);
         }
 
