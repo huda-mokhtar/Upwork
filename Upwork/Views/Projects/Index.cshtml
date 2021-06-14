@@ -29,10 +29,10 @@
 
                 </ul>
               
-                <div class="tab-content" id="myTabContent">
-                    @foreach (var item in Model)
-                    {
-                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="tab-content" id="myTabContent">  
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        @foreach (var item in Model)
+                        {
                             <div class="project">
                                 <div class="container">
                                     <div class="row align-items-center">
@@ -58,46 +58,43 @@
                                         </div>
                                     </div>
                                 </div>
-
-
                             </div>
-                        </div>}
+                        }
+                    </div>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     @foreach (var item in ViewBag.DraftProject)
                     {
-                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                            <div class="project">
-                                <div class="container">
-                                    <div class="row align-items-center">
-                                        <div class="col-10">
-                                            <div class="d-flex">
-                                                <img src="~/Images/@item.Image" class="project-img" />
-                                                <p class="project-title">@item.Title</p>
-                                            </div>
-
-
+                        <div class="project">
+                            <div class="container">
+                                <div class="row align-items-center">
+                                    <div class="col-10">
+                                        <div class="d-flex">
+                                            <img src="~/Images/@item.Image" class="project-img" />
+                                            <p class="project-title">@item.Title</p>
                                         </div>
-                                        <div class="col-2">
-                                            <div class=""
-                                                 style="width: 3rem; height: 3rem; margin: 0;padding:0;">
-                                                <span class=" circlee-points container-circlee" data-toggle="dropdown"
-                                                      aria-haspopup="true" aria-expanded="false">
-                                                    <i class="fa fa-ellipsis-h 2x" style="color:rgb(83, 83, 83) ;"></i>
-                                                </span>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="#">Edit</a>
-                                                    <a class="dropdown-item" href="#">Remove</a>
 
-                                                </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class=""
+                                             style="width: 3rem; height: 3rem; margin: 0;padding:0;">
+                                            <span class=" circlee-points container-circlee" data-toggle="dropdown"
+                                                  aria-haspopup="true" aria-expanded="false">
+                                                <i class="fa fa-ellipsis-h 2x" style="color:rgb(83, 83, 83) ;"></i>
+                                            </span>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="#">Edit</a>
+                                                <a class="dropdown-item" href="#">Remove</a>
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-
                             </div>
                         </div>
                     }
-                    </div>
+                </div>
+                    
+                </div>
                 
             </div>
             <div class="wrapper">

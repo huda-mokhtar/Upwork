@@ -65,15 +65,121 @@ namespace Upwork.Controllers
 
         public IActionResult PostJobTitle()
         {
+            ViewData["SubCategory"] = _context.SubCategories;
+            ViewData["Category"]= new SelectList(_context.Categories, "CategoryId", "Name");
             return View();
+        }
+        public async Task<IActionResult> GetSubCategories(int Id)
+        {
+            var SubCategoryList = _context.SubCategories.Where(a => a.CategoryId == Id);
+            return Json(SubCategoryList);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public async Task<IActionResult> PostJobTitle(Jobs job)
+        {
+            if (ModelState.IsValid)
+            {
+                if (HttpContext.Session.GetString("JobId") != null)
+                {
+                    var jobId = int.Parse(HttpContext.Session.GetString("JobId"));
+                    var Job = _context.Jobs.FirstOrDefault(s => s.Id == jobId);
+                    Job.Title = job.Title;
+                    Job.subCategoryId = job.subCategoryId;
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(PostJobSkills));
+                }
+                else
+                {
+                    return RedirectToAction(nameof(PostJob));
+                }
+            }
+            return View(job);
         }
         public IActionResult PostJobSkills()
         {
-            return View();
+            if (HttpContext.Session.GetString("JobId") != null)
+            {
+                var jobId = int.Parse(HttpContext.Session.GetString("JobId"));
+                var jobOld = _context.Jobs.FirstOrDefault(a => a.Id == jobId);
+                ViewData["Skills"] = _context.Skills.Where(a => a.SubCategoryId == jobOld.subCategoryId);
+                ViewData["jobId"] = jobId;
+                return View();
+            }
+            else
+            {
+                return RedirectToAction(nameof(PostJobTitle));
+            }
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public async Task<IActionResult> PostJobSkills( Jobs job)
+        {
+            if (ModelState.IsValid)
+            {
+                if (HttpContext.Session.GetString("JobId") != null)
+                {
+                    var jobId = int.Parse(HttpContext.Session.GetString("JobId"));
+                    var Job = _context.Jobs.FirstOrDefault(s => s.Id == jobId);
+                    foreach (var item in job.jobsSkills)
+                    {
+                            JobsSkills skill = new JobsSkills() { JobsId = jobId, skillId = item.skillId};
+                            _context.JobsSkills.Add(skill);
+                            await _context.SaveChangesAsync();
+                    }
+                    return RedirectToAction(nameof(PostJobScope));
+                }
+                else
+                {
+                    return RedirectToAction(nameof(PostJobTitle));
+                }
+            }
+            return View(job);
+        }
+        /*public async Task<IActionResult> GetSkills(int Id)
+        {
+            var SkillsList = _context.Skills.Where(a => a.SubCategoryId == Id);
+            return Json(SkillsList);
+        }*/
         public IActionResult PostJobScope()
         {
-            return View();
+            if (HttpContext.Session.GetString("JobId") != null)
+            {
+                var jobId = int.Parse(HttpContext.Session.GetString("JobId"));
+                var jobOld = _context.Jobs.FirstOrDefault(a => a.Id == jobId);
+                return View();
+            }
+            else
+            {
+                return RedirectToAction(nameof(PostJobSkills));
+            }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public async Task<IActionResult> PostJobScope(Jobs job)
+        {
+            if (ModelState.IsValid)
+            {
+                if (HttpContext.Session.GetString("JobId") != null)
+                {
+                    var jobId = int.Parse(HttpContext.Session.GetString("JobId"));
+                    var Job = _context.Jobs.FirstOrDefault(s => s.Id == jobId);
+                    Job.Scope = job.Scope;
+                    Job.Duration = job.Duration;
+                    Job.LevelOfExperience = job.LevelOfExperience;
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(PostJobBudget));
+                }
+                else
+                {
+                    return RedirectToAction(nameof(PostJobSkills));
+                }
+            }
+            return View(job);
         }
         public IActionResult PostJobBudget()
         {

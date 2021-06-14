@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Upwork.Models.DbModels.Jobs
+@{
     ViewData["Title"] = "Steps";
     Layout = "_PostJobStepsLayout";
 }
@@ -13,16 +14,16 @@
     }
     @section RightSide{
         <div>
-            <div class="row m-0">
+            <form class="row m-0" id="ScopeDurationEx" method="post" asp-action="PostJobScope">
                 <div class="col-12 py-2 px-0" id="JobScope">
-                    <form method="post" action="send.php" id="scopeForm">
+                    <div id="scopeForm">
                         <div class="radio-group">
                             <div class="row m-0">
                                 <div class="col-12 radioBox px-0">
                                     <label for="job-lg">
                                         <div class="radioBody">
                                             <div class="text-left py-2">
-                                                <input type="radio" id="job-lg" name="job-level" />
+                                                <input type="radio" id="job-lg" name="Scope" asp-for="Scope" value="Large"/>
                                                 <span class="checkround my-2"></span>
                                                 <h5 class="ml-4">Large</h5>
                                                 <small class="text-muted ml-4">Longer term or complex initiatives (ex. design and build a full website)</small>
@@ -34,7 +35,7 @@
                                     <label for="job-md">
                                         <div class="radioBody">
                                             <div class="text-left py-2">
-                                                <input type="radio" id="job-md" name="job-level" />
+                                                <input type="radio" id="job-md" name="Scope" asp-for="Scope" value="Medium"/>
                                                 <span class="checkround my-2"></span>
                                                 <h5 class="ml-4">Medium</h5>
                                                 <small class="text-muted ml-4">Well-defined projects (ex. a landing page)</small>
@@ -46,7 +47,7 @@
                                     <label for="job-sm">
                                         <div class="radioBody">
                                             <div class="text-left py-2">
-                                                <input type="radio" id="job-sm" name="job-level" />
+                                                <input type="radio" id="job-sm" name="Scope" asp-for="Scope" value="Small"/>
                                                 <span class="checkround my-2"></span>
                                                 <h5 class="ml-4">Small</h5>
                                                 <small class="text-muted ml-4">Quick and straightforward tasks (ex. update text and images on a webpage)</small>
@@ -56,7 +57,7 @@
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
                     <div class="row m-0 d-none" id="scopeDetails">
                         <div class="col-10 p-0">
                             <h5 class="mb-1" id="jobScopeName"></h5>
@@ -72,14 +73,14 @@
                 <div class="col-12 py-2 px-0 d-none" id="jobTimeContainer" style="border-top: 1px solid #d1d1d1;">
                     <div id="timeJobContaine">
                         <h4 class="m-0"> How long will your work take?</h4>
-                        <form method="post" action="send.php" id="jobTimeForm">
+                        <div id="jobTimeForm">
                             <div class="radio-group">
                                 <div class="row m-0">
                                     <div class="col-12 radioBox px-0">
                                         <label for="more6">
                                             <div class="radioBody">
                                                 <div class="text-left py-2">
-                                                    <input type="radio" id="more6" name="time" />
+                                                    <input type="radio" id="more6" name="Duration" asp-for="Duration" value="6"/>
                                                     <span class="checkround my-2"></span>
                                                     <h5 class="ml-4">More than 6 months</h5>
                                                 </div>
@@ -90,7 +91,7 @@
                                         <label for="between3-6">
                                             <div class="radioBody">
                                                 <div class="text-left py-2">
-                                                    <input type="radio" id="between3-6" name="time" />
+                                                    <input type="radio" id="between3-6" name="Duration" asp-for="Duration" value="5"/>
                                                     <span class="checkround my-2"></span>
                                                     <h5 class="ml-4">3 to 6 months</h5>
                                                 </div>
@@ -101,7 +102,7 @@
                                         <label for="less3">
                                             <div class="radioBody">
                                                 <div class="text-left py-2">
-                                                    <input type="radio" id="less3" name="time" />
+                                                    <input type="radio" id="less3" name="Duration" asp-for="Duration" value="2"/>
                                                     <span class="checkround my-2"></span>
                                                     <h5 class="ml-4">1 to 3 months</h5>
                                                 </div>
@@ -110,7 +111,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                     <div class="row m-0 d-none" id="jobTimeDetails">
                         <div class="col-10 p-0">
@@ -128,14 +129,14 @@
                     <div id="jobExpContainer">
                         <h4 class="m-0">What level of experience will it need?</h4>
                         <p class="text-muted mb-2">This won't restrict any proposals, but helps match expertise to your budget.</p>
-                        <form method="post" action="send.php" id="jobExperianceForm">
+                        <div id="jobExperianceForm">
                             <div class="radio-group">
                                 <div class="row m-0">
                                     <div class="col-12 radioBox px-0">
-                                        <label for="threeOne">
+                                        <label for="Entry-level">
                                             <div class="radioBody">
                                                 <div class="text-left py-2">
-                                                    <input type="radio" id="threeOne" name="level-of-experience" />
+                                                    <input type="radio" id="Entry-level" name="LevelOfExperience" asp-for="LevelOfExperience" value="Entry level"/>
                                                     <span class="checkround my-2"></span>
                                                     <h5 class="ml-4">Entry level</h5>
                                                     <small class="text-muted ml-4">Looking for someone relatively new to this field</small>
@@ -144,10 +145,10 @@
                                         </label>
                                     </div>
                                     <div class="col-12 radioBox px-0">
-                                        <label for="threeTwo">
+                                        <label for="Intermediate-level">
                                             <div class="radioBody">
                                                 <div class="text-left py-2">
-                                                    <input type="radio" id="threeTwo" name="level-of-experience" />
+                                                    <input type="radio" id="Intermediate-level" name="LevelOfExperience" asp-for="LevelOfExperience" value="Intermediate level" />
                                                     <span class="checkround my-2"></span>
                                                     <h5 class="ml-4">Intermediate level</h5>
                                                     <small class="text-muted ml-4">Looking for substantial experience in this field</small>
@@ -156,10 +157,10 @@
                                         </label>
                                     </div>
                                     <div class="col-12 radioBox px-0">
-                                        <label for="threeThree">
+                                        <label for="Expert-level">
                                             <div class="radioBody">
                                                 <div class="text-left py-2">
-                                                    <input type="radio" id="threeThree" name="level-of-experience" />
+                                                    <input type="radio" id="Expert-level" name="LevelOfExperience" asp-for="LevelOfExperience" value="Expert level" />
                                                     <span class="checkround my-2"></span>
                                                     <h5 class="ml-4">Expert level</h5>
                                                     <small class="text-muted ml-4">Looking for comprehensive and deep expertise in this field</small>
@@ -169,7 +170,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                     <div class="row m-0 d-none" id="jobExperianceDetails">
                         <div class="col-10 p-0">
@@ -182,7 +183,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     }
 </div>
@@ -194,7 +195,6 @@
         $("#progressTitle").css("color", " #95df00");
         $("#progressSkills").css("color", " #95df00");
         $("#NextStep").text("Next:Budget");
-        $("#NextStep").attr("href", "/Client/PostJobBudget");
         $("#PrevStep").attr("href", "/Client/PostJobSkills");
         
         $("#scopeForm .radio-group .row .radioBox").click(function () {
@@ -247,7 +247,10 @@
             $("#jobExperianceDetails").addClass("d-none");
         });
        
-
+        $("#continue").on('click', '#NextStep', function () {
+            $("#ScopeDurationEx").append("<button type='submit' id='go'></button>");
+            $("#go").click();
+        })
 
         
     </script>

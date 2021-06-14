@@ -1,7 +1,12 @@
-﻿@{
+﻿
+@{
     ViewData["Title"] = "Steps";
     Layout = "_ClientLayout";
 }
+@section Style{
+    @await RenderSectionAsync("Style2", required: false)
+}
+
 <div class="container m-0 py-4 px-5 mx-auto">
     <div class="card px-4" style="height: fit-content; margin: 30px -30px;">
         <div class="row" style="height: inherit;">

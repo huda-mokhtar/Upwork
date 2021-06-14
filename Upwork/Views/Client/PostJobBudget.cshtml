@@ -2,6 +2,22 @@
     ViewData["Title"] = "Steps";
     Layout = "_PostJobStepsLayout";
 }
+@section Style2{ 
+<style>
+    .checkround {
+        position: absolute;
+        top: 5px;
+        height: 20px;
+        width: 20px;
+        background-color: #fff;
+        border-color: lightgrey;
+        border-style: solid;
+        border-width: 2px;
+        border-radius: 50%;
+        right: 5px;
+    }
+</style>
+}
 <div>
     @section leftSide{
         <div id="budget">
@@ -22,12 +38,12 @@
                                     <div class="radio-group">
                                         <div class="row m-0">
                                             <div class='col-6 p-0 pr-4'>
-                                                <div class='card text-center radio radioBox p-0 w-100' data-value="OneOne">
-                                                    <label for="oneone" class="w-100 p-3 m-0">
+                                                <div class='card text-center radio radioBox p-0 w-100 selected' data-value="hourlyRate">
+                                                    <label for="hourlyRate" class="w-100 p-3 m-0">
                                                         <div class="card-body radioBody p-0">
                                                             <div class="text-right">
-                                                                <input type="radio" id="oneone" name="Budget" />
-                                                                <span class="checkroundForBudget"></span>
+                                                                <input type="radio" id="hourlyRate" name="Budget" checked/>
+                                                                <span class="checkround"></span>
                                                             </div>
                                                             <i class="fa fa-clock-o mb-3" aria-hidden="true"></i>
                                                             <h6 class="card-title mb-3">Hourly rate</h6>
@@ -36,12 +52,12 @@
                                                 </div>
                                             </div>
                                             <div class='col-6 p-0'>
-                                                <div class='card text-center radio radioBox p-0 w-100' data-value="OneTwo">
-                                                    <label for="onetwo" class="w-100 p-3 m-0">
+                                                <div class='card text-center radio radioBox p-0 w-100' data-value="projectBudget">
+                                                    <label for="projectBudget" class="w-100 p-3 m-0">
                                                         <div class="card-body radioBody p-0">
                                                             <div class="text-right">
-                                                                <input type="radio" id="onetwo" name="Budget" />
-                                                                <span class="checkroundForBudget"></span>
+                                                                <input type="radio" id="projectBudget" name="Budget" />
+                                                                <span class="checkround"></span>
                                                             </div>
                                                             <i class="fa fa-usd mb-3" aria-hidden="true" style="transform: rotate(45deg); background-color:black; color: white; padding: 2px;"></i>
                                                             <h6 class="card-title mb-3">Project budget</h6>
@@ -57,7 +73,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row m-0">
+            <div class="row m-0 d-none" id="HourlyDiv">
                 <div class="col-12 mt-3 pt-2 px-0">
                     <div class="row">
                         <div class="col">
@@ -98,7 +114,7 @@
                     <img src="~/Images/Screenshot (532).png" class="w-100">
                 </div>
             </div>
-            <div class="row m-0 d-none">
+            <div class="row m-0 d-none" id="projectDiv">
                 <div class="col-12  mt-4 pt-4 px-0">
                     <p class="mb-2">Maximum project budget (USD)</p>
                     <div class="col-6 p-0">
@@ -132,7 +148,29 @@
         $("#continue").children()[0].classList.add('continueBtnEnable');
         $("#continue").children()[0].classList.remove('continueBtn');
 
-
+        if ($("#hourlyRate").parent().parent().parent().parent().hasClass("selected") == true) {
+            $("#HourlyDiv").removeClass("d-none");
+            $("#HourlyDiv").addClass("d-block");
+        }
+        $('.radio-group .row .radioBox').click(function () {
+            console.log($(this))
+            //console.log($(this)[0].children[0].children[0].children[0])
+            //$(this)[0].children[0].children[0].children[0].checked=true;
+            $(this).parent().parent().find('.radioBox').removeClass('selected');
+            $(this).addClass('selected');
+            var val = $(this).attr('data-value');
+            if ($("#hourlyRate").parent().parent().parent().parent().hasClass("selected") == true) {
+                $("#HourlyDiv").removeClass("d-none");
+                $("#HourlyDiv").addClass("d-block");
+                $("#projectDiv").removeClass("d-block");
+                $("#projectDiv").addClass("d-none");
+            } else if ($("#projectBudget").parent().parent().parent().parent().hasClass("selected") == true) {
+                $("#HourlyDiv").addClass("d-none");
+                $("#HourlyDiv").removeClass("d-block");
+                $("#projectDiv").addClass("d-block");
+                $("#projectDiv").removeClass("d-none");
+            }
+        });
 
     </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

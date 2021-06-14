@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Upwork.Models.DbModels.Jobs
+
+@{
     ViewData["Title"] = "Steps";
     Layout = "_PostJobStepsLayout";
 }
@@ -14,114 +16,58 @@
     @section RightSide{
         <div id="Jobtitle">
             <h5 class="mb-2">Write a title for your job post</h5>
-            <form class="w-100">
-                <div class="form-group">
-                    <input type="text" class="form-control" id="titleInput">
-                    <div class="my-3 d-none">
-                        <span style="color: #3c8224;">We’ll match you with candidates that specialize in <b>Web Design</b></span>
+            <form method="post" asp-action="PostJobTitle" id="TitleForm">
+                <div class="w-100">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="titleInput" asp-for="Title" name="Title" required>
+                        <div class="my-3 d-none">
+                            <span style="color: #3c8224;">We’ll match you with candidates that specialize in <b>Web Design</b></span>
+                        </div>
                     </div>
+                </div>
+                <div class="mt-3" id="titleExamples">
+                    <label>Example titles</label>
+                    <ul style="padding: revert;">
+                        <li class="m-0" style="list-style-type:disc">
+                            <p class="m-md-0">Build responsive WordPress site with booking/payment functionality</p>
+                        </li>
+                        <li class="m-0" style="list-style-type:disc">
+                            <p class="m-md-0">Graphic designer needed to design ad creative for multiple campaigns</p>
+                        </li>
+                        <li class="m-0" style="list-style-type:disc">
+                            <p class="m-md-0">Facebook ad specialist needed for product launch</p>
+                        </li>
+                    </ul>
+                </div>
+                <div id="catogery" class="d-none">
+                    <label>Job category</label>
+                    <div>
+                        <h6>Category</h6>
+                        <div class="container-fluid align-content-center border-dark">
+                            <div class="row pb-3">
+                                <select onchange="getSubCategories(this.value)" class="form-control" asp-items="ViewBag.Category"><option value="">-</option></select>
+                                @*<select class="custom-select" aria-label="Default select example">
+                            <option selected>Web,Mobile & Software Dev</option>
+                            <option value="1">Customer Services</option>
+                            <option value="2">Admin Support</option>
+                            <option value="3">Design & Creative</option>
+                        </select>*@
+                            </div>
+                            <h6>Specialty</h6>
+                            <div class="row form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-outline">
+                                <select class="custom-select" aria-label="Default select example" id="subCategory" required asp-for="subCategoryId" name="subCategoryId">
+                                    @*<option selected>Web Design</option>
+                            <option value="1">UX/UI Design</option>
+                            <option value="2">Prototyping</option>
+                            <option value="3">User Research</option>*@
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
             </form>
-            <div class="mt-3" id="titleExamples">
-                <label>Example titles</label>
-                <ul style="padding: revert;">
-                    <li class="m-0" style="list-style-type:disc">
-                        <p class="m-md-0">Build responsive WordPress site with booking/payment functionality</p>
-                    </li>
-                    <li class="m-0" style="list-style-type:disc">
-                        <p class="m-md-0">Graphic designer needed to design ad creative for multiple campaigns</p>
-                    </li>
-                    <li class="m-0" style="list-style-type:disc">
-                        <p class="m-md-0">Facebook ad specialist needed for product launch</p>
-                    </li>
-                </ul>
-            </div>
-            <div id="catogery" class="d-none">
-                <label>Job category</label>
-                <form>
-                    <div class="radio-group">
-                        <div class="row">
-                            <div class="col-12 radioBox">
-                                <label for="one">
-                                    <div class="radioBody">
-                                        <div class="text-left">
-                                            <input type="radio" id="one" name="Catogary" checked />
-                                            <span class="checkround"></span>
-                                            <p class="ml-5">Web Design</p>
-                                        </div>
-                                    </div>
-                                </label>
-                            </div>
-                            <div class="col-12 radioBox">
-                                <label for="two">
-                                    <div class="radioBody">
-                                        <div class="text-left">
-                                            <input type="radio" id="two" name="Catogary" />
-                                            <span class="checkround"></span>
-                                            <p class="ml-5">Ecommerce Development</p>
-                                        </div>
-                                    </div>
-                                </label>
-                            </div>
-                            <div class="col-12 radioBox">
-                                <label for="three">
-                                    <div class="radioBody">
-                                        <div class="text-left">
-                                            <input type="radio" id="three" name="Catogary" />
-                                            <span class="checkround"></span>
-                                            <p class="ml-5">Full Stack Development</p>
-                                        </div>
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-                <!-- Button trigger modal -->
-                <a href="#" class="success" data-toggle="modal" data-target="#exampleModalLong">See all categories</a>
 
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLongTitle">
-                                    Change category
-                                </h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <h6>Category</h6>
-                                <div class="container-fluid align-content-center border-dark">
-                                    <div class="row pb-3">
-                                        <select class="custom-select" aria-label="Default select example">
-                                            <option selected>Web,Mobile & Software Dev</option>
-                                            <option value="1">Customer Services</option>
-                                            <option value="2">Admin Support</option>
-                                            <option value="3">Design & Creative</option>
-                                        </select>
-                                    </div>
-                                    <h6>Specialty</h6>
-                                    <div class="row form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-outline">
-                                        <select class="custom-select" aria-label="Default select example">
-                                            <option selected>Web Design</option>
-                                            <option value="1">UX/UI Design</option>
-                                            <option value="2">Prototyping</option>
-                                            <option value="3">User Research</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn text-success bg-white" data-dismiss="modal">Cancel</button>
-                                <button class="btn btn-success" style="border-radius: 30px;">Apply</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     }
 </div>
@@ -131,7 +77,6 @@
         $("#prorBar").children()[0].classList.add("w-25");
         $("#progressTitle").css("color", " #95df00");
         $("#NextStep").text("Next:Skills");
-        $("#NextStep").attr("href", "/Client/PostJobSkills");
         $("#PrevStep").attr("href", "/Client/PostJob");
         $('#titleInput').keyup(function () {
             if ($(this).val().length > 0) {
@@ -148,6 +93,27 @@
                 $("#continue").children()[0].classList.remove('continueBtnEnable');
             }
         })
+        $("#continue").on('click','#NextStep',function () {
+            $("#TitleForm").append("<button type='submit' id='go'></button>");
+            $("#go").click();
+        })
+        function getSubCategories(event) {
+            console.log(event);
+            $.ajax({
+                url: "https://localhost:44367/client/GetSubCategories/" + event + "",
+                type: "Get",
+                success: (res) => {
+                    var obt = "<option value='0'>SubCategory</option>";
+                    for (var x = 0; x < res.length; x++) {
+                        obt += "<option value='" + res[x].subCategoryId + "'>" + res[x].name + "</option>"
+                    }
+                    $("#subCategory").html(obt).show();
+                },
+                error: (e) => {
+                    console.log(e);
+                }
+            })
+        }
     </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

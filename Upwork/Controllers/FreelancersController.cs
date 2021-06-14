@@ -19,6 +19,11 @@ namespace Upwork.Controllers
             _context = context;
         }
 
+        public IActionResult Profile()
+        {
+            return View();
+        }
+
         // GET: Freelancers
         public async Task<IActionResult> Index()
         {
