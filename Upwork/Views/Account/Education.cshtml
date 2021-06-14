@@ -12,45 +12,47 @@
                     <h4> Education </h4>
                     <p class="text-muted"> 5 of 12 </p>
                 </div>
-                <div class="card-body">
-                    <p class="card-title pb-3">Add the schools you attended, areas of study, and degrees earned.</p>
-                    <div class="mt-1 mb-5">
-                        <div class="d-flex justify-content-between row">
-                            <div class="col-10">
-                                <h5 style="padding:0;margin:0"> Mansoura University </h5>
-                                <p style="padding:0;margin:0"> Bachelor of Computer Science (BCompSc) of Computer science </p>
-                                <p style="padding:0;margin:0" class="text-muted"> 2016 - 2015 (expected) </p>
+                <form asp-action="Education">
+                    <div class="card-body">
+                        <p class="card-title pb-3">Add the schools you attended, areas of study, and degrees earned.</p>
+                        <div class="mt-1 mb-5">
+                            <div class="d-flex justify-content-between row">
+                                <div class="col-10">
+                                    <h5 style="padding:0;margin:0"> Mansoura University </h5>
+                                    <p style="padding:0;margin:0"> Bachelor of Computer Science (BCompSc) of Computer science </p>
+                                    <p style="padding:0;margin:0" class="text-muted"> 2016 - 2015 (expected) </p>
+                                </div>
+                                <div class="col-2">
+                                    <a>
+                                        <span style="font-size: 0.8rem; color: #656565; border: 1px solid #ccc; border-radius: 50%; padding: 0.6rem; " class="fa fa-pen"></span>
+                                    </a>
+                                    <a>
+                                        <span style="font-size: 0.8rem; color: #656565; border: 1px solid #ccc; border-radius: 50%; padding: 0.6rem; " class="fa fa-trash-alt"></span>
+                                    </a>
+                                </div>
                             </div>
-                            <div class="col-2">
-                                <a>
-                                    <span style="font-size: 0.8rem; color: #656565; border: 1px solid #ccc; border-radius: 50%; padding: 0.6rem; " class="fa fa-pen"></span>
-                                </a>
-                                <a>
-                                    <span style="font-size: 0.8rem; color: #656565; border: 1px solid #ccc; border-radius: 50%; padding: 0.6rem; " class="fa fa-trash-alt"></span>
-                                </a>                              
-                            </div>
-                        </div>                       
-                    </div>                  
-                    <div class="container-fluid align-content-center border-dark">                       
-                        <div class="row pb-3">
-                            <button style="all:unset;border:1px solid lightgrey;color: forestgreen;padding: 10px 30px;text-align: center;text-decoration: none;display: inline-block;margin: 4px 2px;cursor: pointer;border-radius: 20px;" class="bg-white">
-                                <span class="fa fa-plus"></span> <span>  Add Education </span>
-                            </button>
-                        </div>                     
-                    </div>
-                </div>
-                <div class="card-footer" style="height:100px">
-                    <div class="container-fluid">
-                        <div class="row" style="margin-top:17px">
-                            <div class="col-2">
-                                <button class="btn text-success bg-white" style="border-color:lightgrey">Back</button>
-                            </div>
-                            <div class="offset-8 text-right">
-                                <button class="btn btn-success" style="border-color:lightgrey;">Next</button>
+                        </div>
+                        <div class="container-fluid align-content-center border-dark">
+                            <div class="row pb-3">
+                                <button style="all:unset;border:1px solid lightgrey;color: forestgreen;padding: 10px 30px;text-align: center;text-decoration: none;display: inline-block;margin: 4px 2px;cursor: pointer;border-radius: 20px;" class="bg-white">
+                                    <span class="fa fa-plus"></span> <span>  Add Education </span>
+                                </button>
                             </div>
                         </div>
                     </div>
-                </div>
+                    <div class="card-footer" style="height:100px">
+                        <div class="container-fluid">
+                            <div class="row" style="margin-top:17px">
+                                <div class="col-2">
+                                    <a asp-action="ExpertiseLevel" asp-controller="Account" class="btn text-success bg-white" style="border-color:lightgrey">Back</a>
+                                </div>
+                                <div class="offset-8 text-right">
+                                    <button type="submit" class="btn btn-success" style="border-color:lightgrey;">Next</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>      
             </div>
         </div>
     </div>

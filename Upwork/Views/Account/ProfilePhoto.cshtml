@@ -12,25 +12,27 @@
                     <h4>Profile Photo</h4>
                     <p class="text-muted">10 of 12</p>
                 </div>
-                <div class="card-body" style="height:330px">
-                    <p class="card-title pb-3">Please upload a professional portrait that clearly shows your face. <span class="fa fa-question-circle" style="color:forestgreen"> </span></p>
-                    <img src="~/Images/user.png" id="image" class="offset-2" style=" width: 100px; height: 100px; border-radius: 50%;cursor:auto" />
-                    <div class="container-fluid align-content-center border-dark mt-4">
-                        <input type="file" onchange="loadFile(event)" class="foo">
+                <form asp-action="ProfilePhoto" asp-controller="Account">
+                    <div class="card-body" style="height:330px">
+                        <p class="card-title pb-3">Please upload a professional portrait that clearly shows your face. <span class="fa fa-question-circle" style="color:forestgreen"> </span></p>
+                        <img src="~/Images/user.png" id="image" class="offset-2" style=" width: 100px; height: 100px; border-radius: 50%;cursor:auto" />
+                        <div class="container-fluid align-content-center border-dark mt-4">
+                            <input type="file" onchange="loadFile(event)" class="foo">
+                        </div>
                     </div>
-                </div>
-                <div class="card-footer" style="height:100px">
-                    <div class="container-fluid">
-                        <div class="row" style="margin-top:17px">
-                            <div class="col-2">
-                                <button class="btn text-success bg-white" style="border-color:lightgrey">Back</button>
-                            </div>
-                            <div class="offset-8 text-right">
-                                <button class="btn btn-success" style="border-color:lightgrey;">Next</button>
+                    <div class="card-footer" style="height:100px">
+                        <div class="container-fluid">
+                            <div class="row" style="margin-top:17px">
+                                <div class="col-2">
+                                    <a  asp-controller="Account" asp-action="Overview" class="btn text-success bg-white" style="border-color:lightgrey">Back</a>
+                                </div>
+                                <div class="offset-8 text-right">
+                                    <button type="submit" class="btn btn-success" style="border-color:lightgrey;">Next</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </form>          
             </div>
         </div>
     </div>
