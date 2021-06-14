@@ -5,14 +5,14 @@
     Layout = "_ClientLayout";
 }
 
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
+<div class="m-0 mx-lg-auto px-xl-3 py-xl-4 py-md-4 px-md-5 m-0 px-lg-5 px-3 py-0 w-100">
+    <div class="row m-0 w-100">
+        <div class="col-12 p-0 w-100">
+            <div class="card px-3 my-2 mx-n3 my-md-4 mx-md-n4 px-md-4 w-100">
                 <div class="card-header bg-white">
                     <h4>Getting Started</h4>
                 </div>
-                <form asp-action="PostJob" method="post">
+                <div>
                     <div class="card-body">
                         <h5 class="card-title">What would you like to do?</h5>
                         <div class="align-content-center border-dark p-3">
@@ -32,15 +32,15 @@
                                                             <div class="container-fluid align-content-center border-dark">
                                                                 <div class="row">
                                                                     <div class="col-12 p-0">
-                                                                        <form method="post" action="send.php">
+                                                                        <form method="post" id="nextForm" asp-action="PostJob">
                                                                             <div class="radio-group">
                                                                                 <div class="container">
                                                                                     <div class="row">
-                                                                                        <div class='col-4 mr-3 mt-3 mb-3 card text-center radio radioBox ml-0' data-value="OneOne">
-                                                                                            <label for="oneone">
+                                                                                        <div class='col-12 col-md-4 mr-md-3 mt-md-3 mb-md-3 card text-center radio radioBox ml-0 mb-2' data-value="firstType">
+                                                                                            <label for="firstType">
                                                                                                 <div class="card-body radioBody">
                                                                                                     <div class="text-right">
-                                                                                                        <input type="radio" id="oneone" name="newJob" />
+                                                                                                        <input type="radio" id="firstType" name="Type" value="ShortTime" asp-for="Type" />
                                                                                                         <span class="checkround"></span>
                                                                                                     </div>
                                                                                                     <i class="fa fa-clock-o mb-3" aria-hidden="true"></i>
@@ -50,11 +50,11 @@
                                                                                                 </div>
                                                                                             </label>
                                                                                         </div>
-                                                                                        <div class='col-4 m-3 card text-center radio radioBox' data-value="OneTwo">
-                                                                                            <label for="onetwo">
+                                                                                        <div class='col-12 col-md-4 m-md-3 card text-center radio radioBox mb-2' data-value="SecondType">
+                                                                                            <label for="SecondType">
                                                                                                 <div class="card-body radioBody">
                                                                                                     <div class="text-right">
-                                                                                                        <input type="radio" id="onetwo" name="newJob" />
+                                                                                                        <input type="radio" id="SecondType" name="Type" value="LongTime" asp-for="Type" />
                                                                                                         <span class="checkround"></span>
                                                                                                     </div>
                                                                                                     <i class="fa fa-calendar-plus-o mb-3" aria-hidden="true"></i>
@@ -105,19 +105,17 @@
                         </div>
 
                     </div>
+                    
                     <div class="card-footer bg-white">
                         <div class="container-fluid">
                             <div class="row text-right">
                                 <div class="offset-8 col-2">
-                                    <a class="btn text-success bg-white" asp-action="Index">Cancel</a>
-                                </div>
-                                <div class="col-2" id="gotoSteps">
-                                    <a class="btn continueBtn" asp-action="PostJobTitle">Continue</a>
+                                    <button class="btn text-success bg-white">Cancel</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
@@ -136,6 +134,15 @@
             $("#gotoSteps").children()[0].classList.add('continueBtnEnable');
             var val = $(this).attr('data-value');
         });
+        $("#gotoSteps").on('click','#submit',function (event) {
+
+            //console.log("done");
+            var date = new Date().toLocaleString();
+            console.log(date);
+            $("#nextForm").append("<input type='text' asp-for='CreateDate' value='" + date + "' name='CreateDate'/>");
+            $("#nextForm").append("<button type='submit' id='go'></button>");
+            $("#go").click();
+        })
     </script>
 
 }

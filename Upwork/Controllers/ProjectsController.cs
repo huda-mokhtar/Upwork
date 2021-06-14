@@ -356,8 +356,7 @@ namespace Upwork.Controllers
             
         }
         
-        //GET:Projects/Requierments
-        [Route("Projects/Review")]
+        //GET:Projects/ReviewProject
         public async Task<IActionResult> ReviewProject() 
         {
             if (HttpContext.Session.GetString("ProjectId") != null)

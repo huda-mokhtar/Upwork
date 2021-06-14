@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Upwork.Data;
+using Upwork.Models.DbModels;
 
 namespace Upwork.Controllers
 {
@@ -27,8 +28,41 @@ namespace Upwork.Controllers
 
         public IActionResult PostJob()
         {
+            if (HttpContext.Session.GetString("JobId") != null)
+            {
+                var JobId = int.Parse(HttpContext.Session.GetString("JobId"));
+                var Job = _context.Jobs.FirstOrDefault(a => a.Id == JobId);
+                return View(Job);
+            }
             return View();
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public async Task< IActionResult> PostJob(Jobs job)
+        {
+            if (ModelState.IsValid)
+            {
+                if (HttpContext.Session.GetString("JobId") != null)
+                {
+                    var jobId = int.Parse(HttpContext.Session.GetString("JobId"));
+                    var jobOld = _context.Jobs.FirstOrDefault(a => a.Id == jobId);
+                    jobOld.Type = job.Type;
+
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(PostJobTitle));
+                }
+                else
+                {
+                    _context.Add(job);
+                    await _context.SaveChangesAsync();
+                    HttpContext.Session.SetString("JobId", job.Id.ToString());
+                    return RedirectToAction(nameof(PostJobTitle));
+                }
+            }
+            return View(job);
+        }
+
         public IActionResult PostJobTitle()
         {
             return View();
