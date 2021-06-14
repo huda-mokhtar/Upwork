@@ -21,80 +21,84 @@
             <div class="">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Approved</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Drafts</a>
                     </li>
 
                 </ul>
+              
                 <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        <div class="project">
-                            <div class="container">
-                                <div class="row align-items-center">
-                                    <div class="col-10">
-                                        <div class="d-flex">
-                                            <img src="~/Images/16938730_371690419878868_4123771690068118215_n.jpg" class="project-img" />
-                                            <p class="project-title">You will get .net fullstack developer will deliver and how it benefits them</p>
+                    @foreach (var item in Model)
+                    {
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="project">
+                                <div class="container">
+                                    <div class="row align-items-center">
+                                        <div class="col-10">
+                                            <div class="d-flex">
+                                                <img src="/Images/@item.Image" class="project-img" />
+                                                <p class="project-title">@item.Title</p>
+                                            </div>
                                         </div>
+                                        <div class="col-2">
+                                            <div class=""
+                                                 style="width: 3rem; height: 3rem; margin: 0;padding:0;">
+                                                <span class=" circlee-points container-circlee" data-toggle="dropdown"
+                                                      aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fa fa-ellipsis-h 2x" style="color:rgb(83, 83, 83) ;"></i>
+                                                </span>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="#">Edit</a>
+                                                    <a class="dropdown-item" href="#">Remove</a>
 
-
-                                    </div>
-                                    <div class="col-2">
-                                        <div class=""
-                                             style="width: 3rem; height: 3rem; margin: 0;padding:0;">
-                                            <span class=" circlee-points container-circlee" data-toggle="dropdown"
-                                                  aria-haspopup="true" aria-expanded="false">
-                                                <i class="fa fa-ellipsis-h 2x" style="color:rgb(83, 83, 83) ;"></i>
-                                            </span>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="#">Edit</a>
-                                                <a class="dropdown-item" href="#">Remove</a>
-
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
+
                             </div>
+                        </div>}
+                    @foreach (var item in ViewBag.DraftProject)
+                    {
+                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <div class="project">
+                                <div class="container">
+                                    <div class="row align-items-center">
+                                        <div class="col-10">
+                                            <div class="d-flex">
+                                                <img src="~/Images/@item.Image" class="project-img" />
+                                                <p class="project-title">@item.Title</p>
+                                            </div>
 
 
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                        <div class="project">
-                            <div class="container">
-                                <div class="row align-items-center">
-                                    <div class="col-10">
-                                        <div class="d-flex">
-                                            <img src="~/Images/16938730_371690419878868_4123771690068118215_n.jpg" class="project-img" />
-                                            <p class="project-title">You will get .net fullstack developer will deliver and how it benefits them</p>
                                         </div>
+                                        <div class="col-2">
+                                            <div class=""
+                                                 style="width: 3rem; height: 3rem; margin: 0;padding:0;">
+                                                <span class=" circlee-points container-circlee" data-toggle="dropdown"
+                                                      aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fa fa-ellipsis-h 2x" style="color:rgb(83, 83, 83) ;"></i>
+                                                </span>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="#">Edit</a>
+                                                    <a class="dropdown-item" href="#">Remove</a>
 
-
-                                    </div>
-                                    <div class="col-2">
-                                        <div class=""
-                                             style="width: 3rem; height: 3rem; margin: 0;padding:0;">
-                                            <span class=" circlee-points container-circlee" data-toggle="dropdown"
-                                                  aria-haspopup="true" aria-expanded="false">
-                                                <i class="fa fa-ellipsis-h 2x" style="color:rgb(83, 83, 83) ;"></i>
-                                            </span>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="#">Edit</a>
-                                                <a class="dropdown-item" href="#">Remove</a>
-
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
+
                             </div>
-
-
                         </div>
+                    }
                     </div>
-
-                </div>
+                
             </div>
             <div class="wrapper">
                 <!--Head-->
@@ -155,8 +159,9 @@
                     <div class="container" data-toggle="collapse" href="#collapseOne" style="cursor: pointer;" id="accordion1">
                         <div class="row m-0 p-0">
                             <div class="col-9 mr-1 text-left">
-                                <p class="seconedHeaders mb-2">Screening questions (optional)</p>
-                                <p class="mb-2" style="font-size: 14px; color: #656565;">Narrow down your candidates</p>
+                                <p class="seconedHeaders mb-2">
+                                    What is Project Catalog?
+                                </p>
                             </div>
                             <div class="col-2 m-0 text-right">
                                 <a class="card-link rotateLink1" data-toggle="collapse" style="color:black;"
@@ -167,7 +172,7 @@
                     <div id="collapseOne" class="collapse m-0 p-0 mb-3 " data-parent="#accordion1">
                         <div class="container">
                             <div>
-                                <p>English level</p>
+                                <p>We developed this offering in response to feedback from our community. Freelancers told us that they want to work on projects that closely align within their work and rate expectations, while clients have told us they want an easier way to get started with freelancers. With Project Catalog, you can set expectations about cost, timeline, and deliverables and simplify how clients locate the skills they need for their project. In general, the idea is that freelancers pre-define everything upfront and interested clients can buy it, cutting down on the back and forth that often needs to occur before a project begins.</p>
                             </div>
                         </div>
                     </div>

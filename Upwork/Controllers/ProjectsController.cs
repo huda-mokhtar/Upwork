@@ -31,8 +31,11 @@ namespace Upwork.Controllers
         // GET: Projects
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Projects.Include(p => p.Freelancer);
-            return View(await applicationDbContext.ToListAsync());
+            var Projects =  _context.Projects.Where(a => a.IsDraft == false).ToList();
+             
+            var Drafts =  _context.Projects.Where(a => a.IsDraft == true).ToList();
+            ViewData["DraftProject"] = Drafts;
+            return View(Projects);
         }
 
 
