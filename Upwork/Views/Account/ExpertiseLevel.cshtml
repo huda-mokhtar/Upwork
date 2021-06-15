@@ -1,0 +1,172 @@
+﻿
+@{
+    ViewData["Title"] = "ExpertiseLevel";
+    Layout = "~/Views/Shared/_CreateProfileLayout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Expertise Level</h4>
+                    <p class="text-muted">4 of 12</p>
+                </div>
+                <form asp-action="ExpertiseLevel">
+                    <div class="card-body">
+                        <h5 class="card-title">What is your level of experience in this field ?</h5>
+                        <div class="container-fluid align-content-center border-dark">
+                            <div class="row">
+                                <div class="radio-group">
+                                    <div style="height:160px;width:200px" class='ml-1 mt-3 mb-4 card text-center radio radioBox' data-value="One">
+                                        <label for="one">
+                                            <div class="card-body radioBody">
+                                                <div class="text-right">
+                                                    <input type="radio" id="one" name="Expertise-Level" />
+                                                    <span class="checkround"></span>
+                                                </div>
+                                                <h5 class="card-title"> Entry level </h5>
+                                                <p class="card-text"> I am relatively new to this field and have no experience </p>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div style="height:160px;width:200px" class='ml-2  card text-center radio radioBox' data-value="Two">
+                                        <label for="two">
+                                            <div class="card-body radioBody">
+                                                <div class="text-right">
+                                                    <input type="radio" id="two" name="Expertise-Level" />
+                                                    <span class="checkround"></span>
+                                                </div>
+                                                <h5 class="card-title"> Intermediate </h5>
+                                                <p class="card-text"> I have substanial experience in this field </p>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div style="height:160px;width:200px" class='ml-2 card text-center radio radioBox' data-value="Three">
+                                        <label for="three">
+                                            <div class="card-body radioBody">
+                                                <div class="text-right">
+                                                    <input type="radio" id="three" name="Expertise-Level" />
+                                                    <span class="checkround"></span>
+                                                </div>
+                                                <h5 class="card-title"> Expert </h5>
+                                                <p class="card-text"> I have comprehensive and deep expertise in this field </p>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer" style="height:100px">
+                        <div class="container-fluid">
+                            <div class="row" style="margin-top:17px">
+                                <div class="col-2">
+                                    <a asp-action="Expertise" asp-controller="Account" class="btn text-success bg-white" style="border-color:lightgrey">Back</a>
+                                </div>
+                                <div class="offset-8 text-right">
+                                    <button type="submit" class="btn btn-success" style="border-color:lightgrey;">Next</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form> 
+            </div>
+        </div>
+    </div>
+</div>
+@section Styles{
+    <style>
+        .radio-group {
+            position: relative;
+        }
+
+        .radio {
+            display: inline-block;
+            border-radius: 5px 5px;
+            border: 2px solid lightgrey;
+            cursor: pointer;
+        }
+
+        .radioBody {
+            cursor: pointer;
+        }
+
+        .radio.selected {
+            border-color: rgb(74, 180, 74);
+        }
+
+        input[type='radio']:checked:after {
+            background-color: #ffa500;
+        }
+        /* .radiobox:checked::after{
+            background-color: green;
+        } */
+        /*.radiobox{
+          color: green!important;
+        }*/
+        .radioBox input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .checkround {
+            position: absolute;
+            top: 3px;
+            height: 20px;
+            width: 20px;
+            background-color: #fff;
+            border-color: lightgrey;
+            border-style: solid;
+            border-width: 2px;
+            border-radius: 50%;
+        }
+
+
+        /* When the radio button is checked, add a blue background */
+        .radioBox input:checked ~ .checkround {
+            background-color: #fff;
+        }
+
+        /* Create the indicator (the dot/circle - hidden when not checked) */
+        .checkround:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        /* Show the indicator (dot/circle) when checked */
+        .radioBox input:checked ~ .checkround:after {
+            display: block;
+        }
+
+        .radioBox input:checked ~ .checkround {
+            border-color: rgb(74, 180, 74);
+        }
+
+        /* Style the indicator (dot/circle) */
+        .radioBox .checkround:after {
+            left: 2px;
+            top: 2px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgb(74, 180, 74);
+        }
+    </style>
+}
+
+@section Scripts{
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+    $('.radio-group .radioBox').click(function(){
+        console.log($(this))
+        //console.log($(this)[0].children[0].children[0].children[0])
+        //$(this)[0].children[0].children[0].children[0].checked=true;
+    $(this).parent().find('.radioBox').removeClass('selected');
+    $(this).addClass('selected');
+    var val = $(this).attr('data-value');
+});
+    </script>
+}

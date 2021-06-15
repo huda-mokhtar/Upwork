@@ -1,6 +1,24 @@
-﻿@{
+﻿@model Upwork.Models.DbModels.Jobs
+
+@{
     ViewData["Title"] = "Steps";
     Layout = "_PostJobStepsLayout";
+}
+@section Style2{ 
+<style>
+    .checkround {
+        position: absolute;
+        top: 5px;
+        height: 20px;
+        width: 20px;
+        background-color: #fff;
+        border-color: lightgrey;
+        border-style: solid;
+        border-width: 2px;
+        border-radius: 50%;
+        right: 5px;
+    }
+</style>
 }
 <div>
     @section leftSide{
@@ -12,22 +30,22 @@
         </div>
     }
     @section RightSide{
-        <div id="JobBudget">
+        <form id="JobBudget" method="post" asp-action="PostJobBudget">
             <div class="row m-0">
                 <div class="col-12 p-0">
                     <div class="container-fluid align-content-center p-0">
                         <div class="row m-0">
                             <div class="col-12 p-0">
-                                <form method="post" action="send.php">
+                                <div>
                                     <div class="radio-group">
                                         <div class="row m-0">
                                             <div class='col-6 p-0 pr-4'>
-                                                <div class='card text-center radio radioBox p-0 w-100' data-value="OneOne">
-                                                    <label for="oneone" class="w-100 p-3 m-0">
+                                                <div class='card text-center radio radioBox p-0 w-100 selected' data-value="hourlyRate">
+                                                    <label for="hourlyRate" class="w-100 p-3 m-0">
                                                         <div class="card-body radioBody p-0">
                                                             <div class="text-right">
-                                                                <input type="radio" id="oneone" name="Budget" />
-                                                                <span class="checkroundForBudget"></span>
+                                                                <input type="radio" id="hourlyRate" name="TypeOfBudget" asp-for="TypeOfBudget"  checked value="false"/>
+                                                                <span class="checkround"></span>
                                                             </div>
                                                             <i class="fa fa-clock-o mb-3" aria-hidden="true"></i>
                                                             <h6 class="card-title mb-3">Hourly rate</h6>
@@ -36,12 +54,12 @@
                                                 </div>
                                             </div>
                                             <div class='col-6 p-0'>
-                                                <div class='card text-center radio radioBox p-0 w-100' data-value="OneTwo">
-                                                    <label for="onetwo" class="w-100 p-3 m-0">
+                                                <div class='card text-center radio radioBox p-0 w-100' data-value="projectBudget">
+                                                    <label for="projectBudget" class="w-100 p-3 m-0">
                                                         <div class="card-body radioBody p-0">
                                                             <div class="text-right">
-                                                                <input type="radio" id="onetwo" name="Budget" />
-                                                                <span class="checkroundForBudget"></span>
+                                                                <input type="radio" id="projectBudget" name="TypeOfBudget" asp-for="TypeOfBudget" value="true"/>
+                                                                <span class="checkround"></span>
                                                             </div>
                                                             <i class="fa fa-usd mb-3" aria-hidden="true" style="transform: rotate(45deg); background-color:black; color: white; padding: 2px;"></i>
                                                             <h6 class="card-title mb-3">Project budget</h6>
@@ -51,13 +69,13 @@
                                             </div>
                                         </div>
                                     </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row m-0">
+            <div class="row m-0 d-none" id="HourlyDiv">
                 <div class="col-12 mt-3 pt-2 px-0">
                     <div class="row">
                         <div class="col">
@@ -66,7 +84,7 @@
                                 <div class="d-inline">
                                     <div class="form-group has-search d-inline">
                                         <span class="form-control-feedback text-dark"><strong>$</strong></span>
-                                        <input type="number" class="form-control-dolars d-inline">
+                                        <input type="number" class="form-control-dolars d-inline" name="BudgetFrom" id="BudgetFromHourly">
                                     </div>
                                 </div>
                                 <span class="d-inline" aria-hidden="true">/hour</span>
@@ -78,7 +96,7 @@
                                 <div class="d-inline">
                                     <div class="form-group has-search d-inline">
                                         <span class="form-control-feedback text-dark"><strong>$</strong></span>
-                                        <input type="number" class="form-control-dolars d-inline">
+                                        <input type="number" class="form-control-dolars d-inline" name="BudgetTo" id="BudgetToHourly">
                                     </div>
                                 </div>
                                 <span class="d-inline" aria-hidden="true">/hour</span>
@@ -98,14 +116,14 @@
                     <img src="~/Images/Screenshot (532).png" class="w-100">
                 </div>
             </div>
-            <div class="row m-0 d-none">
+            <div class="row m-0 d-none" id="projectDiv">
                 <div class="col-12  mt-4 pt-4 px-0">
                     <p class="mb-2">Maximum project budget (USD)</p>
                     <div class="col-6 p-0">
                         <div class="d-inline">
                             <div class="form-group has-search d-inline">
                                 <span class="fa fa-usd form-control-feedback"></span>
-                                <input type="number" class="form-control-dolars d-inline">
+                                <input type="number" class="form-control-dolars d-inline" id="projectBudgetFrom">
                             </div>
                         </div>
                     </div>
@@ -115,7 +133,7 @@
                     </p>
                 </div>
             </div>
-        </div>
+        </form>
     }
 </div>
 @section Scripts2 {
@@ -127,13 +145,43 @@
         $("#progressScope").css("color", " #95df00");
         $("#progressBudget").css("color", " #95df00");
         $("#NextStep").text("Review Job Post");
-        $("#NextStep").attr("href", "/Client/ReviewJobPosting");
         $("#PrevStep").attr("href", "/Client/PostJobScope");
         $("#continue").children()[0].classList.add('continueBtnEnable');
         $("#continue").children()[0].classList.remove('continueBtn');
 
-
-
+        if ($("#hourlyRate").parent().parent().parent().parent().hasClass("selected") == true) {
+            $("#HourlyDiv").removeClass("d-none");
+            $("#HourlyDiv").addClass("d-block");
+        }
+        $('.radio-group .row .radioBox').click(function () {
+            console.log($(this))
+            //console.log($(this)[0].children[0].children[0].children[0])
+            //$(this)[0].children[0].children[0].children[0].checked=true;
+            $(this).parent().parent().find('.radioBox').removeClass('selected');
+            $(this).addClass('selected');
+            var val = $(this).attr('data-value');
+            if ($("#hourlyRate").parent().parent().parent().parent().hasClass("selected") == true) {
+                $("#HourlyDiv").removeClass("d-none");
+                $("#HourlyDiv").addClass("d-block");
+                $("#projectDiv").removeClass("d-block");
+                $("#projectDiv").addClass("d-none");
+                $("#BudgetToHourly").attr("name", "BudgetTo");
+                $("#BudgetFromHourly").attr("name", "BudgetFrom");
+                $("#projectBudgetFrom").removeAttr("name");
+            } else if ($("#projectBudget").parent().parent().parent().parent().hasClass("selected") == true) {
+                $("#HourlyDiv").addClass("d-none");
+                $("#HourlyDiv").removeClass("d-block");
+                $("#projectDiv").addClass("d-block");
+                $("#projectDiv").removeClass("d-none");
+                $("#projectBudgetFrom").attr("name", "BudgetFrom");
+                $("#BudgetFromHourly").removeAttr("name");
+                $("#BudgetToHourly").removeAttr("name");
+            }
+        });
+        $("#continue").on('click', '#NextStep', function () {
+            $("#JobBudget").append("<button type='submit' id='go'></button>");
+            $("#go").click();
+        })
     </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

@@ -1,0 +1,207 @@
+﻿@{ 
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title> @ViewBag.Title </title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/solid.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/fontawesome.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <style>
+        #Header {
+            height: 85px;
+            background-color: #1D4354;
+        }
+
+        #up {
+            color: #6FDA44;
+            font-size: 40px;
+            font-family: 'Brush Script MT', cursive;
+        }
+
+        #work {
+            color: white;
+            font-size: 30px;
+            font-family: Georgia, serif;
+        }
+
+        img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        #Content {
+            background-color: #F1F2F4;
+            height: 550px;
+        }
+
+        #Footer {
+            background-color: #1D4354;
+            height: 300px;
+        }
+
+        a:hover {
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        a {
+            color: white;
+        }
+
+        #HeaderContent {
+            padding-top: 10px;
+        }
+
+        img:hover {
+            cursor: pointer;
+        }
+
+        #formContent {
+            height: 500px;
+            margin-top: 20px;
+        }
+
+        .footer-dark {
+            padding: 50px 0;
+            color: white;
+            background-color: #1D4354;
+        }
+
+            .footer-dark h3 {
+                margin-top: 0;
+                margin-bottom: 12px;
+                font-weight: bold;
+                font-size: 16px;
+            }
+
+            .footer-dark ul {
+                padding: 0;
+                list-style: none;
+                line-height: 1.6;
+                font-size: 14px;
+                margin-bottom: 0;
+            }
+
+                .footer-dark ul a {
+                    color: white;
+                    text-decoration: none;
+                    opacity: 0.9;
+                }
+
+        hr {
+            background-color: #ccc;
+        }
+
+        .footer-dark ul a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+
+        .footer-dark .item.social {
+            text-align: center;
+        }
+
+            .footer-dark .item.social > a {
+                font-size: 20px;
+                width: 36px;
+                height: 36px;
+                line-height: 36px;
+                display: inline-block;
+                text-align: center;
+                border-radius: 50%;
+                box-shadow: 0 0 0 1px rgba(255,255,255,0.4);
+                margin: 0 8px;
+                color: white;
+                opacity: 0.75;
+            }
+
+                .footer-dark .item.social > a:hover {
+                    opacity: 0.9;
+                }
+
+        .footer-dark .copyright {
+            text-align: center;
+            padding-top: 24px;
+            opacity: 0.9;
+            font-size: 13px;
+            margin-bottom: 0;
+        }
+    </style>
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+    <div id="Header">
+        <div id="HeaderContent" class="row offset-1">  
+            <div class="col-1">
+                <a>
+                    <span id="up">Up<span id="work">work</span></span>
+                </a>
+            </div>
+            <div class="offset-7 col-3" style="margin-top:15px">
+                <span style="color:white;font-size:16px;padding-top:0" >
+                    Already have an account? <a style="color:forestgreen" id="login"> Log in</a>
+                </span>
+            </div>                   
+        </div>
+    </div>
+
+    <div id="Content">
+        <div class="row">
+            <div id="formContent" class="offset-3 col-lg-6">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+
+    <div id="Footer">
+        <div class="footer-dark">
+            <footer>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-3 item">
+                            <ul>
+                                <li><a href="#">About</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6 col-md-3 item">
+                            <ul>
+                                <li><a href="#">Community</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6 col-md-3 item">
+                            <ul>
+                                <li><a href="#">Help & Support</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6 col-md-3 item">
+                            <ul>
+                                <li><a href="#">Privacy Policy</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                    <hr />
+                    <div class="col item social"><span>Follow Us:</span><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-instagram"></i></a></div>
+                    <hr />
+                    <p class="copyright">© 2020-@DateTime.Now.Year Upwork Global Inc.</p>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+  
+    @RenderSection("scripts", required: false)
+</body>
+</html>

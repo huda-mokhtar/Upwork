@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewData["Title"] = "Employment";
+    Layout = "~/Views/Shared/_CreateProfileLayout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4> Employment </h4>
+                    <p class="text-muted"> 6 of 12 </p>
+                </div>
+                <form asp-action="Employment">
+                    <div class="card-body">
+                        <h5 class="card-title" style="padding:1px;margin:1px"> Add your past work experience </h5>
+                        <p class="card-title"> Build your credibility by showcasing the projects or jobs tou have completed. </p>
+                        <div class="mt-4 mb-5">
+                            <div class="d-flex justify-content-between row">
+                                <div class="col-10">
+                                    <h5 style="padding:0;margin:0"> Web Developer | Google </h5>
+                                    <p style="padding:0;margin:0" class="text-muted"> March 2018 - February 2020 </p>
+                                    <p style="padding:0;margin:0"> .NET Fullstack web developer with a year experience ... (Description)  </p>
+                                </div>
+                                <div class="col-2">
+                                    <a>
+                                        <span style="font-size: 0.8rem; color: #656565; border: 1px solid #ccc; border-radius: 50%; padding: 0.6rem; " class="fa fa-pen"></span>
+                                    </a>
+                                    <a>
+                                        <span style="font-size: 0.8rem; color: #656565; border: 1px solid #ccc; border-radius: 50%; padding: 0.6rem; " class="fa fa-trash-alt"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container-fluid align-content-center border-dark">
+                            <div class="row pb-3">
+                                <button style="all:unset;border:1px solid lightgrey;color: forestgreen;padding: 10px 30px;text-align: center;text-decoration: none;display: inline-block;margin: 4px 2px;cursor: pointer;border-radius: 20px;" class="bg-white">
+                                    <span class="fa fa-plus"></span> <span>  Add Employment </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer" style="height:100px">
+                        <div class="container-fluid">
+                            <div class="row" style="margin-top:17px">
+                                <div class="col-2">
+                                    <a asp-action="Education" asp-controller="Account" class="btn text-success bg-white" style="border-color:lightgrey">Back</a>
+                                </div>
+                                <div class="offset-8 text-right">
+                                    <button type="submit" class="btn btn-success" style="border-color:lightgrey;">Next</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>       
+            </div>
+        </div>
+    </div>
+</div>
+

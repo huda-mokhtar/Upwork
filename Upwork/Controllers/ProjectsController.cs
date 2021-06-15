@@ -57,21 +57,18 @@ namespace Upwork.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create( Project project, Dictionary<string, bool> Skills)
         {
-            if (ModelState.IsValid)
-            {
                 if (HttpContext.Session.GetString("ProjectId") != null)
                 {
                     var projectId = int.Parse(HttpContext.Session.GetString("ProjectId"));
                     var projectOld=_context.Projects.FirstOrDefault(a => a.ProjectId == projectId);
                     projectOld.Title = project.Title;
                     projectOld.SubCategoryId = project.SubCategoryId;
-               
                     await _context.SaveChangesAsync();
+                    var skills=_context.ProjectSkills.FirstOrDefault(a => a.ProjectId == projectId);
                     foreach (KeyValuePair<string, bool> item in Skills)
                     {
                         if (item.Value == true)
-                        {
-                            var skills=_context.ProjectSkills.FirstOrDefault(a => a.ProjectId == projectId);
+                        { 
                             skills.SkillId = int.Parse(item.Key);
                             await _context.SaveChangesAsync();
                         }
@@ -80,9 +77,9 @@ namespace Upwork.Controllers
                 }
                 else{
                     project.FreelancerId = "a123";
-
                     _context.Add(project);
                     await _context.SaveChangesAsync();
+                HttpContext.Session.SetString("ProjectId", project.ProjectId.ToString());
                     foreach (KeyValuePair<string, bool> item in Skills)
                     {
                         if (item.Value == true)
@@ -92,12 +89,10 @@ namespace Upwork.Controllers
                             await _context.SaveChangesAsync();
                         }
                     }
-                    HttpContext.Session.SetString("ProjectId", project.ProjectId.ToString());
+                    ViewData["FreelancerId"] = new SelectList(_context.Freelancers, "FreelancerId", "FreelancerId", project.FreelancerId);
                     return RedirectToAction(nameof(CreatePrice));
+
                 }
-            }
-                ViewData["FreelancerId"] = new SelectList(_context.Freelancers, "FreelancerId", "FreelancerId", project.FreelancerId);
-            return View(project);
         }
         //Get:Skills
         public async Task<IActionResult> GetSkills(int Id)

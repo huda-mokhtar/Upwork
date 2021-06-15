@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewData["Title"] = "Location";
+    Layout = "~/Views/Shared/_CreateProfileLayout.cshtml";
+}
+
+<div class="container" style="margin-top:10px">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4> Location </h4>
+                    <p class="text-muted"> 11 of 12 </p>
+                </div>
+                <form asp-action="Location">
+                    <div class="card-body">
+                        <h5 class="card-title"> Where you are based? </h5>
+                        <p class="card-title"> We take your privacy very seriously, Only your city and country will be shown to clients. </p>
+                        <div class="container-fluid align-content-center border-dark mt-4">
+                            <h6 class="card-title"> Country </h6>
+                            <div class="row col-7 pb-3">
+                                <select class="custom-select" asp-items="ViewBag.CountryId" aria-label="Default select example">
+                                    <option value="none" selected disabled hidden>
+                                        Select Country
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="container-fluid align-content-center border-dark mt-4">
+                            <h6 class="card-title"> Street Address </h6>
+                            <input type="text" class="form-control" />
+                            <input type="text" class="form-control col-7 mt-2" placeholder="Apt/Suite" />
+                        </div>
+                        <div class="container-fluid align-content-center border-dark mt-4">
+                            <h6 class="card-title"> City </h6>
+                            <input type="text" class="form-control col-7" placeholder="Start typing your city" />
+                        </div>
+                        <div class="container-fluid align-content-center border-dark mt-4 mb-5">
+                            <h6 class="card-title"> ZIP/Postal code </h6>
+                            <input type="text" class="form-control col-7" />
+                        </div>
+                    </div>
+                    <div class="card-footer" style="height:100px">
+                        <div class="container-fluid">
+                            <div class="row" style="margin-top:17px">
+                                <div class="col-2">
+                                    <a asp-action="ProfilePhoto" asp-controller="Account" class="btn text-success bg-white" style="border-color:lightgrey">Back</a>
+                                </div>
+                                <div class="offset-8 text-right">
+                                    <button type="submit" class="btn btn-success" style="border-color:lightgrey;">Next</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
