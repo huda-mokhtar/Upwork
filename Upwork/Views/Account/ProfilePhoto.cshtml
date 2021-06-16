@@ -1,4 +1,4 @@
-﻿
+﻿@model ProfilePhotoViewModel
 @{
     ViewData["Title"] = "ProfilePhoto";
     Layout = "~/Views/Shared/_CreateProfileLayout.cshtml";
@@ -12,13 +12,21 @@
                     <h4>Profile Photo</h4>
                     <p class="text-muted">10 of 12</p>
                 </div>
-                <form asp-action="ProfilePhoto" asp-controller="Account">
+                <form asp-action="ProfilePhoto" asp-controller="Account" enctype="multipart/form-data">
                     <div class="card-body" style="height:330px">
                         <p class="card-title pb-3">Please upload a professional portrait that clearly shows your face. <span class="fa fa-question-circle" style="color:forestgreen"> </span></p>
-                        <img src="~/Images/user.png" id="image" class="offset-2" style=" width: 100px; height: 100px; border-radius: 50%;cursor:auto" />
+                        @if (ViewBag.Image != null)
+                        {
+                            <img src="~/ProfilePhotos/@ViewBag.Image" id="image" class="offset-2" style=" width: 100px; height: 100px; border-radius: 50%;cursor:auto" />
+                        }
+                        else
+                        {
+                            <img src="~/Images/user.png" id="image" class="offset-2" style=" width: 100px; height: 100px; border-radius: 50%;cursor:auto" />
+                        }
                         <div class="container-fluid align-content-center border-dark mt-4">
-                            <input type="file" onchange="loadFile(event)" class="foo">
+                            <input type="file" asp-for="File" name="File" onchange="loadFile(event)" class="foo">
                         </div>
+                        <span class="text-danger ml-5 mt-2" asp-validation-for="File"></span>
                     </div>
                     <div class="card-footer" style="height:100px">
                         <div class="container-fluid">
