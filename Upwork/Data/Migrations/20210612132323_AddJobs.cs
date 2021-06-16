@@ -7,9 +7,6 @@ namespace Upwork.Data.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-          
-
-          
 
             migrationBuilder.AddColumn<bool>(
                 name: "IsDraft",

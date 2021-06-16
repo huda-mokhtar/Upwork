@@ -25,18 +25,20 @@
                 </form>
                 <h5 class="card-title pb-3">Popular skills</h5>
                 <div class="container-fluid">
-                    <div class="row" id="defaultSkills">
-                        @{ int i = 0;}
-                        @foreach (var s in ViewBag.Skills)
-                        {
-                        <div class="text-center mb-2 mr-1 addskills add">
-                            <p class="m-0">@s.Name<i class="fa fa-plus pl-1" aria-hidden="true"></i></p>
-                            <input type="hidden" asp-for="@Model.jobsSkills[i].skillId" value="@s.SkillId" />
-                            @{ i++;}
+                        <div class="row" id="defaultSkills">
+                            @{ var i = 0;}
+                            @foreach (var s in ViewBag.Skills)
+                            {
+                            <div class="text-center mb-2 mr-1 addskills add">
+                                <p class="m-0">@s.Name<i class="fa fa-plus pl-1" aria-hidden="true"></i></p>
+                                <input type="hidden" value="@s.SkillId" name="Skills"/>
+                                @{ i++;}
+                            </div>
+                                
+                            }
+
+                            <a href="#" style="color: #14a800;" id="seeMore">see more</a>
                         </div>
-                        }
-                        <a href="#" style="color: #14a800;" id="seeMore">see more</a>
-                    </div>
                 </div>
 
                 <!-- Button trigger modal -->
@@ -96,11 +98,9 @@
         $("#progressSkills").css("color", " #95df00");
         $("#NextStep").text("Next:Scope");
         $("#PrevStep").attr("href", "/Client/PostJobTitle");
-        
         $('#defaultSkills').on('click', '.add', function (event) {
-
             var el = $(this).parent()[0];
-            //console.log($(this));
+            console.log($(this));
             $(this).children()[0].firstElementChild.classList.remove("fa-plus");
             $(this).children()[0].firstElementChild.classList.add("fa-times");
             $(this).removeClass("addskills");
@@ -111,6 +111,7 @@
 
             //console.log($(this))
             $("#skillsAdded").removeClass("d-none");
+
             $("#skillsAdded").append($(this));
             if ($("#skillsAdded").children().length > 1) {
                 $("#continue").children()[0].classList.add('continueBtnEnable');

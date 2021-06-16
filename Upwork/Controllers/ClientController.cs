@@ -116,17 +116,18 @@ namespace Upwork.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public async Task<IActionResult> PostJobSkills( Jobs job)
+        public async Task<IActionResult> PostJobSkills( IFormCollection job)
         {
+            //return Json(Request.Form["Skills"]);
             if (ModelState.IsValid)
             {
                 if (HttpContext.Session.GetString("JobId") != null)
                 {
                     var jobId = int.Parse(HttpContext.Session.GetString("JobId"));
                     var Job = _context.Jobs.FirstOrDefault(s => s.Id == jobId);
-                    foreach (var item in job.jobsSkills)
+                    foreach (var item in Request.Form["Skills"])
                     {
-                            JobsSkills skill = new JobsSkills() { JobsId = jobId, skillId = item.skillId};
+                            JobsSkills skill = new JobsSkills() { JobsId = jobId, skillId = int.Parse(item) };
                             _context.JobsSkills.Add(skill);
                             await _context.SaveChangesAsync();
                     }
@@ -183,7 +184,47 @@ namespace Upwork.Controllers
         }
         public IActionResult PostJobBudget()
         {
-            return View();
+            if (HttpContext.Session.GetString("JobId") != null)
+            {
+                var jobId = int.Parse(HttpContext.Session.GetString("JobId"));
+                var jobOld = _context.Jobs.FirstOrDefault(a => a.Id == jobId);
+                return View();
+            }
+            else
+            {
+                return RedirectToAction(nameof(PostJobSkills));
+            }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public async Task<IActionResult> PostJobBudget(Jobs job)
+        {
+            if (ModelState.IsValid)
+            {
+                if (HttpContext.Session.GetString("JobId") != null)
+                {
+                    var jobId = int.Parse(HttpContext.Session.GetString("JobId"));
+                    var Job = _context.Jobs.FirstOrDefault(s => s.Id == jobId);
+                    Job.TypeOfBudget = job.TypeOfBudget;
+                    if (job.TypeOfBudget == true)
+                    {
+                        Job.BudgetTo = Job.BudgetFrom = job.BudgetFrom;
+                    }
+                    else
+                    {
+                        Job.BudgetFrom = job.BudgetFrom;
+                        Job.BudgetTo =job.BudgetTo ;
+                    }
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(ReviewJobPosting));
+                }
+                else
+                {
+                    return RedirectToAction(nameof(PostJobSkills));
+                }
+            }
+            return View(job);
         }
         public IActionResult ReviewJobPosting()
         {

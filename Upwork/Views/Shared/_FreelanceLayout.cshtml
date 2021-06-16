@@ -30,14 +30,14 @@
                     </form>
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item dropdown p-lg-2 my-lg-2" data-cy="menu">
-                            <a target="_self" href="#" role="button" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" class="dropdown-toggle nav-link text-light">
+                            <a target="_self" asp-action="Index" asp-controller="Freelancers" role="button" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" class="dropdown-toggle nav-link text-light">
                                 <span class="nav-item-label">Find work</span>
 
                             </a>
                             
                             <ul data-cy="dropdown-menu" class="dropdown-menu mw-240" aria-labelledby="dropdownMenuLink">
                                 <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/f/home/" class="dropdown-item">
+                                    <a target="_self" data-cy="menu-item-trigger" asp-action="Index" asp-controller="Freelancers" class="dropdown-item">
                                         Find Work
                                     </a>
                                 </li>
@@ -52,7 +52,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/workdiary/freelancer/" class="dropdown-item">
+                                    <a target="_self" data-cy="menu-item-trigger" asp-action="profile" asp-controller="freelancers" asp-route-id="a123" class="dropdown-item">
                                         Profile
                                     </a>
                                 </li>
