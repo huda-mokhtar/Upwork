@@ -12,13 +12,13 @@
                     <h4>Expertise</h4>
                     <p class="text-muted">3 of 12</p>
                 </div>
-                @* <form id="ExpertiseForm" asp-action="Expertise">  *@
+                   <form id="ExpertiseForm" asp-action="Expertise">  
                 <div class="card-body">
                     <h5 class="card-title pb-3">Select your skills</h5>
                     <div class="container-fluid">
                         <div class="row">
                             @foreach (var item in Model)
-                            {                                
+                            {
                                 <div class="text-center mb-3 mr-1" style="background-color: rgba(241, 238, 238, 0.938); border-radius: 30px; width:auto ; height: auto;">
                                     <p class="m-2">@item.Name <a class="fa fa-plus SuggestedTag" id="add" aria-hidden="true"></a></p>
                                 </div>
@@ -41,13 +41,13 @@
                                 <a asp-action="Category" asp-controller="Account" class="btn text-success bg-white" style="border-color:lightgrey">Back</a>
                             </div>
                             <div class="offset-8 text-right">
-                                <button type="button" class="btn btn-success" style="border-color:lightgrey;">Next</button>
-                            </div>
-                        </div>
+                                @*              <button type="button" class="btn btn-success" style="border-color:lightgrey;">Next</button>*@
                     </div>
                 </div>
-                @* </form>  *@
             </div>
+        </div>
+             </form> 
+                            </div>
         </div>
     </div>
 </div>
@@ -94,14 +94,15 @@
         $(document).on('click', '.RemoveTag', function () {
             $(this).parent().remove();
         });
-             
-        $('#ExpertiseForm').on('submit', function (e) {
+   /*          
+        $('#ExpertiseForm').on('keypress', function (e) {
             var keyCode = e.keyCode || e.which;
             if (keyCode === 13) {
                 e.preventDefault();
                 return false;
             }
         });
+        */
         $(".SuggestedTag").click(function () {
             if ($(this).parent().parent().hasClass("bg-info") === false) {
                 $(this).parent().parent().addClass("bg-info");
@@ -110,6 +111,9 @@
                 $(this).parent().parent().removeClass("bg-info");
             }
         });
+        $(".GettingStarted").removeClass("text-muted");
+        $(".Category").removeClass("text-muted");
+
      
     </script>
 }
