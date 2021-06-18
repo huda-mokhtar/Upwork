@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\Identity\Pages\Account\" />
+    <Folder Include="wwwroot\Uploads\ProfilePhotos\" />
   </ItemGroup>
 
 </Project>

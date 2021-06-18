@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Upwork.Data;
@@ -18,13 +21,23 @@ namespace Upwork.Controllers
         private ApplicationDbContext db;
         private SignInManager<ApplicationUser> signInManager;
         private UserManager<ApplicationUser> userManager;
-        public AccountController(ApplicationDbContext _db, SignInManager<ApplicationUser> _signInManager, UserManager<ApplicationUser> _userManager)
+        private RoleManager<IdentityRole> roleManager;
+        private IWebHostEnvironment hosting;
+
+        public AccountController(ApplicationDbContext _db, 
+            SignInManager<ApplicationUser> _signInManager, 
+            UserManager<ApplicationUser> _userManager,
+            RoleManager<IdentityRole> _roleManager,
+            IWebHostEnvironment _hosting)
         {
             db = _db;
             signInManager = _signInManager;
             userManager = _userManager;
+            roleManager = _roleManager;
+            hosting = _hosting;
         }
 
+       
         public IActionResult SignUp()
         {
             return View();
@@ -38,56 +51,67 @@ namespace Upwork.Controllers
                 var user = new ApplicationUser { Email = model.Email, UserName = model.Email };
                 IdentityResult result = await userManager.CreateAsync(user);
                 if (result.Succeeded)
-                {
+                {                   
                     await signInManager.SignInAsync(user, isPersistent: false);
-                    HttpContext.Session.SetString("UserId", user.Id);
                     return RedirectToAction("Data");
+                }
+                foreach (var error in result.Errors)
+                {
+                    ViewBag.Message = "This email is already in use.";
                 }
             }
             return View(model);
         }
 
-        public IActionResult Data()
+        [Authorize]
+        public async Task<IActionResult> Data()
         {
-            if (HttpContext.Session.GetString("UserId") != null)
-            {
-                string Id = HttpContext.Session.GetString("UserId");
-                var user = db.Users.FirstOrDefault(a => a.Id == Id);
-                ViewBag.Email = user.Email;
-                ViewBag.CountryId = new SelectList(db.Countries, "CountryId", "Name");               
-                return View();
-            }
-           //   return View();
-            return RedirectToAction("Signup");
-            //  return LocalRedirect("~/Identity/Account/Register");
+            var u = await userManager.GetUserAsync(User);
+            ViewBag.Email = u.Email;
+            ViewBag.CountryId = new SelectList(db.Countries, "CountryId", "Name");
+            return View();         
         }
 
         [HttpPost]
         public async Task<IActionResult> Data(UserData model)
         {
+            var u = await userManager.GetUserAsync(User);
             if (ModelState.IsValid)
             {
-                string Id = HttpContext.Session.GetString("UserId");
-                var user = db.Users.FirstOrDefault(a => a.Id == Id);
-                user.FirstName = model.FirstName;
-                user.LastName = model.LastName;
-                user.CountryId = model.CountryId;
-                user.SendMe = model.SendMe;
-                await userManager.ChangePasswordAsync(user, user.PasswordHash, model.Password);
                 if (model.Username != null)
                 {
-                    user.UserName = model.Username;
-                    db.Freelancers.Add(new Models.Freelancer() { FreelancerId = Id });
-                 //   await userManager.AddToRoleAsync(user, "Freelancer");
+                    var oldUserWithSameUsername = db.Users.FirstOrDefault(a => a.UserName == model.Username);
+                    if (oldUserWithSameUsername != null)
+                    {
+                        ViewBag.UsernameMessage = "This username is already in use";
+                        ViewBag.Email = u.Email;
+                        ViewBag.CountryId = new SelectList(db.Countries, "CountryId", "Name");
+                        return View(model);
+                    }
+                    u.UserName = model.Username;
+                    u.FirstName = model.FirstName;
+                    u.LastName = model.LastName;
+                    u.CountryId = model.CountryId;
+                    u.SendMe = model.SendMe;
+                    await userManager.AddPasswordAsync(u, model.Password);
+                    db.Freelancers.Add(new Freelancer() { FreelancerId = u.Id });
+                    db.SaveChanges();
+                    return RedirectToAction("Category");
                 }
                 else
                 {
-
-                    //   await userManager.AddToRoleAsync(user, "Client");
-                }
-                db.SaveChanges();
-                return RedirectToAction("Category");
+                    u.FirstName = model.FirstName;
+                    u.LastName = model.LastName;
+                    u.CountryId = model.CountryId;
+                    u.SendMe = model.SendMe;
+                    await userManager.AddPasswordAsync(u, model.Password);
+                    await userManager.AddToRoleAsync(u, "Client");
+                    // redirect to client home page
+                    return Content("Client home here...");
+                }               
             }
+            ViewBag.Email = u.Email;
+            ViewBag.CountryId = new SelectList(db.Countries, "CountryId", "Name");
             return View(model);
         }
 
@@ -96,16 +120,18 @@ namespace Upwork.Controllers
             return db.SubCategories.Where(a => a.CategoryId == id).ToList();
         }
 
-        public IActionResult Category()
+
+        [Authorize]
+        public async Task<IActionResult> Category()
         {
-            if (HttpContext.Session.GetString("UserId") != null)
+            ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "Name");
+            var u = await userManager.GetUserAsync(User);
+            var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+            if (Freelancer.Image != null)
             {
-                ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "Name");
-                return View();
+                ViewBag.Image = Freelancer.Image;
             }
-         //   return View();
-              return RedirectToAction("Signup");
-            //    return LocalRedirect("~/Identity/Account/Register");
+            return View();           
         }
 
         [HttpPost]
@@ -120,17 +146,22 @@ namespace Upwork.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Expertise");
             }
-            return View(model);
+        //    ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "Name");
+         //   return View(model);
+            return RedirectToAction("Expertise");
+
         }
 
-
-        public IActionResult Expertise()
+        [Authorize]
+        public async Task<IActionResult> Expertise()
         {
-            if (HttpContext.Session.GetString("UserId") != null)
+            var u = await userManager.GetUserAsync(User);
+            var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+            if (Freelancer.Image != null)
             {
-                return View(db.Skills.Take(15).ToList());
+                ViewBag.Image = Freelancer.Image;
             }
-            return RedirectToAction("Signup");
+            return View(db.Skills.Take(15).ToList());    
         }
 
         [HttpPost]
@@ -140,11 +171,20 @@ namespace Upwork.Controllers
             {
                 return RedirectToAction("ExpertiseLevel");
             }
-            return View();
+            return RedirectToAction("ExpertiseLevel");
+
+//            return View();
         }
 
-        public IActionResult ExpertiseLevel()
+        [Authorize]
+        public async Task<IActionResult> ExpertiseLevelAsync()
         {
+            var u = await userManager.GetUserAsync(User);
+            var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+            if (Freelancer.Image != null)
+            {
+                ViewBag.Image = Freelancer.Image;
+            }
             return View();
         }
 
@@ -155,11 +195,19 @@ namespace Upwork.Controllers
             {
                 return RedirectToAction("Education");
             }
-            return View();
+            return RedirectToAction("Education");
+        //    return View();
         }
 
-        public IActionResult Education()
+        [Authorize]
+        public async Task<IActionResult> EducationAsync()
         {
+            var u = await userManager.GetUserAsync(User);
+            var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+            if (Freelancer.Image != null)
+            {
+                ViewBag.Image = Freelancer.Image;
+            }
             return View();
         }
 
@@ -171,8 +219,15 @@ namespace Upwork.Controllers
 
        
 
-        public IActionResult Employment()
+        [Authorize]
+        public async Task<IActionResult> Employment()
         {
+            var u = await userManager.GetUserAsync(User);
+            var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+            if (Freelancer.Image != null)
+            {
+                ViewBag.Image = Freelancer.Image;
+            }
             return View();
         }
 
@@ -182,10 +237,17 @@ namespace Upwork.Controllers
             return RedirectToAction("Languages");
         }
 
-        public IActionResult Languages()
+        [Authorize]
+        public async Task<IActionResult> Languages()
         {
             ViewBag.ProficiencyId = new SelectList(db.Language_Proficiency, "ProficiencyId", "Name");
             ViewBag.LanguageId = new SelectList(db.Languages, "LanguageId", "Name");
+            var u = await userManager.GetUserAsync(User);
+            var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+            if (Freelancer.Image != null)
+            {
+                ViewBag.Image = Freelancer.Image;
+            }
             return View();
         }
 
@@ -195,19 +257,33 @@ namespace Upwork.Controllers
             return RedirectToAction("HourlyRate");
         }
 
-        public IActionResult HourlyRate()
+        [Authorize]
+        public async Task<IActionResult> HourlyRate()
         {
+            var u = await userManager.GetUserAsync(User);
+            var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+            if (Freelancer.Image != null)
+            {
+                ViewBag.Image = Freelancer.Image;
+            }
             return View();
         }
 
         [HttpPost]
-        public IActionResult HourlyRate(int x)
+        public IActionResult HourlyRate(HourlyRateViewModel model)
         {
             return RedirectToAction("Overview");    
         }
 
-        public IActionResult Overview()
+        [Authorize]
+        public async Task<IActionResult> Overview()
         {
+            var u = await userManager.GetUserAsync(User);
+            var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+            if (Freelancer.Image != null)
+            {
+                ViewBag.Image = Freelancer.Image;
+            }
             return View();
         }
 
@@ -217,20 +293,54 @@ namespace Upwork.Controllers
             return RedirectToAction("ProfilePhoto");
         }
 
-        public IActionResult ProfilePhoto()
+        [Authorize]
+        public async Task<IActionResult> ProfilePhoto()
         {
+            var u = await userManager.GetUserAsync(User);
+            var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+            if (Freelancer.Image != null)
+            {
+                ViewBag.Image = Freelancer.Image;
+            }
             return View();
         }
 
         [HttpPost]
-        public IActionResult ProfilePhoto(int id)
+        public async Task<IActionResult> ProfilePhoto(ProfilePhotoViewModel model)
         {
-            return RedirectToAction("Location");
+            var u = await userManager.GetUserAsync(User);
+            var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+            if (ModelState.IsValid)
+            {
+                string FileName = string.Empty;
+                if (model.File != null)
+                {
+                    string Uploads = Path.Combine(hosting.WebRootPath, "ProfilePhotos");
+                    FileName = Freelancer.FreelancerId + "." + model.File.FileName.Split('.')[model.File.FileName.Split('.').Length-1];
+                    string FullPath = Path.Combine(Uploads, FileName);
+                    if (Freelancer.Image != null)
+                    {
+                        System.IO.File.Delete(FullPath);
+                    }
+                    model.File.CopyTo(new FileStream(FullPath, FileMode.Create));
+                }
+                Freelancer.Image = FileName;
+                db.SaveChanges();
+                return RedirectToAction("Location");
+            }
+            return View(model);
         }
 
-        public IActionResult Location()
+        [Authorize]
+        public async Task<IActionResult> Location()
         {
             ViewBag.CountryId = new SelectList(db.Countries, "CountryId", "Name");
+            var u = await userManager.GetUserAsync(User);
+            var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+            if (Freelancer.Image != null)
+            {
+                ViewBag.Image = Freelancer.Image;
+            }
             return View();
         }
 
@@ -240,10 +350,16 @@ namespace Upwork.Controllers
             return RedirectToAction("Phone");
         }
 
-
-        public IActionResult Phone()
+        [Authorize]
+        public async Task<IActionResult> Phone()
         {
             ViewBag.Countries = db.Countries.ToList();
+            var u = await userManager.GetUserAsync(User);
+            var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+            if (Freelancer.Image != null)
+            {
+                ViewBag.Image = Freelancer.Image;
+            }
             return View();
         }
 

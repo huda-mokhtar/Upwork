@@ -156,99 +156,106 @@
             <a>
                 <span id="up">Up<span id="work">work</span></span>
             </a>
-            <img src="~/Images/user.png" class="offset-8" />
+            @if (ViewBag.Image != null)
+            {
+                <img src="~/ProfilePhotos/@ViewBag.Image" class="offset-8" />
+            }
+            else
+            {
+                <img src="~/Images/user.png" class="offset-8" />
+            }
         </div>
     </div>
 
     <div id="Content">
         <div class="row">
             <div class="col-2 offset-1" style="margin-top:30px">
-                <p class="steps">
-                    <span class="fa fa-hand-point-up icons"></span>
+                <p class="steps GettingStarted text-muted">
+                    <span class="GettingStarted text-muted fa fa-hand-point-up icons"></span>
                     Getting Started
                 </p>
-                <p class="steps">
-                    <span class="fa fa-list-alt glyphicon glyphicon-list-alt icons">  </span>
+                <p class="steps Category text-muted">
+                    <span class="Category text-muted fa fa-list-alt glyphicon glyphicon-list-alt icons">  </span>
                     Category
 
                 </p>
-                <p class="steps">
-                    <span class="fa fa-pencil-square-o icons"></span>
+                <p class="steps Expertise text-muted">
+                    <span class="Expertise text-muted fa fa-pencil-square-o icons"></span>
                     Expertise
                 </p>
-                <p class="steps">
-                    <span class="fa fa-bar-chart-o"></span>
+                <p class="steps ExpertiseLevel text-muted">
+                    <span class="ExpertiseLevel text-muted fa fa-bar-chart-o"></span>
                     Expertise Level
                 </p>
-                <p class="steps">
-                    <span class="fa fa-graduation-cap"></span>
+                <p class="steps Education text-muted">
+                    <span class="Education text-muted fa fa-graduation-cap"></span>
                     Education
                 </p>
-                <p class="steps">
-                    <i class="fa fa-building icons"></i>
+                <p class="steps Employment text-muted">
+                    <span class="Employment text-muted fa fa-building icons"></span>
                     Employment
                 </p>
-                <p class="steps">
-                    <span class="fa fa-microphone icons"></span>
+                <p class="steps Languages text-muted">
+                    <span class="Languages text-muted fa fa-microphone icons"></span>
                     Languages
                 </p>
-                <p class="steps">
-                    <span class="fa fa-dollar icons"></span>
+                <p class="steps HourlyRate text-muted">
+                    <span class="HourlyRate text-muted fa fa-dollar icons"></span>
                     Hourly Rate
                 </p>
-                <p class="steps">
-                    <span class="fa fa-user icons"></span>
+                <p class="steps Overview text-muted">
+                    <span class="Overview text-muted fa fa-user icons"></span>
                     Title & Overview
                 </p>
-                <p class="steps">
-                    <span class="fa fa-camera"></span>
+                <p class="steps ProfilePhoto text-muted">
+                    <span class="ProfilePhoto text-muted fa fa-camera"></span>
                     Profile Photo
                 </p>
-                <p class="steps">
-                    <span class="fa fa-map-marker"></span>
+                <p class="steps Location text-muted">
+                    <span class="Location text-muted fa fa-map-marker"></span>
                     Location
                 </p>
-                <p class="steps">
-                    <span class="fa fa-phone-alt"></span>
+                <p class="steps Phone text-muted">
+                    <span class="Phone text-muted fa fa-phone-alt"></span>
                     Phone
                 </p>
             </div>
             <div class="col-1" style="margin-top:30px">
                 <p class="steps">
-                    <span class="fa fa-check-circle check"></span>
+                    <span class="GettingStarted text-muted fa fa-check-circle check"></span>
                 </p>
                 <p class="steps">
-                    <span class="fa fa-check-circle check"></span>
+                    <span class="Category text-muted fa fa-check-circle check"></span>
                 </p>
                 <p class="steps">
-                    <span class="fa fa-check-circle check"></span>
+                    <span class="Expertise text-muted fa fa-check-circle check"></span>
                 </p>
                 <p class="steps">
-                    <span class="fa fa-check-circle check"></span>
+                    <span class="ExpertiseLevel text-muted fa fa-check-circle check"></span>
                 </p>
                 <p class="steps">
-                    <span class="fa fa-check-circle check"></span>
+                    <span class="Education text-muted fa fa-check-circle check"></span>
                 </p>
                 <p class="steps">
-                    <span class="fa fa-check-circle check"></span>
+                    <span class="Employment text-muted fa fa-check-circle check"></span>
                 </p>
                 <p class="steps">
-                    <span class="fa fa-check-circle check"></span>
+                    <span class="Languages text-muted fa fa-check-circle check"></span>
                 </p>
                 <p class="steps">
-                    <span class="fa fa-check-circle check"></span>
+                    <span class="HourlyRate text-muted fa fa-check-circle check"></span>
                 </p>
                 <p class="steps">
-                    <span class="fa fa-check-circle check"></span>
+                    <span class="Overview text-muted fa fa-check-circle check"></span>
                 </p>
                 <p class="steps">
-                    <span class="fa fa-check-circle check"></span>
+                    <span class="ProfilePhoto text-muted fa fa-check-circle check"></span>
                 </p>
                 <p class="steps">
-                    <span class="fa fa-check-circle check"></span>
+                    <span class="Location text-muted fa fa-check-circle check"></span>
                 </p>
                 <p class="steps">
-                    <span class="fa fa-check-circle check"></span>
+                    <span class="Phone text-muted fa fa-check-circle check"></span>
                 </p>
             </div>
             <div id="formContent" class="col-7">

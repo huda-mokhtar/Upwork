@@ -12,7 +12,7 @@
                     <h4> Location </h4>
                     <p class="text-muted"> 11 of 12 </p>
                 </div>
-                <form>
+                <form asp-action="Location">
                     <div class="card-body">
                         <h5 class="card-title"> Where you are based? </h5>
                         <p class="card-title"> We take your privacy very seriously, Only your city and country will be shown to clients. </p>
@@ -44,7 +44,7 @@
                         <div class="container-fluid">
                             <div class="row" style="margin-top:17px">
                                 <div class="col-2">
-                                    <button class="btn text-success bg-white" style="border-color:lightgrey">Back</button>
+                                    <a asp-action="ProfilePhoto" asp-controller="Account" class="btn text-success bg-white" style="border-color:lightgrey">Back</a>
                                 </div>
                                 <div class="offset-8 text-right">
                                     <button type="submit" class="btn btn-success" style="border-color:lightgrey;">Next</button>

@@ -13,7 +13,7 @@
                     <h4> Phone number </h4>
                     <p class="text-muted"> 12 of 12 </p>
                 </div>
-                <form>
+                <form asp-action="Phone">
                     <div class="card-body">
                         <h5 class="card-title pb-3"> Add your phone number. </h5>
                         <div class="container-fluid align-content-center border-dark" style="height:150px">
@@ -36,7 +36,7 @@
                         <div class="container-fluid">
                             <div class="row" style="margin-top:17px">
                                 <div class="col-2">
-                                    <button class="btn text-success bg-white" style="border-color:lightgrey">Back</button>
+                                    <a asp-action="Loaction" asp-controller="Account" class="btn text-success bg-white" style="border-color:lightgrey">Back</a>
                                 </div>
                                 <div class="offset-8 text-right">
                                     <button type="submit" class="btn btn-success" style="border-color:lightgrey;">Next</button>

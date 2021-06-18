@@ -13,7 +13,7 @@
                     <h4> Title & Overview </h4>
                     <p class="text-muted"> 9 of 12 </p>
                 </div>
-                <form>
+                <form asp-action="Overview">
                     <div class="card-body">
                         <div class="container-fluid align-content-center border-dark mb-4">
                             <h6 class="mb-3"> Title <span class="fa fa-question-circle-o" style="color:forestgreen"></span> </h6>
@@ -28,7 +28,7 @@
                         <div class="container-fluid">
                             <div class="row" style="margin-top:17px">
                                 <div class="col-2">
-                                    <button class="btn text-success bg-white" style="border-color:lightgrey">Back</button>
+                                    <a asp-action="HourlyRate" asp-controller="Account" class="btn text-success bg-white" style="border-color:lightgrey">Back</a>
                                 </div>
                                 <div class="offset-8 text-right">
                                     <button type="submit" class="btn btn-success" style="border-color:lightgrey;">Next</button>

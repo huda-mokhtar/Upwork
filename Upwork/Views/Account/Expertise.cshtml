@@ -12,6 +12,7 @@
                     <h4>Expertise</h4>
                     <p class="text-muted">3 of 12</p>
                 </div>
+                   <form id="ExpertiseForm" asp-action="Expertise">  
                 <div class="card-body">
                     <h5 class="card-title pb-3">Select your skills</h5>
                     <div class="container-fluid">
@@ -19,13 +20,16 @@
                             @foreach (var item in Model)
                             {
                                 <div class="text-center mb-3 mr-1" style="background-color: rgba(241, 238, 238, 0.938); border-radius: 30px; width:auto ; height: auto;">
-                                    <p class="m-2">@item.Name <i class="fa fa-plus" id="add" aria-hidden="true"></i></p>
+                                    <p class="m-2">@item.Name <a class="fa fa-plus SuggestedTag" id="add" aria-hidden="true"></a></p>
                                 </div>
-                            }                                                     
+                            }
                         </div>
                         <div class="row">
-                            <h6>Not what you're looking for? <span class="fa fa-question-circle" style="color:forestgreen;margin-left:10px"></span></h6>
-                            <div class="col-12 p-2 border-2 border-light">
+                            <h6>Not what you're looking for? <span class="fa fa-question-circle ml-2" style="color:forestgreen"></span></h6>
+                        </div>
+                        <div id="TagsWrapper" class="row mt-1 mb-3">
+                            <div id="txtWrapper" class="col-4">
+                                <input type="text" id="txtSkills" style="all:unset" placeholder="Start typing to search for skills" />
                             </div>
                         </div>
                     </div>
@@ -34,23 +38,82 @@
                     <div class="container-fluid">
                         <div class="row" style="margin-top:17px">
                             <div class="col-2">
-                                <button class="btn text-success bg-white" style="border-color:lightgrey">Back</button>
+                                <a asp-action="Category" asp-controller="Account" class="btn text-success bg-white" style="border-color:lightgrey">Back</a>
                             </div>
                             <div class="offset-8 text-right">
-                                <button class="btn btn-success" style="border-color:lightgrey;">Next</button>
-                            </div>
-                        </div>
+                                @*              <button type="button" class="btn btn-success" style="border-color:lightgrey;">Next</button>*@
                     </div>
                 </div>
             </div>
         </div>
+             </form> 
+                            </div>
+        </div>
     </div>
 </div>
 @section Styles{
-<style>
-    i {
-        cursor: pointer;
-    }
-</style>
-   
+    <style>
+        i {
+            cursor: pointer;
+        }
+        .TagBtn {
+            all: unset;
+            border: 1px solid lightgrey;
+            color: forestgreen;
+            padding: 0px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
+            border-radius: 20px;
+        }
+            .TagBtn:focus {
+                outline: none;
+            }
+        #TagsWrapper {
+            border: 1px solid lightgray;
+            padding: 10px;
+        }
+        #TagsWrapper:hover {
+            border: 1px solid green;
+        }
+            #TagsWrapper:active {
+                border: 1px solid green;
+            }
+    </style>
+
+}
+@section Scripts{
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script>
+        $("#txtSkills").change(function () {
+            $("<div  class='bbb'><div class= 'ml-1 mb-1' ><button type='button' class='bg-info TagBtn'><span class='text-white'> " + $("#txtSkills").val() + " </span > <a class='RemoveTag text-white ml-1' style='font-weight:700'>&times;</a></button ></div > </div > ").insertBefore("#txtWrapper");
+            $("#txtSkills").val("");
+        });
+
+        $(document).on('click', '.RemoveTag', function () {
+            $(this).parent().remove();
+        });
+   /*          
+        $('#ExpertiseForm').on('keypress', function (e) {
+            var keyCode = e.keyCode || e.which;
+            if (keyCode === 13) {
+                e.preventDefault();
+                return false;
+            }
+        });
+        */
+        $(".SuggestedTag").click(function () {
+            if ($(this).parent().parent().hasClass("bg-info") === false) {
+                $(this).parent().parent().addClass("bg-info");
+            }
+            else {
+                $(this).parent().parent().removeClass("bg-info");
+            }
+        });
+        $(".GettingStarted").removeClass("text-muted");
+        $(".Category").removeClass("text-muted");
+
+     
+    </script>
 }
