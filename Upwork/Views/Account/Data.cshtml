@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Data";
     Layout = "~/Views/Shared/_RegisterLayout.cshtml";
+    int duplicateUsername = 0;
 }
 <div class="container text-center" style="padding:20px;border:1px solid lightgray;width:600px">
     <h1>
@@ -25,7 +26,7 @@
                 <input type="text" asp-for="LastName" class="form-control" placeholder="Last name">
             </div>
             <span class="text-danger col-6 mt-1" asp-validation-for="FirstName"></span>
-            <span class="text-danger col-6 mt-1" asp-validation-for="LastName"></span>        
+            <span class="text-danger col-6 mt-1" asp-validation-for="LastName"></span>
         </div>
         <div class="row mb-3">
             <div class="input-group col-12">
@@ -48,12 +49,13 @@
         </div>
         <p class="text-center"> I want to: </p>
         <div>
-            <input type="radio"  class="btn-check" value="0" hidden name="User" id="Client" autocomplete="off">
-            <label class="text-muted UserType"  id="ClientLabel"  style="border:1px solid lightgray;padding:7px 30px" for="Client"> Hire for a project </label>
+            <input type="radio" class="btn-check" value="0" hidden name="User" id="Client" autocomplete="off">
+            <label class="text-muted UserType" id="ClientLabel" style="border:1px solid lightgray;padding:7px 30px" for="Client"> Hire for a project </label>
 
-            <input type="radio" style="padding:0" value="1"  class="btn-check" hidden name="User" id="Freelancer" autocomplete="off">
+            <input type="radio" style="padding:0" value="1" class="btn-check" hidden name="User" id="Freelancer" autocomplete="off">
             <label class="text-muted UserType" id="FreelancerLabel" style="border:1px solid lightgray;padding:7px 30px" for="Freelancer"> Work as a freelancer </label>
         </div>
+        <span id="UserTypeErrorMsg" style="display:none" class="text-danger ml-5"> Please select what you want to do on Upwork </span>
         <div id="UsernameTxt" class="row mb-3 mt-3">
             <div class="input-group col-12">
                 <div class="input-group-prepend">
@@ -61,6 +63,14 @@
                 </div>
                 <input type="text" id="txtUsername" asp-for="Username" class="form-control" placeholder="Username">
             </div>
+            <span id="RequireUserNameErrorMsg" style="display:none" class="text-danger ml-5"> Username is required </span>
+            <span id="MinimumLengthUserNameErrorMsg" style="display:none" class="text-danger ml-5"> Too short. Use at least 4 characters </span>
+            <span id="SpecialCharUserNameErrorMsg" style="display:none" class="text-danger ml-5"> Sorry, special characters are not allowed </span>
+            @if (ViewBag.UsernameMessage != null)
+            {
+                <span id="duplicateUsernameMsg" class="text-danger ml-5"> @ViewBag.UsernameMessage </span>
+                duplicateUsername = 1;
+            }
         </div>
         <div class="form-check mb-3 mt-4">
             <input asp-for="SendMe" class="form-check-input" type="checkbox" value=true id="SendMe">
@@ -69,15 +79,16 @@
                 get the most out of Upwork.
             </label>
         </div>
-        <div class="form-check mb-3">
-            <input class="form-check-input" type="checkbox" value=true id="Policy">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="Policy">
             <label class="form-check-label text-left ml-3" for="Policy">
                 Yes, I understand and agree to the to the Upwork Terms of Service,
                 including the User Agreement and Privacy Policy.
             </label>
         </div>
+        <span id="AgreementErrorMsg" style="display:none" class="text-danger ml-5"> Please accept the Upwork Terms of Service before continuing </span>
 
-        <div class="container-fluid align-content-center text-center border-dark">
+        <div class="container-fluid align-content-center text-center border-dark mt-3">
             <div class="row pb-3">
                 <button type="submit" style="all:unset;padding: 10px 200px;text-align: center;text-decoration: none;display: inline-block;margin: 4px 2px;cursor: pointer;border-radius: 20px" class="bg-success text-white">
                     <span>  Create My Account </span>
@@ -114,18 +125,30 @@
 @section Scripts{
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script>
+        CheckVar = null;
+        duplicated = @duplicateUsername;
+        if (duplicated == 1) {
+            $("#ClientLabel").removeClass("Highlight");
+            $("#ClientLabel").addClass("text-muted");
+            $("#FreelancerLabel").removeClass("text-muted");
+            $("#FreelancerLabel").addClass("Highlight");
+            $("#UsernameTxt").show();
+            CheckVar = "Freelancer";
+        }
         $('input[type=radio][name=User]').change(function () {
+            $("#UserTypeErrorMsg").hide();
             if (this.id === "Client") {
                 $("#UsernameTxt").hide();
                 $("#txtUsername").val("");
+                CheckVar = "Client";
             }
             else {
                 $("#UsernameTxt").show();
-
+                CheckVar = "Freelancer";
             }
         });
 
-      
+
         $("#ClientLabel").click(function () {
             $("#FreelancerLabel").removeClass("Highlight");
             $("#FreelancerLabel").addClass("text-muted");
@@ -140,15 +163,69 @@
             $("#FreelancerLabel").addClass("Highlight");
         });
         $("#formData").submit(function (x) {
-            if ($("#txtUsername").val().trim() < 3 && $("#FreelancerLabel").val()==1) {
+            if (CheckVar === null) {
                 x.preventDefault();
+                $("#UserTypeErrorMsg").show();
+            }
+            if ($("#txtUsername").val().length < 4 && $("#txtUsername").val().length > 0 && CheckVar == "Freelancer") {
+                x.preventDefault();
+                $("#SpecialCharUserNameErrorMsg").hide();
+                $("#RequireUserNameErrorMsg").hide();
+                $("#MinimumLengthUserNameErrorMsg").show();
+            }
+            if ($("#txtUsername").val().length === 0 && CheckVar === "Freelancer") {
+                x.preventDefault();
+                $("#MinimumLengthUserNameErrorMsg").hide();
+                $("#SpecialCharUserNameErrorMsg").hide();
+                $("#RequireUserNameErrorMsg").show();
+            }
+            if (!($("#txtUsername").val().match(/^[A-Za-z0-9_.-]{4,}$/)) && $("#txtUsername").val().length >= 4  && CheckVar === "Freelancer") {
+                x.preventDefault();
+                $("#MinimumLengthUserNameErrorMsg").hide();
+                $("#RequireUserNameErrorMsg").hide();
+                $("#SpecialCharUserNameErrorMsg").show();
+            }
+            if (!($("#Policy").is(':checked'))) {
+                x.preventDefault();
+                $("#AgreementErrorMsg").show();
+            }
+
+        });
+        $("#txtUsername").keyup(function () {
+            if ($(this).val().length < 4 && $(this).val().length > 0 && CheckVar == "Freelancer") {
+                $("#SpecialCharUserNameErrorMsg").hide();
+                $("#RequireUserNameErrorMsg").hide();
+                $("#MinimumLengthUserNameErrorMsg").show();
+            }
+            if ($(this).val().length === 0 && CheckVar === "Freelancer") {
+                $("#MinimumLengthUserNameErrorMsg").hide();
+                $("#SpecialCharUserNameErrorMsg").hide();
+                $("#RequireUserNameErrorMsg").show();
+            }
+            if (!($(this).val().match(/^[A-Za-z0-9_.-]{4,}$/)) && $(this).val().length >= 4 && CheckVar === "Freelancer") {
+                $("#MinimumLengthUserNameErrorMsg").hide();
+                $("#RequireUserNameErrorMsg").hide();
+                $("#SpecialCharUserNameErrorMsg").show();
+            }
+            if ($(this).val().match(/^[A-Za-z0-9_.-]{4,}$/) && $(this).val().length >= 4 && CheckVar === "Freelancer") {
+                $("#MinimumLengthUserNameErrorMsg").hide();
+                $("#RequireUserNameErrorMsg").hide();
+                $("#SpecialCharUserNameErrorMsg").hide();
+            }
+            $("#duplicateUsernameMsg").hide();
+        });
+        $('input[type="checkbox"]').click(function () {
+            alert($(this.val()));
+        });
+
+        $("#Policy").change(function () {
+            if (this.checked) {
+                $("#AgreementErrorMsg").hide();
+            }
+            else {
+                $("#AgreementErrorMsg").show();
             }
         });
-        $("#txtUsername").blur(function () {
-            if ($(this).val().trim() < 3) {
-                alert("nooooooooo");
-            }
-        });
-        
+
     </script>
 }
