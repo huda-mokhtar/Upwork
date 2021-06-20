@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Upwork.Data;
 using Upwork.Models;
+using Upwork.Models.DbModels;
 
 namespace Upwork.Controllers
 {
@@ -19,20 +20,23 @@ namespace Upwork.Controllers
             _context = context;
         }
 
-        public IActionResult Profile()
-        {
-            return View();
-        }
-
         // GET: Freelancers
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Freelancers.Include(f => f.Category).Include(f => f.City).Include(f => f.SubCategory).Include(f => f.User);
-            return View(await applicationDbContext.ToListAsync());
+            var freelancer = await _context.Freelancers.Include(a=>a.SubCategory).Include(a=>a.Category).FirstOrDefaultAsync(a =>a.FreelancerId == "a123");
+            var Jobs = await _context.Jobs.Include(a=>a.jobsSkills).Where(a => a.subCategoryId == freelancer.SubCategoryId && a.IsDraft == false).ToListAsync();
+            var jobskills = _context.JobsSkills.Select(s => s.skill);
+        
+            ViewData["Skills"] = jobskills.ToList();
+            ViewData["Freelancer"] = freelancer;
+            return View(Jobs);
         }
 
-        // GET: Freelancers/Details/5
-        public async Task<IActionResult> Details(string id)
+
+
+
+        // GET: Freelancers/Profile/5
+        public async Task<IActionResult> Profile(string id)
         {
             if (id == null)
             {
@@ -43,7 +47,7 @@ namespace Upwork.Controllers
                 .Include(f => f.Category)
                 .Include(f => f.City)
                 .Include(f => f.SubCategory)
-                .Include(f => f.User)
+                .Include(f => f.Languages)
                 .FirstOrDefaultAsync(m => m.FreelancerId == id);
             if (freelancer == null)
             {
@@ -51,6 +55,24 @@ namespace Upwork.Controllers
             }
 
             return View(freelancer);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SearchForJob(string search)
+        {
+            var Skill = _context.Skills.FirstOrDefault(s => s.Name == search);
+            var Job = _context.Jobs.Where(a => a.Title.Contains(search)).Include(a=>a.jobsSkills).ToList();
+            var SearchBySkill = _context.JobsSkills.Where(a => a.skillId == Skill.SkillId).ToList();
+            var JobList = new List<Jobs>();
+            foreach(var item in SearchBySkill)
+            {
+                var j = _context.Jobs.Include(a => a.jobsSkills).FirstOrDefault(a => a.Id == item.JobsId);
+                JobList.Add(j);
+            }
+           
+
+            ViewData["Skills"] = _context.JobsSkills.Select(s => s.skill).ToList();
+            return View(Job.Union(JobList));
         }
 
         // GET: Freelancers/Create

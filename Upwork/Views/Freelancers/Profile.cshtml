@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Upwork.Models.Freelancer
+@{
     ViewData["Title"] = "Freelancer Profile ";
 }
 @section Style {
@@ -6,196 +7,264 @@
 }
 <div class="container mt-0">
     <div class="mb-4 mt-0">
-        <div class="card  my-4">
-            <div class="card-header py-2 bg-white ">
-                <div class="row mx-1 my-4">
-                    <div class="col-8">
-                        <div class="row" style="display:-webkit-box; -webkit-box-align:center; ">
-                            <div class=" ml-2 mr-2 p-0">
-                                <div class="editPhoto mb-0 ml-0">
-                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+        <div class="row  text-center mt-0 p-0 pt-3">
+            <div class="col-sm-12 col-md-12 col-lg-10 card mx-auto mt-5 mb-2">
+                <div class="card-header py-2 bg-white ">
+                    <div class="row mx-1 my-4">
+                        <div class="col-8">
+                            <div class="row text-left" style="display:-webkit-box; -webkit-box-align:center; ">
+                                <div class=" ml-2 mr-2 p-0">
+                                    <div class="editPhoto mb-0 ml-0">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    </div>
+                                    <img src="~/Images/Wafaa1.jpg" class="Freelancer-photo my-auto" />
                                 </div>
-                                <img src="~/Images/Wafaa1.jpg" class="Freelancer-photo my-auto" />
-                            </div>
-                            <div class="ml-2">
-                                <h2>Wafaa Wadea</h2>
-                                <i class="fa fa-map-marker  Address-time" aria-hidden="true"
-                                   style="color: #656565;"></i>
-                                <p class="Address-time my-auto" style="display: inline-block;">
-                                    Al Mansourah , Egypt
-                                </p>
-                                <p class="Address-time my-auto" style="display: inline-block;">
-                                    – 4:56 am local time
-                                </p>
+                                <div class="ml-2">
+                                    <h2>Wafaa Wadea</h2>
+                                    <i class="fa fa-map-marker  Address-time" aria-hidden="true"
+                                       style="color: #656565;"></i>
+                                    <p class="Address-time my-auto" style="display: inline-block;">
+                                        Al Mansourah , Egypt
+                                    </p>
+                                    <p class="Address-time my-auto" style="display: inline-block;">
+                                        – 4:56 am local time
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-4 text-left my-auto">
-                        <a class="btn devBtnGreen  px-4 py-2 text-light">
-                            <h6 class="my-auto">
-                                Profile Settings
-                            </h6>
-                        </a>
+                        <div class="col-4 text-left my-auto">
+                            <a class="btn devBtnGreen  px-4 py-2 text-light">
+                                <h6 class="my-auto">
+                                    Profile Settings
+                                </h6>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-body m-0 p-0">
-                <div class="row m-0">
-                    <div class="col-4">
+                <div class="card-body m-0 p-0">
+                    <div class="row m-0">
+                        <div class="col-4 text-left">
 
-                        <div class="my-4 mx-1">
-                            <div class="mx-2 my-1" style="display:-webkit-box; -webkit-box-align:center;">
-                                <h5 style="font-weight: 490;">Hours</h5>
-                                <div class="editIcon">
-                                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                            <div class="mt-2 mb-5 mx-1">
-                                <p class="mb-0" style="font-weight: 550;">Available</p>
-                                <p>More than 30 hrs/week</p>
-                            </div>
-                        </div>
-
-                        <div class="my-4 mx-1">
-                            <div class="mx-2" style="display:-webkit-box; -webkit-box-align:center;">
-                                <h5 style="font-weight: 490;">Languages</h5>
-                                <div class="editIcon">
-                                    <i class="fa fa-plus" aria-hidden="true"></i>
-                                </div>
-                                <div class="editIcon ">
-                                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                                </div>
-
-                            </div>
-                            <div class="mt-2 mb-0 mx-2" style="display:-webkit-box; -webkit-box-align:center;">
-                                <p style="font-weight: 550;" class="mb-0">English : </p>
-                                <p class=" ml-1 mb-0" style="color: #656565;">Fluent</p>
-                            </div>
-                            <div class="mt-0 mx-2 mb-2" style="display:-webkit-box; -webkit-box-align:center;">
-                                <p style="font-weight: 550;" class="mt-0">Arabic : </p>
-                                <p class=" ml-1 mt-0" style="color: #656565;">Native</p>
-                            </div>
-                        </div>
-
-                        <div class="my-4 mx-1">
-                            <div class="mx-2 my-1" style="display:-webkit-box; -webkit-box-align:center;">
-                                <h5 style="font-weight: 490;">Education</h5>
-                                <div class="editIcon">
-                                    <i class="fa fa-plus" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                            <div class="mt-2 mb-4 mx-1">
-                                <div class="my-0 mx-2" style="display:-webkit-box; -webkit-box-align:center;">
-                                    <p style="font-weight: 550; " class="mr-1 my-auto">Mansoura University </p>
-                                    <div class="editIcon my-auto">
-                                        <i class="fa fa-trash-o" style="font-weight: 560; " aria-hidden="true"></i>
-                                    </div>
-                                    <div class="editIcon my-auto">
+                            <div class="my-4">
+                                <div class="mx-2 my-1" style="display:-webkit-box; -webkit-box-align:center;">
+                                    <h5 style="font-weight: 490;">Hours</h5>
+                                    <div class="editIcon">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                     </div>
                                 </div>
-                                <p class="mt-0 mx-2" style="font-weight: 400;font-size: 15px;color: #535353;">Bachelor's degree, Communication and Computer Engineering 2015-2020</p>
+                                <div class="mt-2 mb-5 mx-2">
+                                    <p class="mb-0" style="font-weight: 550;">Available</p>
+                                    <p>More than 30 hrs/week</p>
+                                </div>
                             </div>
-                        </div>
 
-
-                    </div>
-
-                    <div class="col-8 m-0 p-0 profile">
-
-                        <div class="FreelancerInfo m-0 p-3">
-                            <div class="row m-0 p-1">
-                                <div class="col-8 p-2">
-                                    <h4 class="my-auto" style="font-weight: 570; display: inline;">
-                                        Trainee at Information Technology Institute (ITI)
-                                    </h4>
-                                    <div class="editIcon  mx-1">
+                            <div class="my-4 ">
+                                <div class="mx-2" style="display:-webkit-box; -webkit-box-align:center;">
+                                    <h5 style="font-weight: 490;">Languages</h5>
+                                    <div class="editIcon">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="editIcon ">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                     </div>
+
                                 </div>
-                                <div class="col-3 text-right" style="display:-webkit-box; -webkit-box-align:center;">
-                                    <h5 style="font-weight: 570;">
-                                        $5.00/hr
+                                <div class="mt-2 mb-0 mx-2" style="display:-webkit-box; -webkit-box-align:center;">
+                                    <p style="font-weight: 550;" class="mb-0">English : </p>
+                                    <p class=" ml-1 mb-0" style="color: #656565;">Fluent</p>
+                                </div>
+                                <div class="mt-0 mx-2 mb-2" style="display:-webkit-box; -webkit-box-align:center;">
+                                    <p style="font-weight: 550;" class="mt-0">Arabic : </p>
+                                    <p class=" ml-1 mt-0" style="color: #656565;">Native</p>
+                                </div>
+                            </div>
+
+                            <div class="my-4">
+                                <div class="mx-2 my-1" style="display:-webkit-box; -webkit-box-align:center;">
+                                    <h5 style="font-weight: 490;">Education</h5>
+                                    <div class="editIcon">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                                <div class="mt-2 mb-4">
+                                    <div class="my-0 mx-2" style="display:-webkit-box; -webkit-box-align:center;">
+                                        <p style="font-weight: 550; " class="mr-1 my-auto">Mansoura University </p>
+                                        <div class="editIcon my-auto">
+                                            <i class="fa fa-trash-o" style="font-weight: 560; " aria-hidden="true"></i>
+                                        </div>
+                                        <div class="editIcon my-auto">
+                                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <p class="mt-0 mx-2" style="font-weight: 400;font-size: 15px;color: #535353;">Bachelor's degree, Communication and Computer Engineering 2015-2020</p>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="col-8 m-0 p-0 profile">
+
+                            <div class="FreelancerInfo m-0 p-3">
+                                <div class="row m-0 p-1">
+                                    <div class="col-8 p-2 text-left">
+                                        <h4 class="my-auto" style="font-weight: 570; display: inline;">
+                                            Trainee at Information Technology Institute (ITI)
+                                        </h4>
+                                        <div class="editIcon  mx-1">
+                                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-3 text-right" style="display:-webkit-box; -webkit-box-align:center;">
+                                        <h5 style="font-weight: 570;">
+                                            $5.00/hr
+                                        </h5>
+                                        <div class="editIcon ">
+                                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                                        </div>
+                                        <div class="editIcon ">
+                                            <i class="fa fa-clipboard" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row m-0 p-1 mt-3">
+                                    <div class="col-10 text-left">
+                                        <p style="font-size: 14px; font-weight: 390;">
+                                            Looking for an opportunity in a reputed company that offers a professional working
+                                            environment and enables me as afresh graduate to grow while meeting the corporations<br />
+                                            goals. I would like to work as a member of a professional team , which provides me with an excellent opportunity to prove myself
+
+                                        </p>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="editIcon ">
+                                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="FreelancerInfo m-0 p-3">
+                                <div class="row m-0 p-2">
+                                    <h5 class="mb-0" style=" font-weight: 490;">
+                                        Work History
+                                    </h5>
+
+                                </div>
+                                <div class="row m-0 p-2">
+                                    <p style="font-size: 16px; font-weight: 390;" class="mt-0">
+                                        No Items
+                                    </p>
+                                </div>
+
+                            </div>
+
+                            <div class="FreelancerInfo m-0 p-3">
+                                <div class="row m-0 p-2">
+                                    <h5 class="mb-0" style=" font-weight: 490;">
+                                        Skills
                                     </h5>
                                     <div class="editIcon ">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                     </div>
-                                    <div class="editIcon ">
-                                        <i class="fa fa-clipboard" aria-hidden="true"></i>
+                                </div>
+                                <div class="row m-0 p-2">
+                                    <div class="col-11 text-left">
+                                        <div class="Freelancer-skills py-1 px-2 m-1">PHP</div>
+                                        <div class="Freelancer-skills py-1 px-2 m-1">JavaScript</div>
+                                        <div class="Freelancer-skills py-1 px-2 m-1 ">CSS3</div>
+                                        <div class="Freelancer-skills py-1 px-2 m-1 ">JQuery</div>
+                                        <div class="Freelancer-skills py-1 px-2 m-1 ">MVC</div>
+                                        <div class="Freelancer-skills py-1 px-2 m-1">HTML</div>
+                                        <div class="Freelancer-skills py-1 px-2 m-1 ">LINQ</div>
+                                        <div class="Freelancer-skills py-1 px-2 m-1 ">JQuery</div>
+                                        <div class="Freelancer-skills py-1 px-2 m-1 ">MVC</div>
+                                        <div class="Freelancer-skills py-1 px-2 m-1 ">HTML</div>
+                                        <div class="Freelancer-skills py-1 px-2 m-1 ">LINQ</div>
+                                        <div class="Freelancer-skills py-1 px-2 m-1 ">JQuery</div>
+                                        <div class="Freelancer-skills py-1 px-2 m-1 ">MVC</div>
+                                        <div class="Freelancer-skills py-1 px-2 m-1 ">HTML</div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="row m-0 p-1 mt-3">
-                                <div class="col-10">
-                                    <p style="font-size: 14px; font-weight: 390;">
-                                        Looking for an opportunity in a reputed company that offers a professional working
-                                        environment and enables me as afresh graduate to grow while meeting the corporations<br />
-                                        goals. I would like to work as a member of a professional team , which provides me with an excellent opportunity to prove myself
 
-                                    </p>
                                 </div>
-                                <div class="col-2">
-                                    <div class="editIcon ">
-                                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="FreelancerInfo m-0 p-3">
-                            <div class="row m-0 p-2">
-                                <h5 class="mb-0" style=" font-weight: 490;">
-                                    Work History
-                                </h5>
 
                             </div>
-                            <div class="row m-0 p-2">
-                                <p style="font-size: 16px; font-weight: 390;" class="mt-0">
-                                    No Items
-                                </p>
-                            </div>
+
+
 
                         </div>
+                    </div>
+                </div>
 
-                        <div class="FreelancerInfo m-0 p-3">
-                            <div class="row m-0 p-2">
-                                <h5 class="mb-0" style=" font-weight: 490;">
-                                    Skills
-                                </h5>
-                                <div class="editIcon ">
-                                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                            <div class="row m-0 p-2">
-                                <div class="col-11">
-                                    <div class="Freelancer-skills py-1 px-2 m-1">PHP</div>
-                                    <div class="Freelancer-skills py-1 px-2 m-1">JavaScript</div>
-                                    <div class="Freelancer-skills py-1 px-2 m-1 ">CSS3</div>
-                                    <div class="Freelancer-skills py-1 px-2 m-1 ">JQuery</div>
-                                    <div class="Freelancer-skills py-1 px-2 m-1 ">MVC</div>
-                                    <div class="Freelancer-skills py-1 px-2 m-1">HTML</div>
-                                    <div class="Freelancer-skills py-1 px-2 m-1 ">LINQ</div>
-                                    <div class="Freelancer-skills py-1 px-2 m-1 ">JQuery</div>
-                                    <div class="Freelancer-skills py-1 px-2 m-1 ">MVC</div>
-                                    <div class="Freelancer-skills py-1 px-2 m-1 ">HTML</div>
-                                    <div class="Freelancer-skills py-1 px-2 m-1 ">LINQ</div>
-                                    <div class="Freelancer-skills py-1 px-2 m-1 ">JQuery</div>
-                                    <div class="Freelancer-skills py-1 px-2 m-1 ">MVC</div>
-                                    <div class="Freelancer-skills py-1 px-2 m-1 ">HTML</div>
-                                </div>
-
-                            </div>
+            </div>
+            <div class="col-12  col-lg-10 card mx-auto my-2">
+                <div class="card-header py-2 px-0 m-0 bg-white ">
+                    <div class="row mx-1 my-2 p-0">
+                        <div class="col-10 px-2 py-3 text-left">
+                            <h4>Certifications</h4>
 
                         </div>
+                        <div class="col-2 px-2 py-3 text-right">
+                            <div class="editIcon ">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body py-3 ">
+                    <div class="row">
+                        <div class=" text-center m-auto p-auto">
+                            <div class="text-center m-auto">
+                                <img src="~/Images/certification.png" />
+                                <p class="mb-1">Add certifications to highlight your best skills</p>
+                                <a class="mt-0" style="display:block; color:#14a800; ">
+                                    Add Certifications
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
+            <div class="col-12  col-lg-10 card mx-auto mt-2 mb-4">
+                <div class="card-header py-2 px-0 m-0 bg-white ">
+                    <div class="row mx-1 my-2 p-0">
+                        <div class="col-10 px-2 py-3 text-left">
+                            <h4>Employment history</h4>
 
+                        </div>
+                        <div class="col-2 px-2 py-3 text-right">
+                            <div class="editIcon ">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body py-3 ">
+                    <div class="row">
+                        <div class="col-10 text-left px-2 py-3">   
+                            <h6 class="mb-1">Trainee | Information Technology Institute (ITI)</h6>
+                            <p class="mt-1" style=" color: #656565;">
+                                October 2020 - Present
+                            </p>
+                           
+                        </div>
+                        <div class="col-2 text-right px-2 py-3">
+                            <div class="editIcon ">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </div>
+                            <div class="editIcon">
+                                <i class="fa fa-trash-o" style="font-weight: 560; " aria-hidden="true"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
         </div>
+
     </div>
-  
+
 </div>
 
