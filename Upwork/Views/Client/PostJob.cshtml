@@ -5,10 +5,10 @@
     Layout = "_ClientLayout";
 }
 
-<div class="m-0 mx-lg-auto px-xl-3 py-xl-4 py-md-4 px-md-5 m-0 px-lg-5 px-3 py-0 w-100">
-    <div class="row m-0 w-100">
-        <div class="col-12 p-0 w-100">
-            <div class="card px-3 my-2 mx-n3 my-md-4 mx-md-n4 px-md-4 w-100">
+<div class="m-0 mx-xl-auto px-xl-3 py-xl-4 py-md-4 px-md-5 px-lg-5 px-3 py-0">
+    <div class="row m-0">
+        <div class="col-12 offset-xl-2 col-xl-8 p-0">
+            <div class="card px-3 my-2 mx-n3 my-md-4 mx-md-n4 px-md-4">
                 <div class="card-header bg-white">
                     <h4>Getting Started</h4>
                 </div>
@@ -40,7 +40,7 @@
                                                                                             <label for="firstType">
                                                                                                 <div class="card-body radioBody">
                                                                                                     <div class="text-right">
-                                                                                                        <input type="radio" id="firstType" name="Type" value="ShortTime" asp-for="Type" />
+                                                                                                        <input type="radio" id="firstType" name="Type" value="ShortTime" asp-for="Type" required/>
                                                                                                         <span class="checkround"></span>
                                                                                                     </div>
                                                                                                     <i class="fa fa-clock-o mb-3" aria-hidden="true"></i>
@@ -54,7 +54,7 @@
                                                                                             <label for="SecondType">
                                                                                                 <div class="card-body radioBody">
                                                                                                     <div class="text-right">
-                                                                                                        <input type="radio" id="SecondType" name="Type" value="LongTime" asp-for="Type" />
+                                                                                                        <input type="radio" id="SecondType" name="Type" value="LongTime" asp-for="Type" required/>
                                                                                                         <span class="checkround"></span>
                                                                                                     </div>
                                                                                                     <i class="fa fa-calendar-plus-o mb-3" aria-hidden="true"></i>
@@ -141,9 +141,9 @@
 
             //console.log("done");
             var date = new Date().toLocaleString();
-            console.log(date);
-            $("#nextForm").append("<input type='text' asp-for='CreateDate' value='" + date + "' name='CreateDate'/>");
-            $("#nextForm").append("<button type='submit' id='go'></button>");
+            //console.log(date);
+            $("#nextForm").append("<input type='text' asp-for='CreateDate' value='" + date + "' name='CreateDate' class='d-none' required/>");
+            $("#nextForm").append("<button type='submit' id='go' class='d-none'></button>");
             $("#go").click();
         })
     </script>

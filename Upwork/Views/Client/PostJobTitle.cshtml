@@ -13,9 +13,12 @@
             </div>
         </div>
     }
+    @section TopLeftSide{
+        <h1 class="mb-3">Let's start with a strong title.</h1>
+    }
     @section RightSide{
         <div id="Jobtitle">
-            <h5 class="mb-2">Write a title for your job post</h5>
+            <h5 class="d-none d-sm-block mb-2">Write a title for your job post</h5>
             <form method="post" asp-action="PostJobTitle" id="TitleForm">
                 <div class="w-100">
                     <div class="form-group">
@@ -45,26 +48,26 @@
                         <h6>Category</h6>
                         <div class="container-fluid align-content-center border-dark">
                             <div class="row pb-3">
-                                <select onchange="getSubCategories(this.value)" class="form-control" asp-items="ViewBag.Category"><option value="">-</option></select>
+                                <select onchange="getSubCategories(this.value)" class="form-control" asp-items="ViewBag.Category" required id="categoryselction"><option value="">-</option></select>
                                 @*<select class="custom-select" aria-label="Default select example">
-                            <option selected>Web,Mobile & Software Dev</option>
-                            <option value="1">Customer Services</option>
-                            <option value="2">Admin Support</option>
-                            <option value="3">Design & Creative</option>
-                        </select>*@
+                                        <option selected>Web,Mobile & Software Dev</option>
+                                        <option value="1">Customer Services</option>
+                                        <option value="2">Admin Support</option>
+                                        <option value="3">Design & Creative</option>
+                                    </select>*@
                             </div>
                             <h6>Specialty</h6>
                             <div class="row form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-outline">
-                                <select class="custom-select" aria-label="Default select example" id="subCategory" required asp-for="subCategoryId" name="subCategoryId">
+                                <select class="form-control" aria-label="Default select example" id="subCategory" required asp-for="subCategoryId" name="subCategoryId">
                                     @*<option selected>Web Design</option>
-                            <option value="1">UX/UI Design</option>
-                            <option value="2">Prototyping</option>
-                            <option value="3">User Research</option>*@
+                                        <option value="1">UX/UI Design</option>
+                                        <option value="2">Prototyping</option>
+                                        <option value="3">User Research</option>*@
                                 </select>
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
             </form>
 
@@ -78,6 +81,19 @@
         $("#progressTitle").css("color", " #95df00");
         $("#NextStep").text("Next:Skills");
         $("#PrevStep").attr("href", "/Client/PostJob");
+        if ($('#titleInput').val().length > 0) {
+            $("#titleExamples").addClass('d-none');
+            $("#catogery").removeClass('d-none');
+
+            $("#continue").children()[0].classList.add('continueBtnEnable');
+            $("#continue").children()[0].classList.remove('continueBtn');
+        } else {
+            $("#catogery").addClass('d-none');
+            $("#titleExamples").removeClass('d-none');
+
+            $("#continue").children()[0].classList.add('continueBtn');
+            $("#continue").children()[0].classList.remove('continueBtnEnable');
+        }
         $('#titleInput').keyup(function () {
             if ($(this).val().length > 0) {
                 $("#titleExamples").addClass('d-none');
@@ -93,8 +109,13 @@
                 $("#continue").children()[0].classList.remove('continueBtnEnable');
             }
         })
+        var selectedCategory = $("#categoryselction").children("option:selected").val();
+        if (selectedCategory != null) {
+            //console.log(selectedCategory);
+            getSubCategories(selectedCategory);
+        }
         $("#continue").on('click','#NextStep',function () {
-            $("#TitleForm").append("<button type='submit' id='go'></button>");
+            $("#TitleForm").append("<button type='submit' id='go' class='d-none'></button>");
             $("#go").click();
         })
         function getSubCategories(event) {
@@ -103,6 +124,7 @@
                 url: "https://localhost:44367/client/GetSubCategories/" + event + "",
                 type: "Get",
                 success: (res) => {
+                    $("#subCategory").html("");
                     var obt = "<option value='0'>SubCategory</option>";
                     for (var x = 0; x < res.length; x++) {
                         obt += "<option value='" + res[x].subCategoryId + "'>" + res[x].name + "</option>"
