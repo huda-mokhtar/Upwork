@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Upwork.Data;
+using Upwork.Models;
 using Upwork.Models.DbModels;
 
 namespace Upwork.Controllers
@@ -110,6 +111,7 @@ namespace Upwork.Controllers
                     var Job = _context.Jobs.FirstOrDefault(s => s.Id == jobId);
                     Job.Title = job.Title;
                     Job.subCategoryId = job.subCategoryId;
+                    //Job.subCategory = _context.SubCategories.FirstOrDefault(s => s.SubCategoryId == job.subCategoryId);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(PostJobSkills));
                 }
@@ -264,7 +266,51 @@ namespace Upwork.Controllers
         }
         public IActionResult ReviewJobPosting()
         {
-            return View();
+
+            if (HttpContext.Session.GetString("JobId") != null)
+            {
+                var jobId = int.Parse(HttpContext.Session.GetString("JobId"));
+                var jobOld = _context.Jobs.FirstOrDefault(a => a.Id == jobId);
+                var subCategoryName = (_context.SubCategories.FirstOrDefault(a => a.SubCategoryId == jobOld.subCategoryId)).Name;
+                ViewData["JobSkills"] = _context.JobsSkills.Where(a => a.JobsId == jobId);
+                ViewData["Skills"] = _context.Skills;
+                ViewData["subcategName"] = subCategoryName;
+                ViewData["LanguageLevel"] = _context.Language_Proficiency;
+                //return Json(jobOld);
+                return View(jobOld);
+            }
+            else
+            {
+                return RedirectToAction(nameof(PostJobBudget));
+            }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public async Task<IActionResult> ReviewJobPosting(Jobs job)
+        {
+            //if (ModelState.IsValid)
+            //{
+                if (HttpContext.Session.GetString("JobId") != null)
+                {
+                    var jobId = int.Parse(HttpContext.Session.GetString("JobId"));
+                    var Job = _context.Jobs.FirstOrDefault(s => s.Id == jobId);
+                    Job.Title = job.Title;
+                    Job.JobDescription = job.JobDescription;
+                    Job.Language_ProficiencyId = job.Language_ProficiencyId;
+                    Job.TimeRequirement = job.TimeRequirement;
+                    Job.TalentType = job.TalentType;
+                    Job.IsDraft = job.IsDraft;
+                    await _context.SaveChangesAsync();
+                    HttpContext.Session.Remove("JobId");
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    return RedirectToAction(nameof(PostJobBudget));
+                }
+            //}
+            //return View(job);
         }
         public IActionResult Profile()
         {
