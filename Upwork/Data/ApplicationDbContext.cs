@@ -68,6 +68,7 @@ namespace Upwork.Data
             builder.Entity<ProjectSkills>().HasKey(o => new { o.ProjectId, o.SkillId });
 
 
+            builder.Entity<JobsSkills>().HasKey(o => new { o.JobsId, o.skillId });
 
             builder.Entity<FreelancerSavedJobs>().HasKey(o => new { o.JobsId, o.FreelancerId });
 
