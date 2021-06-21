@@ -27,12 +27,12 @@
         <div class="d-none d-lg-block col-lg-3 mt-5">
         </div>
     </div>
-    
+
     <div class="row my-5 mx-0 p-0">
         <!--left aside-->
         <div class="d-none d-md-block col-md-2 text-left p-0 m-0">
 
-            <form method="post"  class="my-4">
+            <form method="post" class="my-4">
                 <div class="radio-group">
                     <div class="row">
                         <div class="col-12 radioBox mb-1">
@@ -121,9 +121,19 @@
                                 </div>
                                 <div class="col-3 text-right">
 
-                                    <div class="circlee-like">
-                                        <i class="fa fa-heart-o 2x" style="color:rgb(83, 83, 83) ;"></i>
-                                    </div>
+
+
+                                            <div class="circlee-like">
+                                                <a asp-action="SaveJob" asp-controller="Freelancers" asp-route-id="@item.Id"> <i class="fas fa-heart 2x" style="color:rgb(83, 83, 83) ;"></i></a>
+                                            </div>
+
+                                       
+                                            <div class="circlee-like">
+                                                <a asp-action="UnSaveJob" asp-controller="Freelancers" asp-route-id="@item.Id" > <i class="fa fa-heart-o 2x" style="color:rgb(83, 83, 83) ;"></i></a>
+                                            </div>
+
+
+
                                     <div class="circlee-dislike container-freelancer">
                                         <i class="fa fa-thumbs-o-down 2x" style="color:rgb(83, 83, 83) ;"></i>
                                     </div>
@@ -303,3 +313,20 @@
     </div>
 </div>
 
+@section Scripts {
+    <script>
+        function saveJob(id) {
+            console.log(id);
+            $.ajax({
+                url: "https://localhost:44367/Freelancers/SaveJob/" + id,
+                type: "GET",
+                success: () => {
+                    console.log(`success`);
+                },
+                error: (e) => {
+                    console.log(e);
+                }
+            })
+        }
+    </script>
+}
