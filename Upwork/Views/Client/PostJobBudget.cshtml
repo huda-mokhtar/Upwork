@@ -29,6 +29,9 @@
             </div>
         </div>
     }
+    @section TopLeftSide{
+        <h1 class="mb-3">Tell us about your budget.</h1>
+    }
     @section RightSide{
         <form id="JobBudget" method="post" asp-action="PostJobBudget">
             <div class="row m-0">
@@ -44,7 +47,7 @@
                                                     <label for="hourlyRate" class="w-100 p-3 m-0">
                                                         <div class="card-body radioBody p-0">
                                                             <div class="text-right">
-                                                                <input type="radio" id="hourlyRate" name="TypeOfBudget" asp-for="TypeOfBudget"  checked value="false"/>
+                                                                <input type="radio" id="hourlyRate" name="TypeOfBudget" asp-for="TypeOfBudget" checked value="false" required/>
                                                                 <span class="checkround"></span>
                                                             </div>
                                                             <i class="fa fa-clock-o mb-3" aria-hidden="true"></i>
@@ -58,7 +61,7 @@
                                                     <label for="projectBudget" class="w-100 p-3 m-0">
                                                         <div class="card-body radioBody p-0">
                                                             <div class="text-right">
-                                                                <input type="radio" id="projectBudget" name="TypeOfBudget" asp-for="TypeOfBudget" value="true"/>
+                                                                <input type="radio" id="projectBudget" name="TypeOfBudget" asp-for="TypeOfBudget" value="true" required/>
                                                                 <span class="checkround"></span>
                                                             </div>
                                                             <i class="fa fa-usd mb-3" aria-hidden="true" style="transform: rotate(45deg); background-color:black; color: white; padding: 2px;"></i>
@@ -84,7 +87,7 @@
                                 <div class="d-inline">
                                     <div class="form-group has-search d-inline">
                                         <span class="form-control-feedback text-dark"><strong>$</strong></span>
-                                        <input type="number" class="form-control-dolars d-inline" name="BudgetFrom" id="BudgetFromHourly">
+                                        <input type="number" class="form-control-dolars d-inline pt-2 pr-3 pb-2 pl-5" name="BudgetFrom" id="BudgetFromHourly" min="0" required>
                                     </div>
                                 </div>
                                 <span class="d-inline" aria-hidden="true">/hour</span>
@@ -96,7 +99,7 @@
                                 <div class="d-inline">
                                     <div class="form-group has-search d-inline">
                                         <span class="form-control-feedback text-dark"><strong>$</strong></span>
-                                        <input type="number" class="form-control-dolars d-inline" name="BudgetTo" id="BudgetToHourly">
+                                        <input type="number" class="form-control-dolars d-inline pt-2 pr-3 pb-2 pl-5" name="BudgetTo" id="BudgetToHourly" min="0" required>
                                     </div>
                                 </div>
                                 <span class="d-inline" aria-hidden="true">/hour</span>
@@ -122,8 +125,8 @@
                     <div class="col-6 p-0">
                         <div class="d-inline">
                             <div class="form-group has-search d-inline">
-                                <span class="fa fa-usd form-control-feedback"></span>
-                                <input type="number" class="form-control-dolars d-inline" id="projectBudgetFrom">
+                                <span class="form-control-feedback text-dark"><strong>$</strong></span>
+                                <input type="number" class="form-control-dolars d-inline pt-2 pr-3 pb-2 pl-5" id="projectBudgetFrom" min="0">
                             </div>
                         </div>
                     </div>
@@ -140,6 +143,9 @@
     <script>
         $("#prorBar").children()[0].setAttribute("aria-valuenow", "100");
         $("#prorBar").children()[0].classList.add("w-100");
+        $("#progressTop").children()[0].setAttribute("aria-valuenow", "100");
+        $("#progressTop").children()[0].classList.add("w-100");
+        $("#stepNumber").text("4 0f 4");
         $("#progressTitle").css("color", " #95df00");
         $("#progressSkills").css("color", " #95df00");
         $("#progressScope").css("color", " #95df00");
@@ -166,20 +172,26 @@
                 $("#projectDiv").removeClass("d-block");
                 $("#projectDiv").addClass("d-none");
                 $("#BudgetToHourly").attr("name", "BudgetTo");
+                $("#BudgetToHourly").attr("required", "true");
                 $("#BudgetFromHourly").attr("name", "BudgetFrom");
+                $("#BudgetFromHourly").attr("required", "true");
                 $("#projectBudgetFrom").removeAttr("name");
+                $("#projectBudgetFrom").removeAttr("required");
             } else if ($("#projectBudget").parent().parent().parent().parent().hasClass("selected") == true) {
                 $("#HourlyDiv").addClass("d-none");
                 $("#HourlyDiv").removeClass("d-block");
                 $("#projectDiv").addClass("d-block");
                 $("#projectDiv").removeClass("d-none");
                 $("#projectBudgetFrom").attr("name", "BudgetFrom");
+                $("#projectBudgetFrom").attr("required", "true");
                 $("#BudgetFromHourly").removeAttr("name");
+                $("#BudgetFromHourly").removeAttr("required");
                 $("#BudgetToHourly").removeAttr("name");
+                $("#BudgetToHourly").removeAttr("required");
             }
         });
         $("#continue").on('click', '#NextStep', function () {
-            $("#JobBudget").append("<button type='submit' id='go'></button>");
+            $("#JobBudget").append("<button type='submit' id='go' class='d-none'></button>");
             $("#go").click();
         })
     </script>

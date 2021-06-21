@@ -12,6 +12,9 @@
             </div>
         </div>
     }
+    @section TopLeftSide{
+        <h1 class="mb-3">What skills does your work require?</h1>
+    }
     @section RightSide{
         <div id="JobSkills">
             <h5>Search skills or add your own</h5>
@@ -25,20 +28,20 @@
                 </form>
                 <h5 class="card-title pb-3">Popular skills</h5>
                 <div class="container-fluid">
-                        <div class="row" id="defaultSkills">
-                            @{ var i = 0;}
-                            @foreach (var s in ViewBag.Skills)
-                            {
+                    <div class="row" id="defaultSkills">
+                        @{ var i = 0;}
+                        @foreach (var s in ViewBag.Skills)
+                        {
                             <div class="text-center mb-2 mr-1 addskills add">
                                 <p class="m-0">@s.Name<i class="fa fa-plus pl-1" aria-hidden="true"></i></p>
-                                <input type="hidden" value="@s.SkillId" name="Skills"/>
+                                <input type="hidden" value="@s.SkillId" name="Skills" required/>
                                 @{ i++;}
                             </div>
-                                
-                            }
 
-                            <a href="#" style="color: #14a800;" id="seeMore">see more</a>
-                        </div>
+                        }
+
+                        <a href="#" style="color: #14a800;" id="seeMore">see more</a>
+                    </div>
                 </div>
 
                 <!-- Button trigger modal -->
@@ -94,6 +97,9 @@
     <script>
         $("#prorBar").children()[0].setAttribute("aria-valuenow", "50");
         $("#prorBar").children()[0].classList.add("w-50");
+        $("#progressTop").children()[0].setAttribute("aria-valuenow", "50");
+        $("#progressTop").children()[0].classList.add("w-50");
+        $("#stepNumber").text("2 0f 4");
         $("#progressTitle").css("color", " #95df00");
         $("#progressSkills").css("color", " #95df00");
         $("#NextStep").text("Next:Scope");
@@ -142,17 +148,20 @@
             $(this).insertBefore("#seeMore");
             //$("#defaultSkills").append(el2);
             //console.log($("#skillsAdded").children().length);
-            if ($("#skillsAdded").children().length <= 1) {
+            if ($("#skillsAdded").children().length <= 2) {
+                //console.log($("#skillsAdded").children().length);
                 $("#continue").children()[0].classList.remove('continueBtnEnable');
                 $("#continue").children()[0].classList.add('continueBtn');
                 $("#skillsAdded").addClass("d-none");
             }
-            if ($("#defaultSkills").children().length > 1) {
+            if ($("#defaultSkills").children().length > 2) {
                 $("#defaultSkills").removeClass("d-none");
+                //console.log($("#skillsAdded").children().length);
+
             }
         });
         $("#continue").on('click', '#NextStep', function () {
-            $("#skillsAdded").append("<button type='submit' id='go'></button>");
+            $("#skillsAdded").append("<button type='submit' id='go' class='d-none'></button>");
             $("#go").click();
         })
     </script>
