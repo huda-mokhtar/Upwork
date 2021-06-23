@@ -24,6 +24,10 @@ namespace Upwork.Controllers
         }
         public IActionResult Index()
         {
+            //List<JobsSkills> SkillsList = new List<JobsSkills>();
+            //SkillsList.AddRange(_context.JobsSkills.Where(a => a.JobsId == 170));
+            //SkillsList.Remove(SkillsList[0]);
+            //return Json(SkillsList[1]);
             return View();
         }
 
@@ -75,6 +79,7 @@ namespace Upwork.Controllers
                     var categoryId = (_context.SubCategories.FirstOrDefault(a => a.SubCategoryId == jobOld.subCategoryId)).CategoryId;
                     //ViewData["categoryId"] = categoryId;
                     ViewData["SubCategory"] = _context.SubCategories;
+                    ViewData["Categoryid"] = categoryId;
                     ViewData["Category"] = new SelectList(_context.Categories, "CategoryId", "Name", categoryId);
                     return View(jobOld);
                 }
@@ -128,23 +133,37 @@ namespace Upwork.Controllers
             {
                 var jobId = int.Parse(HttpContext.Session.GetString("JobId"));
                 var jobOld = _context.Jobs.FirstOrDefault(a => a.Id == jobId);
-                //var SkillsList = _context.JobsSkills.Where(a => a.JobsId == jobId);
-                ViewData["Skills"] = _context.Skills.Where(a => a.SubCategoryId == jobOld.subCategoryId);
-                ViewData["jobId"] = jobId;
-                return View();
-                /*if (SkillsList.Count() > 0)
+                List<JobsSkills> SkillsList = new List<JobsSkills>();
+                SkillsList.AddRange(_context.JobsSkills.Where(a => a.JobsId == jobId));
+                List<Skill> Skills = new List<Skill>();
+                Skills.AddRange(_context.Skills.Where(a => a.SubCategoryId == jobOld.subCategoryId));
+                //var Skills = _context.Skills.Where(a => a.SubCategoryId == jobOld.subCategoryId);
+                //ViewData["jobId"] = jobId;
+                //return View(jobOld);
+                if (SkillsList.Count() > 0)
                 {
-                    ViewData["SkillsSelected"] = SkillsList;
-                    ViewData["Skills"] = _context.Skills.Where(a => a.SubCategoryId == jobOld.subCategoryId);
+                    //List<Skill> unselected = new List<Skill>();
+                    List<Skill> selectedSkills = new List<Skill>();
+                    for (var s=0; s<Skills.Count(); s++)
+                    {
+                        if (SkillsList.Where(a => a.skillId == Skills[s].SkillId).Count() == 1)
+                        { 
+                            selectedSkills.Add(Skills[s]);
+                        }
+                    }
+                    Skills.RemoveAll(x => selectedSkills.Contains(x));
+                    ViewData["SkillsSelected"] = selectedSkills;
+                    ViewData["skillsSelectedCount"] = selectedSkills.Count();
+                    ViewData["Skills"] = Skills;
                     ViewData["jobId"] = jobId;
-                    return View();
+                    return View(jobOld);
                 }
                 else
                 {
-                    ViewData["Skills"] = _context.Skills.Where(a => a.SubCategoryId == jobOld.subCategoryId);
+                    ViewData["Skills"] = Skills;
                     ViewData["jobId"] = jobId;
-                    return View();
-                }*/
+                    return View(jobOld);
+                }
             }
             else
             {
@@ -163,6 +182,14 @@ namespace Upwork.Controllers
                 {
                     var jobId = int.Parse(HttpContext.Session.GetString("JobId"));
                     var Job = _context.Jobs.FirstOrDefault(s => s.Id == jobId);
+                    if (_context.JobsSkills.Where(a => a.JobsId == jobId).Count() > 0)
+                    {
+                        foreach(var item in _context.JobsSkills.Where(a => a.JobsId == jobId))
+                        {
+                            _context.JobsSkills.Remove(item);
+                        }
+                      await  _context.SaveChangesAsync();
+                    }
                     foreach (var item in Request.Form["Skills"])
                     {
                             JobsSkills skill = new JobsSkills() { JobsId = jobId, skillId = int.Parse(item) };

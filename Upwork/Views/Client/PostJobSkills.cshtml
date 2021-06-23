@@ -25,6 +25,17 @@
                 </div>
                 <form class="d-none" id="skillsAdded" method="post" asp-action="PostJobSkills">
                     <p class="text-muted">Selected skills</p>
+                    @if (ViewBag.skillsSelectedCount > 0)
+                    {
+                        foreach (var sl in ViewBag.SkillsSelected)
+                        {
+                            <div class="text-center mb-2 mr-1 skillAdded remove">
+                                <p class="m-0">@sl.Name<i class="fa fa-times pl-1" aria-hidden="true"></i></p>
+                                <input type="hidden" value="@sl.SkillId" name="Skills" required />
+                            </div>
+
+                        }
+                    }
                 </form>
                 <h5 class="card-title pb-3">Popular skills</h5>
                 <div class="container-fluid">
@@ -104,6 +115,13 @@
         $("#progressSkills").css("color", " #95df00");
         $("#NextStep").text("Next:Scope");
         $("#PrevStep").attr("href", "/Client/PostJobTitle");
+
+        if ($("#skillsAdded").children().length > 2) {
+            $("#continue").children()[0].classList.add('continueBtnEnable');
+            $("#continue").children()[0].classList.remove('continueBtn');
+            $("#skillsAdded").removeClass("d-none");
+        }
+
         $('#defaultSkills').on('click', '.add', function (event) {
             var el = $(this).parent()[0];
             console.log($(this));
@@ -119,11 +137,11 @@
             $("#skillsAdded").removeClass("d-none");
 
             $("#skillsAdded").append($(this));
-            if ($("#skillsAdded").children().length > 1) {
+            if ($("#skillsAdded").children().length > 2) {
                 $("#continue").children()[0].classList.add('continueBtnEnable');
                 $("#continue").children()[0].classList.remove('continueBtn');
             }
-            if ($("#defaultSkills").children().length <= 1) {
+            if ($("#defaultSkills").children().length <= 2) {
                 $("#defaultSkills").addClass("d-none");
             }
         });

@@ -126,6 +126,18 @@
 
 @section Scripts{
     <script>
+        for (var i = 0; i < $('input[name=Type]').length; i++) {
+            if ($('input[name=Type]')[i].checked == true) {
+                console.log($('input[name=Type]')[i].parentElement.parentElement.parentElement.parentElement);
+                for (var c = 0; c < $('input[name=Type]')[i].parentElement.parentElement.parentElement.parentElement.parentElement.children.length; c++) {
+                    $('input[name=Type]')[i].parentElement.parentElement.parentElement.parentElement.parentElement.children[c].classList.remove('selected');
+                }
+                $('input[name=Type]')[i].parentElement.parentElement.parentElement.parentElement.classList.add('selected');
+                $("#gotoSteps").children()[0].classList.remove('continueBtn');
+                $("#gotoSteps").children()[0].classList.add('continueBtnEnable');
+            }
+        }
+        
         $('.radio-group .container .row .radioBox').click(function () {
             console.log($(this))
             //console.log($(this)[0].children[0].children[0].children[0])
