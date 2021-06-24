@@ -47,7 +47,7 @@ namespace Upwork.Controllers
             if (HttpContext.Session.GetString("ProjectId") != null)
             {
                 var projectId = int.Parse(HttpContext.Session.GetString("ProjectId"));
-               var project = _context.Projects.FirstOrDefault(a => a.ProjectId == projectId);
+                var project = _context.Projects.FirstOrDefault(a => a.ProjectId == projectId);
                 return View(project);
             }
                 return View();
@@ -79,7 +79,7 @@ namespace Upwork.Controllers
                     project.FreelancerId = "a123";
                     _context.Add(project);
                     await _context.SaveChangesAsync();
-                HttpContext.Session.SetString("ProjectId", project.ProjectId.ToString());
+                    HttpContext.Session.SetString("ProjectId", project.ProjectId.ToString());
                     foreach (KeyValuePair<string, bool> item in Skills)
                     {
                         if (item.Value == true)
@@ -304,50 +304,17 @@ namespace Upwork.Controllers
             {
                 return NotFound();
             }
-
-            var project = await _context.Projects.FindAsync(id);
-            if (project == null)
+            var project= _context.Projects.FirstOrDefault(a=>a.ProjectId==id);
+            if (project.ProjectId == null)
             {
-                return NotFound();
+                return View("Error");
             }
-            ViewData["FreelancerId"] = new SelectList(_context.Freelancers, "FreelancerId", "FreelancerId", project.FreelancerId);
-            return View(project);
+            HttpContext.Session.SetString("ProjectId", project.ProjectId.ToString());
+            return RedirectToAction(nameof(Create));
         }
 
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProjectId,Title,Description,Requierments,SimultaneousProjects,FreelancerId")] Project project)
-        {
-            if (id != project.ProjectId)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(project);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ProjectExists(project.ProjectId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["FreelancerId"] = new SelectList(_context.Freelancers, "FreelancerId", "FreelancerId", project.FreelancerId);
-            return View(project);
-        }
-
+     
         public async Task<IActionResult> Cancel(Project project)
         {
             if (HttpContext.Session.GetString("ProjectId") != null)
@@ -358,35 +325,17 @@ namespace Upwork.Controllers
         }
 
         // GET: Projects/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
-            var project = await _context.Projects
-                .Include(p => p.Freelancer)
-                .FirstOrDefaultAsync(m => m.ProjectId == id);
-            if (project == null)
-            {
-                return NotFound();
-            }
-
-            return View(project);
-        }
-
-        // POST: Projects/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
             var project = await _context.Projects.FindAsync(id);
             _context.Projects.Remove(project);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
        
        private bool ProjectExists(int id)
         {

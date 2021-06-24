@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Upwork.Data;
 
 namespace Upwork.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210619121933_Freelancer-Saved-Jobs")]
+    partial class FreelancerSavedJobs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -469,9 +471,6 @@ namespace Upwork.Data.Migrations
                     b.Property<string>("Overview")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PhoneCountryId")
-                        .HasColumnType("int");
-
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
@@ -495,8 +494,6 @@ namespace Upwork.Data.Migrations
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("CityId");
-
-                    b.HasIndex("PhoneCountryId");
 
                     b.HasIndex("SubCategoryId");
 
@@ -980,10 +977,6 @@ namespace Upwork.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Upwork.Models.Country", "PhoneCountry")
-                        .WithMany("FreelancersPhones")
-                        .HasForeignKey("PhoneCountryId");
-
                     b.HasOne("Upwork.Models.SubCategory", "SubCategory")
                         .WithMany("Freelancers")
                         .HasForeignKey("SubCategoryId");
@@ -991,8 +984,6 @@ namespace Upwork.Data.Migrations
                     b.Navigation("Category");
 
                     b.Navigation("City");
-
-                    b.Navigation("PhoneCountry");
 
                     b.Navigation("SubCategory");
 
@@ -1198,8 +1189,6 @@ namespace Upwork.Data.Migrations
                     b.Navigation("Cities");
 
                     b.Navigation("FreelancerExperiences");
-
-                    b.Navigation("FreelancersPhones");
 
                     b.Navigation("Users");
                 });

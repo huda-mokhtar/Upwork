@@ -1,0 +1,47 @@
+﻿.center {
+    padding: 1rem 0;
+}
+
+.wrapper {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 0.7rem;
+    margin-top: 1.3rem;
+    margin-bottom: 1.3rem;
+    padding: 1.3rem 0.7rem;
+}
+
+.nav-tabs {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0.2rem;
+    padding-bottom:0;
+}
+
+.nav-item {
+    margin-left: 0.7rem;
+    margin-right: 0.7rem;
+}
+
+.nav-link {
+    background-color: transparent;
+    font-weight: 500;
+    color: #000;
+}
+
+.nav-link:hover {
+        border: none;
+        color: rgba(0, 128, 0, 0.925);
+        transition:none;
+    }
+
+.nav-tabs .nav-link.active {
+    color: #14a800;
+    font-weight: 600;
+    border: none;
+    border-bottom:4px solid rgba(0, 128, 0, 0.925);
+}
+
+.tab-content {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Upwork.Data;
 using Upwork.Models;
+using Upwork.Models.DbModels;
 
 namespace Upwork.Controllers
 {
@@ -22,18 +23,14 @@ namespace Upwork.Controllers
         // GET: Freelancers
         public async Task<IActionResult> Index()
         {
-            var freelancer = await _context.Freelancers.Include(a=>a.SubCategory).Include(a=>a.Category).FirstOrDefaultAsync(a =>a.FreelancerId == "a123");
-            var Jobs = await _context.Jobs.Include(a=>a.jobsSkills).Where(a => a.subCategoryId == freelancer.SubCategoryId && a.IsDraft == false).ToListAsync();
+            var freelancer = await _context.Freelancers.Include(a=>a.SubCategory).Include(a=>a.Category).Include(a =>a.FreelancerSavedJobs).FirstOrDefaultAsync(a =>a.FreelancerId == "a123");
+            var Jobs = await _context.Jobs.Include(a=>a.jobsSkills).Include(a => a.freelancerSavedJobs).Where(a => a.subCategoryId == freelancer.SubCategoryId && a.IsDraft == false).ToListAsync();
             var jobskills = _context.JobsSkills.Select(s => s.skill);
-            // var applicationDbContext = _context.Freelancers.Include(f => f.Category).Include(f => f.City).Include(f => f.SubCategory).Include(f => f.User);
-            // return View(await applicationDbContext.ToListAsync());
+        
             ViewData["Skills"] = jobskills.ToList();
             ViewData["Freelancer"] = freelancer;
             return View(Jobs);
         }
-
-
-
 
         // GET: Freelancers/Profile/5
         public async Task<IActionResult> Profile(string id)
@@ -57,36 +54,66 @@ namespace Upwork.Controllers
             return View(freelancer);
         }
 
-        // GET: Freelancers/Create
-        public IActionResult Create()
+        [HttpPost]
+        public async Task<IActionResult> SearchForJob(string search)
         {
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name");
-            ViewData["CityId"] = new SelectList(_context.Cities, "CityId", "Name");
-            ViewData["SubCategoryId"] = new SelectList(_context.SubCategories, "SubCategoryId", "Name");
-            ViewData["FreelancerId"] = new SelectList(_context.Set<ApplicationUser>(), "Id", "Id");
-            return View();
+            var Freelancer = "a123";
+            if (string.IsNullOrEmpty(search))
+            {
+                return BadRequest();
+            }
+            var Skill = _context.Skills.FirstOrDefault(s => s.Name == search);
+            var JobList = new List<Jobs>();
+            if(Skill != null)
+            {
+                var SearchBySkill = _context.JobsSkills.Where(a => a.skillId == Skill.SkillId).ToList();
+            
+                foreach(var item in SearchBySkill)
+                {
+                    var j = _context.Jobs.Include(a => a.jobsSkills).Include(a => a.freelancerSavedJobs).FirstOrDefault(a => a.Id == item.JobsId);
+                    JobList.Add(j);
+                }
+            }
+            var Job = _context.Jobs.Where(a => a.Title.Contains(search) || a.JobDescription.Contains(search)).Include(a=>a.jobsSkills).Include(a => a.freelancerSavedJobs).ToList();
+           
+           
+            if(Job == null && (JobList.Count() == 0))
+            {
+                return NotFound();
+            }
+            ViewData["Skills"] = _context.JobsSkills.Select(s => s.skill).ToList();
+            ViewData["SavesJobs"] = _context.FreelancerSavedJobs.Where(a => a.FreelancerId == Freelancer).Include(a => a.Jobs).ToList();
+            return View(Job.Union(JobList));
         }
 
-        // POST: Freelancers/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FreelancerId,CategoryId,SubCategoryId,ExperienceLevel,HourlyRate,Title,Overview,Image,CityId,Street,ZIP,PhoneNumber,VideoLink")] Freelancer freelancer)
+        public async Task<IActionResult> SaveJob(int id)
         {
-            if (ModelState.IsValid)
+            var Freelancer = "a123";
+            FreelancerSavedJobs savedJobs = _context.FreelancerSavedJobs.Where(a => a.JobsId == id && a.FreelancerId == Freelancer).FirstOrDefault();
+            if (savedJobs == null)
             {
-                _context.Add(freelancer);
-                await _context.SaveChangesAsync();
+                savedJobs = new FreelancerSavedJobs() { FreelancerId = Freelancer, JobsId = id };
+            _context.FreelancerSavedJobs.Add(savedJobs);
+            _context.SaveChanges();
+            }
+           
+            return RedirectToAction(nameof(Index));
+
+        }
+        
+        public async Task<IActionResult> UnSaveJob(int id)
+        {
+            var Freelancer = "a123";
+            FreelancerSavedJobs savedJobs = _context.FreelancerSavedJobs.Where(a => a.JobsId == id && a.FreelancerId == Freelancer).FirstOrDefault();
+            if(savedJobs != null)
+            {
+                _context.FreelancerSavedJobs.Remove(savedJobs);
+                _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name", freelancer.CategoryId);
-            ViewData["CityId"] = new SelectList(_context.Cities, "CityId", "Name", freelancer.CityId);
-            ViewData["SubCategoryId"] = new SelectList(_context.SubCategories, "SubCategoryId", "Name", freelancer.SubCategoryId);
-            ViewData["FreelancerId"] = new SelectList(_context.Set<ApplicationUser>(), "Id", "Id", freelancer.FreelancerId);
-            return View(freelancer);
+            return RedirectToAction(nameof(Index));
         }
-
+       
         // GET: Freelancers/Edit/5
         public async Task<IActionResult> Edit(string id)
         {

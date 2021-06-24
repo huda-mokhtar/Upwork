@@ -1,243 +1,299 @@
-﻿@{
+﻿@model Upwork.Models.DbModels.Jobs
+@{
     ViewData["Title"] = "Review Post Job Page";
     Layout = "_ClientLayout";
 }
 
+@section Style{
+    <link href="~/css/ReviewPost.css" rel="stylesheet" />
+}
 <div class="container mb-4">
     <div class="row m-auto">
         <div class="col-11 text-center mt-2">
-            <div class="card">
-                <div class="card-header bg-white">
-                    <div class="row p-3 " style="display:-webkit-box; -webkit-box-align:center; ">
-                        <div class="col-8 text-left m-0 ">
-                            <h2 style="color: #1d4354; font:  bold 28px Rza;">Now just finish and review your job post.</h2>
-                        </div>
-
-                        <div class="col-3  text-right m-0">
-                            <div class="devBtnGreen text-center p-2 mr-0 text-light">
-                                <h6 class="m-0 p-0">Post Your Job Now</h6>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="myDrafts">
-                    <div class="row p-3"
-                         style="display:-webkit-box; -webkit-box-align:center;">
-                        <div class="col-8 text-left m-0">
-                            <p class="seconedHeaders">Title </p>
-                            <input type="text" style="width: 87%; " class="p-2 form-control">
-                        </div>
-
-                    </div>
-                </div>
-                <div class="myDrafts">
-                    <div class="row p-3"
-                         style="display:-webkit-box; -webkit-box-align:center; ">
-                        <div class="col-11 text-left m-0">
-                            <p class="seconedHeaders">Describe your job </p>
-                            <p class="mb-4" style="font-size: 14px;">This is how talent figures out what you need and why you’re great to work with!</p>
-                            <p class="mb-3" style="font-size: 14px; "> Include your expectations about the task or deliverable, what you’re looking for in a work relationship, and anything unique about your project, team, or company.<a href=""> Here are several examples </a>  that illustrate best practices for effective job posts.</p>
-                            <textarea class="form-control mb-3" id="description" style="height: 200px;width: 62%; border-color: #debe1a;"></textarea>
-                            <div class="devBtnLight p-1 text-center mb-2" style="width: 120px;">
-                                <i class="fa fa-paperclip" aria-hidden="true"></i> Attach File
-                            </div>
-                            <p class="mb-2" style="font-size: 16px; color: grey;">Max file size: 100 MB</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="myDrafts ">
-                    <div class="row p-3"
-                         style="display:-webkit-box; -webkit-box-align:center ; ">
-                        <div class="col-11 text-left m-0">
-                            <div class="mb-3">
-                                <p class="seconedHeaders mb-2">Category</p>
-                                <div style="display:inline-flex;">
-                                    <p>Web Design</p>
-                                    <div class="editIcon">
-                                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <p class="seconedHeaders mb-2">Skills</p>
-                                <div style="display:inline-flex;">
-                                    <div class="skillsDiv pt-1 pl-2 pb-1 pr-2">Website Development</div>
-                                    <div class="skillsDiv pt-1 pl-2 pb-1 pr-2">Website Development</div>
-                                    <div class="editIcon">
-                                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <p class="seconedHeaders mb-2">Scope</p>
-                                <div style="display:inline-flex;">
-                                    <p>Medium, More than 6 months, Intermediate level</p>
-                                    <div class="editIcon">
-                                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                            </div><div class="mb-3">
-                                <p class="seconedHeaders mb-2">Budget</p>
-                                <div style="display:inline-flex;">
-                                    <p>$12.00 - $25.00 /hr</p>
-                                    <div class="editIcon">
-                                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                                    </div>
-                                </div>
+            <form method="post" asp-action="ReviewJobPosting" id="postJobForm">
+                <div class="card">
+                    <div class="card-header bg-white">
+                        <div class="row p-3 " style="display:-webkit-box; -webkit-box-align:center; ">
+                            <div class="col-8 text-left m-0 ">
+                                <h2 style="color: #1d4354; font:  bold 28px Rza;">Now just finish and review your job post.</h2>
                             </div>
 
-                        </div>
-                    </div>
-                </div>
-
-                <div class="myDrafts">
-                    <div class="row p-3"
-                         style="display:-webkit-box; -webkit-box-align:center; ">
-                        <div class="col-12 text-left m-0">
-                            <div class="row m-0 p-0 mb-3" data-toggle="collapse" href="#collapseOne" style="cursor: pointer;">
-                                <div class="col-9 mr-1 text-left">
-                                    <p class="seconedHeaders mb-2">Screening questions (optional)</p>
-                                    <p class="mb-2" style="font-size: 14px; color: #656565;">Narrow down your candidates</p>
-                                </div>
-                                <div class="col-2 m-0 text-right">
-                                    <a class="card-link rotateLink1" data-toggle="collapse"
-                                       href="#collapseOne" style="color: #656565;;"><i class="fa fa-angle-down fa-2x rotateAngle1"></i></a>
-                                </div>
-                            </div>
-                            <div id="collapseOne" class="collapse" data-parent="#accordion">
-                                <div class="mr-1 text-left ">
-                                    <p class="thirdHeaders mb-2">Select or add up to 5 questions</p>
-
-                                    <div class="mb-2">
-                                        <label class="checkbox" style="display:-webkit-box; -webkit-box-align:center; ">
-                                            <input type="checkbox" />
-                                            <div class="ml-3">Describe your recent experience with similar projects</div>
-                                        </label>
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="checkbox" style="display:-webkit-box; -webkit-box-align:center; ">
-                                            <input type="checkbox" />
-                                            <div class="ml-3">Please list any certifications related to this project</div>
-                                        </label>
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="checkbox" style="display:-webkit-box; -webkit-box-align:center; ">
-                                            <input type="checkbox" />
-                                            <div class="ml-3">Include a link to your GitHub profile and/or website</div>
-                                        </label>
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="checkbox" style="display:-webkit-box; -webkit-box-align:center; ">
-                                            <input type="checkbox" />
-                                            <div class="ml-3">What frameworks have you worked with?</div>
-                                        </label>
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="checkbox" style="display:-webkit-box; -webkit-box-align:center; ">
-                                            <input type="checkbox" />
-                                            <div class="ml-3">Describe your approach to testing and improving QA</div>
-                                        </label>
-                                    </div>
-
-
+                            <div class="col-3  text-right m-0">
+                                <div class="devBtnGreen text-center p-2 mr-0 text-light">
+                                    <h6 class="m-0 p-0">Post Your Job Now</h6>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="myDrafts">
-                    <div class="row p-3"
-                         style="display:-webkit-box; -webkit-box-align:center; ">
-                        <div class="col-12 text-left m-0 ">
-                            <div class="row m-0 p-0 mb-3" data-toggle="collapse" href="#collapseTwo" style="cursor: pointer;">
-                                <div class="col-9 mr-1 text-left">
-                                    <p class="seconedHeaders mb-2"> Advanced preferences (optional)</p>
-                                    <p class="mb-2" style="font-size: 14px; color: #656565;">Hours per week, hire date, and more</p>
+                    <div class="myDrafts">
+                        <div class="row p-3"
+                             style="display:-webkit-box; -webkit-box-align:center;">
+                            <div class="col-8 text-left m-0">
+                                <p class="seconedHeaders">Title </p>
+                                <input type="text" style="width: 87%; " class="p-2 form-control" asp-for="Title">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="myDrafts">
+                        <div class="row p-3"
+                             style="display:-webkit-box; -webkit-box-align:center; ">
+                            <div class="col-11 text-left m-0">
+                                <p class="seconedHeaders">Describe your job </p>
+                                <p class="mb-4" style="font-size: 14px;">This is how talent figures out what you need and why you’re great to work with!</p>
+                                <p class="mb-3" style="font-size: 14px; "> Include your expectations about the task or deliverable, what you’re looking for in a work relationship, and anything unique about your project, team, or company.<a href=""> Here are several examples </a>  that illustrate best practices for effective job posts.</p>
+                                <textarea class="form-control mb-3" id="description" style="height: 200px;width: 62%; border-color: #debe1a;" asp-for="JobDescription"></textarea>
+                                <div class="devBtnLight p-1 text-center mb-2" style="width: 120px;">
+                                    <i class="fa fa-paperclip" aria-hidden="true"></i> Attach File
                                 </div>
-                                <div class="col-2 m-0 text-right">
-                                    <a class="card-link rotateLink2" data-toggle="collapse"
-                                       href="#collapseTwo" style="color: #656565;;"><i class="fa fa-angle-down fa-2x rotateAngle2"></i></a>
+                                <p class="mb-2" style="font-size: 16px; color: grey;">Max file size: 100 MB</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="myDrafts ">
+                        <div class="row p-3"
+                             style="display:-webkit-box; -webkit-box-align:center ; ">
+                            <div class="col-11 text-left m-0">
+                                <div class="mb-3">
+                                    <p class="seconedHeaders mb-2">Category</p>
+                                    <div style="display:inline-flex;">
+                                        <p>@ViewBag.subcategName</p>
+                                        <div class="editIcon">
+                                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <p class="seconedHeaders mb-2">Skills</p>
+                                    <div style="display:inline-flex;">
+                                        @foreach (var item in ViewBag.JobSkills)
+                                        {
+                                            foreach (var s in ViewBag.Skills)
+                                            {
+                                                if (item.skillId == s.SkillId)
+                                                {
+                                                    var name = s.Name;
+                                                    <div class="skillsDiv pt-1 pl-2 pb-1 pr-2">@name</div>
+                                                }
+                                            }
+
+                                        }
+
+                                        @*<div class="skillsDiv pt-1 pl-2 pb-1 pr-2">Website Development</div>*@
+                                        <div class="editIcon">
+                                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <p class="seconedHeaders mb-2">Scope</p>
+                                    <div style="display:inline-flex;">
+                                        <p>
+                                            @Model.Scope, @if (Model.Duration == 6)
+                                            {<span>More than 6 months</span>}
+                                            else if (Model.Duration == 5)
+                                            {<span>3 to 6 months</span> }
+                                            else if (Model.Duration == 2)
+                                            { <span>1 to 3 months</span>}, @Model.LevelOfExperience
+                                        </p>
+
+                                        <div class="editIcon">
+                                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </div><div class="mb-3">
+                                    <p class="seconedHeaders mb-2">Budget</p>
+                                    <div style="display:inline-flex;">
+                                        <p>
+                                            @if (Model.BudgetTo == Model.BudgetFrom)
+                                            {<span> $@Model.BudgetFrom.00</span>}
+                                        else
+                                        { <span>$@Model.BudgetFrom.00 - $@Model.BudgetTo.00 /hr</span>}
+                                        </p>
+                                        <div class="editIcon">
+                                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="myDrafts">
+                        <div class="row p-3"
+                             style="display:-webkit-box; -webkit-box-align:center; ">
+                            <div class="col-12 text-left m-0">
+                                <div class="row m-0 p-0 mb-3" data-toggle="collapse" href="#collapseOne" style="cursor: pointer;">
+                                    <div class="col-9 mr-1 text-left">
+                                        <p class="seconedHeaders mb-2">Screening questions (optional)</p>
+                                        <p class="mb-2" style="font-size: 14px; color: #656565;">Narrow down your candidates</p>
+                                    </div>
+                                    <div class="col-2 m-0 text-right">
+                                        <a class="card-link rotateLink1" data-toggle="collapse"
+                                           href="#collapseOne" style="color: #656565;;"><i class="fa fa-angle-down fa-2x rotateAngle1"></i></a>
+                                    </div>
+                                </div>
+                                <div id="collapseOne" class="collapse" data-parent="#accordion">
+                                    <div class="mr-1 text-left ">
+                                        <p class="thirdHeaders mb-2">Select or add up to 5 questions</p>
+
+                                        <div class="mb-2">
+                                            <label class="checkbox" style="display:-webkit-box; -webkit-box-align:center; ">
+                                                <input type="checkbox" />
+                                                <div class="ml-3">Describe your recent experience with similar projects</div>
+                                            </label>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label class="checkbox" style="display:-webkit-box; -webkit-box-align:center; ">
+                                                <input type="checkbox" />
+                                                <div class="ml-3">Please list any certifications related to this project</div>
+                                            </label>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label class="checkbox" style="display:-webkit-box; -webkit-box-align:center; ">
+                                                <input type="checkbox" />
+                                                <div class="ml-3">Include a link to your GitHub profile and/or website</div>
+                                            </label>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label class="checkbox" style="display:-webkit-box; -webkit-box-align:center; ">
+                                                <input type="checkbox" />
+                                                <div class="ml-3">What frameworks have you worked with?</div>
+                                            </label>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label class="checkbox" style="display:-webkit-box; -webkit-box-align:center; ">
+                                                <input type="checkbox" />
+                                                <div class="ml-3">Describe your approach to testing and improving QA</div>
+                                            </label>
+                                        </div>
+
+
+                                    </div>
                                 </div>
                             </div>
-                            <div id="collapseTwo" class="row collapse m-0 p-0 mb-3 " data-parent="#accordion">
+                        </div>
+                    </div>
+                    <div class="myDrafts">
+                        <div class="row p-3"
+                             style="display:-webkit-box; -webkit-box-align:center; ">
+                            <div class="col-12 text-left m-0 ">
+                                <div class="row m-0 p-0 mb-3" data-toggle="collapse" href="#collapseTwo" style="cursor: pointer;">
+                                    <div class="col-9 mr-1 text-left">
+                                        <p class="seconedHeaders mb-2"> Advanced preferences (optional)</p>
+                                        <p class="mb-2" style="font-size: 14px; color: #656565;">Hours per week, hire date, and more</p>
+                                    </div>
+                                    <div class="col-2 m-0 text-right">
+                                        <a class="card-link rotateLink2" data-toggle="collapse"
+                                           href="#collapseTwo" style="color: #656565;;"><i class="fa fa-angle-down fa-2x rotateAngle2"></i></a>
+                                    </div>
+                                </div>
+                                <div id="collapseTwo" class="row collapse m-0 p-0 mb-3 " data-parent="#accordion">
 
-                                <div class="col text-left ">
-                                    <div class="m-0 p-0 mb-4">
-                                        <p class="FourthHeaders mb-2 m-0 p-0 mb-3">English level</p>
-                                        <form method="post" action="send.php">
+                                    <div class="col text-left ">
+                                        <div class="m-0 p-0 mb-4">
+                                            <p class="FourthHeaders mb-2 m-0 p-0 mb-3">English level</p>
                                             <div class="radio-group">
                                                 <div class="row">
-                                                    <div class="col-12 radioBox mb-0">
-                                                        <label for="one" class="col-12 p-0 mb-0">
-                                                            <div class="radioBody mb-0">
-                                                                <div class="text-left mb-0">
-                                                                    <input type="radio" id="one" name="Expertise-Level" checked />
-                                                                    <span class="checkround"></span>
-                                                                    <p class="ml-4" style="font-size: 14px;"> Any level</p>
-                                                                </div>
+                                                    @{ var LanguageLevel = 0;}
+                                                    @foreach (var l in ViewBag.LanguageLevel)
+                                                    {
+                                                        if (LanguageLevel == 0)
+                                                        {
+                                                            <div class="col-12 radioBox mb-0">
+                                                                <label for="@l.Description" class="col-12 p-0 mb-0">
+                                                                    <div class="radioBody mb-0">
+                                                                        <div class="text-left mb-0">
+                                                                            <input type="radio" id="@l.Description" asp-for="Language_ProficiencyId" value="@l.ProficiencyId" checked />
+                                                                            <span class="checkround"></span>
+                                                                            <p class="ml-4" style="font-size: 14px;">@l.Name</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </label>
                                                             </div>
-                                                        </label>
-                                                    </div>
-                                                    <div class="col-12 radioBox mb-0">
-                                                        <label for="two" class="col-12 p-0 m-0 mb-0">
-                                                            <div class="radioBody mb-0">
-                                                                <div class="text-left mb-0">
-                                                                    <input type="radio" id="two" name="Expertise-Level" />
-                                                                    <span class="checkround"></span>
-                                                                    <p class="ml-4" style="font-size: 14px;">Conversational or better</p>
-                                                                </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="col-12 radioBox mb-0">
+                                                                <label for="@l.Description" class="col-12 p-0 mb-0">
+                                                                    <div class="radioBody mb-0">
+                                                                        <div class="text-left mb-0">
+                                                                            <input type="radio" id="@l.Description" asp-for="Language_ProficiencyId" value="@l.ProficiencyId" />
+                                                                            <span class="checkround"></span>
+                                                                            <p class="ml-4" style="font-size: 14px;">@l.Name</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </label>
                                                             </div>
-                                                        </label>
+                                                        }
+
+                                                        { LanguageLevel++; }
+                                                    }
+                                                    @*<div class="col-12 radioBox mb-0">
+                                                <label for="Any-level" class="col-12 p-0 mb-0">
+                                                    <div class="radioBody mb-0">
+                                                        <div class="text-left mb-0">
+                                                            <input type="radio" id="Any-level" checked asp-for="Language_ProficiencyId" />
+                                                            <span class="checkround"></span>
+                                                            <p class="ml-4" style="font-size: 14px;"> Any level</p>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-12 radioBox mb-0">
-                                                        <label for="three" class="col-12 p-0 m-0 mb-0">
-                                                            <div class="radioBody mb-0">
-                                                                <div class="text-left mb-0">
-                                                                    <input type="radio" id="three" name="Expertise-Level" />
-                                                                    <span class="checkround"></span>
-                                                                    <p class="ml-4" style="font-size: 14px;">Fluent or better</p>
-                                                                </div>
-                                                            </div>
-                                                        </label>
+                                                </label>
+                                            </div>
+                                            <div class="col-12 radioBox mb-0">
+                                                <label for="two" class="col-12 p-0 m-0 mb-0">
+                                                    <div class="radioBody mb-0">
+                                                        <div class="text-left mb-0">
+                                                            <input type="radio" id="two" asp-for="Language_ProficiencyId" />
+                                                            <span class="checkround"></span>
+                                                            <p class="ml-4" style="font-size: 14px;">Conversational or better</p>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-12 radioBox mb-0">
-                                                        <label for="four" class="col-12 p-0 m-0 mb-0">
-                                                            <div class="radioBody mb-0">
-                                                                <div class="text-left mb-0">
-                                                                    <input type="radio" id="four" name="Expertise-Level" />
-                                                                    <span class="checkround"></span>
-                                                                    <p class="ml-4" style="font-size: 14px;">Native or bilingual only</p>
-                                                                </div>
-                                                            </div>
-                                                        </label>
+                                                </label>
+                                            </div>
+                                            <div class="col-12 radioBox mb-0">
+                                                <label for="three" class="col-12 p-0 m-0 mb-0">
+                                                    <div class="radioBody mb-0">
+                                                        <div class="text-left mb-0">
+                                                            <input type="radio" id="three" asp-for="Language_ProficiencyId" />
+                                                            <span class="checkround"></span>
+                                                            <p class="ml-4" style="font-size: 14px;">Fluent or better</p>
+                                                        </div>
                                                     </div>
+                                                </label>
+                                            </div>
+                                            <div class="col-12 radioBox mb-0">
+                                                <label for="four" class="col-12 p-0 m-0 mb-0">
+                                                    <div class="radioBody mb-0">
+                                                        <div class="text-left mb-0">
+                                                            <input type="radio" id="four" name="Expertise-Level" />
+                                                            <span class="checkround"></span>
+                                                            <p class="ml-4" style="font-size: 14px;">Native or bilingual only</p>
+                                                        </div>
+                                                    </div>
+                                                </label>
+                                            </div>*@
                                                 </div>
                                             </div>
-                                        </form>
-                                    </div>
-                                    <div class="m-0 p-0 mb-4">
-                                        <p class="FourthHeaders mb-2 mt-3 m-0 p-0 ">Other languages</p>
-                                        <select class="form-control h-35 mb-3" id="Language"
-                                                style="width: 60% ;" required>
-                                            <option value="">Add Language</option>
-                                            <option>March</option>
-                                        </select>
-                                    </div>
-                                    <div class="m-0 p-0 mb-4">
-                                        <p class="FourthHeaders mb-2 mt-3 m-0 p-0">Time requirement</p>
-
-
-
-
-
-                                        <form method="post" action="send.php">
+                                        </div>
+                                        <div class="m-0 p-0 mb-4">
+                                            <p class="FourthHeaders mb-2 mt-3 m-0 p-0 ">Other languages</p>
+                                            <select class="form-control h-35 mb-3" id="Language"
+                                                    style="width: 60% ;">
+                                                <option value="">Add Language</option>
+                                                <option>March</option>
+                                            </select>
+                                        </div>
+                                        <div class="m-0 p-0 mb-4">
+                                            <p class="FourthHeaders mb-2 mt-3 m-0 p-0">Time requirement</p>
                                             <div class="radio-group">
                                                 <div class="row">
                                                     <div class="col-12 radioBox mb-0">
-                                                        <label for="one2" class="col-12 p-0 mb-0">
+                                                        <label for="More-than" class="col-12 p-0 mb-0">
                                                             <div class="radioBody mb-0">
                                                                 <div class="text-left mb-0">
-                                                                    <input type="radio" id="one2" name="Expertise-Level" checked />
+                                                                    <input type="radio" id="More-than" asp-for="TimeRequirement" value="true" checked />
                                                                     <span class="checkround"></span>
                                                                     <p class="ml-4" style="font-size: 14px;">More than 30 hrs/week</p>
                                                                 </div>
@@ -245,10 +301,10 @@
                                                         </label>
                                                     </div>
                                                     <div class="col-12 radioBox mb-0">
-                                                        <label for="two2" class="col-12 p-0 m-0 mb-0">
+                                                        <label for="Less-than" class="col-12 p-0 m-0 mb-0">
                                                             <div class="radioBody mb-0">
                                                                 <div class="text-left mb-0">
-                                                                    <input type="radio" id="two2" name="Expertise-Level" />
+                                                                    <input type="radio" id="Less-than" asp-for="TimeRequirement" value="false" />
                                                                     <span class="checkround"></span>
                                                                     <p class="ml-4" style="font-size: 14px;">Less than 30 hrs/week</p>
                                                                 </div>
@@ -256,10 +312,10 @@
                                                         </label>
                                                     </div>
                                                     <div class="col-12 radioBox mb-0">
-                                                        <label for="three2" class="col-12 p-0 m-0 mb-0">
+                                                        <label for="don't-know" class="col-12 p-0 m-0 mb-0">
                                                             <div class="radioBody mb-0">
                                                                 <div class="text-left mb-0">
-                                                                    <input type="radio" id="three2" name="Expertise-Level" />
+                                                                    <input type="radio" id="don't-know" asp-for="TimeRequirement" value="" />
                                                                     <span class="checkround"></span>
                                                                     <p class="ml-4" style="font-size: 14px;">I don't know yet</p>
                                                                 </div>
@@ -268,25 +324,24 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </form>
+                                        </div>
+                                        <div class="m-0 p-0 mb-4">
+                                            <p class="FourthHeaders mb-2 mt-3 m-0 p-0">Talent type</p>
+                                            <select class="form-control h-35 mb-3" id="Talent"
+                                                    style="width: 60% ;" asp-for="TalentType" required>
+                                                <option value="null" selected>No Preference</option>
+                                                <option value="false">Independent</option>
+                                                <option value="true">Agency</option>
+                                            </select>
+                                        </div>
+
+
+
+
                                     </div>
-                                    <div class="m-0 p-0 mb-4">
-                                        <p class="FourthHeaders mb-2 mt-3 m-0 p-0">Talent type</p>
-                                        <select class="form-control h-35 mb-3" id="Talent"
-                                                style="width: 60% ;" required>
-                                            <option value="">Independent</option>
-                                            <option>March</option>
-                                        </select>
-                                    </div>
-
-
-
-
-                                </div>
-                                <div class="col text-left offset-1 ">
-                                    <div class="m-0 p-0 mb-4">
-                                        <p class="FourthHeaders mb-2 m-0 p-0 ">Hire Date</p>
-                                        <form method="post" action="send.php">
+                                    <div class="col text-left offset-1 ">
+                                        <div class="m-0 p-0 mb-4">
+                                            <p class="FourthHeaders mb-2 m-0 p-0 ">Hire Date</p>
                                             <div class="radio-group">
                                                 <div class="row">
                                                     <div class="col-12 radioBox mb-0">
@@ -335,17 +390,15 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </form>
-                                    </div>
-                                    <div class="m-0 p-0 mb-4">
-                                        <p class="FourthHeaders mb-2 m-0 p-0 ">Number of professionals needed</p>
+                                        </div>
+                                        <div class="m-0 p-0 mb-4">
+                                            <p class="FourthHeaders mb-2 m-0 p-0 ">Number of professionals needed</p>
 
 
 
 
 
 
-                                        <form method="post" action="send.php">
                                             <div class="radio-group">
                                                 <div class="row">
                                                     <div class="col-12 radioBox mb-0">
@@ -373,11 +426,9 @@
 
                                                 </div>
                                             </div>
-                                        </form>
-                                    </div>
-                                    <div class="m-0 p-0 mb-4">
-                                        <p class="FourthHeaders mb-2 mt-3 m-0 p-0 ">Job success score</p>
-                                        <form method="post" action="send.php">
+                                        </div>
+                                        <div class="m-0 p-0 mb-4">
+                                            <p class="FourthHeaders mb-2 mt-3 m-0 p-0 ">Job success score</p>
                                             <div class="radio-group">
                                                 <div class="row">
                                                     <div class="col-12 radioBox mb-0">
@@ -416,18 +467,16 @@
 
                                                 </div>
                                             </div>
-                                        </form>
-                                    </div>
-                                    <div class="m-0 p-0 mb-4">
-                                        <label class="checkbox" style="display:-webkit-box; -webkit-box-align:center; ">
-                                            <input type="checkbox" checked disabled />
-                                            <div class="FourthHeaders mb-1 m-0 p-0 ml-1 ">Include Rising Talent</div>
-                                        </label>
-                                        <p></p>
-                                    </div>
-                                    <div class="m-0 p-0 mb-4">
-                                        <p class="FourthHeaders mb-2 mt-3 m-0 p-0 ">Amount earned</p>
-                                        <form method="post" action="send.php">
+                                        </div>
+                                        <div class="m-0 p-0 mb-4">
+                                            <label class="checkbox" style="display:-webkit-box; -webkit-box-align:center; ">
+                                                <input type="checkbox" checked disabled />
+                                                <div class="FourthHeaders mb-1 m-0 p-0 ml-1 ">Include Rising Talent</div>
+                                            </label>
+                                            <p></p>
+                                        </div>
+                                        <div class="m-0 p-0 mb-4">
+                                            <p class="FourthHeaders mb-2 mt-3 m-0 p-0 ">Amount earned</p>
                                             <div class="radio-group">
                                                 <div class="row">
                                                     <div class="col-12 radioBox mb-0">
@@ -476,137 +525,138 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </form>
+                                        </div>
+
                                     </div>
-
                                 </div>
-                            </div>
 
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="myDrafts">
-                    <div class="row p-3"
-                         style="display:-webkit-box; -webkit-box-align:center; ">
-                        <div class="col-12 text-left m-0">
-                            <div class="row m-0 p-0 mb-3" data-toggle="collapse" href="#collapseThree" style="cursor: pointer;">
-                                <div class="col-9 mr-1 text-left">
-                                    <p class="seconedHeaders mb-2">Job post preferences (optional)</p>
-                                    <p class="mb-2" style="font-size: 14px; color: #656565;">Adjust visibility and add coworkers</p>
+                    <div class="myDrafts">
+                        <div class="row p-3"
+                             style="display:-webkit-box; -webkit-box-align:center; ">
+                            <div class="col-12 text-left m-0">
+                                <div class="row m-0 p-0 mb-3" data-toggle="collapse" href="#collapseThree" style="cursor: pointer;">
+                                    <div class="col-9 mr-1 text-left">
+                                        <p class="seconedHeaders mb-2">Job post preferences (optional)</p>
+                                        <p class="mb-2" style="font-size: 14px; color: #656565;">Adjust visibility and add coworkers</p>
+                                    </div>
+                                    <div class="col-2 m-0 text-right">
+                                        <a class="card-link rotateLink3" data-toggle="collapse"
+                                           href="#collapseThree" style="color: #656565;;"><i class="fa fa-angle-down fa-2x rotateAngle3"></i></a>
+                                    </div>
                                 </div>
-                                <div class="col-2 m-0 text-right">
-                                    <a class="card-link rotateLink3" data-toggle="collapse"
-                                       href="#collapseThree" style="color: #656565;;"><i class="fa fa-angle-down fa-2x rotateAngle3"></i></a>
-                                </div>
-                            </div>
-                            <div id="collapseThree" class="collapse m-0 p-0 mb-3" data-parent="#accordion">
-                                <div class="row m-0 p-0">
-                                    <div class="col text-left">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="m-0 p-0 mb-4">
-                                                    <p class="FourthHeaders mb-2 m-0 p-0">Who can see your job?</p>
+                                <div id="collapseThree" class="collapse m-0 p-0 mb-3" data-parent="#accordion">
+                                    <div class="row m-0 p-0">
+                                        <div class="col text-left">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="m-0 p-0 mb-4">
+                                                        <p class="FourthHeaders mb-2 m-0 p-0">Who can see your job?</p>
+                                                    </div>
+                                                    <div class="m-0 p-0 mb-4">
+                                                        <p class="FourthHeaders mb-2 m-0 p-0 "><i class="fa fa-diamond mr-2" aria-hidden="true" style="color:#1f57c3 ;"></i>Boost your job's visibility</p>
+                                                        <p style="font-size: 14px;">
+                                                            We'll feature your job and top talent will receive special discounts to work on your project.
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                                <div class="m-0 p-0 mb-4">
-                                                    <p class="FourthHeaders mb-2 m-0 p-0 "><i class="fa fa-diamond mr-2" aria-hidden="true" style="color:#1f57c3 ;"></i>Boost your job's visibility</p>
-                                                    <p style="font-size: 14px;">
-                                                        We'll feature your job and top talent will receive special discounts to work on your project.
-                                                    </p>
+
+                                            </div>
+                                        </div>
+                                        <div class="col text-left offset-1">
+                                            <div class="m-0 p-0 mb-4">
+                                                <p class="FourthHeaders mb-2 m-0 p-0 ">Share with coworkers</p>
+                                                <div class="devBtnLight p-1 text-center mb-2" style="width: 160px;">
+                                                    <i class="fa fa-plus" aria-hidden="true"></i> Add coworkers
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
-                                    <div class="col text-left offset-1">
+                                    <div class="row m-0 p-0">
+                                        <div class="col-12">
+                                            <div class="mb-3">
+                                                <label class="checkbox" style="display:-webkit-box; -webkit-box-align:center; ">
+                                                    <input type="checkbox" />
+                                                    <div class="ml-3" style="font-size: 14px;">Tell me how I can reach more freelancers and agencies and hire in less time.</div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="myDrafts">
+                        <div class="row p-3"
+                             style="display:-webkit-box; -webkit-box-align:center; ">
+                            <div class="col-12 text-left m-0">
+                                <div class="row m-0 p-0 mb-4" data-toggle="collapse" href="#collapseFour" style="cursor: pointer;">
+                                    <div class="col-9 mr-1 text-left">
+                                        <p class="seconedHeaders mb-2">Invite talent (optional)</p>
+                                        <p class="mb-2" style="font-size: 14px; color: #656565;">Request specific freelancers or agencies</p>
+                                    </div>
+                                    <div class="col-2 m-0 text-right">
+                                        <a class="card-link rotateLink4" data-toggle="collapse"
+                                           href="#collapseFour" style="color: #656565;"><i class="fa fa-angle-down fa-2x rotateAngle4"></i></a>
+                                    </div>
+                                </div>
+                                <div id="collapseFour" class="collapse ml-2 mb-3" data-parent="#accordion">
+                                    <div class="text-left">
                                         <div class="m-0 p-0 mb-4">
-                                            <p class="FourthHeaders mb-2 m-0 p-0 ">Share with coworkers</p>
-                                            <div class="devBtnLight p-1 text-center mb-2" style="width: 160px;">
-                                                <i class="fa fa-plus" aria-hidden="true"></i> Add coworkers
-                                            </div>
+                                            <p class="FourthHeaders mb-2 m-0 p-0">Invite talent you've worked with before</p>
+                                            <input type="text" style="width: 65%; " class="p-2 form-control">
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="row m-0 p-0">
-                                    <div class="col-12">
-                                        <div class="mb-3">
-                                            <label class="checkbox" style="display:-webkit-box; -webkit-box-align:center; ">
-                                                <input type="checkbox" />
-                                                <div class="ml-3" style="font-size: 14px;">Tell me how I can reach more freelancers and agencies and hire in less time.</div>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
 
-
-
-
-
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="myDrafts">
-                    <div class="row p-3"
-                         style="display:-webkit-box; -webkit-box-align:center; ">
-                        <div class="col-12 text-left m-0">
-                            <div class="row m-0 p-0 mb-4" data-toggle="collapse" href="#collapseFour" style="cursor: pointer;">
-                                <div class="col-9 mr-1 text-left">
-                                    <p class="seconedHeaders mb-2">Invite talent (optional)</p>
-                                    <p class="mb-2" style="font-size: 14px; color: #656565;">Request specific freelancers or agencies</p>
-                                </div>
-                                <div class="col-2 m-0 text-right">
-                                    <a class="card-link rotateLink4" data-toggle="collapse"
-                                       href="#collapseFour" style="color: #656565;"><i class="fa fa-angle-down fa-2x rotateAngle4"></i></a>
-                                </div>
-                            </div>
-                            <div id="collapseFour" class="collapse ml-2 mb-3" data-parent="#accordion">
-                                <div class="text-left">
-                                    <div class="m-0 p-0 mb-4">
-                                        <p class="FourthHeaders mb-2 m-0 p-0">Invite talent you've worked with before</p>
-                                        <input type="text" style="width: 65%; " class="p-2 form-control">
                                     </div>
 
                                 </div>
 
                             </div>
-
                         </div>
                     </div>
-                </div>
-                <div class="card-footer mb-1 bg-white last">
-                    <div class="row p-3" style="display:-webkit-box; -webkit-box-align:center; ">
-                        <div class="col-lg-6 col-4 text-left m-0 ">
-                            <div class="devBtnLight m-0 p-2 text-center" style="width: 75px;">
-
-                                <h6 class="m-0 p-0">Back</h6>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 col-8 text-right m-0">
-                            <div class="m-0 p-3">
-                                <a href=""> Save as a draft </a>
-
-                                <div class="devBtnGreen text-center p-2 text-light ml-2" style="display: inline-flex; width: 155px;">
-                                    <h6 class="m-0 p-0">Post Your Job Now</h6>
+                    <div class="card-footer mb-1 bg-white last">
+                        <div class="row p-3" style="display:-webkit-box; -webkit-box-align:center; ">
+                            <div class="col-lg-6 col-4 text-left m-0 ">
+                                <div class="devBtnLight m-0 p-2 text-center" style="width: 75px;">
+                                    <a class="m-0 p-0 back" id="PrevStep">Back</a>
                                 </div>
                             </div>
 
+                            <div class="col-lg-6 col-8 text-right m-0">
+                                <div class="m-0 p-3">
+                                    <a id="IsDrafted"> Save as a draft </a>
 
+                                    <div class="devBtnGreen text-center p-2 text-light ml-2" style="display: inline-flex; width: 155px;">
+                                        <a class="m-0 p-0" id="NotDraft">Post Your Job Now</a>
+                                    </div>
+                                </div>
+
+
+                            </div>
                         </div>
                     </div>
+
                 </div>
-
-            </div>
-
+                <input type='text' asp-for="IsDraft" value="false" class='d-none' id="isDeraft"/>
+            </form>
         </div>
     </div>
 
 </div>
 @section Scripts {
     <script>
+
+        $("#PrevStep").attr("href", "/Client/PostJobBudget");
 
         $(".rotateLink1").click(function () {
             console.log
@@ -628,7 +678,15 @@
             $(".rotateAngle4").toggleClass("rotate");
             console.log($('.rotateAngle'));
         });
-
+        $("#IsDrafted").click(function () {
+            $("#isDeraft").val("true");
+            $("#postJobForm").append("<button type='submit' id='go' class='d-none'></button>");
+            $("#go").click();
+        })
+        $("#NotDraft").click(function () {
+            $("#postJobForm").append("<button type='submit' id='go' class='d-none'></button>");
+            $("#go").click();
+        })
 
     </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

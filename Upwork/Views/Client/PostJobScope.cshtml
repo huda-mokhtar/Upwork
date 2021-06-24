@@ -12,6 +12,9 @@
             </div>
         </div>
     }
+    @section TopLeftSide{
+        <h1 class="mb-3">Next, estimate the scope of your work.</h1>
+    }
     @section RightSide{
         <div>
             <form class="row m-0" id="ScopeDurationEx" method="post" asp-action="PostJobScope">
@@ -23,7 +26,7 @@
                                     <label for="job-lg">
                                         <div class="radioBody">
                                             <div class="text-left py-2">
-                                                <input type="radio" id="job-lg" name="Scope" asp-for="Scope" value="Large"/>
+                                                <input type="radio" id="job-lg" name="Scope" asp-for="Scope" value="Large" required/>
                                                 <span class="checkround my-2"></span>
                                                 <h5 class="ml-4">Large</h5>
                                                 <small class="text-muted ml-4">Longer term or complex initiatives (ex. design and build a full website)</small>
@@ -35,7 +38,7 @@
                                     <label for="job-md">
                                         <div class="radioBody">
                                             <div class="text-left py-2">
-                                                <input type="radio" id="job-md" name="Scope" asp-for="Scope" value="Medium"/>
+                                                <input type="radio" id="job-md" name="Scope" asp-for="Scope" value="Medium" required/>
                                                 <span class="checkround my-2"></span>
                                                 <h5 class="ml-4">Medium</h5>
                                                 <small class="text-muted ml-4">Well-defined projects (ex. a landing page)</small>
@@ -47,7 +50,7 @@
                                     <label for="job-sm">
                                         <div class="radioBody">
                                             <div class="text-left py-2">
-                                                <input type="radio" id="job-sm" name="Scope" asp-for="Scope" value="Small"/>
+                                                <input type="radio" id="job-sm" name="Scope" asp-for="Scope" value="Small" required/>
                                                 <span class="checkround my-2"></span>
                                                 <h5 class="ml-4">Small</h5>
                                                 <small class="text-muted ml-4">Quick and straightforward tasks (ex. update text and images on a webpage)</small>
@@ -80,7 +83,7 @@
                                         <label for="more6">
                                             <div class="radioBody">
                                                 <div class="text-left py-2">
-                                                    <input type="radio" id="more6" name="Duration" asp-for="Duration" value="6"/>
+                                                    <input type="radio" id="more6" name="Duration" asp-for="Duration" value="6" required/>
                                                     <span class="checkround my-2"></span>
                                                     <h5 class="ml-4">More than 6 months</h5>
                                                 </div>
@@ -91,7 +94,7 @@
                                         <label for="between3-6">
                                             <div class="radioBody">
                                                 <div class="text-left py-2">
-                                                    <input type="radio" id="between3-6" name="Duration" asp-for="Duration" value="5"/>
+                                                    <input type="radio" id="between3-6" name="Duration" asp-for="Duration" value="5" required/>
                                                     <span class="checkround my-2"></span>
                                                     <h5 class="ml-4">3 to 6 months</h5>
                                                 </div>
@@ -102,7 +105,7 @@
                                         <label for="less3">
                                             <div class="radioBody">
                                                 <div class="text-left py-2">
-                                                    <input type="radio" id="less3" name="Duration" asp-for="Duration" value="2"/>
+                                                    <input type="radio" id="less3" name="Duration" asp-for="Duration" value="2" required/>
                                                     <span class="checkround my-2"></span>
                                                     <h5 class="ml-4">1 to 3 months</h5>
                                                 </div>
@@ -136,7 +139,7 @@
                                         <label for="Entry-level">
                                             <div class="radioBody">
                                                 <div class="text-left py-2">
-                                                    <input type="radio" id="Entry-level" name="LevelOfExperience" asp-for="LevelOfExperience" value="Entry level"/>
+                                                    <input type="radio" id="Entry-level" name="LevelOfExperience" asp-for="LevelOfExperience" value="Entry level" required/>
                                                     <span class="checkround my-2"></span>
                                                     <h5 class="ml-4">Entry level</h5>
                                                     <small class="text-muted ml-4">Looking for someone relatively new to this field</small>
@@ -148,7 +151,7 @@
                                         <label for="Intermediate-level">
                                             <div class="radioBody">
                                                 <div class="text-left py-2">
-                                                    <input type="radio" id="Intermediate-level" name="LevelOfExperience" asp-for="LevelOfExperience" value="Intermediate level" />
+                                                    <input type="radio" id="Intermediate-level" name="LevelOfExperience" asp-for="LevelOfExperience" value="Intermediate level" required/>
                                                     <span class="checkround my-2"></span>
                                                     <h5 class="ml-4">Intermediate level</h5>
                                                     <small class="text-muted ml-4">Looking for substantial experience in this field</small>
@@ -160,7 +163,7 @@
                                         <label for="Expert-level">
                                             <div class="radioBody">
                                                 <div class="text-left py-2">
-                                                    <input type="radio" id="Expert-level" name="LevelOfExperience" asp-for="LevelOfExperience" value="Expert level" />
+                                                    <input type="radio" id="Expert-level" name="LevelOfExperience" asp-for="LevelOfExperience" value="Expert level" required/>
                                                     <span class="checkround my-2"></span>
                                                     <h5 class="ml-4">Expert level</h5>
                                                     <small class="text-muted ml-4">Looking for comprehensive and deep expertise in this field</small>
@@ -192,11 +195,45 @@
     <script>
         $("#prorBar").children()[0].setAttribute("aria-valuenow", "75");
         $("#prorBar").children()[0].classList.add("w-75");
+        $("#progressTop").children()[0].setAttribute("aria-valuenow", "75");
+        $("#progressTop").children()[0].classList.add("w-75");
+        $("#stepNumber").text("3 0f 4");
         $("#progressTitle").css("color", " #95df00");
         $("#progressSkills").css("color", " #95df00");
+        $("#progressScope").css("color", " #95df00");
         $("#NextStep").text("Next:Budget");
         $("#PrevStep").attr("href", "/Client/PostJobSkills");
-        
+
+        for (var i = 0; i < $('input[name=Scope]').length; i++) {
+            if ($('input[name=Scope]')[i].checked == true) {
+                let JobScopeOnload = $('input[name=Scope]')[i].nextElementSibling.nextElementSibling.textContent;
+                let JobScopeDescOnLOad = $('input[name=Scope]')[i].nextElementSibling.nextElementSibling.nextElementSibling.textContent;
+                $("#jobScopeName").text(JobScopeOnload);
+                $("#jobScopeDesc").text(JobScopeDescOnLOad);
+                $("#scopeForm").addClass("d-none");
+                $("#scopeDetails").removeClass("d-none");
+                $("#jobTimeContainer").removeClass("d-none");
+            }
+        }
+        for (var i = 0; i < $('input[name=Duration]').length; i++) {
+            if ($('input[name=Duration]')[i].checked == true) {
+                let timeselectedOnLoad = $('input[name=Duration]')[i].nextElementSibling.nextElementSibling.textContent;
+                $("#timeSelected").text(timeselectedOnLoad);
+                $("#timeJobContaine").addClass("d-none");
+                $("#jobTimeDetails").removeClass("d-none");
+                $("#jobExperianceContainer").removeClass("d-none");
+            }
+        }
+        for (var i = 0; i < $('input[name=LevelOfExperience]').length; i++) {
+            if ($('input[name=LevelOfExperience]')[i].checked == true) {
+                let ExpselectedOnLoad = $('input[name=LevelOfExperience]')[i].nextElementSibling.nextElementSibling.textContent;
+                $("#ExpSelected").text(ExpselectedOnLoad);
+                $("#jobExpContainer").addClass("d-none");
+                $("#jobExperianceDetails").removeClass("d-none");
+                $("#continue").children()[0].classList.add('continueBtnEnable');
+                $("#continue").children()[0].classList.remove('continueBtn');
+            }
+        }
         $("#scopeForm .radio-group .row .radioBox").click(function () {
 
             let JobScope = $(this).children()[0].firstElementChild.firstElementChild.firstElementChild.nextElementSibling.nextElementSibling.textContent;
@@ -248,7 +285,7 @@
         });
        
         $("#continue").on('click', '#NextStep', function () {
-            $("#ScopeDurationEx").append("<button type='submit' id='go'></button>");
+            $("#ScopeDurationEx").append("<button type='submit' id='go' class='d-none'></button>");
             $("#go").click();
         })
 

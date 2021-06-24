@@ -1,4 +1,14 @@
 ﻿
+/*@media-tablet {
+    #rowPadding {
+        padding-top: 125px;
+    }
+}
+@media-desktop {
+    #rowPadding {
+        padding-top: 125px;
+    }
+}*/
 .radio-group {
     position: relative;
 }
