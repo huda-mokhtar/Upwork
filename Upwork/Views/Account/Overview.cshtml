@@ -1,4 +1,4 @@
-﻿
+﻿@model OverviewViewModel
 @{
     ViewData["Title"] = "Overview";
     Layout = "~/Views/Shared/_CreateProfileLayout.cshtml";
@@ -17,11 +17,13 @@
                     <div class="card-body">
                         <div class="container-fluid align-content-center border-dark mb-4">
                             <h6 class="mb-3"> Title <span class="fa fa-question-circle-o" style="color:forestgreen"></span> </h6>
-                            <input type="text" class="form-control" placeholder=" Example: Accounting & Consulting " />
+                            <input asp-for="Title" type="text" class="form-control" placeholder=" Example: Accounting & Consulting " />
+                            <span asp-validation-for="Title" class="text-danger ml-3"></span>
                         </div>
                         <div class="container-fluid align-content-center border-dark mb-4">
                             <h6 class="mb-3"> Professional Overview <span class="fa fa-question-circle-o" style="color:forestgreen"></span> </h6>
-                            <textarea style="height:150px" class="form-control" placeholder="Highlight your top skills, experience, and interests. This is one of the first things clients will see on your profile."></textarea>
+                            <textarea asp-for="Overview" style="height:150px" class="form-control" placeholder="Highlight your top skills, experience, and interests. This is one of the first things clients will see on your profile."></textarea>
+                            <span class="text-danger ml-3" asp-validation-for="Overview"></span>
                         </div>
                     </div>
                     <div class="card-footer" style="height:100px">
@@ -42,3 +44,11 @@
         </div>
     </div>
 </div>
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script>
+
+    </script>
+}

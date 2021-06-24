@@ -1,4 +1,4 @@
-﻿
+﻿@model LanguagesViewModel
 @{
     ViewData["Title"] = "Languages";
     Layout = "~/Views/Shared/_CreateProfileLayout.cshtml";
@@ -17,11 +17,12 @@
                     <div class="card-body">
                         <h6 class="card-title"> What is your English proficiency? </h6>
                         <div class="row form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-outline col-8 mt-2 mb-4">
-                            <select class="custom-select" asp-items="ViewBag.ProficiencyId" aria-label="Default select example">
+                            <select asp-for="ProficiencyId" class="custom-select" asp-items="ViewBag.ProficiencyId" aria-label="Default select example">
                                 <option value="none" selected disabled hidden>
                                     Select proficiency
                                 </option>
                             </select>
+                            <span class="ml-3 text-danger" asp-validation-for="ProficiencyId"></span>
                         </div>
                         <h6 class="card-title"> What other languages do you speak? </h6>
 
@@ -36,32 +37,44 @@
 
                         <div class="row mb-4">
                             <div class="col-4">
-                                <select class="custom-select" asp-items="ViewBag.LanguageId" aria-label="Default select example">
+                                <select asp-for="Language1Id" class="custom-select" asp-items="ViewBag.LanguageId" aria-label="Default select example">
                                     <option value="none" selected disabled hidden>
                                         Select language
                                     </option>
                                 </select>
+                                @if (ViewBag.LanguageMessage != null)
+                                {
+                                    <span id="SecondLanguageErrorMsg" class="ml-3 text-danger"> @ViewBag.LanguageMessage </span>
+                                }
                             </div>
                             <div class="col-7">
-                                <select class="custom-select" asp-items="ViewBag.ProficiencyId" aria-label="Default select example">
+                                <select asp-for="Proficiency1Id" class="custom-select" asp-items="ViewBag.ProficiencyId" aria-label="Default select example">
                                     <option value="none" selected disabled hidden>
                                         Select proficiency
                                     </option>
                                 </select>
+                                @if (ViewBag.Message != null)
+                                {
+                                    <span id="SecondProficiencyErrorMsg" class="ml-3 text-danger"> @ViewBag.Message </span>
+                                }
                             </div>
-                            <div class="col-1">
-                                <a>
-                                    <span style="font-size: 0.8rem; color: #656565; border: 1px solid #ccc; border-radius: 50%; padding: 0.6rem; " class="fa fa-trash-alt"></span>
-                                </a>
-                            </div>
+                            @*
+                                <div class="col-1">
+                                    <a>
+                                        <span style="font-size: 0.8rem; color: #656565; border: 1px solid #ccc; border-radius: 50%; padding: 0.6rem; " class="fa fa-trash-alt"></span>
+                                    </a>
+                                </div>
+                            *@
                         </div>
-                        <div class="container-fluid align-content-center border-dark">
-                            <div class="row pb-3">
-                                <button style="all:unset;border:1px solid lightgrey;color: forestgreen;padding: 10px 30px;text-align: center;text-decoration: none;display: inline-block;margin: 4px 2px;cursor: pointer;border-radius: 20px;" class="bg-white">
-                                    <span class="fa fa-plus"></span> <span>  Add Employment </span>
-                                </button>
+                        @*
+                            <div class="container-fluid align-content-center border-dark">
+                                <div class="row pb-3">
+                                    <button style="all:unset;border:1px solid lightgrey;color: forestgreen;padding: 10px 30px;text-align: center;text-decoration: none;display: inline-block;margin: 4px 2px;cursor: pointer;border-radius: 20px;" class="bg-white">
+                                        <span class="fa fa-plus"></span> <span>  Add Language </span>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
+                        *@
                     </div>
                     <div class="card-footer" style="height:100px">
                         <div class="container-fluid">
@@ -75,10 +88,22 @@
                             </div>
                         </div>
                     </div>
-                </form>       
+                </form>
             </div>
         </div>
     </div>
 </div>
-
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script>
+        $("#Proficiency1Id").change(function () {
+            $("#SecondProficiencyErrorMsg").hide();
+        });
+        $("#Language1Id").change(function () {
+            $("#SecondLanguageErrorMsg").hide();
+        });
+    </script>
+}
 

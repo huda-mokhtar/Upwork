@@ -30,5 +30,6 @@ namespace Upwork.Models
 
         public virtual List<Freelancer_Experience> FreelancerExperiences { get; set; }
 
+        public virtual List<Freelancer> FreelancersPhones { get; set; }
     }
 }

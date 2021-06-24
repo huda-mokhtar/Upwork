@@ -10,6 +10,6 @@ namespace Upwork.Models.ViewModels.Register
     {
         [Required(ErrorMessage ="Enter your rate")]
         [Range(3,maximum:999,ErrorMessage ="Please enter a value between $3.00 and $999.00")]
-        public float HourlyRate { get; set; }
+        public float? HourlyRate { get; set; }
     }
 }

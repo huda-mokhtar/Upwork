@@ -51,6 +51,7 @@ namespace Upwork
                 options.AccessDeniedPath = "/Account/Signup";               
                 options.LoginPath = "/Account/Signup";               
                 options.SlidingExpiration = true;
+                options.ExpireTimeSpan = TimeSpan.FromDays(30);
             });
 
             services.Configure<IdentityOptions>(options =>

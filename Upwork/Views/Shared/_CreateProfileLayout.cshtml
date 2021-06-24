@@ -156,9 +156,9 @@
             <a>
                 <span id="up">Up<span id="work">work</span></span>
             </a>
-            @if (ViewBag.Image != null)
+            @if (ViewBag.ProfilePhoto != null)
             {
-                <img src="~/ProfilePhotos/@ViewBag.Image" class="offset-8" />
+                <img src="~/ProfilePhotos/@ViewBag.ProfilePhoto" class="offset-8" />
             }
             else
             {
@@ -170,93 +170,304 @@
     <div id="Content">
         <div class="row">
             <div class="col-2 offset-1" style="margin-top:30px">
-                <p class="steps GettingStarted text-muted">
-                    <span class="GettingStarted text-muted fa fa-hand-point-up icons"></span>
+                <p class="steps GettingStarted">
+                    <span class="GettingStarted fa fa-hand-point-up icons"></span>
                     Getting Started
                 </p>
-                <p class="steps Category text-muted">
-                    <span class="Category text-muted fa fa-list-alt glyphicon glyphicon-list-alt icons">  </span>
-                    Category
+                @if (ViewBag.Category != null)
+                {
+                    <p class="steps Category ">
+                        <span class="Category fa fa-list-alt glyphicon glyphicon-list-alt icons">  </span>
+                        Category
 
-                </p>
-                <p class="steps Expertise text-muted">
-                    <span class="Expertise text-muted fa fa-pencil-square-o icons"></span>
-                    Expertise
-                </p>
-                <p class="steps ExpertiseLevel text-muted">
-                    <span class="ExpertiseLevel text-muted fa fa-bar-chart-o"></span>
-                    Expertise Level
-                </p>
-                <p class="steps Education text-muted">
-                    <span class="Education text-muted fa fa-graduation-cap"></span>
-                    Education
-                </p>
-                <p class="steps Employment text-muted">
-                    <span class="Employment text-muted fa fa-building icons"></span>
-                    Employment
-                </p>
-                <p class="steps Languages text-muted">
-                    <span class="Languages text-muted fa fa-microphone icons"></span>
-                    Languages
-                </p>
-                <p class="steps HourlyRate text-muted">
-                    <span class="HourlyRate text-muted fa fa-dollar icons"></span>
-                    Hourly Rate
-                </p>
-                <p class="steps Overview text-muted">
-                    <span class="Overview text-muted fa fa-user icons"></span>
-                    Title & Overview
-                </p>
-                <p class="steps ProfilePhoto text-muted">
-                    <span class="ProfilePhoto text-muted fa fa-camera"></span>
-                    Profile Photo
-                </p>
-                <p class="steps Location text-muted">
-                    <span class="Location text-muted fa fa-map-marker"></span>
-                    Location
-                </p>
-                <p class="steps Phone text-muted">
-                    <span class="Phone text-muted fa fa-phone-alt"></span>
-                    Phone
-                </p>
+                    </p>
+                }
+                else
+                {
+                    <p class="steps Category text-muted">
+                        <span class="Category text-muted fa fa-list-alt glyphicon glyphicon-list-alt icons">  </span>
+                        Category
+
+                    </p>
+                }
+                @if (ViewBag.Expertise != null)
+                {
+                    <p class="steps Expertise">
+                        <span class="Expertise fa fa-pencil-square-o icons"></span>
+                        Expertise
+                    </p>
+                }
+                else
+                {
+                    <p class="steps Expertise text-muted">
+                        <span class="Expertise text-muted fa fa-pencil-square-o icons"></span>
+                        Expertise
+                    </p>
+                }
+                @if (ViewBag.ExpertiseLevel != null)
+                {
+                    <p class="steps ExpertiseLevel">
+                        <span class="ExpertiseLevel fa fa-bar-chart-o"></span>
+                        Expertise Level
+                    </p>
+                }
+                else
+                {
+                    <p class="steps ExpertiseLevel text-muted">
+                        <span class="ExpertiseLevel text-muted fa fa-bar-chart-o"></span>
+                        Expertise Level
+                    </p>
+                }
+
+                @if (ViewBag.Education != null)
+                {
+                    <p class="steps Education">
+                        <span class="Education fa fa-graduation-cap"></span>
+                        Education
+                    </p>
+                }
+                else
+                {
+                    <p class="steps Education text-muted">
+                        <span class="Education text-muted fa fa-graduation-cap"></span>
+                        Education
+                    </p>
+                }
+                @if (ViewBag.Employement != null)
+                {
+                    <p class="steps Employment ">
+                        <span class="Employment fa fa-building icons"></span>
+                        Employment
+                    </p>
+                }
+                else
+                {
+                    <p class="steps Employment text-muted">
+                        <span class="Employment text-muted fa fa-building icons"></span>
+                        Employment
+                    </p>
+                }
+                @if (ViewBag.Languages != null)
+                {
+                    <p class="steps Languages">
+                        <span class="Languages fa fa-microphone icons"></span>
+                        Languages
+                    </p>
+                }
+                else
+                {
+                    <p class="steps Languages text-muted">
+                        <span class="Languages text-muted fa fa-microphone icons"></span>
+                        Languages
+                    </p>
+                }
+                @if (ViewBag.HourlyRate != null)
+                {
+                    <p class="steps HourlyRate">
+                        <span class="HourlyRate fa fa-dollar icons"></span>
+                        Hourly Rate
+                    </p>
+                }
+                else
+                {
+                    <p class="steps HourlyRate text-muted">
+                        <span class="HourlyRate text-muted fa fa-dollar icons"></span>
+                        Hourly Rate
+                    </p>
+                }
+                @if (ViewBag.Overview != null)
+                {
+                    <p class="steps Overview">
+                        <span class="Overview fa fa-user icons"></span>
+                        Title & Overview
+                    </p>
+                }
+                else
+                {
+                    <p class="steps Overview text-muted">
+                        <span class="Overview text-muted fa fa-user icons"></span>
+                        Title & Overview
+                    </p>
+                }
+                @if (ViewBag.ProfilePhoto != null)
+                {
+                    <p class="steps ProfilePhoto">
+                        <span class="ProfilePhoto fa fa-camera"></span>
+                        Profile Photo
+                    </p>
+                }
+                else
+                {
+                    <p class="steps ProfilePhoto text-muted">
+                        <span class="ProfilePhoto text-muted fa fa-camera"></span>
+                        Profile Photo
+                    </p>
+                }
+                @if (ViewBag.Location != null)
+                {
+                    <p class="steps Location">
+                        <span class="Location fa fa-map-marker"></span>
+                        Location
+                    </p>
+                }
+                else
+                {
+                    <p class="steps Location text-muted">
+                        <span class="Location text-muted fa fa-map-marker"></span>
+                        Location
+                    </p>
+                }
+                @if (ViewBag.Phone != null)
+                {
+                    <p class="steps Phone">
+                        <span class="Phone fa fa-phone-alt"></span>
+                        Phone
+                    </p>
+                }
+                else
+                {
+                    <p class="steps Phone text-muted">
+                        <span class="Phone text-muted fa fa-phone-alt"></span>
+                        Phone
+                    </p>
+                }
             </div>
             <div class="col-1" style="margin-top:30px">
                 <p class="steps">
-                    <span class="GettingStarted text-muted fa fa-check-circle check"></span>
+                    <span class="GettingStarted fa fa-check-circle check"></span>
                 </p>
-                <p class="steps">
-                    <span class="Category text-muted fa fa-check-circle check"></span>
-                </p>
-                <p class="steps">
-                    <span class="Expertise text-muted fa fa-check-circle check"></span>
-                </p>
-                <p class="steps">
-                    <span class="ExpertiseLevel text-muted fa fa-check-circle check"></span>
-                </p>
-                <p class="steps">
-                    <span class="Education text-muted fa fa-check-circle check"></span>
-                </p>
-                <p class="steps">
-                    <span class="Employment text-muted fa fa-check-circle check"></span>
-                </p>
-                <p class="steps">
-                    <span class="Languages text-muted fa fa-check-circle check"></span>
-                </p>
-                <p class="steps">
-                    <span class="HourlyRate text-muted fa fa-check-circle check"></span>
-                </p>
-                <p class="steps">
-                    <span class="Overview text-muted fa fa-check-circle check"></span>
-                </p>
-                <p class="steps">
-                    <span class="ProfilePhoto text-muted fa fa-check-circle check"></span>
-                </p>
-                <p class="steps">
-                    <span class="Location text-muted fa fa-check-circle check"></span>
-                </p>
-                <p class="steps">
-                    <span class="Phone text-muted fa fa-check-circle check"></span>
-                </p>
+                @if (ViewBag.Category != null)
+                {
+                    <p class="steps">
+                        <span class="Category fa fa-check-circle check"></span>
+                    </p>
+                }
+                else
+                {
+                    <p class="steps">
+                        <span class="Category text-muted fa fa-check-circle check"></span>
+                    </p>
+                }
+                @if (ViewBag.Expertise != null)
+                {
+                    <p class="steps">
+                        <span class="Expertise fa fa-check-circle check"></span>
+                    </p>
+                }
+                else
+                {
+                    <p class="steps">
+                        <span class="Expertise text-muted fa fa-check-circle check"></span>
+                    </p>
+                }
+                @if (ViewBag.ExpertiseLevel != null)
+                {
+                    <p class="steps">
+                        <span class="ExpertiseLevel fa fa-check-circle check"></span>
+                    </p>
+                }
+                else
+                {
+                    <p class="steps">
+                        <span class="ExpertiseLevel text-muted fa fa-check-circle check"></span>
+                    </p>
+                }
+                @if (ViewBag.Education != null)
+                {
+                    <p class="steps">
+                        <span class="Education fa fa-check-circle check"></span>
+                    </p>
+                }
+                else
+                {
+                    <p class="steps">
+                        <span class="Education text-muted fa fa-check-circle check"></span>
+                    </p>
+                }
+                @if (ViewBag.Employement != null)
+                {
+                    <p class="steps">
+                        <span class="Employment fa fa-check-circle check"></span>
+                    </p>
+                }
+                else
+                {
+                    <p class="steps">
+                        <span class="Employment text-muted fa fa-check-circle check"></span>
+                    </p>
+                }
+                @if (ViewBag.Languages != null)
+                {
+                    <p class="steps">
+                        <span class="Languages fa fa-check-circle check"></span>
+                    </p>
+                }
+                else
+                {
+                    <p class="steps">
+                        <span class="Languages text-muted fa fa-check-circle check"></span>
+                    </p>
+                }
+                @if (ViewBag.HourlyRate != null)
+                {
+                    <p class="steps">
+                        <span class="HourlyRate fa fa-check-circle check"></span>
+                    </p>
+                }
+                else
+                {
+                    <p class="steps">
+                        <span class="HourlyRate text-muted fa fa-check-circle check"></span>
+                    </p>
+                }
+                @if (ViewBag.Overview != null)
+                {
+                    <p class="steps">
+                        <span class="Overview fa fa-check-circle check"></span>
+                    </p>
+                }
+                else
+                {
+                    <p class="steps">
+                        <span class="Overview text-muted fa fa-check-circle check"></span>
+                    </p>
+                }
+                @if (ViewBag.ProfilePhoto != null)
+                {
+                    <p class="steps">
+                        <span class="ProfilePhoto fa fa-check-circle check"></span>
+                    </p>
+                }
+                else
+                {
+                    <p class="steps">
+                        <span class="ProfilePhoto text-muted fa fa-check-circle check"></span>
+                    </p>
+                }
+                @if (ViewBag.Location != null)
+                {
+                    <p class="steps">
+                        <span class="Location fa fa-check-circle check"></span>
+                    </p>
+                }
+                else
+                {
+                    <p class="steps">
+                        <span class="Location text-muted fa fa-check-circle check"></span>
+                    </p>
+                }
+                @if (ViewBag.Phone != null)
+                {
+                    <p class="steps">
+                        <span class="Phone fa fa-check-circle check"></span>
+                    </p>
+                }
+                else
+                {
+                    <p class="steps">
+                        <span class="Phone text-muted fa fa-check-circle check"></span>
+                    </p>
+                }
             </div>
             <div id="formContent" class="col-7">
                 @RenderBody()

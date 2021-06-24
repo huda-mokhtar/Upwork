@@ -9,6 +9,7 @@ namespace Upwork.Models
 {
     public class Freelancer
     {
+       
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [ForeignKey("User")]
@@ -48,6 +49,11 @@ namespace Upwork.Models
         public string ZIP { get; set; }
 
         public string PhoneNumber { get; set; }
+
+        [ForeignKey("PhoneCountry")]
+        public int? PhoneCountryId { get; set; }
+
+        public virtual Country PhoneCountry { get; set; }
 
         public string VideoLink { get; set; }
 
