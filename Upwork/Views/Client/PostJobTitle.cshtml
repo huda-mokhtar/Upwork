@@ -114,7 +114,10 @@
             //console.log(selectedCategory);
             getSubCategories(selectedCategory,@Model.subCategoryId);
         }
-        $("#continue").on('click','#NextStep',function () {
+        $("#continue").on('click', '#NextStep', function () {
+            var date = new Date().toLocaleString();
+
+            $("#TitleForm").append("<input type='text' asp-for='CreateDate' value='" + date + "' name='CreateDate' class='d-none' required/>");
             $("#TitleForm").append("<button type='submit' id='go' class='d-none'></button>");
             $("#go").click();
         })
