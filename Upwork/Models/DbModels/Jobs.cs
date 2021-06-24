@@ -34,6 +34,6 @@ namespace Upwork.Models.DbModels
 
         public string CreateDate { get; set; }
         public List<JobsSkills> jobsSkills { get; set; }
-        public List<FreelancerSavedJobs> freelancerSavedJobs { get; set; }
+        public List<Freelancer_Job> freelancer_Jobs{ get; set; }
     }
 }
