@@ -48,7 +48,7 @@
                         <h6>Category</h6>
                         <div class="container-fluid align-content-center border-dark">
                             <div class="row pb-3">
-                                <select onchange="getSubCategories(this.value)" class="form-control" asp-items="ViewBag.Category" required id="categoryselction"><option value="">-</option></select>
+                                <select onchange="getSubCategories(this.value,@Model.subCategoryId)" class="form-control" asp-items="ViewBag.Category" required id="categoryselction"><option value="">-</option></select>
                                 @*<select class="custom-select" aria-label="Default select example">
                                         <option selected>Web,Mobile & Software Dev</option>
                                         <option value="1">Customer Services</option>
@@ -112,13 +112,17 @@
         var selectedCategory = $("#categoryselction").children("option:selected").val();
         if (selectedCategory != null) {
             //console.log(selectedCategory);
-            getSubCategories(selectedCategory);
+            getSubCategories(selectedCategory,@Model.subCategoryId);
         }
-        $("#continue").on('click','#NextStep',function () {
+        $("#continue").on('click', '#NextStep', function () {
+            var date = new Date().toLocaleString();
+
+            $("#TitleForm").append("<input type='text' asp-for='CreateDate' value='" + date + "' name='CreateDate' class='d-none' required/>");
             $("#TitleForm").append("<button type='submit' id='go' class='d-none'></button>");
             $("#go").click();
         })
-        function getSubCategories(event) {
+
+        function getSubCategories(event,sub) {
             console.log(event);
             $.ajax({
                 url: "https://localhost:44367/client/GetSubCategories/" + event + "",
@@ -127,6 +131,9 @@
                     $("#subCategory").html("");
                     var obt = "<option value='0'>SubCategory</option>";
                     for (var x = 0; x < res.length; x++) {
+                        if (res[x].subCategoryId == sub) {
+                            obt += "<option value='" + res[x].subCategoryId + "' selected>" + res[x].name + "</option>"
+                        }
                         obt += "<option value='" + res[x].subCategoryId + "'>" + res[x].name + "</option>"
                     }
                     $("#subCategory").html(obt).show();

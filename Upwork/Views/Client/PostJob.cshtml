@@ -126,6 +126,18 @@
 
 @section Scripts{
     <script>
+        for (var i = 0; i < $('input[name=Type]').length; i++) {
+            if ($('input[name=Type]')[i].checked == true) {
+                console.log($('input[name=Type]')[i].parentElement.parentElement.parentElement.parentElement);
+                for (var c = 0; c < $('input[name=Type]')[i].parentElement.parentElement.parentElement.parentElement.parentElement.children.length; c++) {
+                    $('input[name=Type]')[i].parentElement.parentElement.parentElement.parentElement.parentElement.children[c].classList.remove('selected');
+                }
+                $('input[name=Type]')[i].parentElement.parentElement.parentElement.parentElement.classList.add('selected');
+                $("#gotoSteps").children()[0].classList.remove('continueBtn');
+                $("#gotoSteps").children()[0].classList.add('continueBtnEnable');
+            }
+        }
+        
         $('.radio-group .container .row .radioBox').click(function () {
             console.log($(this))
             //console.log($(this)[0].children[0].children[0].children[0])
@@ -138,11 +150,6 @@
             var val = $(this).attr('data-value');
         });
         $("#gotoSteps").on('click','#submit',function (event) {
-
-            //console.log("done");
-            var date = new Date().toLocaleString();
-            //console.log(date);
-            $("#nextForm").append("<input type='text' asp-for='CreateDate' value='" + date + "' name='CreateDate' class='d-none' required/>");
             $("#nextForm").append("<button type='submit' id='go' class='d-none'></button>");
             $("#go").click();
         })

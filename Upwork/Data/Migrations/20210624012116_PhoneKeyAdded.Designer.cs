@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Upwork.Data;
 
 namespace Upwork.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210624012116_PhoneKeyAdded")]
+    partial class PhoneKeyAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -322,21 +324,6 @@ namespace Upwork.Data.Migrations
                     b.HasKey("CountryId");
 
                     b.ToTable("Countries");
-                });
-
-            modelBuilder.Entity("Upwork.Models.DbModels.FreelancerSavedJobs", b =>
-                {
-                    b.Property<int>("JobsId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("FreelancerId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("JobsId", "FreelancerId");
-
-                    b.HasIndex("FreelancerId");
-
-                    b.ToTable("FreelancerSavedJobs");
                 });
 
             modelBuilder.Entity("Upwork.Models.DbModels.Jobs", b =>
@@ -890,25 +877,6 @@ namespace Upwork.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Country");
-                });
-
-            modelBuilder.Entity("Upwork.Models.DbModels.FreelancerSavedJobs", b =>
-                {
-                    b.HasOne("Upwork.Models.Freelancer", "Freelancer")
-                        .WithMany()
-                        .HasForeignKey("FreelancerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Upwork.Models.DbModels.Jobs", "Jobs")
-                        .WithMany()
-                        .HasForeignKey("JobsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Freelancer");
-
-                    b.Navigation("Jobs");
                 });
 
             modelBuilder.Entity("Upwork.Models.DbModels.Jobs", b =>

@@ -1,4 +1,4 @@
-﻿
+﻿@model ExpertiseLevelViewModel 
 @{
     ViewData["Title"] = "ExpertiseLevel";
     Layout = "~/Views/Shared/_CreateProfileLayout.cshtml";
@@ -12,52 +12,208 @@
                     <h4>Expertise Level</h4>
                     <p class="text-muted">4 of 12</p>
                 </div>
-                <form asp-action="ExpertiseLevel">
-                    <div class="card-body">
-                        <h5 class="card-title">What is your level of experience in this field ?</h5>
-                        <div class="container-fluid align-content-center border-dark">
-                            <div class="row">
-                                <div class="radio-group">
-                                    <div style="height:160px;width:200px" class='ml-1 mt-3 mb-4 card text-center radio radioBox' data-value="One">
-                                        <label for="one">
-                                            <div class="card-body radioBody">
-                                                <div class="text-right">
-                                                    <input type="radio" id="one" name="Expertise-Level" />
-                                                    <span class="checkround"></span>
+                <form id="ExpertiseLevelForm" asp-action="ExpertiseLevel">
+                    @if (ViewBag.FreelancerLevel == "Entry")
+                    {
+                        <div class="card-body">
+                            <h5 class="card-title">What is your level of experience in this field ?</h5>
+                            <div class="container-fluid align-content-center border-dark">
+                                <div class="row">
+                                    <div class="radio-group">
+                                        <div style="height:160px;width:200px" class='ml-1 mt-3 mb-4 card text-center selected radio radioBox' data-value="One">
+                                            <label for="one">
+                                                <div class="card-body radioBody">
+                                                    <div class="text-right">
+                                                        <input type="radio" checked value="1" id="one" name="Expertise-Level" />
+                                                        <span class="checkround"></span>
+                                                    </div>
+                                                    <h5 class="card-title"> Entry level </h5>
+                                                    <p class="card-text"> I am relatively new to this field and have no experience </p>
                                                 </div>
-                                                <h5 class="card-title"> Entry level </h5>
-                                                <p class="card-text"> I am relatively new to this field and have no experience </p>
-                                            </div>
-                                        </label>
-                                    </div>
-                                    <div style="height:160px;width:200px" class='ml-2  card text-center radio radioBox' data-value="Two">
-                                        <label for="two">
-                                            <div class="card-body radioBody">
-                                                <div class="text-right">
-                                                    <input type="radio" id="two" name="Expertise-Level" />
-                                                    <span class="checkround"></span>
+                                            </label>
+                                        </div>
+                                        <div style="height:160px;width:200px" class='ml-2  card text-center radio radioBox' data-value="Two">
+                                            <label for="two">
+                                                <div class="card-body radioBody">
+                                                    <div class="text-right">
+                                                        <input type="radio" value="2" id="two" name="Expertise-Level" />
+                                                        <span class="checkround"></span>
+                                                    </div>
+                                                    <h5 class="card-title"> Intermediate </h5>
+                                                    <p class="card-text"> I have substanial experience in this field </p>
                                                 </div>
-                                                <h5 class="card-title"> Intermediate </h5>
-                                                <p class="card-text"> I have substanial experience in this field </p>
-                                            </div>
-                                        </label>
-                                    </div>
-                                    <div style="height:160px;width:200px" class='ml-2 card text-center radio radioBox' data-value="Three">
-                                        <label for="three">
-                                            <div class="card-body radioBody">
-                                                <div class="text-right">
-                                                    <input type="radio" id="three" name="Expertise-Level" />
-                                                    <span class="checkround"></span>
+                                            </label>
+                                        </div>
+                                        <div style="height:160px;width:200px" class='ml-2 card text-center radio radioBox' data-value="Three">
+                                            <label for="three">
+                                                <div class="card-body radioBody">
+                                                    <div class="text-right">
+                                                        <input type="radio" value="3" id="three" name="Expertise-Level" />
+                                                        <span class="checkround"></span>
+                                                    </div>
+                                                    <h5 class="card-title"> Expert </h5>
+                                                    <p class="card-text"> I have comprehensive and deep expertise in this field </p>
                                                 </div>
-                                                <h5 class="card-title"> Expert </h5>
-                                                <p class="card-text"> I have comprehensive and deep expertise in this field </p>
-                                            </div>
-                                        </label>
+                                            </label>
+                                        </div>
                                     </div>
-                                </div>                                
+                                    <span id="ErrorMsg" style="display:none" class="text-danger ml-5"> You must select your expertise level </span>
+                                    <input asp-for="ExperienceLevel" value="One" id="Level" type="text" hidden />
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    }
+                    else if (ViewBag.FreelancerLevel == "Intermediate")
+                    {
+                        <div class="card-body">
+                            <h5 class="card-title">What is your level of experience in this field ?</h5>
+                            <div class="container-fluid align-content-center border-dark">
+                                <div class="row">
+                                    <div class="radio-group">
+                                        <div style="height:160px;width:200px" class='ml-1 mt-3 mb-4 card text-center radio radioBox' data-value="One">
+                                            <label for="one">
+                                                <div class="card-body radioBody">
+                                                    <div class="text-right">
+                                                        <input type="radio" value="1" id="one" name="Expertise-Level" />
+                                                        <span class="checkround"></span>
+                                                    </div>
+                                                    <h5 class="card-title"> Entry level </h5>
+                                                    <p class="card-text"> I am relatively new to this field and have no experience </p>
+                                                </div>
+                                            </label>
+                                        </div>
+                                        <div style="height:160px;width:200px" class='ml-2  card text-center selected radio radioBox' data-value="Two">
+                                            <label for="two">
+                                                <div class="card-body radioBody">
+                                                    <div class="text-right">
+                                                        <input type="radio" checked value="2" id="two" name="Expertise-Level" />
+                                                        <span class="checkround"></span>
+                                                    </div>
+                                                    <h5 class="card-title"> Intermediate </h5>
+                                                    <p class="card-text"> I have substanial experience in this field </p>
+                                                </div>
+                                            </label>
+                                        </div>
+                                        <div style="height:160px;width:200px" class='ml-2 card text-center radio radioBox' data-value="Three">
+                                            <label for="three">
+                                                <div class="card-body radioBody">
+                                                    <div class="text-right">
+                                                        <input type="radio" value="3" id="three" name="Expertise-Level" />
+                                                        <span class="checkround"></span>
+                                                    </div>
+                                                    <h5 class="card-title"> Expert </h5>
+                                                    <p class="card-text"> I have comprehensive and deep expertise in this field </p>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <span id="ErrorMsg" style="display:none" class="text-danger ml-5"> You must select your expertise level </span>
+                                    <input asp-for="ExperienceLevel" value="Two" id="Level" type="text" hidden />
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else if (ViewBag.FreelancerLevel == "Expert")
+                    {
+                        <div class="card-body">
+                            <h5 class="card-title">What is your level of experience in this field ?</h5>
+                            <div class="container-fluid align-content-center border-dark">
+                                <div class="row">
+                                    <div class="radio-group">
+                                        <div style="height:160px;width:200px" class='ml-1 mt-3 mb-4 card text-center radio radioBox' data-value="One">
+                                            <label for="one">
+                                                <div class="card-body radioBody">
+                                                    <div class="text-right">
+                                                        <input type="radio" value="1" id="one" name="Expertise-Level" />
+                                                        <span class="checkround"></span>
+                                                    </div>
+                                                    <h5 class="card-title"> Entry level </h5>
+                                                    <p class="card-text"> I am relatively new to this field and have no experience </p>
+                                                </div>
+                                            </label>
+                                        </div>
+                                        <div style="height:160px;width:200px" class='ml-2  card text-center radio radioBox' data-value="Two">
+                                            <label for="two">
+                                                <div class="card-body radioBody">
+                                                    <div class="text-right">
+                                                        <input type="radio" value="2" id="two" name="Expertise-Level" />
+                                                        <span class="checkround"></span>
+                                                    </div>
+                                                    <h5 class="card-title"> Intermediate </h5>
+                                                    <p class="card-text"> I have substanial experience in this field </p>
+                                                </div>
+                                            </label>
+                                        </div>
+                                        <div style="height:160px;width:200px" class='ml-2 card text-center radio selected radioBox' data-value="Three">
+                                            <label for="three">
+                                                <div class="card-body radioBody">
+                                                    <div class="text-right">
+                                                        <input type="radio" checked value="3" id="three" name="Expertise-Level" />
+                                                        <span class="checkround"></span>
+                                                    </div>
+                                                    <h5 class="card-title"> Expert </h5>
+                                                    <p class="card-text"> I have comprehensive and deep expertise in this field </p>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <span id="ErrorMsg" style="display:none" class="text-danger ml-5"> You must select your expertise level </span>
+                                    <input asp-for="ExperienceLevel" value="Three" id="Level" type="text" hidden />
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="card-body">
+                            <h5 class="card-title">What is your level of experience in this field ?</h5>
+                            <div class="container-fluid align-content-center border-dark">
+                                <div class="row">
+                                    <div class="radio-group">
+                                        <div style="height:160px;width:200px" class='ml-1 mt-3 mb-4 card text-center radio radioBox' data-value="One">
+                                            <label for="one">
+                                                <div class="card-body radioBody">
+                                                    <div class="text-right">
+                                                        <input type="radio" value="1" id="one" name="Expertise-Level" />
+                                                        <span class="checkround"></span>
+                                                    </div>
+                                                    <h5 class="card-title"> Entry level </h5>
+                                                    <p class="card-text"> I am relatively new to this field and have no experience </p>
+                                                </div>
+                                            </label>
+                                        </div>
+                                        <div style="height:160px;width:200px" class='ml-2  card text-center radio radioBox' data-value="Two">
+                                            <label for="two">
+                                                <div class="card-body radioBody">
+                                                    <div class="text-right">
+                                                        <input type="radio" value="2" id="two" name="Expertise-Level" />
+                                                        <span class="checkround"></span>
+                                                    </div>
+                                                    <h5 class="card-title"> Intermediate </h5>
+                                                    <p class="card-text"> I have substanial experience in this field </p>
+                                                </div>
+                                            </label>
+                                        </div>
+                                        <div style="height:160px;width:200px" class='ml-2 card text-center radio radioBox' data-value="Three">
+                                            <label for="three">
+                                                <div class="card-body radioBody">
+                                                    <div class="text-right">
+                                                        <input type="radio" value="3" id="three" name="Expertise-Level" />
+                                                        <span class="checkround"></span>
+                                                    </div>
+                                                    <h5 class="card-title"> Expert </h5>
+                                                    <p class="card-text"> I have comprehensive and deep expertise in this field </p>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <span id="ErrorMsg" style="display:none" class="text-danger ml-5"> You must select your expertise level </span>
+                                    <input asp-for="ExperienceLevel" id="Level" type="text" hidden />
+                                </div>
+                            </div>
+                        </div>
+                    }
+
                     <div class="card-footer" style="height:100px">
                         <div class="container-fluid">
                             <div class="row" style="margin-top:17px">
@@ -160,13 +316,30 @@
 @section Scripts{
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script>
-    $('.radio-group .radioBox').click(function(){
+        valid = false;
+        if ($("#Level").val() === "One" || $("#Level").val() === "Two" || $("#Level").val() === "Three") {
+            valid = true;
+        }
+        $('.radio-group .radioBox').click(function () {
+            valid = true;
+            $("#ErrorMsg").hide();
         console.log($(this))
         //console.log($(this)[0].children[0].children[0].children[0])
         //$(this)[0].children[0].children[0].children[0].checked=true;
     $(this).parent().find('.radioBox').removeClass('selected');
-    $(this).addClass('selected');
-    var val = $(this).attr('data-value');
-});
+            $(this).addClass('selected');
+            
+            var val = $(this).attr('data-value');
+            $("#Level").val(val);
+    });
+
+       
+        $("#ExpertiseLevelForm").submit(function (x) {
+            if (valid === false) {
+                x.preventDefault();
+                $("#ErrorMsg").show();
+            }
+        });
+
     </script>
 }

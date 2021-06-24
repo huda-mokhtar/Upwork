@@ -87,7 +87,11 @@
                                 <div class="d-inline">
                                     <div class="form-group has-search d-inline">
                                         <span class="form-control-feedback text-dark"><strong>$</strong></span>
-                                        <input type="number" class="form-control-dolars d-inline pt-2 pr-3 pb-2 pl-5" name="BudgetFrom" id="BudgetFromHourly" min="0" required>
+                                        @if (Model.TypeOfBudget == false)
+                                        {
+                                        <input type="number" class="form-control-dolars d-inline pt-2 pr-3 pb-2 pl-5" name="BudgetFrom" asp-for="BudgetFrom" id="BudgetFromHourly" min="0" required value="@Model.BudgetFrom">
+                                        }
+                                        else {<input type="number" class="form-control-dolars d-inline pt-2 pr-3 pb-2 pl-5" name="BudgetFrom" asp-for="BudgetFrom" id="BudgetFromHourly" min="0" required value="0"> }
                                     </div>
                                 </div>
                                 <span class="d-inline" aria-hidden="true">/hour</span>
@@ -99,7 +103,10 @@
                                 <div class="d-inline">
                                     <div class="form-group has-search d-inline">
                                         <span class="form-control-feedback text-dark"><strong>$</strong></span>
-                                        <input type="number" class="form-control-dolars d-inline pt-2 pr-3 pb-2 pl-5" name="BudgetTo" id="BudgetToHourly" min="0" required>
+                                        @if (Model.TypeOfBudget == false) { 
+                                            <input type="number" class="form-control-dolars d-inline pt-2 pr-3 pb-2 pl-5" name="BudgetTo" asp-for="BudgetTo" id="BudgetToHourly" min="0" required value="@Model.BudgetTo">
+            }
+            else { <input type="number" class="form-control-dolars d-inline pt-2 pr-3 pb-2 pl-5" name="BudgetTo" asp-for="BudgetTo" id="BudgetToHourly" min="0" required value="0">}
                                     </div>
                                 </div>
                                 <span class="d-inline" aria-hidden="true">/hour</span>
@@ -126,7 +133,14 @@
                         <div class="d-inline">
                             <div class="form-group has-search d-inline">
                                 <span class="form-control-feedback text-dark"><strong>$</strong></span>
-                                <input type="number" class="form-control-dolars d-inline pt-2 pr-3 pb-2 pl-5" id="projectBudgetFrom" min="0">
+                                @if (Model.TypeOfBudget == true)
+                                {
+                                    <input type="number" class="form-control-dolars d-inline pt-2 pr-3 pb-2 pl-5" id="projectBudgetFrom" asp-for="BudgetFrom" min="0" value="@Model.BudgetFrom">
+                                }
+                                else
+                                {
+                                    <input type="number" class="form-control-dolars d-inline pt-2 pr-3 pb-2 pl-5" id="projectBudgetFrom" asp-for="BudgetFrom" min="0" value="0">
+                                }
                             </div>
                         </div>
                     </div>
@@ -141,6 +155,8 @@
 </div>
 @section Scripts2 {
     <script>
+        //const { Modal } = require("bootstrap");
+
         $("#prorBar").children()[0].setAttribute("aria-valuenow", "100");
         $("#prorBar").children()[0].classList.add("w-100");
         $("#progressTop").children()[0].setAttribute("aria-valuenow", "100");
@@ -155,10 +171,41 @@
         $("#continue").children()[0].classList.add('continueBtnEnable');
         $("#continue").children()[0].classList.remove('continueBtn');
 
+        for (var b = 0; b < $("input[name=TypeOfBudget]").length; b++) {
+            if ($("input[name=TypeOfBudget]")[b].checked == true) {
+                for (var c = 0; c < $('input[name=TypeOfBudget]')[b].parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children.length; c++) {
+                    $('input[name=TypeOfBudget]')[b].parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children[c].children[0].classList.remove('selected');
+                }
+                $('input[name=TypeOfBudget]')[b].parentElement.parentElement.parentElement.parentElement.classList.add('selected');
+            }
+        }
+
         if ($("#hourlyRate").parent().parent().parent().parent().hasClass("selected") == true) {
             $("#HourlyDiv").removeClass("d-none");
             $("#HourlyDiv").addClass("d-block");
         }
+
+        if ($("#projectBudget").parent().parent().parent().parent().hasClass("selected") == true) {
+            $("#HourlyDiv").addClass("d-none");
+            $("#HourlyDiv").removeClass("d-block");
+            $("#projectDiv").removeClass("d-none");
+            $("#projectDiv").addClass("d-block");
+        }
+        /*for (var b = 0; b < $("input[name=TypeOfBudget]").length; b++) {
+            if ($("input[name=TypeOfBudget]")[b].checked == true) {
+
+            }
+        }*/
+        @*var budget = @Model.TypeOfBudget.GetValueOrDefault;
+        console.log(@Model.TypeOfBudget.GetValueOrDefault, @Model.BudgetFrom.GetValueOrDefault, @Model.BudgetFrom.GetValueOrDefault);
+        if (budget != null) {
+            if (budget == false) {
+                $("#BudgetToHourly").val(@Model.BudgetTo.GetValueOrDefault);
+                $("#BudgetFromHourly").val(@Model.BudgetFrom.GetValueOrDefault);
+            } else if (budget == true) {
+                $("#projectBudgetFrom").val(@Model.BudgetFrom.GetValueOrDefault);
+            }
+        }*@
         $('.radio-group .row .radioBox').click(function () {
             console.log($(this))
             //console.log($(this)[0].children[0].children[0].children[0])

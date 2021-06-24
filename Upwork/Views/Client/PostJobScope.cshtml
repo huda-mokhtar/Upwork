@@ -203,7 +203,37 @@
         $("#progressScope").css("color", " #95df00");
         $("#NextStep").text("Next:Budget");
         $("#PrevStep").attr("href", "/Client/PostJobSkills");
-        
+
+        for (var i = 0; i < $('input[name=Scope]').length; i++) {
+            if ($('input[name=Scope]')[i].checked == true) {
+                let JobScopeOnload = $('input[name=Scope]')[i].nextElementSibling.nextElementSibling.textContent;
+                let JobScopeDescOnLOad = $('input[name=Scope]')[i].nextElementSibling.nextElementSibling.nextElementSibling.textContent;
+                $("#jobScopeName").text(JobScopeOnload);
+                $("#jobScopeDesc").text(JobScopeDescOnLOad);
+                $("#scopeForm").addClass("d-none");
+                $("#scopeDetails").removeClass("d-none");
+                $("#jobTimeContainer").removeClass("d-none");
+            }
+        }
+        for (var i = 0; i < $('input[name=Duration]').length; i++) {
+            if ($('input[name=Duration]')[i].checked == true) {
+                let timeselectedOnLoad = $('input[name=Duration]')[i].nextElementSibling.nextElementSibling.textContent;
+                $("#timeSelected").text(timeselectedOnLoad);
+                $("#timeJobContaine").addClass("d-none");
+                $("#jobTimeDetails").removeClass("d-none");
+                $("#jobExperianceContainer").removeClass("d-none");
+            }
+        }
+        for (var i = 0; i < $('input[name=LevelOfExperience]').length; i++) {
+            if ($('input[name=LevelOfExperience]')[i].checked == true) {
+                let ExpselectedOnLoad = $('input[name=LevelOfExperience]')[i].nextElementSibling.nextElementSibling.textContent;
+                $("#ExpSelected").text(ExpselectedOnLoad);
+                $("#jobExpContainer").addClass("d-none");
+                $("#jobExperianceDetails").removeClass("d-none");
+                $("#continue").children()[0].classList.add('continueBtnEnable');
+                $("#continue").children()[0].classList.remove('continueBtn');
+            }
+        }
         $("#scopeForm .radio-group .row .radioBox").click(function () {
 
             let JobScope = $(this).children()[0].firstElementChild.firstElementChild.firstElementChild.nextElementSibling.nextElementSibling.textContent;
