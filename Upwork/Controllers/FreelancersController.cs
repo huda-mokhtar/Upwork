@@ -44,7 +44,6 @@ namespace Upwork.Controllers
             {
                 return NotFound();
             }
-
             var freelancer = await _context.Freelancers
                 .Include(f => f.Category)
                 .Include(f => f.City)
@@ -72,7 +71,6 @@ namespace Upwork.Controllers
             if(Skill != null)
             {
                 var SearchBySkill = _context.JobsSkills.Where(a => a.skillId == Skill.SkillId).ToList();
-            
                 foreach(var item in SearchBySkill)
                 {
                     var j = _context.Jobs.Include(a => a.jobsSkills).FirstOrDefault(a => a.Id == item.JobsId);
@@ -80,44 +78,43 @@ namespace Upwork.Controllers
                 }
             }
             var Job = _context.Jobs.Where(a => a.Title.Contains(search) || a.JobDescription.Contains(search)).Include(a=>a.jobsSkills).ToList();
-           
-           
             if(Job == null && (JobList.Count() == 0))
             {
                 return NotFound();
             }
             ViewData["Skills"] = _context.JobsSkills.Select(s => s.skill).ToList();
-         // ViewData["SavesJobs"] = _context.FreelancerSavedJobs.Where(a => a.FreelancerId == Freelancer).Include(a => a.Jobs).ToList();
+          //ViewData["SavesJobs"] = _context.FreelancerSavedJobs.Where(a => a.FreelancerId == Freelancer).Include(a => a.Jobs).ToList();
             return View(Job.Union(JobList));
         }
 
         public async Task<IActionResult> SaveJob(int id)
         {
-            //var Freelancer = "a123";
-            //FreelancerSavedJobs savedJobs = _context.FreelancerSavedJobs.Where(a => a.JobsId == id && a.FreelancerId == Freelancer).FirstOrDefault();
-            //if (savedJobs == null)
-            //{
-            //    savedJobs = new FreelancerSavedJobs() { FreelancerId = Freelancer, JobsId = id };
-            //_context.FreelancerSavedJobs.Add(savedJobs);
-            //_context.SaveChanges();
-            //}
-           
+            var FreelancerId = "a123";
+            Freelancer_Job savedJobs = _context.Freelancer_Jobs.Where(a => a.JobsId == id && a.FreelancerId == FreelancerId && a.IsSaved==true).FirstOrDefault();
+            if (savedJobs == null)
+            {
+                savedJobs = new Freelancer_Job() { FreelancerId = FreelancerId, JobsId = id ,IsSaved=true };
+                _context.Freelancer_Jobs.Add(savedJobs);
+                _context.SaveChanges();
+            }
+
             return RedirectToAction(nameof(Index));
 
         }
         
         public async Task<IActionResult> UnSaveJob(int id)
         {
-            //var Freelancer = "a123";
-            //FreelancerSavedJobs savedJobs = _context.FreelancerSavedJobs.Where(a => a.JobsId == id && a.FreelancerId == Freelancer).FirstOrDefault();
-            //if(savedJobs != null)
-            //{
-            //    _context.FreelancerSavedJobs.Remove(savedJobs);
-            //    _context.SaveChanges();
-            //    return RedirectToAction(nameof(Index));
-            //}
+            var FreelancerId = "a123";
+            Freelancer_Job savedJobs = _context.Freelancer_Jobs.Where(a => a.JobsId == id && a.FreelancerId == FreelancerId &&a.IsSaved==true).FirstOrDefault();
+            if (savedJobs != null)
+            {
+                _context.Freelancer_Jobs.Remove(savedJobs);
+                _context.SaveChanges();
+                return RedirectToAction(nameof(Index));
+            }
             return RedirectToAction(nameof(Index));
         }
+
 
 
         public async Task<IActionResult> SubmitProposal(int ? Id)
@@ -138,8 +135,6 @@ namespace Upwork.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
-
-
 
 
 
