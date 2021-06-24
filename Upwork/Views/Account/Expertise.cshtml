@@ -1,4 +1,4 @@
-﻿@model List<Skill>
+﻿@model Dictionary<Skill,bool>
 @{
     ViewData["Title"] = "Expertise";
     Layout = "~/Views/Shared/_CreateProfileLayout.cshtml";
@@ -13,27 +13,60 @@
                     <p class="text-muted">3 of 12</p>
                 </div>
                    <form id="ExpertiseForm" asp-action="Expertise">  
-                <div class="card-body">
-                    <h5 class="card-title pb-3">Select your skills</h5>
-                    <div class="container-fluid">
-                        <div class="row">
-                            @foreach (var item in Model)
-                            {
-                                <div class="text-center mb-3 mr-1" style="background-color: rgba(241, 238, 238, 0.938); border-radius: 30px; width:auto ; height: auto;">
-                                    <p class="m-2">@item.Name <a class="fa fa-plus SuggestedTag" id="add" aria-hidden="true"></a></p>
-                                </div>
-                            }
-                        </div>
-                        <div class="row">
-                            <h6>Not what you're looking for? <span class="fa fa-question-circle ml-2" style="color:forestgreen"></span></h6>
-                        </div>
-                        <div id="TagsWrapper" class="row mt-1 mb-3">
-                            <div id="txtWrapper" class="col-4">
-                                <input type="text" id="txtSkills" style="all:unset" placeholder="Start typing to search for skills" />
-                            </div>
-                        </div>
-                    </div>
+                       <div class="card-body">
+                           <h5 class="card-title pb-3">Select your skills</h5>
+                           <div class="container-fluid">
+                               <div class="row">
+                                   @foreach (var item in Model)
+                                   {
+                                       if (item.Value == true)
+                                       {
+                                           <div class="text-center mb-3 mr-1 bg-info" style="background-color: rgba(241, 238, 238, 0.938); border-radius: 30px; width:auto ; height: auto;">
+                                               <input style="all:unset" type="checkbox" checked id="Suggestedskill.@item.Key.SkillId" name="Suggestedskill.@item.Key.SkillId" value="true">
+                                               <label style="cursor:pointer" class="m-2 SuggestedTag" for="Suggestedskill.@item.Key.SkillId"> @item.Key.Name <span class="fa fa-plus" aria-hidden="true"></span> </label>
+                                           </div>
+                                       }
+                                       else if (item.Value == false)
+                                       {
+                                           <div class="text-center mb-3 mr-1" style="background-color: rgba(241, 238, 238, 0.938); border-radius: 30px; width:auto ; height: auto;">
+                                               @*   <p class="m-2">@item.Name <a class="fa fa-plus SuggestedTag" id="add" aria-hidden="true"></a></p>
+                            <input type="checkbox" /> *@
+                                               <input style="all:unset" type="checkbox" id="Suggestedskill.@item.Key.SkillId" name="Suggestedskill.@item.Key.SkillId" value="true">
+                                               <label style="cursor:pointer" class="m-2 SuggestedTag" for="Suggestedskill.@item.Key.SkillId"> @item.Key.Name <span class="fa fa-plus" aria-hidden="true"></span> </label>
+                                           </div>
+                                       }
+
+                                   }
+                               </div>
+                               @* 
+            <div class="row">
+                <h6>Not what you're looking for? <span class="fa fa-question-circle ml-2" style="color:forestgreen"></span></h6>
+            </div>
+            <div id="TagsWrapper" class="row mt-1 mb-3">
+                
+        <div class="text-center mb-3 mr-1 bg-info" style="background-color: rgba(241, 238, 238, 0.938); border-radius: 30px; width:auto ; height: auto;">
+            <input style="all:unset" type="checkbox" checked disabled id="Addedskill." name="Addedskill." value="true">
+            <label style="cursor:pointer" class="m-2 TagBtn" for="Addedskill."> html <span class="fa fa-plus" aria-hidden="true"></span> </label>
+        </div>  
+                
+        <div>
+            <div class="ml-1 mb-1">
+                <input style="all:unset" type="checkbox" checked disabled id="Suggestedskill.CSS" name="Suggestedskill.CSS" value="true">
+                <label style="cursor:pointer" class="bg-info TagBtn" for="Suggestedskill.CSS"> <span class="text-white"> html </span> <a class="RemoveTag text-white ml-1" style="font-weight:700" aria-hidden="true"> X </a> </label>
+            </div>
+        </div>
+                
+
+                <div id="txtWrapper" class="col-4">
+                    <input type="text" id="txtSkills" style="all:unset" placeholder="Start typing to add skills" />
                 </div>
+            </div>
+                               *@
+                           </div>
+                           <span id="NoSkillsErrorMsg" style="font-weight:bold;font-size:18px;display:none" class="text-danger ml-5"> At least one skill is required. </span>
+                           <span id="ManySkillsErrorMsg" style="font-weight:bold;font-size:18px;display:none" class="text-danger ml-5"> Must be less than 10 items. </span>
+
+                       </div>
                 <div class="card-footer" style="height:100px">
                     <div class="container-fluid">
                         <div class="row" style="margin-top:17px">
@@ -41,13 +74,13 @@
                                 <a asp-action="Category" asp-controller="Account" class="btn text-success bg-white" style="border-color:lightgrey">Back</a>
                             </div>
                             <div class="offset-8 text-right">
-                                @*              <button type="button" class="btn btn-success" style="border-color:lightgrey;">Next</button>*@
+                            <button type="submit" class="btn btn-success" style="border-color:lightgrey;">Next</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                </form> 
             </div>
-        </div>
-             </form> 
-                            </div>
         </div>
     </div>
 </div>
@@ -86,15 +119,33 @@
 @section Scripts{
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script>
-        $("#txtSkills").change(function () {
-            $("<div  class='bbb'><div class= 'ml-1 mb-1' ><button type='button' class='bg-info TagBtn'><span class='text-white'> " + $("#txtSkills").val() + " </span > <a class='RemoveTag text-white ml-1' style='font-weight:700'>&times;</a></button ></div > </div > ").insertBefore("#txtWrapper");
-            $("#txtSkills").val("");
+       
+      /*
+
+        $("#txtSkills").keydown(function (x) {
+            if (x.keyCode == 32) {
+                $(`<div><div class="ml-1 mb-1"><input style="all:unset" type="checkbox" checked disabled id="Addedskill.CSS" name="Addedskill.CSS" value="true"><label style="cursor:pointer" class="bg-info TagBtn" for="Addedskill.CSS"> <span class="text-white"> ${$("#txtSkills").val()} </span> <a class="RemoveTag text-white ml-1" style="font-weight:700" aria-hidden="true"> X </a> </label> </div></div>`).insertBefore("#txtWrapper");
+                $("#txtSkills").val("");
+            }         
         });
 
+        */
+
+        // To count number of Skills selected
+        n = 0;
+        for (var i = 0; i < 15; i++) {
+            if ($("input")[i].checked) {
+                n++;
+            }
+        }
+
+        // alert(n);
+
         $(document).on('click', '.RemoveTag', function () {
-            $(this).parent().remove();
+            //  $(this).parent().remove();
+            $(this).parent().parent().parent().remove();
         });
-   /*          
+             
         $('#ExpertiseForm').on('keypress', function (e) {
             var keyCode = e.keyCode || e.which;
             if (keyCode === 13) {
@@ -102,18 +153,38 @@
                 return false;
             }
         });
-        */
+        
         $(".SuggestedTag").click(function () {
-            if ($(this).parent().parent().hasClass("bg-info") === false) {
-                $(this).parent().parent().addClass("bg-info");
+            $("#NoSkillsErrorMsg").hide();
+            if ($(this).parent().hasClass("bg-info") === false) {
+                $(this).parent().addClass("bg-info");
+                n++;
             }
             else {
-                $(this).parent().parent().removeClass("bg-info");
+                $(this).parent().removeClass("bg-info");
+                n--;
+            }
+            if ($(".SuggestedTag").parent().hasClass("bg-info") === false) {               
+                $("#NoSkillsErrorMsg").show();
+            }
+            if (n > 10) {                
+                $("#ManySkillsErrorMsg").show();
+            }
+            else {
+                $("#ManySkillsErrorMsg").hide();
             }
         });
-        $(".GettingStarted").removeClass("text-muted");
-        $(".Category").removeClass("text-muted");
 
-     
+        $('#ExpertiseForm').on('submit', function (e) {
+            if ($(".SuggestedTag").parent().hasClass("bg-info") === false) {
+                e.preventDefault();
+                $("#NoSkillsErrorMsg").show();
+            }
+            if (n > 10) {
+                e.preventDefault();
+                $("#ManySkillsErrorMsg").show();                
+            }
+        });
+        
     </script>
 }

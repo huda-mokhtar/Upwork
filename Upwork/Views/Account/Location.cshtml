@@ -1,4 +1,4 @@
-﻿
+﻿@model LocationViewModel
 @{
     ViewData["Title"] = "Location";
     Layout = "~/Views/Shared/_CreateProfileLayout.cshtml";
@@ -18,26 +18,28 @@
                         <p class="card-title"> We take your privacy very seriously, Only your city and country will be shown to clients. </p>
                         <div class="container-fluid align-content-center border-dark mt-4">
                             <h6 class="card-title"> Country </h6>
-                            <div class="row col-7 pb-3">
-                                <select class="custom-select" asp-items="ViewBag.CountryId" aria-label="Default select example">
+                            <div class="row col-7 pb-2">
+                                <select asp-for="CountryId" class="custom-select" asp-items="ViewBag.CountryId" aria-label="Default select example">
                                     <option value="none" selected disabled hidden>
                                         Select Country
                                     </option>
                                 </select>
                             </div>
+                            <span asp-validation-for="CountryId" class="text-danger ml-5 mt-2"></span>
                         </div>
-                        <div class="container-fluid align-content-center border-dark mt-4">
+                        <div class="container-fluid align-content-center border-dark mt-3">
                             <h6 class="card-title"> Street Address </h6>
-                            <input type="text" class="form-control" />
-                            <input type="text" class="form-control col-7 mt-2" placeholder="Apt/Suite" />
+                            <input asp-for="Street" type="text" class="form-control" />
                         </div>
+                        <span asp-validation-for="Street" class="text-danger ml-5 mt-2"></span>
                         <div class="container-fluid align-content-center border-dark mt-4">
                             <h6 class="card-title"> City </h6>
-                            <input type="text" class="form-control col-7" placeholder="Start typing your city" />
+                            <input asp-for="City" type="text" class="form-control col-7" placeholder="City" />
                         </div>
+                        <span asp-validation-for="City" class="text-danger ml-5 mt-2"></span>
                         <div class="container-fluid align-content-center border-dark mt-4 mb-5">
                             <h6 class="card-title"> ZIP/Postal code </h6>
-                            <input type="text" class="form-control col-7" />
+                            <input asp-for="ZIP" type="text" class="form-control col-7" />
                         </div>
                     </div>
                     <div class="card-footer" style="height:100px">
@@ -58,3 +60,11 @@
         </div>
     </div>
 </div>
+@section Scripts{
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script>
+
+    </script>
+}

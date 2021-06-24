@@ -1,9 +1,10 @@
-﻿
+﻿@model IEnumerable<Freelancer_Education>
 @{
     ViewData["Title"] = "Education";
     Layout = "~/Views/Shared/_CreateProfileLayout.cshtml";
 }
-
+<div id="ModalPlaceHolder" class="text-center col-6">
+</div>
 <div class="container">
     <div class="row">
         <div class="col-12">
@@ -15,30 +16,43 @@
                 <form asp-action="Education">
                     <div class="card-body">
                         <p class="card-title pb-3">Add the schools you attended, areas of study, and degrees earned.</p>
-                        <div class="mt-1 mb-5">
-                            <div class="d-flex justify-content-between row">
-                                <div class="col-10">
-                                    <h5 style="padding:0;margin:0"> Mansoura University </h5>
-                                    <p style="padding:0;margin:0"> Bachelor of Computer Science (BCompSc) of Computer science </p>
-                                    <p style="padding:0;margin:0" class="text-muted"> 2016 - 2015 (expected) </p>
-                                </div>
-                                <div class="col-2">
-                                    <a>
-                                        <span style="font-size: 0.8rem; color: #656565; border: 1px solid #ccc; border-radius: 50%; padding: 0.6rem; " class="fa fa-pen"></span>
-                                    </a>
-                                    <a>
-                                        <span style="font-size: 0.8rem; color: #656565; border: 1px solid #ccc; border-radius: 50%; padding: 0.6rem; " class="fa fa-trash-alt"></span>
-                                    </a>
+                        @foreach (var item in Model)
+                        {
+                            <div class="mt-1 mb-4">
+                                <div class="d-flex justify-content-between row">
+                                    <div class="col-10">
+                                        <h5 style="padding:0;margin:0"> @item.School.Name </h5>
+                                        <p style="padding:0;margin:0"> @item.AreaOfStudy.Name </p>
+                                        <p style="padding:0;margin:0" class="text-muted">
+                                            @item.From.Year - @item.To.Year @if (item.To.Year > DateTime.Now.Year)
+                                            {
+                                                <span> (expected) </span>
+                                            }
+                                        </p>
+                                        <p> @item.Description </p>
+                                    </div>
+                                    <div class="col-2">
+                                        <a>
+                                            <span style="font-size: 0.8rem; color: #656565; border: 1px solid #ccc; border-radius: 50%; padding: 0.6rem; " class="fa fa-pen"></span>
+                                        </a>
+                                        <a asp-action="DeleteEducation" asp-controller="Account" asp-route-AreaId="@item.AreaId" asp-route-SchoolId="@item.SchoolId" asp-route-DegreeId="@item.DegreeId" asp-route-FreelancerId="@item.FreelancerId">
+                                            <span style="font-size: 0.8rem; color: #656565; border: 1px solid #ccc; border-radius: 50%; padding: 0.6rem; " class="fa fa-trash-alt"></span>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="container-fluid align-content-center border-dark">
+                        }
+                        <div id="AfterAppendDiv" class="container-fluid align-content-center border-dark mt-2">
                             <div class="row pb-3">
-                                <button style="all:unset;border:1px solid lightgrey;color: forestgreen;padding: 10px 30px;text-align: center;text-decoration: none;display: inline-block;margin: 4px 2px;cursor: pointer;border-radius: 20px;" class="bg-white">
+                                <button type="button" data-toggle="ajax-modal" data-target="#AddEducation" data-url="@Url.Action("AddEducation")" style="all:unset;border:1px solid lightgrey;color: forestgreen;padding: 10px 30px;text-align: center;text-decoration: none;display: inline-block;margin: 4px 2px;cursor: pointer;border-radius: 20px;" class="bg-white">
                                     <span class="fa fa-plus"></span> <span>  Add Education </span>
                                 </button>
                             </div>
                         </div>
+                        @if (ViewBag.Message != null)
+                        {
+                            <span id="ErrorMsg" class="text-danger ml-3"> @ViewBag.Message </span>
+                        }
                     </div>
                     <div class="card-footer" style="height:100px">
                         <div class="container-fluid">
@@ -52,8 +66,52 @@
                             </div>
                         </div>
                     </div>
-                </form>      
+                </form>
             </div>
         </div>
     </div>
 </div>
+@section Scripts{
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script>
+
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+
+        var placeHolderElement = $("#ModalPlaceHolder");
+        $('button[data-toggle="ajax-modal"]').click(function (x) {
+            var url = $(this).data('url');
+            $.get(url).done(function (data) {
+                placeHolderElement.html(data);
+                placeHolderElement.find('.modal').modal('show');
+
+            })
+        });
+
+        placeHolderElement.on('click', '[data-save="modal"]', function (x) {
+            if ($(".School").val().trim().length == 0) {
+                $("#SchoolErrorMsg").show();
+            }
+            else {
+                var form = $(this).parents('.modal').find('form');
+                var actionUrl = form.attr('action');
+                var sendData = form.serialize();
+                $.post(actionUrl, sendData).done(function (data) {
+                    placeHolderElement.find('.modal').modal('hide');
+                    window.location.reload();
+                });
+            }
+
+        });
+
+    /*
+        $(".School").on("change", function () {
+            alert("hii");
+        });
+    */
+
+    </script>
+}

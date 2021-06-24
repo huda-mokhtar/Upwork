@@ -455,5 +455,14 @@ namespace Upwork.Controllers
             allJobs.Reverse();
             return View(allJobs);
         }
+        public IActionResult JobDetails()
+        {
+            return View();
+        }
+        public IActionResult ProjectsCatalog()
+        {
+            return View();
+        }
+
     }
 }

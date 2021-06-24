@@ -1,6 +1,7 @@
-﻿@{ 
+﻿@{
     Layout = null;
 }
+
 <!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
@@ -38,7 +39,7 @@
 
         #Content {
             background-color: #F1F2F4;
-            height: 550px;
+            height: 800px;
         }
 
         #Footer {
@@ -139,17 +140,12 @@
 </head>
 <body>
     <div id="Header">
-        <div id="HeaderContent" class="row offset-1">  
+        <div id="HeaderContent" class="row offset-1">
             <div class="col-1">
                 <a>
                     <span id="up">Up<span id="work">work</span></span>
                 </a>
-            </div>
-            <div class="offset-7 col-3" style="margin-top:15px">
-                <span style="color:white;font-size:16px;padding-top:0" >
-                    Already have an account? <a asp-action="Login" asp-controller="Account" style="color:forestgreen" id="login"> Log in</a>
-                </span>
-            </div>                   
+            </div>           
         </div>
     </div>
 
@@ -201,7 +197,7 @@
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
-  
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -4,14 +4,18 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Web;
 using System.Threading.Tasks;
 using Upwork.Data;
 using Upwork.Models;
 using Upwork.Models.ViewModels.Register;
+using Microsoft.AspNetCore.Authentication;
 
 namespace Upwork.Controllers
 {
@@ -67,6 +71,10 @@ namespace Upwork.Controllers
         public async Task<IActionResult> Data()
         {
             var u = await userManager.GetUserAsync(User);
+            if (db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id) != null)
+            {
+                return RedirectToAction("SignUp");
+            }
             ViewBag.Email = u.Email;
             ViewBag.CountryId = new SelectList(db.Countries, "CountryId", "Name");
             return View();         
@@ -75,7 +83,7 @@ namespace Upwork.Controllers
         [HttpPost]
         public async Task<IActionResult> Data(UserData model)
         {
-            var u = await userManager.GetUserAsync(User);
+            var u = await userManager.GetUserAsync(User);   
             if (ModelState.IsValid)
             {
                 if (model.Username != null)
@@ -96,7 +104,7 @@ namespace Upwork.Controllers
                     await userManager.AddPasswordAsync(u, model.Password);
                     db.Freelancers.Add(new Freelancer() { FreelancerId = u.Id });
                     db.SaveChanges();
-                    return RedirectToAction("Category");
+                    return RedirectToAction("GettingStarted");
                 }
                 else
                 {
@@ -115,8 +123,90 @@ namespace Upwork.Controllers
             return View(model);
         }
 
-        public List<SubCategory> GetSubCategories(int id)
+        //Check state of freelancer (done or not)
+        private async Task CheckState()
         {
+            var u = await userManager.GetUserAsync(User);
+            var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+            if (Freelancer.CategoryId != null)
+            {
+                ViewBag.Category = "Done";
+            }
+            if (db.Freelancer_Skill.FirstOrDefault(a => a.FreelancerId == Freelancer.FreelancerId) != null)
+            {
+                ViewBag.Expertise = "Done";
+            }
+            if (Freelancer.ExperienceLevel != null)
+            {
+                ViewBag.ExpertiseLevel = "Done";
+            }
+            if (db.Freelancer_Education.FirstOrDefault(a => a.FreelancerId == Freelancer.FreelancerId) != null)
+            {
+                ViewBag.Education = "Done";
+            }
+            if (db.Freelancer_Experience.FirstOrDefault(a => a.FreelancerId == Freelancer.FreelancerId) != null)
+            {
+                ViewBag.Employement = "Done";
+            }
+            if (db.Freelancer_Language.FirstOrDefault(a => a.FreelancerId == Freelancer.FreelancerId) != null)
+            {
+                ViewBag.Languages = "Done";
+            }
+            if (Freelancer.HourlyRate != null)
+            {
+                ViewBag.HourlyRate = "Done";
+            }
+            if (Freelancer.Overview != null)
+            {
+                ViewBag.Overview = "Done";
+            }
+            if (Freelancer.Image != null)
+            {
+                ViewBag.ProfilePhoto = Freelancer.Image;
+            }
+            if (Freelancer.CityId != null)
+            {
+                ViewBag.Location = "Done";
+            }
+            if (Freelancer.PhoneNumber != null)
+            {
+                ViewBag.Phone = "Done";
+            }
+        }
+
+        //Authorize Freelancer
+        private async Task<bool> NotAuthorized()
+        {
+            var u = await userManager.GetUserAsync(User);
+            if (db.Freelancers.FirstOrDefault(a=>a.FreelancerId == u.Id) == null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+
+        //Getting Started
+
+        [Authorize]
+        public async Task<IActionResult> GettingStarted()
+        {
+            if (await NotAuthorized())
+            {
+                return RedirectToAction("Data");
+            }
+            await CheckState();
+            return View();
+        }
+
+        //Category
+
+        public List<SubCategory> GetSubCategories(int id)
+        {           
             return db.SubCategories.Where(a => a.CategoryId == id).ToList();
         }
 
@@ -124,184 +214,466 @@ namespace Upwork.Controllers
         [Authorize]
         public async Task<IActionResult> Category()
         {
+            if (await NotAuthorized())
+            {
+                return RedirectToAction("Data");
+            }
+            await CheckState();
             ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "Name");
             var u = await userManager.GetUserAsync(User);
             var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
-            if (Freelancer.Image != null)
+            CategoryViewModel model = new CategoryViewModel() { CategoryId = Freelancer.CategoryId, SubCategoryId = Freelancer.SubCategoryId };
+            if (Freelancer.CategoryId != null)
             {
-                ViewBag.Image = Freelancer.Image;
+                ViewBag.SubCategoryId = new SelectList(db.SubCategories.Where(a=>a.CategoryId == Freelancer.CategoryId), "SubCategoryId", "Name");
             }
-            return View();           
+            return View(model);           
         }
 
         [HttpPost]
-        public IActionResult Category(CategoryViewModel model)
+        public async Task<IActionResult> Category(CategoryViewModel model)
         {
             if (ModelState.IsValid)
             {
-                string Id = HttpContext.Session.GetString("UserId");
-                var freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == Id);
-                freelancer.CategoryId = model.CategoryId;
-                freelancer.SubCategoryId = model.SubCategoryId;
+                var u = await userManager.GetUserAsync(User);
+                var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+                Freelancer.CategoryId = model.CategoryId;
+                Freelancer.SubCategoryId = model.SubCategoryId;
                 db.SaveChanges();
                 return RedirectToAction("Expertise");
             }
-        //    ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "Name");
-         //   return View(model);
-            return RedirectToAction("Expertise");
+            ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "Name");
+            return View(model);
 
+        }
+
+
+        //Expertise
+        public List<Skill> GetSkills()
+        {
+            return db.Skills.ToList();
         }
 
         [Authorize]
         public async Task<IActionResult> Expertise()
         {
+            if (await NotAuthorized())
+            {
+                return RedirectToAction("Data");
+            }
             var u = await userManager.GetUserAsync(User);
             var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
-            if (Freelancer.Image != null)
+            if (Freelancer.CategoryId == null)
             {
-                ViewBag.Image = Freelancer.Image;
+                return RedirectToAction("Category");
             }
-            return View(db.Skills.Take(15).ToList());    
+            await CheckState(); 
+            Dictionary<Skill, bool> model = new Dictionary<Skill, bool>();
+            List<Skill> Top15Skills = db.Skills.Take(15).ToList();
+            foreach (var item in Top15Skills)
+            {
+                if (db.Freelancer_Skill.FirstOrDefault(a=>a.SkillId == item.SkillId && a.FreelancerId == Freelancer.FreelancerId) != null)
+                {
+                    model.Add(item, true);
+                }
+                else
+                {
+                    model.Add(item, false);
+                }
+            }
+            return View(model);    
         }
 
         [HttpPost]
-        public IActionResult Expertise(int x)
-        {
+        public async Task<IActionResult> Expertise(Dictionary<int,bool> Suggestedskill)
+        {           
             if (ModelState.IsValid)
+            {
+                var u = await userManager.GetUserAsync(User);
+                var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+                var FreelancerSkills = db.Freelancer_Skill.Where(a => a.FreelancerId == Freelancer.FreelancerId).ToList();
+                foreach (var item in FreelancerSkills)
+                {
+                    db.Freelancer_Skill.Remove(item);
+                }
+                db.SaveChanges();
+                foreach (var item in Suggestedskill)
+                {
+                    if (item.Value==true)
+                    {
+                        await db.Freelancer_Skill.AddAsync(new Freelancer_Skill() { FreelancerId = Freelancer.FreelancerId, SkillId = item.Key });                                       
+                    }
+                }
+                db.SaveChanges();               
+                return RedirectToAction("ExpertiseLevel");
+            }
+            return View();
+        }
+
+        //Expertise level
+
+        [Authorize]
+        public async Task<IActionResult> ExpertiseLevel()
+        {
+            if (await NotAuthorized())
+            {
+                return RedirectToAction("Data");
+            }
+            var u = await userManager.GetUserAsync(User);
+            var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+            if (db.Freelancer_Skill.FirstOrDefault(a=>a.FreelancerId == Freelancer.FreelancerId) == null)
+            {
+                return RedirectToAction("Expertise");
+            }
+            await CheckState();           
+            ViewBag.FreelancerLevel = Freelancer.ExperienceLevel;
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ExpertiseLevel(ExpertiseLevelViewModel model)
+        {   
+            var u = await userManager.GetUserAsync(User);
+            var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+            if (model.ExperienceLevel == "One")
+            {
+                Freelancer.ExperienceLevel = "Entry";
+            }
+            else if (model.ExperienceLevel == "Two")
+            {
+                Freelancer.ExperienceLevel = "Intermediate";
+            }
+            else if (model.ExperienceLevel == "Three")
+            {
+                Freelancer.ExperienceLevel = "Expert";
+            }
+            db.SaveChanges();
+            return RedirectToAction("Education");          
+        }
+
+        //Education
+
+        [Authorize]
+        public async Task<IActionResult> Education()
+        {
+            if (await NotAuthorized())
+            {
+                return RedirectToAction("Data");
+            }
+            var u = await userManager.GetUserAsync(User);
+            var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+            if (Freelancer.ExperienceLevel == null)
             {
                 return RedirectToAction("ExpertiseLevel");
             }
-            return RedirectToAction("ExpertiseLevel");
-
-//            return View();
-        }
-
-        [Authorize]
-        public async Task<IActionResult> ExpertiseLevelAsync()
-        {
-            var u = await userManager.GetUserAsync(User);
-            var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
-            if (Freelancer.Image != null)
-            {
-                ViewBag.Image = Freelancer.Image;
-            }
-            return View();
+            await CheckState();           
+            return View(db.Freelancer_Education.Include(a=>a.AreaOfStudy).Include(a=>a.School).Include(a=>a.Degree).Where(a=>a.FreelancerId == Freelancer.FreelancerId).ToList());
         }
 
         [HttpPost]
-        public IActionResult ExpertiseLevel(int x)
+        public async Task<IActionResult> Education(int x)
+        {
+            var u = await userManager.GetUserAsync(User);
+            var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+            if (db.Freelancer_Education.FirstOrDefault(a=>a.FreelancerId == Freelancer.FreelancerId)== null)
+            {
+                ViewBag.Message = "Add at least one item";
+                await CheckState();          
+                return View(db.Freelancer_Education.Include(a => a.AreaOfStudy).Include(a => a.School).Include(a => a.Degree).Where(a => a.FreelancerId == Freelancer.FreelancerId).ToList());
+            }
+            else
+            {
+                return RedirectToAction("Employment");
+            }
+        }
+
+       [Authorize]
+        public async Task<IActionResult> AddEducation()
+        {
+            if (await NotAuthorized())
+            {
+                return RedirectToAction("Data");
+            }
+            return PartialView("AddEducationModal");
+        }
+
+        
+        [HttpPost]
+        public async Task<IActionResult> AddEducation(AddEducationViewModel model)
         {
             if (ModelState.IsValid)
             {
-                return RedirectToAction("Education");
+                var u = await userManager.GetUserAsync(User);
+                var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+                db.Schools.Add(new School() { Name=model.School});
+                db.AreasOfStudy.Add(new AreaOfStudy() { Name = model.AreaOfStudy });
+                db.Degrees.Add(new Degree() { Name= model.Degree});
+                db.SaveChanges();
+                var SchoolId = db.Schools.FirstOrDefault(a => a.Name == model.School).SchoolId;
+                var AreaId = db.AreasOfStudy.FirstOrDefault(a => a.Name == model.AreaOfStudy).AreaId;
+                var DegreeId = db.Degrees.FirstOrDefault(a => a.Name == model.Degree).DegreeId;
+                db.Freelancer_Education.Add(new Freelancer_Education() { FreelancerId=Freelancer.FreelancerId , AreaId = AreaId , SchoolId = SchoolId, DegreeId = DegreeId,From = new DateTime(model.From, 1, 1) , To = new DateTime(model.To, 1, 1), Description = model.Description}) ;
+                db.SaveChanges();
+                return RedirectToAction("Education", "Account");
             }
-            return RedirectToAction("Education");
-        //    return View();
+            return PartialView("AddEducationModal");
         }
-
-        [Authorize]
-        public async Task<IActionResult> EducationAsync()
+        
+       [Authorize]
+        public async Task<IActionResult> DeleteEducation(int AreaId, int SchoolId, int DegreeId, string FreelancerId)
         {
-            var u = await userManager.GetUserAsync(User);
-            var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
-            if (Freelancer.Image != null)
+            if (await NotAuthorized())
             {
-                ViewBag.Image = Freelancer.Image;
+                return RedirectToAction("Data");
             }
-            return View();
+            var Education = db.Freelancer_Education.FirstOrDefault(a => a.FreelancerId == FreelancerId && a.AreaId == AreaId && a.DegreeId == DegreeId && a.SchoolId == SchoolId);
+            db.Freelancers.FirstOrDefault(a => a.FreelancerId == FreelancerId).Educations.Remove(Education);
+            db.Freelancer_Education.Remove(Education);
+            db.SaveChanges();
+            return RedirectToAction("Education");
         }
 
-        [HttpPost]
-        public IActionResult Education(int x)
-        {
-            return RedirectToAction("Employment");
-        }
-
-       
-
+        //Employement
         [Authorize]
         public async Task<IActionResult> Employment()
         {
+            if (await NotAuthorized())
+            {
+                return RedirectToAction("Data");
+            }
             var u = await userManager.GetUserAsync(User);
             var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
-            if (Freelancer.Image != null)
+            if (db.Freelancer_Education.FirstOrDefault(a=>a.FreelancerId == Freelancer.FreelancerId) == null)
             {
-                ViewBag.Image = Freelancer.Image;
+                return RedirectToAction("Education");
             }
-            return View();
+            await CheckState();        
+            return View(db.Freelancer_Experience.Include(a=>a.JobTitle).Include(a=>a.Company).Where(a=>a.FreelancerId== Freelancer.FreelancerId).ToList());
         }
+       
 
         [HttpPost]
-        public IActionResult Employment(int x)
+        public async Task<IActionResult> Employment(int x)
         {
+            var u = await userManager.GetUserAsync(User);
+            var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+            if (db.Freelancer_Experience.FirstOrDefault(a=>a.FreelancerId == Freelancer.FreelancerId) == null)
+            {
+                await CheckState();
+                ViewBag.Message = "Add at least one item.";
+                return View(db.Freelancer_Experience.Include(a => a.JobTitle).Include(a => a.Company).Where(a => a.FreelancerId == Freelancer.FreelancerId).ToList());
+            }
             return RedirectToAction("Languages");
         }
 
         [Authorize]
-        public async Task<IActionResult> Languages()
+        public async Task<IActionResult> AddEmployement()
         {
-            ViewBag.ProficiencyId = new SelectList(db.Language_Proficiency, "ProficiencyId", "Name");
-            ViewBag.LanguageId = new SelectList(db.Languages, "LanguageId", "Name");
-            var u = await userManager.GetUserAsync(User);
-            var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
-            if (Freelancer.Image != null)
+            if (await NotAuthorized())
             {
-                ViewBag.Image = Freelancer.Image;
+                return RedirectToAction("Data");
             }
-            return View();
+            ViewBag.CountryId = new SelectList(db.Countries, "CountryId", "Name");
+            return PartialView("AddEmployementModal");
         }
 
         [HttpPost]
-        public IActionResult Languages(int x)
+        public async Task<IActionResult> AddEmployement(AddEmployementViewModel model)
         {
-            return RedirectToAction("HourlyRate");
+            if (ModelState.IsValid)
+            {
+                var u = await userManager.GetUserAsync(User);
+                var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+                db.Companies.Add(new Company() { Name = model.Company });
+                db.JobTitle.Add(new JobTitle() { Name = model.Title });    
+                db.SaveChanges();
+                var CompanyId = db.Companies.FirstOrDefault(a => a.Name == model.Company).CompanyId;
+                var JobTitleId = db.JobTitle.FirstOrDefault(a => a.Name == model.Title).JobTitleId;
+                db.Freelancer_Experience.Add(new Freelancer_Experience() { FreelancerId = Freelancer.FreelancerId, CompanyId = CompanyId, Location = model.Location, CountryId = model.CountryId.Value, JobTitleId = JobTitleId, From = new DateTime(model.FromYear, model.FromMonth, 1), To = new DateTime(model.ToYear, model.ToMonth, 1), Description = model.Description });
+                db.SaveChanges();
+                return RedirectToAction("Employment", "Account");
+            }
+            return PartialView("AddEmployementModal");
         }
+
+        [Authorize]
+        public async Task<IActionResult> DeleteEmployement(string FreelancerId,int CompanyId,int CountryId,int JobTitleId)
+        {
+            if (await NotAuthorized())
+            {
+                return RedirectToAction("Data");
+            }
+            var Employement = db.Freelancer_Experience.FirstOrDefault(a => a.FreelancerId == FreelancerId && a.CompanyId == CompanyId && a.CountryId == CountryId && a.JobTitleId == JobTitleId);
+            db.Freelancers.FirstOrDefault(a => a.FreelancerId == FreelancerId).Experiences.Remove(Employement);
+            db.Companies.FirstOrDefault(a => a.CompanyId == CompanyId).FreelancerExperiences.Remove(Employement);
+            db.Countries.FirstOrDefault(a => a.CountryId == CountryId).FreelancerExperiences.Remove(Employement);
+            db.JobTitle.FirstOrDefault(a => a.JobTitleId == JobTitleId).FreelancerExperiences.Remove(Employement);
+            db.Freelancer_Experience.Remove(Employement);
+            db.SaveChanges();
+            return RedirectToAction("Employment");
+        }
+
+        //Languages
+        [Authorize]
+        public async Task<IActionResult> Languages()
+        {
+            if (await NotAuthorized())
+            {
+                return RedirectToAction("Data");
+            }
+            var u = await userManager.GetUserAsync(User);
+            var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+            if (db.Freelancer_Experience.FirstOrDefault(a=>a.FreelancerId == Freelancer.FreelancerId) == null)
+            {
+                return RedirectToAction("Employment");
+            }
+            await CheckState();  
+            var EnglishId = db.Languages.FirstOrDefault(a => a.Name == "English").LanguageId;
+            LanguagesViewModel model = new LanguagesViewModel();
+            if (db.Freelancer_Language.FirstOrDefault(a => a.FreelancerId == Freelancer.FreelancerId && a.LanguageId == EnglishId) != null)
+            {
+               model.ProficiencyId = db.Freelancer_Language.FirstOrDefault(a => a.FreelancerId == Freelancer.FreelancerId && a.LanguageId == EnglishId).ProficiencyId;                             
+            }
+            if (db.Freelancer_Language.FirstOrDefault(a=>a.FreelancerId == Freelancer.FreelancerId && a.LanguageId != EnglishId) != null)
+            {
+                var SecondLanguage = db.Freelancer_Language.FirstOrDefault(a => a.FreelancerId == Freelancer.FreelancerId && a.LanguageId != EnglishId);
+                model.Language1Id = SecondLanguage.LanguageId;
+                model.Proficiency1Id = SecondLanguage.ProficiencyId;
+            }
+            ViewBag.ProficiencyId = new SelectList(db.Language_Proficiency, "ProficiencyId", "Name");
+            ViewBag.LanguageId = new SelectList(db.Languages.Where(a => a.LanguageId != EnglishId), "LanguageId", "Name");
+            return View(model);     
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Languages(LanguagesViewModel model)
+        {
+            var EnglishId = db.Languages.FirstOrDefault(a => a.Name == "English").LanguageId;
+            if (ModelState.IsValid)
+            {
+                if (model.Language1Id != null && model.Proficiency1Id == null)
+                {
+                    await CheckState();
+                    ViewBag.ProficiencyId = new SelectList(db.Language_Proficiency, "ProficiencyId", "Name");
+                    ViewBag.LanguageId = new SelectList(db.Languages.Where(a => a.LanguageId != EnglishId), "LanguageId", "Name");
+                    ViewBag.Message = "You must select proficiency level.";
+                    return View(model);
+                }
+                if (model.Language1Id == null && model.Proficiency1Id != null)
+                {
+                    await CheckState();
+                    ViewBag.ProficiencyId = new SelectList(db.Language_Proficiency, "ProficiencyId", "Name");
+                    ViewBag.LanguageId = new SelectList(db.Languages.Where(a => a.LanguageId != EnglishId), "LanguageId", "Name");
+                    ViewBag.LanguageMessage = "You must select Language.";
+                    return View(model);
+                }
+                var u = await userManager.GetUserAsync(User);
+                var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+                var FreelancerLanguages = db.Freelancer_Language.Where(a => a.FreelancerId == Freelancer.FreelancerId).ToList();
+                foreach (var item in FreelancerLanguages)
+                {
+                    db.Freelancer_Language.Remove(item);
+                }
+                db.SaveChanges();
+                db.Freelancer_Language.Add(new Freelancer_Language() { FreelancerId = Freelancer.FreelancerId, LanguageId = EnglishId, ProficiencyId = model.ProficiencyId.Value });
+                if (model.Language1Id != null && model.Proficiency1Id != null)
+                {
+                    db.Freelancer_Language.Add(new Freelancer_Language() { FreelancerId = Freelancer.FreelancerId, LanguageId = model.Language1Id.Value, ProficiencyId = model.Proficiency1Id.Value });
+                }
+                db.SaveChanges();
+                return RedirectToAction("HourlyRate");
+            }
+            await CheckState();
+            ViewBag.ProficiencyId = new SelectList(db.Language_Proficiency, "ProficiencyId", "Name");
+            ViewBag.LanguageId = new SelectList(db.Languages.Where(a => a.LanguageId != EnglishId), "LanguageId", "Name");
+            return View(model);
+        }
+
+        //Hourly Rate
 
         [Authorize]
         public async Task<IActionResult> HourlyRate()
         {
+            if (await NotAuthorized())
+            {
+                return RedirectToAction("Data");
+            }
             var u = await userManager.GetUserAsync(User);
             var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
-            if (Freelancer.Image != null)
+            if (db.Freelancer_Language.FirstOrDefault(a=>a.FreelancerId == Freelancer.FreelancerId) == null)
             {
-                ViewBag.Image = Freelancer.Image;
+                return RedirectToAction("Languages");
             }
-            return View();
+            await CheckState(); 
+            HourlyRateViewModel model = new HourlyRateViewModel() { HourlyRate = Freelancer.HourlyRate };
+            return View(model);
         }
 
         [HttpPost]
-        public IActionResult HourlyRate(HourlyRateViewModel model)
+        public async Task<IActionResult> HourlyRate(HourlyRateViewModel model)
         {
-            return RedirectToAction("Overview");    
+            if (ModelState.IsValid)
+            {
+                var u = await userManager.GetUserAsync(User);
+                var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+                Freelancer.HourlyRate = model.HourlyRate;
+                db.SaveChanges();
+                return RedirectToAction("Overview");
+            }
+            return View(model);
         }
+
+        //Overview
 
         [Authorize]
         public async Task<IActionResult> Overview()
         {
+            if (await NotAuthorized())
+            {
+                return RedirectToAction("Data");
+            }
             var u = await userManager.GetUserAsync(User);
             var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
-            if (Freelancer.Image != null)
+            if (Freelancer.HourlyRate == null)
             {
-                ViewBag.Image = Freelancer.Image;
+                return RedirectToAction("HourlyRate");
             }
-            return View();
+            await CheckState();         
+            OverviewViewModel model = new OverviewViewModel() { Title = Freelancer.Title, Overview = Freelancer.Overview };
+            return View(model);
         }
 
         [HttpPost]
-        public IActionResult Overview(int x)
+        public async Task<IActionResult> Overview(OverviewViewModel model)
         {
-            return RedirectToAction("ProfilePhoto");
+            if (ModelState.IsValid)
+            {
+                var u = await userManager.GetUserAsync(User);
+                var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+                Freelancer.Title = model.Title;
+                Freelancer.Overview = model.Overview;
+                db.SaveChanges();
+                return RedirectToAction("ProfilePhoto");
+            }
+            return View(model);
         }
+
+        //Profile Photo
 
         [Authorize]
         public async Task<IActionResult> ProfilePhoto()
         {
+            if (await NotAuthorized())
+            {
+                return RedirectToAction("Data");
+            }
             var u = await userManager.GetUserAsync(User);
             var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
-            if (Freelancer.Image != null)
+            if (Freelancer.Overview == null)
             {
-                ViewBag.Image = Freelancer.Image;
+                return RedirectToAction("Overview");
             }
+            await CheckState();
             return View();
         }
 
@@ -310,9 +682,15 @@ namespace Upwork.Controllers
         {
             var u = await userManager.GetUserAsync(User);
             var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+            if (Freelancer.Image == null && model.File == null)
+            {
+                await CheckState();
+                ViewBag.ErrorMessage = "Profile photo is required!";
+                return View(model);
+            } 
             if (ModelState.IsValid)
             {
-                string FileName = string.Empty;
+                string FileName = Freelancer.Image;
                 if (model.File != null)
                 {
                     string Uploads = Path.Combine(hosting.WebRootPath, "ProfilePhotos");
@@ -331,43 +709,175 @@ namespace Upwork.Controllers
             return View(model);
         }
 
+        //Location
+
         [Authorize]
         public async Task<IActionResult> Location()
         {
-            ViewBag.CountryId = new SelectList(db.Countries, "CountryId", "Name");
-            var u = await userManager.GetUserAsync(User);
-            var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
-            if (Freelancer.Image != null)
+            if (await NotAuthorized())
             {
-                ViewBag.Image = Freelancer.Image;
+                return RedirectToAction("Data");
             }
-            return View();
+            var u = await userManager.GetUserAsync(User);
+            var Freelancer = db.Freelancers.Include(a=>a.City).FirstOrDefault(a => a.FreelancerId == u.Id);
+            if (Freelancer.Image == null)
+            {
+                return RedirectToAction("ProfilePhoto");
+            }
+            await CheckState();
+            ViewBag.CountryId = new SelectList(db.Countries, "CountryId", "Name");
+            LocationViewModel model = new LocationViewModel();
+            if (Freelancer.CityId != null)
+            {
+                model.City = Freelancer.City.Name;
+                model.CountryId = Freelancer.City.CountryId;
+            }
+            if (Freelancer.Street != null)
+            {
+                model.Street = Freelancer.Street;
+            }
+            if (Freelancer.ZIP != null)
+            {
+                model.ZIP = Freelancer.ZIP;
+            }
+            return View(model);
         }
 
         [HttpPost]
-        public IActionResult Location(int x)
+        public async Task<IActionResult> Location(LocationViewModel model)
         {
-            return RedirectToAction("Phone");
+            if (ModelState.IsValid)
+            {
+                var u = await userManager.GetUserAsync(User);
+                var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+                db.Cities.Add(new City() { Name = model.City, CountryId = model.CountryId.Value });
+                db.SaveChanges();
+                var CityId = db.Cities.FirstOrDefault(a => a.Name == model.City).CityId;
+                Freelancer.CityId = CityId;
+                Freelancer.Street = model.Street;
+                Freelancer.ZIP = model.ZIP;
+                db.SaveChanges();
+                return RedirectToAction("Phone");
+            }
+            await CheckState();
+            ViewBag.CountryId = new SelectList(db.Countries, "CountryId", "Name");
+            return View(model);
         }
+
+        //Phone
 
         [Authorize]
         public async Task<IActionResult> Phone()
         {
-            ViewBag.Countries = db.Countries.ToList();
+            if (await NotAuthorized())
+            {
+                return RedirectToAction("Data");
+            }
             var u = await userManager.GetUserAsync(User);
             var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
-            if (Freelancer.Image != null)
+            if (Freelancer.Street == null)
             {
-                ViewBag.Image = Freelancer.Image;
+                return RedirectToAction("Location");
             }
-            return View();
+            await CheckState();
+            ViewBag.Countries = db.Countries.ToList();
+            PhoneViewModel model = new PhoneViewModel();
+            if (Freelancer.PhoneCountryId != null)
+            {
+                model.CountryId = Freelancer.PhoneCountryId.Value;
+            }
+            if (Freelancer.PhoneNumber != null)
+            {
+                model.Phone = int.Parse(Freelancer.PhoneNumber);
+            }
+            return View(model);
         }
 
         [HttpPost]
-        public IActionResult Phone(int x)
+        public async Task<IActionResult> Phone(PhoneViewModel model)
         {
+            if (ModelState.IsValid)
+            {
+                var u = await userManager.GetUserAsync(User);
+                var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+                Freelancer.PhoneCountryId = model.CountryId;
+                Freelancer.PhoneNumber = model.Phone.ToString();
+                await userManager.AddToRoleAsync(u, "Freelancer");
+                db.SaveChanges();
+                return Content("Freelancer home page...");
+            }
+            await CheckState();
+            ViewBag.Countries = db.Countries.ToList();
+            return View(model);
+        }
+
+        //Login
+        public async Task<IActionResult> Login()
+        {
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
             return View();
         }
+        
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await userManager.FindByEmailAsync(model.Email);
+                var password = await userManager.CheckPasswordAsync(user, model.Password);
+                if (password)
+                {
+                     await signInManager.SignInAsync(user,true);
+                    if (await userManager.IsInRoleAsync(user, "Freelancer"))
+                    {
+                        return RedirectToAction("Freelancer");
+                    }
+                    else if (await userManager.IsInRoleAsync(user,"Client"))
+                    {
+                        return RedirectToAction("Client");
+                    }
+                    else if (await userManager.IsInRoleAsync(user, "Admin"))
+                    {
+                        return Content("Admin home page...");
+                    }
+                    else
+                    {
+                        return Content("Success");
+                    }
+                }
+                else
+                {
+                    ViewBag.Message = "Invalid login attempt";
+                    return View(model);
+                   // return Content("Failed");
+                }
+            }
+            return View(model);
+        }
+
+
+        //Logout
+        public async Task<IActionResult> Logout()
+        {
+            await signInManager.SignOutAsync();
+            return Content("Home page...");
+        }
+
+
+        [Authorize(Roles ="Client")]
+        public IActionResult Client()
+        {
+            return Content("Client home page...");
+        }
+
+        [Authorize(Roles = "Freelancer")]
+        public IActionResult Freelancer()
+        {
+            return Content("Freelancer home page...");
+        }
+
+
+
 
 
     }
