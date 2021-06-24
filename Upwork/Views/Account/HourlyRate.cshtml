@@ -1,4 +1,4 @@
-﻿
+﻿@model HourlyRateViewModel
 @{
     ViewData["Title"] = "HourlyRate";
     Layout = "~/Views/Shared/_CreateProfileLayout.cshtml";
@@ -29,12 +29,13 @@
                                     <span class="fa-2x" style="color:forestgreen;font-weight:bold"> $ </span>
                                 </div>
                                 <div class="col-3">
-                                    <input type="text" id="Total" class="form-control" />
+                                    <input asp-for="HourlyRate" type="text" id="Total" class="form-control" />
                                 </div>
                                 <div class="col-1">
                                     <h6> /hr </h6>
                                 </div>
                             </div>
+                            <span asp-validation-for="HourlyRate" class="text-danger ml-3"></span>
                         </div>
                         <div class="mb-5" style="border-bottom:1px solid lightgray;padding-bottom:50px">
                             <div class="d-flex justify-content-between row">
@@ -93,18 +94,25 @@
 </div>
 @section Scripts {
     <script src="~/lib/jquery/dist/jquery.js"></script>
-<script>
-    $("#Total").keyup(function () {
-        $("#fee").html("-" + ($("#Total").val() * 20 / 100).toFixed(2));
-        $("#receive").val(($("#Total").val() * 80 / 100).toFixed(2));
-    });
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script>
+        if ($("#Total").val() != null) {
+            $("#fee").html("-" + ($("#Total").val() * 20 / 100).toFixed(2));
+            $("#receive").val(($("#Total").val() * 80 / 100).toFixed(2));
+        }
 
-    $("#receive").keyup(function () {
-        $("#fee").html("-" + ($("#receive").val() / 4 ).toFixed(2));
-        $("#Total").val(($("#receive").val() * 100 / 80 ).toFixed(2));
-    });
+        $("#Total").keyup(function () {
+            $("#fee").html("-" + ($("#Total").val() * 20 / 100).toFixed(2));
+            $("#receive").val(($("#Total").val() * 80 / 100).toFixed(2));
+        });
 
-</script>
+        $("#receive").keyup(function () {
+            $("#fee").html("-" + ($("#receive").val() / 4).toFixed(2));
+            $("#Total").val(($("#receive").val() * 100 / 80).toFixed(2));
+        });
+
+    </script>
 
 }
 

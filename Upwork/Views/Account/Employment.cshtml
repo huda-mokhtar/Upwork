@@ -1,9 +1,14 @@
-﻿
+﻿@model IEnumerable<Freelancer_Experience>
 @{
     ViewData["Title"] = "Employment";
     Layout = "~/Views/Shared/_CreateProfileLayout.cshtml";
 }
+@{ 
+    CultureInfo ci = new CultureInfo("en-US");
 
+}
+<div id="ModalPlaceHolder" class="text-center col-6">
+</div>
 <div class="container">
     <div class="row">
         <div class="col-12">
@@ -16,30 +21,38 @@
                     <div class="card-body">
                         <h5 class="card-title" style="padding:1px;margin:1px"> Add your past work experience </h5>
                         <p class="card-title"> Build your credibility by showcasing the projects or jobs tou have completed. </p>
-                        <div class="mt-4 mb-5">
-                            <div class="d-flex justify-content-between row">
-                                <div class="col-10">
-                                    <h5 style="padding:0;margin:0"> Web Developer | Google </h5>
-                                    <p style="padding:0;margin:0" class="text-muted"> March 2018 - February 2020 </p>
-                                    <p style="padding:0;margin:0"> .NET Fullstack web developer with a year experience ... (Description)  </p>
-                                </div>
-                                <div class="col-2">
-                                    <a>
-                                        <span style="font-size: 0.8rem; color: #656565; border: 1px solid #ccc; border-radius: 50%; padding: 0.6rem; " class="fa fa-pen"></span>
-                                    </a>
-                                    <a>
-                                        <span style="font-size: 0.8rem; color: #656565; border: 1px solid #ccc; border-radius: 50%; padding: 0.6rem; " class="fa fa-trash-alt"></span>
-                                    </a>
+                        @foreach (var item in Model)
+                        {
+
+                            <div class="mt-4 mb-5">
+                                <div class="d-flex justify-content-between row">
+                                    <div class="col-10">
+                                        <h5 style="padding:0;margin:0"> @item.JobTitle.Name | @item.Company.Name </h5>
+                                        <p style="padding:0;margin:0" class="text-muted"> @item.From.ToString("MMMM", ci) @item.From.Year - @item.To.ToString("MMMM", ci) @item.To.Year </p>
+                                        <p style="padding:0;margin:0"> @item.Description  </p>
+                                    </div>
+                                    <div class="col-2">
+                                        <a>
+                                            <span style="font-size: 0.8rem; color: #656565; border: 1px solid #ccc; border-radius: 50%; padding: 0.6rem; " class="fa fa-pen"></span>
+                                        </a>
+                                        <a asp-action="DeleteEmployement" asp-controller="Account" asp-route-FreelancerId="@item.FreelancerId" asp-route-CompanyId="@item.CompanyId" asp-route-CountryId="@item.CountryId" asp-route-JobTitleId="@item.JobTitleId">
+                                            <span style="font-size: 0.8rem; color: #656565; border: 1px solid #ccc; border-radius: 50%; padding: 0.6rem; " class="fa fa-trash-alt"></span>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        }
                         <div class="container-fluid align-content-center border-dark">
                             <div class="row pb-3">
-                                <button style="all:unset;border:1px solid lightgrey;color: forestgreen;padding: 10px 30px;text-align: center;text-decoration: none;display: inline-block;margin: 4px 2px;cursor: pointer;border-radius: 20px;" class="bg-white">
+                                <button type="button" data-toggle="ajax-modal" data-target="#AddEmployement" data-url="@Url.Action("AddEmployement")" style="all:unset;border:1px solid lightgrey;color: forestgreen;padding: 10px 30px;text-align: center;text-decoration: none;display: inline-block;margin: 4px 2px;cursor: pointer;border-radius: 20px;" class="bg-white">
                                     <span class="fa fa-plus"></span> <span>  Add Employment </span>
                                 </button>
                             </div>
                         </div>
+                        @if (ViewBag.Message != null)
+                        {
+                            <span id="ErrorMsg" class="text-danger ml-3"> @ViewBag.Message </span>
+                        }
                     </div>
                     <div class="card-footer" style="height:100px">
                         <div class="container-fluid">
@@ -53,9 +66,50 @@
                             </div>
                         </div>
                     </div>
-                </form>       
+                </form>
             </div>
         </div>
     </div>
 </div>
+@section Scripts{
 
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script>
+
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+
+        var placeHolderElement = $("#ModalPlaceHolder");
+        $('button[data-toggle="ajax-modal"]').click(function (x) {
+            var url = $(this).data('url');
+            $.get(url).done(function (data) {
+                placeHolderElement.html(data);
+                placeHolderElement.find('.modal').modal('show');
+
+            })
+        });
+
+        placeHolderElement.on('click', '[data-save="modal"]', function (x) {
+           // if ($(".School").val().trim().length == 0) {
+                //$("#SchoolErrorMsg").show();
+                // validation here
+           // }
+           // else {
+                var form = $(this).parents('.modal').find('form');
+                var actionUrl = form.attr('action');
+                var sendData = form.serialize();
+                $.post(actionUrl, sendData).done(function (data) {
+                    placeHolderElement.find('.modal').modal('hide');
+                    window.location.reload();
+                });
+           // }
+
+        });
+
+        $("#SchoolErrorMsg").show();
+        $("#SchoolErrorMsg").addClass("text-success");
+
+    </script>
+}

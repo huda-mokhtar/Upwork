@@ -1,4 +1,4 @@
-﻿
+﻿@model PhoneViewModel
 @{
     ViewData["Title"] = "Phone";
     Layout = "~/Views/Shared/_CreateProfileLayout.cshtml";
@@ -18,17 +18,18 @@
                         <h5 class="card-title pb-3"> Add your phone number. </h5>
                         <div class="container-fluid align-content-center border-dark" style="height:150px">
                             <h6 class="card-title"> Phone </h6>
-                            <div class="row form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-outline mb-4">
-                                <select class="custom-select col-3" aria-label="Default select example">
-                                    @foreach (var item in ViewBag.Countries) 
+                            <div class="row form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-outline mb-2">
+                                <select asp-for="CountryId" class="custom-select col-3" aria-label="Default select example">
+                                    @foreach (var item in ViewBag.Countries)
                                     {
-                                        <option>
+                                        <option value="@item.CountryId">
                                             @item.Name  +@item.Key
                                         </option>
                                     }
-                                </select>                            
-                                <input type="text" class="form-control col-9" placeholder="Enter number" />
+                                </select>
+                                <input type="number" asp-for="Phone" class="form-control col-9" placeholder="Enter number" />
                             </div>
+                            <span asp-validation-for="Phone" class="text-danger ml-3"></span>
                             <p class="card-title"> Your phone will not be shared with clients. </p>
                         </div>
                     </div>
@@ -36,7 +37,7 @@
                         <div class="container-fluid">
                             <div class="row" style="margin-top:17px">
                                 <div class="col-2">
-                                    <a asp-action="Loaction" asp-controller="Account" class="btn text-success bg-white" style="border-color:lightgrey">Back</a>
+                                    <a asp-action="Location" asp-controller="Account" class="btn text-success bg-white" style="border-color:lightgrey">Back</a>
                                 </div>
                                 <div class="offset-8 text-right">
                                     <button type="submit" class="btn btn-success" style="border-color:lightgrey;">Next</button>
@@ -51,3 +52,11 @@
     </div>
 </div>
 
+@section Scripts{
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script>
+
+    </script>
+}

@@ -10,11 +10,11 @@ namespace Upwork.Models.ViewModels.Register
     {
         [Display(Name ="Category")]
         [Required(ErrorMessage ="You must select a category. ")]
-        public int CategoryId { get; set; }
+        public int? CategoryId { get; set; }
 
         [Display(Name = "Subcategory")]
         [Required(ErrorMessage = "You must select a subcategory. ")]
-        public int SubCategoryId { get; set; }
+        public int? SubCategoryId { get; set; }
 
     }
 }

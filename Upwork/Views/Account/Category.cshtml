@@ -12,35 +12,35 @@
                     <h4>Category</h4>
                     <p class="text-muted">2 of 12</p>
                 </div>
-                <form asp-action="Category" asp-controller="Account">
+                <form id="CategoryForm" asp-action="Category" asp-controller="Account">
                     <div class="card-body">
                         <h5 class="card-title pb-3">Tell us about the work you do</h5>
                         <h6 class="card-title">What is the main service you offer ?</h6>
                         <div class="container-fluid align-content-center border-dark" style="height:150px">
-                            <div class="row pb-3">
-                                <select class="custom-select" asp-for="CategoryId" asp-items="ViewBag.CategoryId" aria-label="Default select example">
+                            <div class="row form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-outline">
+                                <select class="custom-select categoryList" asp-for="CategoryId" asp-items="ViewBag.CategoryId" aria-label="Default select example">
                                     <option value="none" selected disabled hidden>
                                         Select a category
                                     </option>
                                 </select>
+                                <span class="text-danger CategoryErrorMsg ml-1" asp-validation-for="CategoryId"></span>
                             </div>
-                            <span class="text-danger ml-5" asp-validation-for="CategoryId"></span>
 
-                            <div class="row form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-outline" style="margin-top:20px">
-                                <select class="custom-select" asp-for="SubCategoryId" aria-label="Default select example">
-                                    <option value="none" selected disabled hidden>
+                            <div class="row form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-outline mt-4">
+                                <select class="custom-select SubCategoryList" asp-for="SubCategoryId" asp-items="ViewBag.SubCategoryId" aria-label="Default select example">
+                                    <option selected disabled hidden>
                                         Select a subcategory
                                     </option>
                                 </select>
+                                <span class="text-danger ml-1 SubCategoryErrorMsg" asp-validation-for="SubCategoryId"></span>
                             </div>
-                            <span class="text-danger ml-5" asp-validation-for="SubCategoryId"></span>
                         </div>
                     </div>
                     <div class="card-footer" style="height:100px">
                         <div class="container-fluid">
                             <div class="row" style="margin-top:17px">
                                 <div class="col-2">
-                                    <button class="btn text-success bg-white" style="border-color:lightgrey">Back</button>
+                                    <a asp-action="GettingStarted" asp-controller="Account" class="btn text-success bg-white" style="border-color:lightgrey">Back</a>
                                 </div>
                                 <div class="offset-8 text-right">
                                     <button type="submit" class="btn btn-success" style="border-color:lightgrey;">Next</button>
@@ -84,6 +84,12 @@
             })
         })
 
-        $(".GettingStarted").removeClass("text-muted");
+        $(".categoryList").change(function () {
+            $(".CategoryErrorMsg").hide();
+        });
+
+        $(".SubCategoryList").change(function () {
+            $(".SubCategoryErrorMsg").hide();
+        });
     </script>
 }
