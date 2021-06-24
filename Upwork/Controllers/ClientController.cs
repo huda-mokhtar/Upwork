@@ -453,6 +453,10 @@ namespace Upwork.Controllers
         {
             return View();
         }
+        public IActionResult JobDetails()
+        {
+            return View();
+        }
 
     }
 }

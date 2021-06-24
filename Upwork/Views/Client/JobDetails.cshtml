@@ -1,0 +1,302 @@
+﻿@{
+    ViewData["Title"] = "Job Details";
+    Layout = "_ClientLayout";
+}
+@section Style{
+    <link href="~/css/JobDetails.css" rel="stylesheet" />
+}
+
+
+<div class="text-center">
+    <div class="container">
+
+
+        <div class="row m-0">
+            <div class="col-md-11 mx-auto my-4">
+
+
+                <!-- Tabs with icons on Card -->
+                <div class="card card-nav-tabs">
+                    <div class="card-header card-header-primary">
+                        <!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
+                        <div class="nav-tabs-navigation">
+                            <div class="nav-tabs-wrapper">
+                                <ul class="nav nav-tabs " data-tabs="tabs">
+                                    <li class="nav-item mx-4">
+                                        <a class="nav-link active px-5" href="#jobDetails" data-toggle="tab">
+
+                                            View Job Post
+                                        </a>
+                                    </li>
+                                    <li class="nav-item mx-4">
+                                        <a class="nav-link px-5" href="#jobProposal" data-toggle="tab">
+
+                                            Review Proposals (2)
+                                        </a>
+                                    </li>
+                                    <li class="nav-item mx-4">
+                                        <a class="nav-link px-5" href="#hires" data-toggle="tab">
+
+                                            Hired (0)
+                                        </a>
+
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div><div class="card-body m-0 p-0 ">
+                        <div class="tab-content text-center m-0 p-0">
+                            <div class="tab-pane active m-0 p-0" id="jobDetails">
+                                <div class="row m-0 py-2 pl-2 pr-0">
+                                    <div class="col-9 Jobdetails text-left">
+                                        <div class="jobTitle py-4">
+                                            <h5 style="font-weight: 500;"> Job Details </h5>
+                                            <p class="mt-4 mb-0" style="font-weight: 500; font-size: 16px;">
+                                                Front-End Development
+                                            </p>
+                                            <p class="mb-3" style="color:#3c4858;font-weight:400; font-size: 16px;">
+                                                Posted 2 months ago
+                                            </p>
+                                            <i class="fa fa-map-marker mr-1" aria-hidden="true" style="color:blue; font-weight:400; font-size: 16px; display: inline-block;"></i>
+                                            <p class=" my-auto" style="color:#3c4858;font-weight:400; font-size: 16px; display: inline-block;">
+                                                Worldwide
+                                            </p>
+                                        </div>
+                                        <div class="jobDescription py-3">
+                                            <p class="my-auto" style="font-weight: 480; font-size: 16px;">
+                                                I need front end developer to design e-commerce web site pages
+                                            </p>
+                                        </div>
+                                        <div class="jobDescription py-3">
+                                            <div class="row m-0">
+                                                <div class="col-4 m-0 p-0">
+                                                    <div class="row m-0">
+                                                        <div class="col-1 m-0">
+                                                            <i class="fa fa-clock-o " aria-hidden="true"></i>
+                                                        </div>
+                                                        <div class="col-10">
+                                                            <p class="mb-0" style="font-weight: 480; font-size: 16px;">
+                                                                Less than 30 hrs/week
+                                                            </p>
+                                                            <p style="color:rgb(131, 131, 131);font-weight: 490; font-size: 14px;">
+                                                                Hourly
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-4 m-0 p-0">
+                                                    <div class="row m-0">
+                                                        <div class="col-1 ">
+                                                            <i class="fa fa-calendar-check-o " aria-hidden="true"></i>
+                                                        </div>
+                                                        <div class="col-10">
+                                                            <p class="mb-0" style="font-weight: 480; font-size: 16px;">
+                                                                Less than a month
+                                                            </p>
+                                                            <p style="color:rgb(131, 131, 131);font-weight: 490; font-size: 14px;">
+                                                                Project Length
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4 m-0 p-0">
+                                                    <div class="row m-0">
+                                                        <div class="col-1 m-0">
+                                                            <i class="fa fa-hourglass-end"></i>
+                                                        </div>
+                                                        <div class="col-10">
+                                                            <p class="mb-0" style="font-weight: 480; font-size: 16px;">
+                                                                $10.00-$25.00
+                                                            </p>
+                                                            <p class="mt-0" style="color:rgb(131, 131, 131);font-weight: 490; font-size: 14px;">
+                                                                Hourly
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-5 ml-0 pl-0">
+                                                    <div class="row m-0">
+                                                        <div class="col-1 ">
+                                                            <i class="fa fa-usd" aria-hidden="true"></i>
+                                                        </div>
+                                                        <div class="col-10">
+                                                            <p class="mb-0" style="font-weight: 480; font-size: 16px;">
+                                                                Entry level
+                                                            </p>
+                                                            <p style="color:rgb(131, 131, 131);font-weight: 490; font-size: 14px;">
+                                                                I am looking for freelancers with the lowest rates
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="jobDescription py-3">
+                                            <h6 class="my-auto" style=" display: inline-block;">
+                                                Project Type:
+                                            </h6>
+                                            <div style="display: inline-block;">
+                                                <p style="color:rgb(77, 77, 77);font-weight: 490; font-size: 15px;">
+                                                    One-time project
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class=" py-3">
+                                            <h6 class="my-2">
+                                                Skills and expertise
+                                            </h6>
+                                            <div class="my-3">
+                                                <div class="Job-skills py-1 px-2 m-1">PHP</div>
+                                                <div class="Job-skills py-1 px-2 m-1">JavaScript</div>
+                                                <div class="Job-skills py-1 px-2 m-1 ">CSS3</div>
+                                                <div class="Job-skills py-1 px-2 m-1 ">JQuery</div>
+                                                <div class="Job-skills py-1 px-2 m-1 ">MVC</div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-3 m-0 p-0 text-left" style="background-color: #f9f9f9;">
+                                        <div class="py-5  mx-3 text-left">
+                                            <i class="fa fa-retweet text-success mr-1" aria-hidden="true"></i>
+                                            <a class="reuseLink" href="#">
+                                                Reuse Posting
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+
+                            </div>
+                            <div class="tab-pane" id="jobProposal">
+                                <div class="row m-0 p-0 mt-3">
+                                    <div class="col-9 m-auto p-2">
+                                        <img src="proposals.png" />
+                                    </div>
+                                </div>
+                                <div class="porposed mt-4 mb-0">
+                                    <div class="row m-0 p-0">
+                                        <div class="col-2 m-0 p-0">
+                                            <img src="noura1.JPG" class="Freelancer-photo my-auto" />
+                                        </div>
+                                        <div class="col-8 text-left">
+                                            <a class="mb-0 reuseLink" href="#" style="font-size: 15;">
+                                                Noura Osama
+                                            </a>
+                                            <p class="mb-0" style="font-size: 16px;font-weight: 650;">
+                                                Full Stack Wordpress Developer
+                                            </p>
+                                            <p class="mb-0" style="font-size: 15;color: rgb(102, 102, 102);font-weight: 600;">
+                                                Egypt
+                                            </p>
+                                            <p class="mb-0" style="font-size: 15; color: rgb(102, 102, 102);font-weight: 600;">
+                                                $20.00 / Hour
+                                            </p>
+                                            <p class="mt-3" style="font-size: 16px; color: black; font-weight: 400;">
+                                                Has <span style="font-weight: 500;">3 relevant skills</span>  to your job
+                                            </p>
+                                            <div class="m-0 p-0">
+                                                <div class="Job-skills py-1 px-2 m-1">PHP</div>
+                                                <div class="Job-skills py-1 px-2 m-1">JavaScript</div>
+                                                <div class="Job-skills py-1 px-2 m-1 ">CSS3</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-2 p-0 text-right">
+                                            <div class="lightDev text-center py-1 px-2 m-2">
+                                                Hire
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="porposed  mb-0">
+                                    <div class="row my-3 p-0 m-0">
+                                        <div class="col-2 m-0 p-0">
+                                            <img src="Wafaa1.jpg" class="Freelancer-photo my-auto" />
+                                        </div>
+                                        <div class="col-8 text-left">
+                                            <a class="mb-0 reuseLink" href="#" style="font-size: 15;">
+                                                Wafaa Elsaeed
+                                            </a>
+                                            <p class="mb-0" style="font-size: 16px;font-weight: 650;">
+                                                Front-End Developer
+                                            </p>
+                                            <p class="mb-0" style="font-size: 15;color: rgb(102, 102, 102);font-weight: 600;">
+                                                Egypt
+                                            </p>
+                                            <p class="mb-0" style="font-size: 15; color: rgb(102, 102, 102);font-weight: 600;">
+                                                $25.00 / Hour
+                                            </p>
+                                            <p class="mt-3" style="font-size: 16px; color: black; font-weight: 400;">
+                                                Has <span style="font-weight: 500;">4 relevant skills</span>  to your job
+                                            </p>
+                                            <div class="m-0 p-0">
+                                                <div class="Job-skills py-1 px-2 m-1">Angular</div>
+                                                <div class="Job-skills py-1 px-2 m-1">JQuery</div>
+                                                <div class="Job-skills py-1 px-2 m-1 ">CSS3</div>
+                                                <div class="Job-skills py-1 px-2 m-1 ">HTML5</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-2 p-0 text-right">
+                                            <div class="lightDev text-center py-1 px-2 m-2">
+                                                Hire
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
+
+                            <div class="tab-pane" id="hires">
+                                <div class="row m-0 p-0 mt-3">
+                                    <div class="col-9 m-auto p-2">
+                                        <img src="hired0.png" />
+                                    </div>
+                                </div>
+                                <div class="porposed  mb-0">
+                                    <div class="row my-3 p-0 m-0">
+                                        <div class="col-2 m-0 p-0">
+                                            <img src="Wafaa1.jpg" class="Freelancer-photo my-auto" />
+                                        </div>
+                                        <div class="col-8 text-left">
+                                            <a class="mb-0 reuseLink" href="#" style="font-size: 15;">
+                                                Wafaa Elsaeed
+                                            </a>
+                                            <p class="mb-0" style="font-size: 16px;font-weight: 650;">
+                                                Front-End Developer
+                                            </p>
+                                            <p class="mb-0" style="font-size: 15;color: rgb(102, 102, 102);font-weight: 600;">
+                                                Egypt
+                                            </p>
+                                            <p class="mb-0" style="font-size: 15; color: rgb(102, 102, 102);font-weight: 600;">
+                                                $25.00 / hr
+                                            </p>
+
+                                        </div>
+                                        <div class="col-2 p-0 text-right">
+                                            <div class="lightDev text-center py-1 px-2 m-2" style="cursor: unset;">
+                                                <i class="fa fa-check-circle mr-1" style="color: #14a800; display: inline-block;" aria-hidden="true"></i> Hired
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Tabs with icons on Card -->
+
+            </div>
+
+        </div>
+    </div>
+</div>
