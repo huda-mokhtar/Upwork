@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<Jobs>
+
+@{
     ViewData["Title"] = "All Job Posts";
     Layout = "_ClientLayout";
 }
@@ -49,94 +51,99 @@
                             </div>
                         </div>
                     </div>
-                    <div class="myDrafts py-3 px-4">
-                        <div class="row m-0 p-0" style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
-                            <div class="col-8 text-left ">
-                                <a href="" class="braek">
-                                    UX/UI designer to bring website mockup and prototype to
-                                    life
-                                </a>
-                            </div>
-                            <div class="col-4">
-                                <div class="row m-0">
-                                    <div class="col-9 text-right">
-                                        <div class="text-light text-center px-3 py-2 devBtnGreen m-0" style=" width:fit-content ; height: auto; display: inline-block;">
-                                            <h6 class="m-0 p-0"> Edit Draft </h6>
-                                        </div>
+                    @foreach (var job in Model)
+                    {
+                        if (job.IsDraft == true)
+                        {
+                            <div class="myDrafts py-3 px-4">
+                                <div class="row m-0 p-0" style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
+                                    <div class="col-8 text-left ">
+                                        <a href="" class="braek">@job.Title</a>
                                     </div>
-                                    <div class="col-3 text-right">
-                                        <div class="m-0 text-right dropdown">
-                                            <div class="circlee-points container-circleeAlljobs" data-toggle="dropdown"
-                                                 aria-haspopup="true" aria-expanded="false">
-                                                <i class="fa fa-ellipsis-h 2x " style="color:rgb(83, 83, 83) ;"></i>
+                                    <div class="col-4">
+                                        <div class="row m-0">
+                                            <div class="col-9 text-right">
+                                                <div class="text-light text-center px-3 py-2 devBtnGreen m-0" style=" width:fit-content ; height: auto; display: inline-block;">
+                                                    <a class="m-0 p-0 text-white" asp-action="EditJob" asp-route-id="@job.Id">Edit Draft </a>
+                                                </div>
                                             </div>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="#">Edit Draft</a>
-                                                <a class="dropdown-item" href="#">Remove Draft</a>
+                                            <div class="col-3 text-right">
+                                                <div class="m-0 text-right dropdown">
+                                                    <div class="circlee-points container-circleeAlljobs" data-toggle="dropdown"
+                                                         aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fa fa-ellipsis-h 2x " style="color:rgb(83, 83, 83) ;"></i>
+                                                    </div>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" asp-action="EditJob" asp-route-id="@job.Id">Edit Draft</a>
+                                                        <a class="dropdown-item" asp-action="DeleteJob" asp-route-id="@job.Id">Remove Draft</a>
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row m-0 p-0 mt-3" style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
-                            <div class="col-5 text-left ml-1 mt-1">
-                                <p style="font-size: 15px;">Draft - Saved Jun 8, 2021</p>
-                            </div>
-
-
-                        </div>
-                    </div>
-                    <div class="myDrafts py-3 px-4">
-                        <div class="row m-0 p-0" style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
-                            <div class="col-8 text-left ">
-                                <a href="" class="braek">
-                                    Build responsive WordPress site with booking/payment functionality
-                                </a>
-                            </div>
-                            <div class="col-4">
-                                <div class="row m-0">
-                                    <div class="col-9 text-right">
-                                        <div class="text-light text-center px-3 py-2 devBtnGreen m-0" style=" width:fit-content ; height: auto; display: inline-block;">
-                                            <h6 class="m-0 p-0"> Reuse Draft </h6>
-                                        </div>
-                                    </div>
-                                    <div class="col-3 text-right">
-                                        <div class="m-0 text-right dropdown">
-                                            <div class=" circlee-points container-circleeAlljobs " data-toggle="dropdown"
-                                                 aria-haspopup="true" aria-expanded="false">
-                                                <i class="fa fa-ellipsis-h 2x " style="color:rgb(83, 83, 83) ;"></i>
-                                            </div>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="#">Edit Draft</a>
-                                                <a class="dropdown-item" href="#">Remove Draft</a>
-
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="row m-0 p-0 mt-3" style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
-                            <div class="col-5 text-left ml-1 mt-1">
-                                <p style="font-size: 15px;">Closed - Jun 4, 2021</p>
-                            </div>
-                            <div class="col-2 mr-1">
-                                <p class="mb-0" style="color: black; font-size: 16px;">0</p>
-                                <p>Proposals</p>
-                            </div>
-                            <div class="col-2 ">
-                                <p class="mb-0 " style="color: black; font-size: 16px;">0</p>
-                                <p>Messaged</p>
-                            </div>
-                            <div class="col-2 ">
-                                <p class="mb-0" style="color: black; font-size: 16px;">2</p>
-                                <p>Hired</p>
-                            </div>
+                                <div class="row m-0 p-0 mt-3" style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
+                                    <div class="col-5 text-left ml-1 mt-1">
+                                        <p style="font-size: 15px;">Draft - Saved @job.CreateDate</p>
+                                    </div>
 
-                        </div>
-                    </div>
+
+                                </div>
+                            </div>
+                        }
+                        else if (job.IsDraft == false)
+                        {
+                            <div class="myDrafts py-3 px-4">
+                                <div class="row m-0 p-0" style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
+                                    <div class="col-8 text-left ">
+                                        <a href="" class="braek">@job.Title</a>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="row m-0">
+                                            <div class="col-9 text-right">
+                                                <div class="text-light text-center px-3 py-2 devBtnGreen m-0" style=" width:fit-content ; height: auto; display: inline-block;">
+                                                    <h6 class="m-0 p-0"> Reuse posting </h6>
+                                                </div>
+                                            </div>
+                                            <div class="col-3 text-right">
+                                                <div class="m-0 text-right dropdown">
+                                                    <div class=" circlee-points container-circleeAlljobs " data-toggle="dropdown"
+                                                         aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fa fa-ellipsis-h 2x " style="color:rgb(83, 83, 83) ;"></i>
+                                                    </div>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="#">Edit Draft</a>
+                                                        <a class="dropdown-item" href="#">Remove Draft</a>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row m-0 p-0 mt-3" style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
+                                    <div class="col-5 text-left ml-1 mt-1">
+                                        <p style="font-size: 15px;">Closed - @job.CreateDate</p>
+                                    </div>
+                                    <div class="col-2 mr-1">
+                                        <p class="mb-0" style="color: black; font-size: 16px;">0</p>
+                                        <p>Proposals</p>
+                                    </div>
+                                    <div class="col-2 ">
+                                        <p class="mb-0 " style="color: black; font-size: 16px;">0</p>
+                                        <p>Messaged</p>
+                                    </div>
+                                    <div class="col-2 ">
+                                        <p class="mb-0" style="color: black; font-size: 16px;">2</p>
+                                        <p>Hired</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        }
+                    }
+
                 </div>
             </div>
         </div>
