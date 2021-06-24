@@ -27,12 +27,13 @@ namespace Upwork.Controllers
         public async Task<IActionResult> Index()
         {
             //CurrentUser = await _UserManager.GetUserAsync(User);
-            var freelancer = await _context.Freelancers.Include(a=>a.SubCategory).Include(a=>a.Category).FirstOrDefaultAsync(a =>a.FreelancerId == "a123");
+            var freelancer = await _context.Freelancers.Include(a=>a.SubCategory).Include(a=>a.Category).Include(a => a.Freelancer_Jobs).FirstOrDefaultAsync(a =>a.FreelancerId == "a123");
             var Jobs = await _context.Jobs.Include(a=>a.jobsSkills).Where(a => a.subCategoryId == freelancer.SubCategoryId && a.IsDraft == false).ToListAsync();
             var jobskills = _context.JobsSkills.Select(s => s.skill);
         
             ViewData["Skills"] = jobskills.ToList();
             ViewData["Freelancer"] = freelancer;
+            ViewData["FreelancerJobs"] = _context.Freelancer_Jobs.ToList();
             return View(Jobs);
         }
 
@@ -117,6 +118,29 @@ namespace Upwork.Controllers
             //}
             return RedirectToAction(nameof(Index));
         }
+
+
+        public async Task<IActionResult> SubmitProposal(int ? Id)
+        {
+            if(Id == null)
+            {
+                return BadRequest();
+            }
+
+            var Freelancer = _context.Freelancers.Where(a => a.FreelancerId == "a123").FirstOrDefault();
+            var Job = _context.Jobs.Where(a => a.Id == Id).FirstOrDefault();
+            if(Freelancer == null || Job == null)
+            {
+                return NotFound();
+            }
+            Freelancer_Job job = new Freelancer_Job() { FreelancerId = Freelancer.FreelancerId, JobsId = Job.Id, IsProposal = true };
+            _context.Freelancer_Jobs.Add(job);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+
+
+
 
 
         // GET: Freelancers/Edit/5

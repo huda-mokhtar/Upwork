@@ -123,22 +123,32 @@
                                     </div>
                                     <div class="col-3 text-right">
 
+                                        @foreach (var savedjob in ViewBag.FreelancerJobs)
+                                        {
+                                            if (item.Id == savedjob.JobsId && savedjob.IsSaved == true)
+                                            {
+                                                <div class="circlee-like">
+                                                    <a asp-action="SaveJob" asp-controller="Freelancers" asp-route-id="@item.Id"> <i class="fas fa-heart 2x" style="color:rgb(83, 83, 83) ;"></i></a>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="circlee-like">
+                                                    <a asp-action="UnSaveJob" asp-controller="Freelancers" asp-route-id="@item.Id"> <i class="fa fa-heart-o 2x" style="color:rgb(83, 83, 83) ;"></i></a>
+                                                </div>
+                                            }
+                                        }
 
 
-                                        <div class="circlee-like">
-                                            <a asp-action="SaveJob" asp-controller="Freelancers" asp-route-id="@item.Id"> <i class="fas fa-heart 2x" style="color:rgb(83, 83, 83) ;"></i></a>
-                                        </div>
 
 
-                                        <div class="circlee-like">
-                                            <a asp-action="UnSaveJob" asp-controller="Freelancers" asp-route-id="@item.Id"> <i class="fa fa-heart-o 2x" style="color:rgb(83, 83, 83) ;"></i></a>
-                                        </div>
+
 
 
                                         <div class="circlee-dislike container-freelancer">
                                             <i class="fa fa-thumbs-o-down 2x" style="color:rgb(83, 83, 83) ;"></i>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>
