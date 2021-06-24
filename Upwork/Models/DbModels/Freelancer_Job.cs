@@ -16,7 +16,7 @@ namespace Upwork.Models.DbModels
 
         public bool? IsSaved { get; set; } = false;
         public bool? IsProposal { get; set; } = false;
-
+        public bool? Isdislike { get; set; } = false;
         public Jobs Jobs { get; set; }
 
         public Freelancer Freelancer { get; set; }
