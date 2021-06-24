@@ -449,14 +449,33 @@ namespace Upwork.Controllers
         {
             return View();
         }
-        public IActionResult AllJobPosts()
+        public IActionResult AllJobPosts(string drafted=null)
         {
-            List<Jobs> allJobs = new List<Jobs>(_context.Jobs);
-            allJobs.Reverse();
-            return View(allJobs);
+            if (drafted != null)
+            {
+                if (drafted == "true")
+                {
+                    List<Jobs> allJobsdrafted = new List<Jobs>(_context.Jobs.Where(a=>a.IsDraft==true));
+                    allJobsdrafted.Reverse();
+                    return View(allJobsdrafted);
+                }else
+                {
+                    List<Jobs> allJobsposted = new List<Jobs>(_context.Jobs.Where(a => a.IsDraft == false));
+                    allJobsposted.Reverse();
+                    return View(allJobsposted);
+                }
+            }
+            else
+            {
+                List<Jobs> allJobs = new List<Jobs>(_context.Jobs);
+                allJobs.Reverse();
+                return View(allJobs);
+            }
+            
         }
         public IActionResult JobDetails()
         {
+
             return View();
         }
         public IActionResult ProjectsCatalog()
