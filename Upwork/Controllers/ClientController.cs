@@ -451,8 +451,9 @@ namespace Upwork.Controllers
         }
         public IActionResult AllJobPosts()
         {
-            return View();
+            List<Jobs> allJobs = new List<Jobs>(_context.Jobs);
+            allJobs.Reverse();
+            return View(allJobs);
         }
-
     }
 }
