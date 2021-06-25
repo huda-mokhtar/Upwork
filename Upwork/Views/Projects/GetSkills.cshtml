@@ -2,14 +2,15 @@
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @model List<Skill>
-<div class="row">
-    @foreach (var i in Model)
-    {
-    <div class="col-3">
-        @*<input name="AreChecked" id="@i.SkillId"  type="checkbox" value="@i.SkillId" />
-        @i.Name*@
-        @Html.DisplayFor(modelItem => i.Name) 
-        @Html.CheckBox($@"Skills.{i.SkillId}")
+    <div class="container">
+        <div class="row">
+            @foreach (var i in Model)
+            {
+                <div class="col-4 my-2">
+                    @Html.CheckBox($@"Skills.{i.SkillId}")
+                    @Html.DisplayFor(modelItem => i.Name)
+
+                </div>
+            }
+        </div>
     </div>
-    }
-</div>

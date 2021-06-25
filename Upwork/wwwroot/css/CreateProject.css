@@ -112,13 +112,15 @@
     background: #14a800;
     border-radius: 10rem;
     border-color: transparent;
-    padding: 0.2rem;
     color: #fff;
+}
+    .btn-save button, .btn-save button:hover {
+        color: #fff;
+    }
+.btn-save:hover {
+    background-color: rgba(0, 128, 0, 0.925);
 }
 
-.btn-save button {
-    color: #fff;
-}
 
 .btn-cancle {
     background: #fff;
