@@ -24,7 +24,8 @@
                                     <i class="fa fa-map-marker  Address-time" aria-hidden="true"
                                        style="color: #656565;"></i>
                                     <p class="Address-time my-auto" style="display: inline-block;">
-                                        Al Mansourah , Egypt
+                                        @Model.City.Name , @foreach(var country in ViewBag.countries) { if (country.CountryId == Model.PhoneCountryId)
+                                            {<span> @country.Name </span>} }
                                     </p>
                                     <p class="Address-time my-auto" style="display: inline-block;">
                                         – 4:56 am local time
@@ -69,14 +70,18 @@
                                     </div>
 
                                 </div>
-                                <div class="mt-2 mb-0 mx-2" style="display:-webkit-box; -webkit-box-align:center;">
-                                    <p style="font-weight: 550;" class="mb-0">English : </p>
-                                    <p class=" ml-1 mb-0" style="color: #656565;">Fluent</p>
-                                </div>
-                                <div class="mt-0 mx-2 mb-2" style="display:-webkit-box; -webkit-box-align:center;">
-                                    <p style="font-weight: 550;" class="mt-0">Arabic : </p>
-                                    <p class=" ml-1 mt-0" style="color: #656565;">Native</p>
-                                </div>
+                                @foreach (var language in Model.Languages)
+                                {
+                                    <div class="mt-2 mb-0 mx-2" style="display:-webkit-box; -webkit-box-align:center;">
+                                        <p style="font-weight: 550;" class="mb-0">@foreach (var l in ViewBag.Languages) { if (l.LanguageId == language.LanguageId) { <span>@l.Name </span> } }:</p>
+                                        <p class=" ml-1 mb-0" style="color: #656565;">@foreach (var l in ViewBag.Languagesprofession)
+                                        {
+                                            if (l.ProficiencyId == language.ProficiencyId)
+                                            {<span>@l.Name </span>}
+                                        }</p>
+                                    </div>
+                                }
+                                
                             </div>
 
                             <div class="my-4">
@@ -109,7 +114,7 @@
                                 <div class="row m-0 p-1">
                                     <div class="col-8 p-2 text-left">
                                         <h4 class="my-auto" style="font-weight: 570; display: inline;">
-                                            Trainee at Information Technology Institute (ITI)
+                                            @Model.Title
                                         </h4>
                                         <div class="editIcon  mx-1">
                                             <i class="fa fa-pencil" aria-hidden="true"></i>
@@ -117,7 +122,7 @@
                                     </div>
                                     <div class="col-3 text-right" style="display:-webkit-box; -webkit-box-align:center;">
                                         <h5 style="font-weight: 570;">
-                                            $5.00/hr
+                                            $@Model.HourlyRate/hr
                                         </h5>
                                         <div class="editIcon ">
                                             <i class="fa fa-pencil" aria-hidden="true"></i>
@@ -130,9 +135,7 @@
                                 <div class="row m-0 p-1 mt-3">
                                     <div class="col-10 text-left">
                                         <p style="font-size: 14px; font-weight: 390;">
-                                            Looking for an opportunity in a reputed company that offers a professional working
-                                            environment and enables me as afresh graduate to grow while meeting the corporations<br />
-                                            goals. I would like to work as a member of a professional team , which provides me with an excellent opportunity to prove myself
+                                            @Model.Overview
 
                                         </p>
                                     </div>
@@ -170,20 +173,19 @@
                                 </div>
                                 <div class="row m-0 p-2">
                                     <div class="col-11 text-left">
-                                        <div class="Freelancer-skills py-1 px-2 m-1">PHP</div>
-                                        <div class="Freelancer-skills py-1 px-2 m-1">JavaScript</div>
-                                        <div class="Freelancer-skills py-1 px-2 m-1 ">CSS3</div>
-                                        <div class="Freelancer-skills py-1 px-2 m-1 ">JQuery</div>
-                                        <div class="Freelancer-skills py-1 px-2 m-1 ">MVC</div>
-                                        <div class="Freelancer-skills py-1 px-2 m-1">HTML</div>
-                                        <div class="Freelancer-skills py-1 px-2 m-1 ">LINQ</div>
-                                        <div class="Freelancer-skills py-1 px-2 m-1 ">JQuery</div>
-                                        <div class="Freelancer-skills py-1 px-2 m-1 ">MVC</div>
-                                        <div class="Freelancer-skills py-1 px-2 m-1 ">HTML</div>
-                                        <div class="Freelancer-skills py-1 px-2 m-1 ">LINQ</div>
-                                        <div class="Freelancer-skills py-1 px-2 m-1 ">JQuery</div>
-                                        <div class="Freelancer-skills py-1 px-2 m-1 ">MVC</div>
-                                        <div class="Freelancer-skills py-1 px-2 m-1 ">HTML</div>
+                                        @foreach (var freelancerskill in Model.Skills) {
+                                        @foreach (var skill in ViewBag.Skills)
+                                        {
+                                            if (skill.SkillId == freelancerskill.SkillId)
+                    {
+                                        <div class="Freelancer-skills py-1 px-2 m-1">@skill.Name</div>
+                    }
+                                            
+                                           
+                                        }
+                                        }
+
+                                      
                                     </div>
 
                                 </div>

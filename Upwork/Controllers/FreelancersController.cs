@@ -48,12 +48,17 @@ namespace Upwork.Controllers
                 .Include(f => f.City)
                 .Include(f => f.SubCategory)
                 .Include(f => f.Languages)
+                .Include(a => a.Skills)
                 .FirstOrDefaultAsync(m => m.FreelancerId == id);
             if (freelancer == null)
             {
                 return NotFound();
             }
 
+            ViewData["countries"] = _context.Countries.ToList();
+            ViewData["Languages"] = _context.Languages.ToList();
+            ViewData["Languagesprofession"] = _context.Language_Proficiency.ToList();
+            ViewData["Skills"] = _context.Skills.ToList();
             return View(freelancer);
         }
 
