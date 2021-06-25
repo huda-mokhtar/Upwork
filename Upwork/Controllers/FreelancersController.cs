@@ -115,7 +115,40 @@ namespace Upwork.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
+        public async Task<IActionResult> Dislike(int id)
+        {
+            var FreelancerId = "a123";
+            Freelancer_Job savedJobs = _context.Freelancer_Jobs.Where(a => a.JobsId == id && a.FreelancerId == FreelancerId ).FirstOrDefault();
+            if (savedJobs == null)
+            {
+                savedJobs = new Freelancer_Job() { FreelancerId = FreelancerId, JobsId = id, Isdislike = true };
+                _context.Freelancer_Jobs.Add(savedJobs);
+                _context.SaveChanges();
+            }
+            else
+            {
+                if (savedJobs.Isdislike == false)
+                {
+                    savedJobs.Isdislike = true;
+                    _context.SaveChanges();
+                }
+            }
+            return RedirectToAction(nameof(Index));
+        }
+        public async Task<IActionResult>UnDislike(int id)
+        {
+            var FreelancerId = "a123";
+            Freelancer_Job savedJobs = _context.Freelancer_Jobs.Where(a => a.JobsId == id && a.FreelancerId == FreelancerId).FirstOrDefault();
+            if (savedJobs != null)
+            {
+                if (savedJobs.Isdislike == true)
+                {
+                    savedJobs.Isdislike = false;
+                    _context.SaveChanges();
+                }
+            }
+            return RedirectToAction(nameof(Index));
+        }
 
         public async Task<IActionResult> SubmitProposal(int ? Id)
         {
