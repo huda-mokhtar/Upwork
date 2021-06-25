@@ -286,6 +286,7 @@ namespace Upwork.Controllers
                 var project = _context.Projects.FirstOrDefault(a => a.ProjectId == projectId);
                 project.SimultaneousProjects = model.SimultaneousProjects;
                 project.IsDraft = false;
+                project.Date = DateTime.Now;
                 _context.SaveChanges();
                 HttpContext.Session.Remove("ProjectId");
                 return RedirectToAction(nameof(Index));

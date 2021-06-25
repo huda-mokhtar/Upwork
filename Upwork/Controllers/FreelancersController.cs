@@ -121,7 +121,7 @@ namespace Upwork.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> Dislike(int id)
+        public async Task<IActionResult> DislikeJob(int id)
         {
             var FreelancerId = "a123";
             Freelancer_Job savedJobs = _context.Freelancer_Jobs.Where(a => a.JobsId == id && a.FreelancerId == FreelancerId ).FirstOrDefault();
@@ -139,7 +139,7 @@ namespace Upwork.Controllers
                     _context.SaveChanges();
                 }
             }
-            return RedirectToAction(nameof(Index));
+            return Ok();
         }
       
         public async Task<IActionResult> SubmitProposal(int ? Id)
