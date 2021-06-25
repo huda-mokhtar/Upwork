@@ -145,7 +145,7 @@
                                                 </div>
                                             }
                                         <div class="circlee-dislike container-freelancer">
-                                            <a onclick="DislikeJob(@item.Id), this"> <i class="fa fa-thumbs-o-down 2x" style="color:rgb(83, 83, 83) ;"></i></a>
+                                            <a onclick="DislikeJob(@item.Id,this)"> <i class="fa fa-thumbs-o-down 2x" style="color:rgb(83, 83, 83) ;"></i></a>
                                         </div>
 
                                     </div>
@@ -350,19 +350,16 @@
             })
         }
         function DislikeJob(id, e) {
-            console.log($(e).parent().parent())
-                $(e).parent("div").parent("div").remove();
-      
-            //$.ajax({
-            //    url: "https://localhost:44367/Freelancers/DislikeJob/" + id,
-            //    type: "GET",
-            //    success: () => {
-            //        console.log($(e).parents.length);
-            //    },
-            //    error: (e) => {
-            //        console.log(e);
-            //    }
-            //})
+            $.ajax({
+                url: "https://localhost:44367/Freelancers/DislikeJob/" + id,
+                type: "GET",
+                success: () => {
+                    $(e).parent().parent().parent().parent().parent().remove();
+                },
+                error: (e) => {
+                    console.log(e);
+                }
+            })
         }
     </script>
 }
