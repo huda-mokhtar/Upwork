@@ -105,8 +105,7 @@ namespace Upwork.Controllers
                 }
             }
 
-            return Ok();
-
+            return RedirectToAction(nameof(Index));
         }
         
         public async Task<IActionResult> UnSaveJob(int id)
@@ -119,7 +118,7 @@ namespace Upwork.Controllers
                 _context.SaveChanges();
                 
             }
-            return Ok();
+            return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Dislike(int id)
@@ -140,7 +139,7 @@ namespace Upwork.Controllers
                     _context.SaveChanges();
                 }
             }
-            return Ok();
+            return RedirectToAction(nameof(Index));
         }
       
         public async Task<IActionResult> SubmitProposal(int ? Id)
