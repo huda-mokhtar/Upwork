@@ -480,8 +480,18 @@ namespace Upwork.Controllers
         }
 
 
-        public async Task<IActionResult> JobRate(int Id , int Rate)
+        public async Task<IActionResult> JobRate(int? Id , int? Rate , string FreelancerId)
         {
+            if(Id == null || Rate == null || FreelancerId == null)
+            {
+                return BadRequest();
+            }
+            var Job = _context.Jobs.Where(a => a.Id == Id).FirstOrDefault();
+            if(Job == null)
+            {
+                return NotFound();
+            }
+
             return Ok();
         }
         //public async Task<IActionResult> SaveJob(int id)
