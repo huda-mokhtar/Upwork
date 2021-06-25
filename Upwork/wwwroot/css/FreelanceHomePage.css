@@ -1,4 +1,8 @@
-﻿.radio-group {
+﻿.fa-star{
+    cursor:pointer;
+}
+
+.radio-group {
     position: relative;
 }
 
@@ -207,5 +211,21 @@ input[type='radio']:checked:after {
     }
 
 .checked {
+    color: #14a800;
+}
+
+.star-widget input{
+    display:none;
+}
+.star-widget label{
+    font-size:0.7rem;
+    transition:all 0.2s ease;
+    float:right;
+}
+.star-widget input:not(:checked) ~ label:hover,
+ input:not(:checked) ~ label:hover ~ label {
+    color: #14a800;
+}
+.star-widget input:checked ~ label {
     color: #14a800;
 }

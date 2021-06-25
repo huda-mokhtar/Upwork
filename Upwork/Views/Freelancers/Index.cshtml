@@ -121,29 +121,29 @@
                                     <div class="col-9 text-left m-0 ">
                                         <a asp-action="JobDetails" asp-controller="Client" asp-route-Id="@item.Id">@item.Title </a>
                                     </div>
-                                    <div class="col-3 text-right">                  
-                                            @foreach (var Jobs in item.freelancer_Jobs)
+                                    <div class="col-3 text-right">
+                                        @foreach (var Jobs in item.freelancer_Jobs)
+                                        {
+                                            if (Jobs.IsSaved == true)
                                             {
-                                                if (Jobs.IsSaved == true)
-                                                {
-                                                    <div class="circlee-like">
-                                                        <a asp-action="UnSaveJob" asp-controller="Freelancers" asp-route-id="@item.Id"> <i class="fa fa-heart 2x" style="color:rgb(83, 83, 83) ;"></i></a>
-                                                    </div>
-                                                }
-                                                else
-                                                {
-                                                    <div class="circlee-like">
-                                                        <a asp-action="SaveJob" asp-controller="Freelancers" asp-route-id="@item.Id"> <i class="fa fa-heart-o 2x" style="color:rgb(83, 83, 83) ;"></i></a>
-                                                    </div>
-                                                }
-
+                                                <div class="circlee-like">
+                                                    <a asp-action="UnSaveJob" asp-controller="Freelancers" asp-route-id="@item.Id"> <i class="fa fa-heart 2x" style="color:rgb(83, 83, 83) ;"></i></a>
+                                                </div>
                                             }
-                                            @if (item.freelancer_Jobs.FirstOrDefault(a => a.JobsId == item.Id) == null)
+                                            else
                                             {
                                                 <div class="circlee-like">
                                                     <a asp-action="SaveJob" asp-controller="Freelancers" asp-route-id="@item.Id"> <i class="fa fa-heart-o 2x" style="color:rgb(83, 83, 83) ;"></i></a>
                                                 </div>
                                             }
+
+                                        }
+                                        @if (item.freelancer_Jobs.FirstOrDefault(a => a.JobsId == item.Id) == null)
+                                        {
+                                            <div class="circlee-like">
+                                                <a asp-action="SaveJob" asp-controller="Freelancers" asp-route-id="@item.Id"> <i class="fa fa-heart-o 2x" style="color:rgb(83, 83, 83) ;"></i></a>
+                                            </div>
+                                        }
                                         <div class="circlee-dislike container-freelancer">
                                             <a onclick="DislikeJob(@item.Id,this)"> <i class="fa fa-thumbs-o-down 2x" style="color:rgb(83, 83, 83) ;"></i></a>
                                         </div>
@@ -187,7 +187,7 @@
                                                 }
 
                                             }
-                                         }
+                                        }
 
                                     </div>
                                 </div>
@@ -211,14 +211,20 @@
                                                 Payment verified
                                             </p>
                                         </div>
-                                        <div class="col-4 col-md-3 m-0 p-0">
-                                            <div style="color: grey;">
-
-                                                @*<i class="fa fa-star checked mx-0 px-0" aria-hidden="true"></i>
-                                                <i class="fa fa-star checked mx-0 px-0" aria-hidden="true"></i>
-                                                <i class="fa fa-star checked mx-0 px-0" aria-hidden="true"></i>
-                                                <i class="fa fa-star mx-0 px-0" aria-hidden="true"></i>
-                                                <i class="fa fa-star mx-0 px-0" aria-hidden="true"></i>*@
+                                        <div class="col-4 col-md-2 m-0 p-0">
+                                            <div style="color: grey;" class="star-widget">
+                                                <input type="radio" name="Rate" id="rate-5" />
+                                                <label for="rate-5" onclick="rate(@item.Id , 5)" class="fa fa-star mx-0 px-0"></label>
+                                                <input type="radio" name="Rate" id="rate-4" />
+                                                <label for="rate-4" onclick="rate(@item.Id , 4)" class="fa fa-star mx-0 px-0"></label>
+                                                <input type="radio" name="Rate" id="rate-3" />
+                                                <label for="rate-3" onclick="rate(@item.Id , 3)" class="fa fa-star mx-0 px-0"></label>
+                                                <input type="radio" name="Rate" id="rate-2" />
+                                                <label for="rate-2" onclick="rate(@item.Id , 2)" class="fa fa-star mx-0 px-0"></label>
+                                                <input type="radio" name="Rate" id="rate-1" />
+                                                <label for="rate-1" onclick="rate(@item.Id , 1)" class="fa fa-star mx-0 px-0"></label>
+                                               
+                                               
                                             </div>
                                         </div>
                                         <div class="col-3 m-0 p-0">
@@ -336,6 +342,20 @@
 
 @section Scripts {
     <script>
+        function rate(id, Rate) {
+            console.log(id, Rate);
+            $.ajax({
+                url: "https://localhost:44367/Client/JobRate/" + id + Rate,
+                type: "GET",
+                success: (res) => {
+                    console.log(`success` , res);
+                },
+                error: (e) => {
+                    console.log(e);
+                }
+            })
+        }
+
         function saveJob(id) {
             console.log(id);
             $.ajax({
