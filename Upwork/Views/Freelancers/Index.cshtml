@@ -122,28 +122,30 @@
                                         <a asp-action="JobDetails" asp-controller="Client" asp-route-Id="@item.Id">@item.Title </a>
                                     </div>
                                     <div class="col-3 text-right">
+                                        <a>
                                         @foreach (var Jobs in item.freelancer_Jobs)
                                         {
                                             if (Jobs.IsSaved == true)
                                             {
-                                                <div class="circlee-like">
-                                                    <a asp-action="UnSaveJob" asp-controller="Freelancers" asp-route-id="@item.Id"> <i class="fa fa-heart 2x" style="color:rgb(83, 83, 83) ;"></i></a>
+                                                <div onclick="saveJob(@item.Id,this)" class="circlee-like">
+                                                    <i class="fa fa-heart 2x" style="color:rgb(83, 83, 83) ;"></i>
                                                 </div>
                                             }
                                             else
                                             {
-                                                <div class="circlee-like">
-                                                    <a asp-action="SaveJob" asp-controller="Freelancers" asp-route-id="@item.Id"> <i class="fa fa-heart-o 2x" style="color:rgb(83, 83, 83) ;"></i></a>
+                                                <div onclick="saveJob(@item.Id,this)" class="circlee-like">
+                                                     <i class="fa fa-heart-o 2x" style="color:rgb(83, 83, 83) ;"></i>
                                                 </div>
                                             }
 
                                         }
                                         @if (item.freelancer_Jobs.FirstOrDefault(a => a.JobsId == item.Id) == null)
                                         {
-                                            <div class="circlee-like">
-                                                <a asp-action="SaveJob" asp-controller="Freelancers" asp-route-id="@item.Id"> <i class="fa fa-heart-o 2x" style="color:rgb(83, 83, 83) ;"></i></a>
+                                            <div onclick="saveJob(@item.Id,this)" class="circlee-like">
+                                                <i class="fa fa-heart-o 2x" style="color:rgb(83, 83, 83) ;"></i>
                                             </div>
                                         }
+                                        </a>
                                         <div class="circlee-dislike container-freelancer">
                                             <a onclick="DislikeJob(@item.Id,this)"> <i class="fa fa-thumbs-o-down 2x" style="color:rgb(83, 83, 83) ;"></i></a>
                                         </div>
@@ -356,18 +358,33 @@
             })
         }
 
-        function saveJob(id) {
-            console.log(id);
-            $.ajax({
-                url: "https://localhost:44367/Freelancers/SaveJob/" + id,
-                type: "GET",
-                success: () => {
-                    console.log(`success`);
-                },
-                error: (e) => {
-                    console.log(e);
-                }
-            })
+        function saveJob(Id, e) {
+            console.log($(e).children()[0].classList.contains('fa-heart-o'));
+            if ($(e).children()[0].classList.contains('fa-heart-o')) {
+                $.ajax({
+                    url: "https://localhost:44367/Freelancers/SaveJob/" + Id + "",
+                    type: "GET",
+                    success: (res) => {
+                        $(e).children()[0].classList.remove('fa-heart-o');
+                        $(e).children()[0].classList.add('fa-heart');
+                    },
+                    error: (e) => {
+                        console.log(e);
+                    }
+                })
+            }else {
+                $.ajax({
+                    url: "https://localhost:44367/Freelancers/UnSaveJob/" + Id + "",
+                    type: "GET",
+                    success: (res) => {
+                        $(e).children()[0].classList.remove('fa-heart');
+                        $(e).children()[0].classList.add('fa-heart-o');
+                    },
+                    error: (e) => {
+                        console.log(e);
+                    }
+                })
+            }
         }
         function DislikeJob(id, e) {
             $.ajax({
