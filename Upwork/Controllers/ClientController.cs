@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,6 @@ namespace Upwork.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IHostingEnvironment _hostenviroment;
-
         public ClientController(ApplicationDbContext context, IHostingEnvironment hostingEnvironment)
         {
             _context = context;
@@ -45,9 +45,9 @@ namespace Upwork.Controllers
             }
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-
         public async Task<IActionResult> PostJob(Jobs job)
         {
             if (ModelState.IsValid)
@@ -130,7 +130,6 @@ namespace Upwork.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-
         public async Task<IActionResult> PostJobTitle(Jobs job)
         {
             if (ModelState.IsValid)
@@ -239,7 +238,6 @@ namespace Upwork.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-
         public async Task<IActionResult> PostJobSkills( IFormCollection job)
         {
             //return Json(Request.Form["Skills"]);
@@ -292,7 +290,6 @@ namespace Upwork.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-
         public async Task<IActionResult> PostJobScope(Jobs job)
         {
             if (ModelState.IsValid)
@@ -329,7 +326,6 @@ namespace Upwork.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-
         public async Task<IActionResult> PostJobBudget(Jobs job)
         {
             if (ModelState.IsValid)
@@ -380,7 +376,6 @@ namespace Upwork.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-
         public async Task<IActionResult> ReviewJobPosting(Jobs job)
         {
             //if (ModelState.IsValid)
@@ -478,9 +473,10 @@ namespace Upwork.Controllers
 
             return View();
         }
-        public IActionResult ProjectsCatalog()
+        public  IActionResult ProjectsCatalog()
         {
-            return View();
+            var Projects = _context.Projects.Include(a => a.Freelancer.User).Include(a=>a.SubCategory).ToList();
+            return View(Projects);
         }
 
     }

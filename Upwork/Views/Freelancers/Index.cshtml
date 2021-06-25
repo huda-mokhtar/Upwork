@@ -121,28 +121,31 @@
                                     <div class="col-9 text-left m-0 ">
                                         <a asp-action="JobDetails" asp-controller="Client" asp-route-Id="@item.Id">@item.Title </a>
                                     </div>
-                                    <div class="col-3 text-right">
+                                    <div class="col-3 text-right">                  
+                                            @foreach (var Jobs in item.freelancer_Jobs)
+                                            {
+                                                if (Jobs.IsSaved == true)
+                                                {
+                                                    <div class="circlee-like">
+                                                        <a asp-action="UnSaveJob" asp-controller="Freelancers" asp-route-id="@item.Id"> <i class="fa fa-heart 2x" style="color:rgb(83, 83, 83) ;"></i></a>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="circlee-like">
+                                                        <a asp-action="SaveJob" asp-controller="Freelancers" asp-route-id="@item.Id"> <i class="fa fa-heart-o 2x" style="color:rgb(83, 83, 83) ;"></i></a>
+                                                    </div>
+                                                }
 
-                                        <div class="circlee-like">
-                                            <a asp-action="UnSaveJob" asp-controller="Freelancers" asp-route-id="@item.Id"> <i class="fa fa-heart-o 2x" style="color:rgb(83, 83, 83) ;"></i></a>
-                                        </div>
-                                        <div class="circlee-like">
-                                            <a asp-action="SaveJob" asp-controller="Freelancers" asp-route-id="@item.Id"> <i class="fas fa-heart 2x" style="color:rgb(83, 83, 83) ;"></i></a>
-                                        </div>
-
-
-
-
-
-
-
-
-
-
-
-
+                                            }
+                                            @if (item.freelancer_Jobs.FirstOrDefault(a => a.JobsId == item.Id) == null)
+                                            {
+                                                <div class="circlee-like">
+                                                    <a asp-action="SaveJob" asp-controller="Freelancers" asp-route-id="@item.Id"> <i class="fa fa-heart-o 2x" style="color:rgb(83, 83, 83) ;"></i></a>
+                                                </div>
+                                            }
                                         <div class="circlee-dislike container-freelancer">
-                                            <i class="fa fa-thumbs-o-down 2x" style="color:rgb(83, 83, 83) ;"></i>
+                                            <a asp-action="Dislike" asp-controller="Freelancers" asp-route-id="@item.Id"> <i class="fa fa-thumbs-o-down 2x" style="color:rgb(83, 83, 83) ;"></i></a>
                                         </div>
 
                                     </div>
@@ -184,7 +187,7 @@
                                                 }
 
                                             }
-                                        }
+                                         }
 
                                     </div>
                                 </div>
