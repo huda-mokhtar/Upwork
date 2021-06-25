@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Project>
 @{ ViewData["Title"] = "All Job Posts";
-                Layout = "_ClientLayout"; }
+    Layout = "_ClientLayout"; }
 @section Style{
     <link href="~/css/ProjectCatalog.css" rel="stylesheet" />
 }
@@ -43,7 +43,7 @@
                     <div class="post-meta">
                         <a href="#" class="text-light d-block text-right like">
                             <div class="circlee-like">
-                                <i class="fa fa-heart-o 2x" style="color:rgb(83, 83, 83) ;">
+                                <i class="fa fa-heart-o 2x" style="color: #dd2427;">
                                 </i>
                             </div>
                         </a>
@@ -69,3 +69,18 @@
         </div><!--end row-->
     </div>
 </div>
+@section Scripts {
+    <script>
+        $(".circlee-like").click(function () {
+            console.log($(this).children()[0].classList.contains('fa-heart-o'));
+            if ($(this).children()[0].classList.contains('fa-heart-o')) {
+                $(this).children()[0].classList.remove('fa-heart-o');
+                $(this).children()[0].classList.add('fa-heart');
+            } else {
+                $(this).children()[0].classList.remove('fa-heart');
+                $(this).children()[0].classList.add('fa-heart-o');
+            }
+        });
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

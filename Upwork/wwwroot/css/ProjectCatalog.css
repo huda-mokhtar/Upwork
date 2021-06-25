@@ -59,7 +59,7 @@
         opacity: 1;
     }
 
-.blog-post .post-meta .like i,
+/*.blog-post .post-meta .like i,
 .profile-post .like i {
     -webkit-text-stroke: 2px #dd2427;
     -webkit-text-fill-color: transparent;
@@ -70,7 +70,7 @@
 .profile-post .like:focus i {
     -webkit-text-stroke: 0px #dd2427;
     -webkit-text-fill-color: #dd2427;
-}
+}*/
 
 .avatar.avatar-ex-sm {
     height: 36px;
