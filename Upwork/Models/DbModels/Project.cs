@@ -42,9 +42,7 @@ namespace Upwork.Models
         public string QuestionAnswer { get; set; }
         public string StepName { get; set; }
         public string StepDescription { get; set; }
-        public DateTime? Data { get; set; }
-        [Range(0, 5)]
-        public int Rate { get; set; }
+        public DateTime? Date { get; set; }
         public List<ProjectTags> Tags  { get; set; }
         public List<ProjectSkills> Skills  { get; set; }
         public List<Client_Projects> client_Projects { get; set; }

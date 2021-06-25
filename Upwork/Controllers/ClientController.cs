@@ -478,6 +478,11 @@ namespace Upwork.Controllers
             var Projects = _context.Projects.Include(a => a.Freelancer.User).Include(a=>a.SubCategory).ToList();
             return View(Projects);
         }
+
+        public async Task<IActionResult> JobRate(int Id , int Rate)
+        {
+            return Ok();
+        }
         //public async Task<IActionResult> SaveJob(int id)
         //{
         //    var ClientId = "a123";

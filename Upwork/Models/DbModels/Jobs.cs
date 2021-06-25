@@ -34,8 +34,7 @@ namespace Upwork.Models.DbModels
         public bool? TalentType { get; set; }
         public string CreateDate { get; set; }
 
-        [Range(0,5)]
-        public int Rate { get; set; }
+       
         public List<JobsSkills> jobsSkills { get; set; }
         public List<Freelancer_Job> freelancer_Jobs{ get; set; }
     }
