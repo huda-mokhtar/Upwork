@@ -27,7 +27,7 @@ namespace Upwork.Controllers
         public async Task<IActionResult> Index()
         {
             //CurrentUser = await _UserManager.GetUserAsync(User);
-            var freelancer = await _context.Freelancers.Include(a=>a.SubCategory).Include(a=>a.Category).Include(a => a.Freelancer_Jobs).FirstOrDefaultAsync(a =>a.FreelancerId == "a123");
+            var freelancer = await _context.Freelancers.Include(a=>a.SubCategory).Include(a=>a.Category).Include(a => a.Freelancer_Jobs).Include(a =>a.User).FirstOrDefaultAsync(a =>a.FreelancerId == "a123");
             var Jobs = await _context.Jobs.Include(a=>a.freelancer_Jobs).Where(a => a.subCategoryId == freelancer.SubCategoryId && a.IsDraft == false).Include(a=>a.jobsSkills).ToListAsync();
             var Dislikejobs =  _context.Freelancer_Jobs.Where(a => a.Isdislike == true).Select(a => a.Jobs).ToList();
             var jobskills = _context.JobsSkills.Select(s => s.skill);
@@ -43,13 +43,8 @@ namespace Upwork.Controllers
             {
                 return NotFound();
             }
-            var freelancer = await _context.Freelancers
-                .Include(f => f.Category)
-                .Include(f => f.City)
-                .Include(f => f.SubCategory)
-                .Include(f => f.Languages)
-                .Include(a => a.Skills)
-                .FirstOrDefaultAsync(m => m.FreelancerId == id);
+            var freelancer = await _context.Freelancers.Include(a => a.SubCategory).Include(a => a.Category).Include(a => a.Freelancer_Jobs).Include(a => a.User).Include(a => a.City).Include(a => a.Skills).Include(a => a.Languages).FirstOrDefaultAsync(a => a.FreelancerId == id);
+            
             if (freelancer == null)
             {
                 return NotFound();
@@ -138,7 +133,7 @@ namespace Upwork.Controllers
             }
             else
             {
-                if (savedJobs.Isdislike == false)
+                if (savedJobs.Isdislike != true)
                 {
                     savedJobs.Isdislike = true;
                     _context.SaveChanges();
