@@ -57,6 +57,7 @@ namespace Upwork.Data
         public virtual DbSet<Jobs> Jobs { get; set; }
         public virtual DbSet<JobsSkills> JobsSkills { get; set; }
         public virtual DbSet<Freelancer_Job> Freelancer_Jobs{ get; set; }
+        public virtual DbSet<Client_Projects> Client_Projects { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -66,12 +67,9 @@ namespace Upwork.Data
             builder.Entity<Freelancer_Skill>().HasKey(o => new { o.SkillId, o.FreelancerId });
             builder.Entity<ProjectTags>().HasKey(o => new { o.ProjectId, o.TagsId });
             builder.Entity<ProjectSkills>().HasKey(o => new { o.ProjectId, o.SkillId });
-
-
             builder.Entity<JobsSkills>().HasKey(o => new { o.JobsId, o.skillId });
-
             builder.Entity<Freelancer_Job>().HasKey(o => new { o.JobsId, o.FreelancerId });
-
+            builder.Entity<Client_Projects>().HasKey(o => new { o.ProjectId, o.ClientId });
             builder.Entity<JobsSkills>()
                 .HasOne(bc => bc.Jobs)
                 .WithMany(b => b.jobsSkills)
