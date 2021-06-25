@@ -475,44 +475,43 @@ namespace Upwork.Controllers
         }
         public  IActionResult ProjectsCatalog()
         {
-            var Projects = _context.Projects.Include(a => a.Freelancer.User).Include(a=>a.SubCategory).ToList();
+            var Projects = _context.Projects.Include(a => a.client_Projects).Include(a => a.Freelancer.User).Include(a=>a.SubCategory).ToList();
             return View(Projects);
         }
-        //public async Task<IActionResult> SaveJob(int id)
-        //{
-        //    var ClientId = "a123";
-        //    Freelancer_Job savedJobs =await _context.Client_Projects.Where(a => a.ProjectId == id && a.ClientId == ClientId).FirstOrDefault();
-        //    if (savedJobs == null)
-        //    {
-        //        savedJobs = new Freelancer_Job() { FreelancerId = FreelancerId, JobsId = id, IsSaved = true };
-        //        _context.Freelancer_Jobs.Add(savedJobs);
-        //        _context.SaveChanges();
-        //    }
-        //    else
-        //    {
-        //        if (savedJobs.IsSaved == false)
-        //        {
-        //            savedJobs.IsSaved = true;
-        //            _context.SaveChanges();
-        //        }
-        //    }
+        public async Task<IActionResult> SaveProject(int id)
+        {
+            var ClientId = "a123";
+            Client_Projects Projected =  _context.Client_Projects.Where(a => a.ProjectId == id && a.ClientId == ClientId).FirstOrDefault();
+            if (Projected == null)
+            {
+                Client_Projects client_Project = new Client_Projects() { ClientId = ClientId, ProjectId = id, IsSaved = true };
+                _context.Client_Projects.Add(client_Project);
+                _context.SaveChanges();
+            }
+            else
+            {
+                if (Projected.IsSaved == false)
+                {
+                    Projected.IsSaved = true;
+                    _context.SaveChanges();
+                }
+            }
 
-        //    return RedirectToAction(nameof(Index));
+               return Ok();
 
-        //}
+            }
 
-        //public async Task<IActionResult> UnSaveJob(int id)
-        //{
-        //    var FreelancerId = "a123";
-        //    Freelancer_Job savedJobs = _context.Freelancer_Jobs.Where(a => a.JobsId == id && a.FreelancerId == FreelancerId && a.IsSaved == true).FirstOrDefault();
-        //    if (savedJobs != null)
-        //    {
-        //        savedJobs.IsSaved = false;
-        //        _context.SaveChanges();
-
-        //    }
-        //    return RedirectToAction(nameof(Index));
-        //}
+        public async Task<IActionResult> UnSaveProjecte(int id)
+        {
+            var ClientId = "a123";
+            Client_Projects Projected = _context.Client_Projects.Where(a => a.ProjectId == id && a.ClientId == ClientId).FirstOrDefault();
+            if (Projected != null)
+            {
+                Projected.IsSaved = false;
+                _context.SaveChanges();
+            }
+            return RedirectToAction(nameof(Index));
+        }
 
 
     }
