@@ -24,6 +24,8 @@ namespace Upwork.Controllers
         }
         public IActionResult Index()
         {
+            //var ClientId = "a123";
+            //List<Jobs> alljobs = new List<Jobs>(_context.Jobs.Where(a =>a.ClientId == ClientId));
             List<Jobs> alljobs = new List<Jobs>(_context.Jobs);
             //alljobs.Reverse();
             //ViewData["DraftedJobs"] = _context.Jobs.Where(a => a.IsDraft == true);
@@ -453,12 +455,13 @@ namespace Upwork.Controllers
                     List<Jobs> allJobsdrafted = new List<Jobs>(_context.Jobs.Where(a=>a.IsDraft==true));
                     allJobsdrafted.Reverse();
                     return View(allJobsdrafted);
-                }else
+                }else if(drafted == "false")
                 {
                     List<Jobs> allJobsposted = new List<Jobs>(_context.Jobs.Where(a => a.IsDraft == false));
                     allJobsposted.Reverse();
                     return View(allJobsposted);
                 }
+                return Ok();
             }
             else
             {
@@ -470,8 +473,27 @@ namespace Upwork.Controllers
         }
         public IActionResult JobDetails(int id)
         {
-
-            return View();
+            var job = _context.Jobs.FirstOrDefault(a => a.Id == id);
+            var subcatrogeryName = _context.SubCategories.FirstOrDefault(a => a.SubCategoryId == job.subCategoryId).Name;
+            ViewData["subcatrogeryName"] = subcatrogeryName;
+            List<JobsSkills> SkillsList = new List<JobsSkills>();
+            SkillsList.AddRange(_context.JobsSkills.Where(a => a.JobsId == id));
+            List<Skill> Skills = new List<Skill>();
+            Skills.AddRange(_context.Skills.Where(a => a.SubCategoryId == job.subCategoryId));
+            if (SkillsList.Count() > 0)
+            {
+                List<Skill> selectedSkills = new List<Skill>();
+                for (var s = 0; s < Skills.Count(); s++)
+                {
+                    if (SkillsList.Where(a => a.skillId == Skills[s].SkillId).Count() == 1)
+                    {
+                        selectedSkills.Add(Skills[s]);
+                    }
+                }
+                ViewData["jobSkills"] = selectedSkills;
+                return View(job);
+            }
+            return View(job);
         }
         public  IActionResult ProjectsCatalog()
         {
