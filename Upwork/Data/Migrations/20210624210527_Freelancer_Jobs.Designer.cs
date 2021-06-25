@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Upwork.Data;
 
 namespace Upwork.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210624210527_Freelancer_Jobs")]
+    partial class Freelancer_Jobs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -338,9 +340,6 @@ namespace Upwork.Data.Migrations
                     b.Property<bool?>("IsSaved")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("Isdislike")
-                        .HasColumnType("bit");
-
                     b.HasKey("JobsId", "FreelancerId");
 
                     b.HasIndex("FreelancerId");
@@ -378,9 +377,6 @@ namespace Upwork.Data.Migrations
 
                     b.Property<string>("LevelOfExperience")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Rate")
-                        .HasColumnType("int");
 
                     b.Property<string>("Scope")
                         .HasColumnType("nvarchar(max)");

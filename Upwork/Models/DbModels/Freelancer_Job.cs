@@ -6,14 +6,19 @@ using System.Threading.Tasks;
 
 namespace Upwork.Models.DbModels
 {
-    public class FreelancerSavedJobs
+    public class Freelancer_Job
     {
         [ForeignKey("Jobs")]
         public int JobsId { get; set; }
-        public Jobs Jobs { get; set; }
-
+      
         [ForeignKey("Freelancer")]
         public string FreelancerId { get; set; }
+
+        public bool? IsSaved { get; set; } = false;
+        public bool? IsProposal { get; set; } = false;
+        public bool? Isdislike { get; set; } = false;
+        public Jobs Jobs { get; set; }
+
         public Freelancer Freelancer { get; set; }
     }
 }

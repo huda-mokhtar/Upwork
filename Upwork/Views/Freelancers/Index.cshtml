@@ -111,117 +111,134 @@
                         </div>
                     </div>
                 </div>
-                @foreach (var item in Model)
+                @if (Model.Count() > 0)
                 {
-                    <div class="card-body jobs">
-                        <div class=" my-2 mx-2">
-                            <div class="row" style="display:-webkit-box; -webkit-box-align:center; ">
-                                <div class="col-9 text-left m-0 ">
-                                    <a href="">@item.Title </a>
-                                </div>
-                                <div class="col-3 text-right">
-
-
-
-                                            <div class="circlee-like">
-                                                <a asp-action="SaveJob" asp-controller="Freelancers" asp-route-id="@item.Id"> <i class="fas fa-heart 2x" style="color:rgb(83, 83, 83) ;"></i></a>
-                                            </div>
-
-                                       
-                                            <div class="circlee-like">
-                                                <a asp-action="UnSaveJob" asp-controller="Freelancers" asp-route-id="@item.Id" > <i class="fa fa-heart-o 2x" style="color:rgb(83, 83, 83) ;"></i></a>
-                                            </div>
-
-
-
-                                    <div class="circlee-dislike container-freelancer">
-                                        <i class="fa fa-thumbs-o-down 2x" style="color:rgb(83, 83, 83) ;"></i>
+                    @foreach (var item in Model)
+                    {
+                        <div class="card-body jobs">
+                            <div class=" my-2 mx-2">
+                                <div class="row" style="display:-webkit-box; -webkit-box-align:center; ">
+                                    <div class="col-9 text-left m-0 ">
+                                        <a asp-action="JobDetails" asp-controller="Client" asp-route-Id="@item.Id">@item.Title </a>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="my-3">
-                            <div class="row mx-2">
-                                <div class="lightFont">
-                                    @if (item.TypeOfBudget == true)
-                                    {<span>Fixed Price- Est.Budget:@item.BudgetFrom</span>}
-                                else
-                                { <span>Hourly:@item.BudgetFrom $ : @item.BudgetTo $</span>}  - @item.LevelOfExperience  - Posted @item.CreateDate.ToString();
-                            </div>
-                        </div>
-                        <div class="row mx-2 my-1">
-                            <div class="jobDescription p-0 m-0 text-left">
-                                @item.JobDescription
-                            </div>
-                        </div>
-                        <div class="row mx-2 my-3">
-                            <div class="skills">
-                                <div style="display:inline-flex;">
+                                    <div class="col-3 text-right">
 
-                                    @foreach (var skill in item.jobsSkills)
-                                    {
-                                        @foreach (var jobskill in ViewBag.Skills)
-                                        {
-                                            @if (jobskill.SkillId == skill.skillId)
-                                            {
-                                                <div class="jobSkills px-2 py-1 mr-2">@jobskill.Name</div>
-                                            }
-
-                                        }
-                                    }
-
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="row mx-2 my-2">
-                            <div class="lightFont">
-                                Proposals : <span style="display:inline-block ;font-weight: 500;">Less than 5</span>
-                            </div>
-                        </div>
-
-                        <div class="row  mx-1 my-3 p-0">
-                            <div class="col-12 col-md-11 m-0 p-0">
-                                <div class="row m-0" style="display:-webkit-box; -webkit-box-align:center; ">
-
-
-                                    <div class="col-4 col-md-3 m-0 p-0 mr-1" style="display:-webkit-box; -webkit-box-align:center; ">
-                                        <i class="fa fa-check-circle mr-1" style="color: #1f57c3; display: inline-block;" aria-hidden="true"></i>
-                                        <p class="lightFont my-auto">
-                                            Payment verified
-                                        </p>
-                                    </div>
-                                    <div class="col-4 col-md-3 m-0 p-0">
-                                        <div style="color: grey;">
-                                            <i class="fa fa-star checked mx-0 px-0" aria-hidden="true"></i>
-                                            <i class="fa fa-star checked mx-0 px-0" aria-hidden="true"></i>
-                                            <i class="fa fa-star checked mx-0 px-0" aria-hidden="true"></i>
-                                            <i class="fa fa-star mx-0 px-0" aria-hidden="true"></i>
-                                            <i class="fa fa-star mx-0 px-0" aria-hidden="true"></i>
+                                        <div class="circlee-like">
+                                            <a asp-action="UnSaveJob" asp-controller="Freelancers" asp-route-id="@item.Id"> <i class="fa fa-heart-o 2x" style="color:rgb(83, 83, 83) ;"></i></a>
                                         </div>
-                                    </div>
-                                    <div class="col-3 m-0 p-0">
-                                        <p class="lightFont my-auto">$60k+ spent</p>
-                                    </div>
-                                    <div class="col-2 m-0 p-0" style="display:-webkit-box; -webkit-box-align:center; ">
+                                        <div class="circlee-like">
+                                            <a asp-action="SaveJob" asp-controller="Freelancers" asp-route-id="@item.Id"> <i class="fas fa-heart 2x" style="color:rgb(83, 83, 83) ;"></i></a>
+                                        </div>
 
-                                        <i class="fa fa-map-marker mr-1" aria-hidden="true" style="color: black;"></i>
-                                        <p class="lightFont my-auto">
-                                            Egypt
-                                        </p>
-                                    </div>
 
+
+
+
+
+
+
+
+
+
+
+                                        <div class="circlee-dislike container-freelancer">
+                                            <i class="fa fa-thumbs-o-down 2x" style="color:rgb(83, 83, 83) ;"></i>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <a asp-action="SubmitProposal" asp-controller="Freelancers" asp-route-id="@item.Id" class="devBtnGreen text-center p-2 text-light ml-2">
+                                    Submit Proposal
+                                </a>
+                            </div>
+
+
+                            <div class="my-3">
+                                <div class="row mx-2">
+                                    <div class="lightFont">
+                                        @if (item.TypeOfBudget == true)
+                                        {<span>Fixed Price- Est.Budget:@item.BudgetFrom</span>}
+                                    else
+                                    { <span>Hourly:@item.BudgetFrom $ : @item.BudgetTo $</span>}  - @item.LevelOfExperience  - Posted @item.CreateDate.ToString();
+                                </div>
+                            </div>
+                            <div class="row mx-2 my-1">
+                                <div class="jobDescription p-0 m-0 text-left">
+                                    @item.JobDescription
+                                </div>
+                            </div>
+                            <div class="row mx-2 my-3">
+                                <div class="skills">
+                                    <div style="display:inline-flex;">
+
+                                        @foreach (var skill in item.jobsSkills)
+                                        {
+                                            @foreach (var jobskill in ViewBag.Skills)
+                                            {
+                                                @if (jobskill.SkillId == skill.skillId)
+                                                {
+                                                    <div class="jobSkills px-2 py-1 mr-2">@jobskill.Name</div>
+                                                }
+
+                                            }
+                                        }
+
+                                    </div>
                                 </div>
 
                             </div>
 
+                            <div class="row mx-2 my-2">
+                                <div class="lightFont">
+                                    Proposals : <span style="display:inline-block ;font-weight: 500;">Less than 5</span>
+                                </div>
+                            </div>
 
+                            <div class="row  mx-1 my-3 p-0">
+                                <div class="col-12 col-md-11 m-0 p-0">
+                                    <div class="row m-0" style="display:-webkit-box; -webkit-box-align:center; ">
+
+
+                                        <div class="col-4 col-md-3 m-0 p-0 mr-1" style="display:-webkit-box; -webkit-box-align:center; ">
+                                            <i class="fa fa-check-circle mr-1" style="color: #1f57c3; display: inline-block;" aria-hidden="true"></i>
+                                            <p class="lightFont my-auto">
+                                                Payment verified
+                                            </p>
+                                        </div>
+                                        <div class="col-4 col-md-3 m-0 p-0">
+                                            <div style="color: grey;">
+                                                <i class="fa fa-star checked mx-0 px-0" aria-hidden="true"></i>
+                                                <i class="fa fa-star checked mx-0 px-0" aria-hidden="true"></i>
+                                                <i class="fa fa-star checked mx-0 px-0" aria-hidden="true"></i>
+                                                <i class="fa fa-star mx-0 px-0" aria-hidden="true"></i>
+                                                <i class="fa fa-star mx-0 px-0" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-3 m-0 p-0">
+                                            <p class="lightFont my-auto">$60k+ spent</p>
+                                        </div>
+                                        <div class="col-2 m-0 p-0" style="display:-webkit-box; -webkit-box-align:center; ">
+
+                                            <i class="fa fa-map-marker mr-1" aria-hidden="true" style="color: black;"></i>
+                                            <p class="lightFont my-auto">
+                                                Egypt
+                                            </p>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
                         </div>
-                    </div>
 
-                </div>
-            }
+                    </div>
+                }
+                }
             </div>
 
 
