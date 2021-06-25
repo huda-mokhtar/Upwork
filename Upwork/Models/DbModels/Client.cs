@@ -13,7 +13,6 @@ namespace Upwork.Models.DbModels
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [ForeignKey("User")]
         public string ClientId { get; set; }
-
-
+        public List<Client_Projects> client_Projects { get; set; }
     }
 }

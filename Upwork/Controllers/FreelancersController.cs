@@ -28,13 +28,12 @@ namespace Upwork.Controllers
         {
             //CurrentUser = await _UserManager.GetUserAsync(User);
             var freelancer = await _context.Freelancers.Include(a=>a.SubCategory).Include(a=>a.Category).Include(a => a.Freelancer_Jobs).FirstOrDefaultAsync(a =>a.FreelancerId == "a123");
-            var Jobs = await _context.Jobs.Include(a=>a.jobsSkills).Where(a => a.subCategoryId == freelancer.SubCategoryId && a.IsDraft == false).ToListAsync();
+            var Jobs = await _context.Jobs.Include(a=>a.freelancer_Jobs).Where(a => a.subCategoryId == freelancer.SubCategoryId && a.IsDraft == false).Include(a=>a.jobsSkills).ToListAsync();
+            var Dislikejobs =  _context.Freelancer_Jobs.Where(a => a.Isdislike == true).Select(a => a.Jobs).ToList();
             var jobskills = _context.JobsSkills.Select(s => s.skill);
-        
             ViewData["Skills"] = jobskills.ToList();
             ViewData["Freelancer"] = freelancer;
-            ViewData["FreelancerJobs"] = _context.Freelancer_Jobs.ToList();
-            return View(Jobs);
+            return View(Jobs.Except(Dislikejobs));
         }
 
         // GET: Freelancers/Profile/5
@@ -102,10 +101,11 @@ namespace Upwork.Controllers
                 if(savedJobs.IsSaved == false)
                 {
                     savedJobs.IsSaved = true;
+                    _context.SaveChanges();
                 }
             }
 
-            return RedirectToAction(nameof(Index));
+            return Ok();
 
         }
         
@@ -119,7 +119,7 @@ namespace Upwork.Controllers
                 _context.SaveChanges();
                 
             }
-            return RedirectToAction(nameof(Index));
+            return Ok();
         }
 
         public async Task<IActionResult> Dislike(int id)
@@ -140,23 +140,9 @@ namespace Upwork.Controllers
                     _context.SaveChanges();
                 }
             }
-            return RedirectToAction(nameof(Index));
+            return Ok();
         }
-        public async Task<IActionResult>UnDislike(int id)
-        {
-            var FreelancerId = "a123";
-            Freelancer_Job savedJobs = _context.Freelancer_Jobs.Where(a => a.JobsId == id && a.FreelancerId == FreelancerId).FirstOrDefault();
-            if (savedJobs != null)
-            {
-                if (savedJobs.Isdislike == true)
-                {
-                    savedJobs.Isdislike = false;
-                    _context.SaveChanges();
-                }
-            }
-            return RedirectToAction(nameof(Index));
-        }
-
+      
         public async Task<IActionResult> SubmitProposal(int ? Id)
         {
             if(Id == null)
@@ -175,8 +161,6 @@ namespace Upwork.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
-
-
 
         // GET: Freelancers/Edit/5
         public async Task<IActionResult> Edit(string id)
