@@ -90,12 +90,19 @@ namespace Upwork.Controllers
         public async Task<IActionResult> SaveJob(int id)
         {
             var FreelancerId = "a123";
-            Freelancer_Job savedJobs = _context.Freelancer_Jobs.Where(a => a.JobsId == id && a.FreelancerId == FreelancerId && a.IsSaved==true).FirstOrDefault();
+            Freelancer_Job savedJobs = _context.Freelancer_Jobs.Where(a => a.JobsId == id && a.FreelancerId == FreelancerId).FirstOrDefault();
             if (savedJobs == null)
             {
                 savedJobs = new Freelancer_Job() { FreelancerId = FreelancerId, JobsId = id ,IsSaved=true };
                 _context.Freelancer_Jobs.Add(savedJobs);
                 _context.SaveChanges();
+            }
+            else
+            {
+                if(savedJobs.IsSaved == false)
+                {
+                    savedJobs.IsSaved = true;
+                }
             }
 
             return RedirectToAction(nameof(Index));
@@ -108,9 +115,9 @@ namespace Upwork.Controllers
             Freelancer_Job savedJobs = _context.Freelancer_Jobs.Where(a => a.JobsId == id && a.FreelancerId == FreelancerId &&a.IsSaved==true).FirstOrDefault();
             if (savedJobs != null)
             {
-                _context.Freelancer_Jobs.Remove(savedJobs);
+               savedJobs.IsSaved = false;
                 _context.SaveChanges();
-                return RedirectToAction(nameof(Index));
+                
             }
             return RedirectToAction(nameof(Index));
         }
