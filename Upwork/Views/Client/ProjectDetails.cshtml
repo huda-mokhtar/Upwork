@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<Project>
-@{ ViewData["Title"] = "All Projects Posts";
+@{ ViewData["Title"] = "Project Details";
     Layout = "_ClientLayout"; }
 @section Style{
     <link href="~/css/ProjectDetails.css" rel="stylesheet" />
 }
 
-<div class="text-center bg-white m-0 p-0" id="Page">
+<div class="text-center bg-white m-0 p-0 border-bottom mb-3" id="Page">
     <div class="container">
         <div class="row m-1 p-0">
             <div class="col-6 mt-5 text-left">
@@ -28,7 +28,7 @@
                 </div>
                 <div class="row m-0 my-3">
                     <div class="col-8 m-0 p-0 mt-1" style="display:-webkit-box; -webkit-box-align:center; ">
-                        <img src="Wafaa1.JPG" class="imgContainer mr-1" />
+                        <img src="~/Images/Wafaa1.jpg" class="imgContainer mr-1" />
                         <a href="#" style="color: #14a800; font-weight: 500;font-size: 16px;">Wafaa Wadea</a>
 
                     </div>
@@ -45,43 +45,43 @@
                 </div>
                 <div class="row m-0 mb-2">
                     <div class="project-photo">
-                        <img src="advertising3.jpg" alt="project photo" width="100%" style="border-radius: 10px;">
+                        <img src="~/Images/advertising3.jpg" alt="project photo" width="100%" style="border-radius: 10px;">
                     </div>
                 </div>
-                <div class="row m-0 mt-5 mb-3 border-bottom">
+                <div class="row m-0 mt-5 mb-3 border-bottom text-left">
                     <h4 class="mb-4">
                         Project details
                     </h4>
-                    <ul class="" style="font-weight: 380;">
-                        <li class="mb-3">
+                    <ul class="text-left" style="font-weight: 380;" >
+                        <li class="mb-3" style="list-style-type:disc">
                             Original logo design concepts to Choose from within 34hrs.
                         </li>
-                        <li class="mb-3">
+                        <li class="mb-3" style="list-style-type:disc">
                             UNLIMITED Round of Revisions & Redraws.
                         </li>
-                        <li class="mb-3">
+                        <li class="mb-3" style="list-style-type:disc">
                             100% Money Back Guarantee if you are not satisfied.
                         </li>
-                        <li class="mb-3">
+                        <li class="mb-3" style="list-style-type:disc">
                             100% Copyright Ownership on your Finalise design.
                         </li>
-                        <li class="mb-3">
+                        <li class="mb-3" style="list-style-type:disc">
                             Deliverable Format- AI (Vector), EPS, PDF, PSD, JPEG, TIFF, PNG (transparent background
                             version), SVG along with Fonts used.
                         </li>
                     </ul>
                 </div>
                 <div class="row my-3 mx-0 p-0 ">
-                    <div class="col-11 mb-2 mx-0">
+                    <div class="col-11 mb-2 mx-0 text-left">
                         <h3>
                             About Wafaa
                         </h3>
                     </div>
                     <div class="row" style="display:-webkit-box; -webkit-box-align:center; ">
                         <div class="m-0 p-0">
-                            <img src="Wafaa1.JPG" class="Freelancer-photo my-auto" />
+                            <img src="~/Images/Wafaa1.jpg" class="Freelancer-photo my-auto" />
                         </div>
-                        <div class="ml-1">
+                        <div class="ml-1 text-left">
                             <h5 class="mb-3">Wordpress, Shopify, Wix, Webflow, Graphic Design, Data Entry, Research</h5>
                             <i class="fa fa-map-marker  Address-time" aria-hidden="true" style="color: #656565;"></i>
                             <p class="Address-time my-auto" style="display: inline-block;">
@@ -93,7 +93,7 @@
                         </div>
                     </div>
                     <div class="row m-0 p-0 my-3">
-                        <p class="freelancerDetails">
+                        <p class="freelancerDetails text-left">
                             I'm expert in Data Entry, Web Research, SEO, Whiteboard Video, Video Editing, Animaton,
                             QuickBooks, Transcription, Wordpress / Shopify / Wix / HTML / CSS / Laravel / PHP / Webflow
                             / Python / Graphic Design / AutoCad / Ebook / T-shirt / Logo design, Article Writing,
@@ -103,9 +103,9 @@
 
                 </div>
             </div>
-            <div class="col-4 mt-3">
-                <div class="row border">
-                    <div class="col-12 m-1 my-4 p-0">
+            <div class="col-4 mt-3" style="position:relative">
+                <div class="row border" style="position:absolute">
+                    <div class="col-12 m-1 my-4 p-0 text-left">
                         <h5 class="ml-3" style="color: #08141a;">
                             Select service tier
                         </h5>
@@ -115,7 +115,7 @@
                     <div class="col-12 m-0 p-0 my-2">
                         <form method="post" class="row" action="send.php">
                             <div class="radio-group col-12 mx-0 p-0 my-2">
-                                <div class="row border-bottom m-0 p-0 px-1">
+                                <div class="row border-bottom m-1 p-1 px-1">
                                     <div class="col-4 m-0 p-0">
                                         <div class="container pl-0 ml-0">
                                             <div class="radioBox">
@@ -125,7 +125,7 @@
                                                             <input class="mx-auto" type="radio" id="StarterInput" name="Expertise-Level" checked />
                                                             <span class="checkround mx-auto"></span>
 
-                                                            <p class="mt-4 mb-0 pl-3" style="font-size: 16px;"> Starter</p>
+                                                            <p class="mt-4 mb-0 pl-3" style="font-size: 16px;">Starter</p>
                                                             <p class="mt-0 pl-3" style="font-size: 18px;"> $45.00</p>
                                                         </div>
                                                     </div>
@@ -178,7 +178,7 @@
 
                     <div class="col-12 m-0 p-0 my-2" id="starter">
                         <div class="row m-1 p-0">
-                            <div class="col-7">
+                            <div class="col-7 text-left">
                                 <p style="font-weight: 400;">
                                     Delivery Time
                                 </p>
@@ -190,7 +190,7 @@
                             </div>
                         </div>
                         <div class="row m-1 mt-0 p-0">
-                            <div class="col-7">
+                            <div class="col-7 text-left">
                                 <p style="font-weight: 400;">
                                     Management Duration (Days)
                                 </p>
@@ -205,7 +205,7 @@
 
                     <div class="col-12 m-0 p-0 my-2 d-none" id="standard">
                         <div class="row m-1 p-0">
-                            <div class="col-7">
+                            <div class="col-7 text-left">
                                 <p style="font-weight: 400;">
                                     Delivery Time
                                 </p>
@@ -217,7 +217,7 @@
                             </div>
                         </div>
                         <div class="row m-1 mt-0 p-0">
-                            <div class="col-7">
+                            <div class="col-7 text-left">
                                 <p style="font-weight: 400;">
                                     Management Duration (Days)
                                 </p>
@@ -232,7 +232,7 @@
 
                     <div class="col-12 m-0 p-0 my-2 d-none" id="advanced">
                         <div class="row m-1 p-0">
-                            <div class="col-7">
+                            <div class="col-7 text-left">
                                 <p style="font-weight: 400;">
                                     Delivery Time
                                 </p>
@@ -244,7 +244,7 @@
                             </div>
                         </div>
                         <div class="row m-1 mt-0 p-0">
-                            <div class="col-7">
+                            <div class="col-7 text-left">
                                 <p style="font-weight: 400;">
                                     Management Duration (Days)
                                 </p>
@@ -276,16 +276,29 @@
 </div>
 @section Scripts {
     <script>
+
         $(".radio-group .row .col-4 .container .radioBox").click(function () {
             console.log($(this).children()[0].firstElementChild.firstElementChild.firstElementChild.nextElementSibling.nextElementSibling.textContent);
-            let Expselected = $(this).children()[0].firstElementChild.firstElementChild.firstElementChild.nextElementSibling.nextElementSibling.textContent;
-
-
-            //$("#ExpSelected").text(Expselected);
-            //$("#jobExpContainer").addClass("d-none");
-            //$("#jobExperianceDetails").removeClass("d-none");
-            //$("#continue").children()[0].classList.add('continueBtnEnable');
-            //$("#continue").children()[0].classList.remove('continueBtn');
+            let selected = $(this).children()[0].firstElementChild.firstElementChild.firstElementChild.nextElementSibling.nextElementSibling.textContent;
+            let price = $(this).children()[0].firstElementChild.firstElementChild.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.textContent;
+            $("#price").text(price);
+            if (selected == "Starter") {
+                console.log("starter");
+                $("#standard").addClass("d-none");
+                $("#advanced").addClass("d-none");
+                $("#starter").removeClass("d-none");
+            }
+            if (selected == "Standard") {
+                $("#starter").addClass("d-none");
+                $("#advanced").addClass("d-none");
+                $("#standard").removeClass("d-none");
+            }
+            if (selected == "Advanced") {
+                $("#standard").addClass("d-none");
+                $("#starter").addClass("d-none");
+                $("#advanced").removeClass("d-none");
+            }
+           
         });
 
 
