@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Upwork.Data;
 
 namespace Upwork.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210625065037_update-JobRate")]
+    partial class updateJobRate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -344,9 +346,6 @@ namespace Upwork.Data.Migrations
 
                     b.Property<bool?>("IsSaved")
                         .HasColumnType("bit");
-
-                    b.Property<int>("Rate")
-                        .HasColumnType("int");
 
                     b.HasKey("ProjectId", "ClientId");
 
@@ -717,7 +716,7 @@ namespace Upwork.Data.Migrations
                     b.Property<int?>("AdvancedPrice")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("Date")
+                    b.Property<DateTime?>("Data")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
@@ -737,6 +736,9 @@ namespace Upwork.Data.Migrations
 
                     b.Property<string>("QuestionContent")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Rate")
+                        .HasColumnType("int");
 
                     b.Property<string>("Requierments")
                         .HasColumnType("nvarchar(max)");

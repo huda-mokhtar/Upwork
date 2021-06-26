@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
@@ -31,9 +32,12 @@ namespace Upwork.Models.DbModels
         public Language_Proficiency Language_Proficiency { get; set; }
         public bool? TimeRequirement { get; set; }
         public bool? TalentType { get; set; }
-
         public string CreateDate { get; set; }
+
+        //[ForeignKey("Client")]
+        //public int ClientId { get; set; }
+        //public Client Client { get; set; }
         public List<JobsSkills> jobsSkills { get; set; }
-        public List<FreelancerSavedJobs> freelancerSavedJobs { get; set; }
+        public List<Freelancer_Job> freelancer_Jobs{ get; set; }
     }
 }

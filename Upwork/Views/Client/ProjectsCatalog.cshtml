@@ -1,0 +1,128 @@
+﻿@model IEnumerable<Project>
+@{ ViewData["Title"] = "All Projects Posts";
+    Layout = "_ClientLayout"; }
+@section Style{
+    <link href="~/css/ProjectCatalog.css" rel="stylesheet" />
+}
+
+<div class="text-center bg-white m-0 p-0" id="Page">
+    <div class="container" id="PageIn">
+
+        <div class="row m-0 p-0">
+            <div class="col-12 my-5 mx-0">
+                <div class="row m-0 p-0">
+                    <div class="col-4 mx-0 p-0 text-left">
+                        <p class="h3 ml-0" style="color: #1d4354; font:  bold 32px Rza;">
+                            Project Catalog
+                        </p>
+                    </div>
+                    <div class="col-1">
+
+                    </div>
+                    <div class="col-7 mt-5 text-right ">
+                        <div class="input-group">
+                            <input type="text"  class="form-control" placeholder="Search By Project's Category" id="input">
+                            <div class="input-group-append">
+                                <button class="btn btn-success" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row m-0 p-0">
+                    @foreach (var project in Model)
+                    {
+        <div class="col-lg-3 col-md-6 mt-4 pt-2 mx-0 px-2">
+            <div class="blog-post rounded border mx-0 px-0">
+                <div class="blog-img d-block overflow-hidden position-relative h-60">
+                    <img src="~/Images/@project.Image" style="height:15rem" class="img-fluid rounded-top" alt="">
+                    <div class="overlay rounded-top bg-dark"></div>
+                    <div class="post-meta">
+                        <a class="text-light d-block text-right like">
+                            @foreach (var item in project.client_Projects)
+                            {
+                                if (item.IsSaved == true)
+                                { 
+                                    <div onclick="SaveProject(@project.ProjectId, this)" class="circlee-like">
+                                        <i class="fa fa-heart 2x" style="color: #dd2427;">
+                                        </i>
+                                    </div>
+                            }
+                            else
+                            { 
+                                    <div onclick="SaveProject(@project.ProjectId, this)" class="circlee-like">
+                                        <i class="fa fa-heart-o 2x" style="color: #dd2427;">
+                                        </i>
+                                    </div>
+                               
+                            }
+                        }
+
+                            @if (project.client_Projects.Find(a => a.ProjectId == project.ProjectId) == null)
+                            {
+                                    <div onclick="SaveProject(@project.ProjectId, this)" class="circlee-like">
+                                        <i class="fa fa-heart-o 2x" style="color: #dd2427;">
+                                        </i>
+                                    </div>
+                            }
+                            </a>
+                        </div>
+                    </div>
+                <div class="content p-3">
+                    <h4 style="height:5rem" class="mt-1 text-left"><a href="#" class="text-success title">@project.Title</a></h4>
+                    <small class="text-muted p float-right">19th Oct, 19</small>
+                    <small><p class="text-dark text-left" style="font-weight: 500; font-size: 14px;">@project.SubCategory.Name</p></small>
+                    <div class="pt-2 mt-2 border-top d-flex">
+                        <img src="~/Images/@project.Freelancer.Image" width="36px" class="img-fluid avatar avatar-ex-sm rounded-pill mr-3 shadow" alt="">
+                        <div class="author mt-2">
+                            <h6 class="mb-0"><a href="#" class="text-dark name">@project.Freelancer.User.FirstName</a></h6>
+                        </div>
+                    </div>
+                </div>
+            </div><!--end blog post-->
+        </div><!--end col-->}
+                </div>
+            </div>
+
+
+        </div><!--end row-->
+    </div>
+</div>
+@section Scripts {
+    <script>
+            function SaveProject(Id,e)
+            {
+                console.log($(e).children()[0].classList.contains('fa-heart-o'));
+                if ($(e).children()[0].classList.contains('fa-heart-o')) {
+                    $.ajax({
+                        url: "https://localhost:44367/Client/SaveProject/" + Id + "",
+                        type: "GET",
+                        success: (res) => {
+                            $(e).children()[0].classList.remove('fa-heart-o');
+                            $(e).children()[0].classList.add('fa-heart');
+                        },
+                        error: (e) => {
+                            console.log(e);
+                        }
+                    })
+                } else {
+                    $.ajax({
+                        url: "https://localhost:44367/Client/UnSaveProjecte/" + Id + "",
+                        type: "GET",
+                        success: (res) => {
+                            $(e).children()[0].classList.remove('fa-heart');
+                            $(e).children()[0].classList.add('fa-heart-o');
+                        },
+                        error: (e) => {
+                            console.log(e);
+                        }
+                    })
+                }
+        }
+       
+            
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
