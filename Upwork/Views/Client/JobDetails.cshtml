@@ -56,7 +56,7 @@
                                         <div class="jobTitle py-4">
                                             <h5 style="font-weight: 500;"> Job Details </h5>
                                             <p class="mt-4 mb-0" style="font-weight: 500; font-size: 16px;">
-                                                @ViewBag.subcatrogeryName
+                                                @Model.subCategory.Name
                                             </p>
                                             <p class="mb-3" style="color:#3c4858;font-weight:400; font-size: 16px;">
                                                 Posted @Model.CreateDate
@@ -144,7 +144,7 @@
                                                                 }
                                                                 else if (Model.TypeOfBudget == true)
                                                                 {
-                                                            <span>Project</span>
+                                                                <span>Fixed-price</span>
                                                                 }
                                                                 
                                                             </p>

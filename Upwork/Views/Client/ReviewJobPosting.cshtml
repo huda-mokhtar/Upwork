@@ -137,8 +137,17 @@
                                 <div id="collapseOne" class="collapse" data-parent="#accordion">
                                     <div class="mr-1 text-left ">
                                         <p class="thirdHeaders mb-2">Select or add up to 5 questions</p>
-
-                                        <div class="mb-2">
+                                        @foreach (var que in ViewBag.Questions)
+                                        {
+                                            <div class="mb-2">
+                                                <label class="checkbox" style="display:-webkit-box; -webkit-box-align:center; ">
+                                                    @Html.CheckBox($@"jobQuestions.{que.QuestionId}")
+                                                    @*<input type="checkbox" asp-for="jobQuestions" />*@
+                                                    <div class="ml-3">@que.Question</div>
+                                                </label>
+                                            </div>
+                                        }
+                                        @*<div class="mb-2">
                                             <label class="checkbox" style="display:-webkit-box; -webkit-box-align:center; ">
                                                 <input type="checkbox" />
                                                 <div class="ml-3">Describe your recent experience with similar projects</div>
@@ -167,7 +176,7 @@
                                                 <input type="checkbox" />
                                                 <div class="ml-3">Describe your approach to testing and improving QA</div>
                                             </label>
-                                        </div>
+                                        </div>*@
 
 
                                     </div>
