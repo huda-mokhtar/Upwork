@@ -31,5 +31,8 @@ namespace Upwork.Models.ViewModels.Register
 
         public bool SendMe { get; set; }
 
+        public bool PrivacyPolicy { get; set; }
+
+
     }
 }

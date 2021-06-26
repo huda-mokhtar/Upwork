@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewData["Title"] = "VerifyEmail";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<div class="container bg-white mt-5">
+    <div class="text-center pt-5">
+        <img src="~/Images/Computer.png" style="height:150px;width:150px;border-radius:50%" />
+    </div>
+    <h4 class="text-center pt-4"> Verify your email to proceed </h4>
+    <p class="text-muted text-center pt-3 pb-5">  We just sent an email to the address: 
+    @ViewBag.Email <br />
+    Please check your email and click on the link provided to verify your address.
+    </p>
+    <div class="pb-3">
+    </div>
+</div>
+@section Styles {
+<style>
+    img:hover {
+        cursor: initial;
+    }
+    #Content {
+        height: 600px;
+    }
+</style>
+}
