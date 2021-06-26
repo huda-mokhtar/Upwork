@@ -27,7 +27,7 @@ namespace Upwork.Data
         public virtual DbSet<Country> Countries { get; set; }
 
         public virtual DbSet<Degree> Degrees { get; set; }
-
+        public virtual DbSet<Client> Clients { get; set; }
         public virtual DbSet<Freelancer> Freelancers { get; set; }
 
         public virtual DbSet<Freelancer_Education> Freelancer_Education { get; set; }

@@ -186,10 +186,6 @@ namespace Upwork.Controllers
             ViewData["FreelancerId"] = new SelectList(_context.Set<ApplicationUser>(), "Id", "Id", freelancer.FreelancerId);
             return View(freelancer);
         }
-
-        // POST: Freelancers/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("FreelancerId,CategoryId,SubCategoryId,ExperienceLevel,HourlyRate,Title,Overview,Image,CityId,Street,ZIP,PhoneNumber,VideoLink")] Freelancer freelancer)
@@ -258,7 +254,13 @@ namespace Upwork.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
+        //View All Proposal
+        public async Task<IActionResult> AllProposal()
+        {
+            var Freelancer = "a13";
+            var AllProposal = _context.Freelancer_Jobs.Where(a=>a.FreelancerId==Freelancer && a.IsProposal==true).Include(a=>a.Jobs);
+            return View(AllProposal);
+        }
         private bool FreelancerExists(string id)
         {
             return _context.Freelancers.Any(e => e.FreelancerId == id);

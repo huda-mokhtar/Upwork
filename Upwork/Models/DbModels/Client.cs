@@ -15,6 +15,7 @@ namespace Upwork.Models.DbModels
         public string ClientId { get; set; }
 
         //public List<Jobs> Jobs { get; set; }
+        public virtual ApplicationUser User { get; set; }
         public List<Client_Projects> client_Projects { get; set; }
     }
 }

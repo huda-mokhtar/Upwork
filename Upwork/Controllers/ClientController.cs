@@ -548,10 +548,7 @@ namespace Upwork.Controllers
                     _context.SaveChanges();
                 }
             }
-
-
             return Ok();
-
         }
 
         public async Task<IActionResult> UnSaveProjecte(int id)
@@ -579,19 +576,18 @@ namespace Upwork.Controllers
                 var SearchBySkill = _context.ProjectSkills.Where(a => a.SkillId == Skill.SkillId).ToList();
                 foreach (var item in SearchBySkill)
                 {
-                    var p = _context.Projects.Include(a => a.Skills).FirstOrDefault(a => a.ProjectId == item.ProjectId);
+                    var p = _context.Projects.Include(a => a.Skills).Include(a=>a.client_Projects).Include(a => a.SubCategory).Include(a => a.Freelancer.User).FirstOrDefault(a => a.ProjectId == item.ProjectId);
                     ProjectList.Add(p);
                 }
             }
-            var project = _context.Projects.Where(a => a.Title.Contains(search) || a.Description.Contains(search)).Include(a => a.Skills).ToList();
+            var project = _context.Projects.Where(a => a.Title.Contains(search) || a.Description.Contains(search)).Include(a => a.Freelancer.User).Include(a => a.Skills).Include(a=>a.client_Projects).Include(a=>a.SubCategory).ToList();
             if (project == null && (ProjectList.Count() == 0))
             {
                 return NotFound();
             }
             ViewData["Skills"] = _context.ProjectSkills.Select(s => s.Skill).ToList();
-            return View(project.Union(ProjectList));
+            return View("ProjectsCatalog", project.Union(ProjectList));
         }
-
 
     }
 }
