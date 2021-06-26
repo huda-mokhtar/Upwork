@@ -16,6 +16,9 @@ using Upwork.Data;
 using Upwork.Models;
 using Upwork.Models.ViewModels.Register;
 using Microsoft.AspNetCore.Authentication;
+using SendGrid;
+using SendGrid.Helpers.Mail;
+
 
 namespace Upwork.Controllers
 {
@@ -28,8 +31,8 @@ namespace Upwork.Controllers
         private RoleManager<IdentityRole> roleManager;
         private IWebHostEnvironment hosting;
 
-        public AccountController(ApplicationDbContext _db, 
-            SignInManager<ApplicationUser> _signInManager, 
+        public AccountController(ApplicationDbContext _db,
+            SignInManager<ApplicationUser> _signInManager,
             UserManager<ApplicationUser> _userManager,
             RoleManager<IdentityRole> _roleManager,
             IWebHostEnvironment _hosting)
@@ -55,9 +58,24 @@ namespace Upwork.Controllers
                 var user = new ApplicationUser { Email = model.Email, UserName = model.Email };
                 IdentityResult result = await userManager.CreateAsync(user);
                 if (result.Succeeded)
-                {                   
-                    await signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Data");
+                {
+                    // Generate Email confirmation token             
+                    var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var confirmationLink = Url.Action("ConfirmEmail", "Account",
+                                    new { userId = user.Id, token = token }, Request.Scheme);
+
+                    // Send Emails using SendGrid
+                    var apiKey = "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";
+                    var client = new SendGridClient(apiKey);
+                    var from = new EmailAddress("itiupwork@gmail.com","Upwork");
+                    var to = new EmailAddress(user.Email);
+                    var subject = "Confirm your email";
+                    var plainTextContent = "";
+                    var htmlContent = "<strong> Click on the link to confirm your email: " +confirmationLink + " </strong>";
+                    var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+                    var response = await client.SendEmailAsync(msg);
+                    await signInManager.SignOutAsync();
+                    return RedirectToAction("VerifyEmail", new { id = user.Id });                                    
                 }
                 foreach (var error in result.Errors)
                 {
@@ -65,6 +83,58 @@ namespace Upwork.Controllers
                 }
             }
             return View(model);
+        }
+
+        //Verify email 
+        public async Task<IActionResult> VerifyEmail(string id)
+        {
+            
+            if (id == null)
+            {
+                return RedirectToAction("SignUp");
+            }
+
+            var user = await userManager.FindByIdAsync(id);
+
+            if (user == null)
+            {
+                return RedirectToAction("SignUp");
+            }
+
+            if (user.EmailConfirmed)
+            {
+                return RedirectToAction("Data");
+            }
+            ViewBag.Email = user.Email;
+            return View();
+
+        }
+
+        // Confirm email
+        public async Task<IActionResult> ConfirmEmail(string userId, string token)
+        {
+            
+            if (userId == null || token == null)
+            {
+                return RedirectToAction("SignUp");
+            }
+
+            var user = await userManager.FindByIdAsync(userId);
+
+            if (user == null)
+            {
+                return RedirectToAction("SignUp");
+            }
+            var result = await userManager.ConfirmEmailAsync(user, token);
+
+            if (result.Succeeded)
+            {
+                await signInManager.SignInAsync(user, isPersistent: true);
+                return View();
+            }
+
+            return RedirectToAction("SignUp");
+
         }
 
         [Authorize]
@@ -112,10 +182,11 @@ namespace Upwork.Controllers
                     u.LastName = model.LastName;
                     u.CountryId = model.CountryId;
                     u.SendMe = model.SendMe;
-                    await userManager.AddPasswordAsync(u, model.Password);
+                    await userManager.AddPasswordAsync(u, model.Password);                  
                     await userManager.AddToRoleAsync(u, "Client");
+                    return RedirectToAction("Index", "Client");
                     // redirect to client home page
-                    return Content("Client home here...");
+                  //  return Content("Client home here...");
                 }               
             }
             ViewBag.Email = u.Email;
@@ -242,6 +313,7 @@ namespace Upwork.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Expertise");
             }
+            await CheckState();
             ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "Name");
             return View(model);
 
@@ -804,7 +876,8 @@ namespace Upwork.Controllers
                 Freelancer.PhoneNumber = model.Phone.ToString();
                 await userManager.AddToRoleAsync(u, "Freelancer");
                 db.SaveChanges();
-                return Content("Freelancer home page...");
+                return RedirectToAction("Index", "Freelancers");
+               // return Content("Freelancer home page...");
             }
             await CheckState();
             ViewBag.Countries = db.Countries.ToList();
@@ -822,35 +895,37 @@ namespace Upwork.Controllers
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
-            {
-                var user = await userManager.FindByEmailAsync(model.Email);
-                var password = await userManager.CheckPasswordAsync(user, model.Password);
-                if (password)
+            {        
+                var user = await userManager.FindByEmailAsync(model.Email);              
+                if (user != null)
                 {
-                     await signInManager.SignInAsync(user,true);
-                    if (await userManager.IsInRoleAsync(user, "Freelancer"))
+                    var result = await signInManager.PasswordSignInAsync(user.UserName, model.Password, true, false);
+                    if (result.Succeeded)
                     {
-                        return RedirectToAction("Freelancer");
-                    }
-                    else if (await userManager.IsInRoleAsync(user,"Client"))
-                    {
-                        return RedirectToAction("Client");
-                    }
-                    else if (await userManager.IsInRoleAsync(user, "Admin"))
-                    {
-                        return Content("Admin home page...");
-                    }
-                    else
-                    {
-                        return Content("Success");
-                    }
+                        if (await userManager.IsInRoleAsync(user, "Freelancer"))
+                        {
+                            return RedirectToAction("Index", "Freelancers");
+                        }
+                        else if (await userManager.IsInRoleAsync(user, "Client"))
+                        {
+                            return RedirectToAction("Index", "Client");
+                        }
+                        else if (await userManager.IsInRoleAsync(user, "Admin"))
+                        {
+                            return Content("Admin home page...");
+                        }
+                        else if (db.Freelancers.FirstOrDefault(a=>a.FreelancerId == user.Id) !=null)
+                        {
+                            return RedirectToAction("Phone");
+                        }
+                        else
+                        {
+                            return RedirectToAction("Data");                            
+                        }
+                    }           
                 }
-                else
-                {
-                    ViewBag.Message = "Invalid login attempt";
-                    return View(model);
-                   // return Content("Failed");
-                }
+                ViewBag.Message = "Invalid login attempt";
+                return View(model);                                                          
             }
             return View(model);
         }
@@ -875,9 +950,6 @@ namespace Upwork.Controllers
         {
             return Content("Freelancer home page...");
         }
-
-
-
 
 
     }

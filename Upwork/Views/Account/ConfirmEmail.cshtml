@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewData["Title"] = "ConfirmEmail";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<div class="container bg-white mt-5">
+    <div class="text-center pt-5">
+        <img src="~/Images/Success.png" style="height:150px;width:150px;border-radius:50%" />
+    </div>
+    <h2 class="text-center"> Awesome! </h2>
+    <h5 class="text-muted text-center pt-3 pb-3">
+        Your Email Confirmed Successfully! <br />
+        Create your profile now.
+    </h5>
+    <div class="text-center pb-5">
+        <a asp-action="Data" asp-controller="Account" style="all:unset;padding: 10px 150px;text-align: center;text-decoration: none;display: inline-block;margin: 4px 2px;cursor: pointer;border-radius: 20px" class="bg-success text-white">
+            <span>  Create Profile </span>
+        </a>
+    </div>
+</div>
+@section Styles {
+    <style>
+        img:hover {
+            cursor: initial;
+        }
+
+        #Content {
+            height: 600px;
+        }
+    </style>
+}
