@@ -148,22 +148,25 @@ namespace Upwork.Controllers
             return Ok();
         }
       
-        public async Task<IActionResult> SubmitProposal(int ? Id)
+        public async Task<IActionResult> SubmitProposal(int Id)
         {
-            if(Id == null)
+            var FreelancerId = "a123";
+            var FreelancerJobs = _context.Freelancer_Jobs.Where(a => a.FreelancerId == FreelancerId && a.JobsId==Id).FirstOrDefault();
+            if(FreelancerJobs == null)
             {
-                return BadRequest();
+                Freelancer_Job job = new Freelancer_Job() { FreelancerId = FreelancerId, JobsId = Id, IsProposal = true };
+                _context.Freelancer_Jobs.Add(job);
+                _context.SaveChanges();
+                return RedirectToAction(nameof(Index));
             }
-
-            var Freelancer = _context.Freelancers.Where(a => a.FreelancerId == "a123").FirstOrDefault();
-            var Job = _context.Jobs.Where(a => a.Id == Id).FirstOrDefault();
-            if(Freelancer == null || Job == null)
+            else
             {
-                return NotFound();
+                if (FreelancerJobs.IsProposal == false)
+                {
+                    FreelancerJobs.IsProposal = true;
+                    _context.SaveChanges();
+                }
             }
-            Freelancer_Job job = new Freelancer_Job() { FreelancerId = Freelancer.FreelancerId, JobsId = Job.Id, IsProposal = true };
-            _context.Freelancer_Jobs.Add(job);
-            _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
        
@@ -171,7 +174,7 @@ namespace Upwork.Controllers
         public async Task<IActionResult> AllProposal()
         {
             var Freelancer = "a123";
-            var AllProposal = _context.Freelancer_Jobs.Where(a => a.FreelancerId == Freelancer && a.IsProposal == true).Include(a=>a.Jobs);
+            var AllProposal = _context.Freelancer_Jobs.Where(a => a.FreelancerId == Freelancer && a.IsProposal == true).Include(a=>a.Jobs).Include(a=>a.Jobs.jobsSkills);
             ViewData["Skills"] = _context.JobsSkills.Select(s => s.skill).ToList();
             return View(AllProposal);
         }

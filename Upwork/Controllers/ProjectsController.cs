@@ -296,8 +296,6 @@ namespace Upwork.Controllers
                 return RedirectToAction(nameof(Create));
             }
         }
-
-
         // GET: Projects/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -313,9 +311,6 @@ namespace Upwork.Controllers
             HttpContext.Session.SetString("ProjectId", project.ProjectId.ToString());
             return RedirectToAction(nameof(Create));
         }
-
-
-     
         public async Task<IActionResult> Cancel(Project project)
         {
             if (HttpContext.Session.GetString("ProjectId") != null)
@@ -337,7 +332,13 @@ namespace Upwork.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-       
+
+        // GET: Projects/ProjectDetails/5
+        public async Task<IActionResult> ProjectDetails(int id)
+        {
+            var Project = _context.Projects.Include(a => a.Skills).FirstOrDefault(a => a.ProjectId == id);
+            return View(Project);
+        }
        private bool ProjectExists(int id)
         {
             return _context.Projects.Any(e => e.ProjectId == id);
