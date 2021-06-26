@@ -19,8 +19,8 @@
                             </div>
 
                             <div class="col-3  text-right m-0">
-                                <div class="devBtnGreen text-center p-2 mr-0 text-light">
-                                    <h6 class="m-0 p-0">Post Your Job Now</h6>
+                                <div class="text-center p-2 mr-0 text-light">
+                                    <a class="m-0 p-2 continueBtn text-white" id="NotDraftedTopButton">Post Your Job Now</a>
                                 </div>
                             </div>
                         </div>
@@ -645,8 +645,8 @@
                                 <div class="m-0 p-3">
                                     <a id="IsDrafted"> Save as a draft </a>
 
-                                    <div class="devBtnGreen text-center p-2 text-light ml-2" style="display: inline-flex; width: 155px;">
-                                        <a class="m-0 p-0" id="NotDraft">Post Your Job Now</a>
+                                    <div class="text-center p-2 text-light ml-2" style="display: inline-flex; width: 155px;">
+                                        <a class="m-0 p-2 continueBtn text-white" id="NotDraft">Post Your Job Now</a>
                                     </div>
                                 </div>
 
@@ -687,8 +687,26 @@
             $(".rotateAngle4").toggleClass("rotate");
             console.log($('.rotateAngle'));
         });
+        $("#description").keyup(function () {
+            if ($(this).val().length > 0) {
+
+                $("#NotDraftedTopButton").addClass('continueBtnEnable');
+                $("#NotDraftedTopButton").removeClass('continueBtn');
+                $("#NotDraft").removeClass('continueBtn');
+                $("#NotDraft").addClass('continueBtnEnable');
+            } else {
+                $("#NotDraftedTopButton").addClass('continueBtn');
+                $("#NotDraftedTopButton").removeClass('continueBtnEnable');
+                $("#NotDraft").removeClass('continueBtn');
+                $("#NotDraft").addClass('continueBtnEnable');
+            }
+        })
         $("#IsDrafted").click(function () {
             $("#isDeraft").val("true");
+            $("#postJobForm").append("<button type='submit' id='go' class='d-none'></button>");
+            $("#go").click();
+        })
+        $("#NotDraftedTopButton").click(function () {
             $("#postJobForm").append("<button type='submit' id='go' class='d-none'></button>");
             $("#go").click();
         })

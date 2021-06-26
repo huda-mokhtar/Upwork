@@ -63,62 +63,129 @@
                     <div>
                         @if (Model.Where(a => a.IsDraft == false).Count() > 0)
                         {
-                            foreach (var posted in Model.Where(a => a.IsDraft == false).Reverse())
+                            if (Model.Where(a => a.IsDraft == false).Count() > 6)
                             {
-                                <div class="myDrafts">
-                                    <div class="row m-0 p-0 mb-1"
-                                         style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
-                                        <div class="col-9 text-left ml-1">
-                                            <a href="" class="braek">
-                                                @posted.Title 
-                                            </a>
-                                        </div>
-                                        <div class="col-2 text-right" style="width: 50px; height: 50px; margin: 0;padding:0;">
-                                            <div class="container text-right dropdown "
-                                                 style="width: 48px; height: 48px; margin: 0;padding:0;">
-                                                <span class=" circlee-points container-circlee " data-toggle="dropdown"
-                                                      aria-haspopup="true" aria-expanded="false">
-                                                    <i class="fa fa-ellipsis-h 2x "
-                                                       style="color:rgb(83, 83, 83) ;"></i>
-                                                </span>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="#">Action</a>
-                                                    <a class="dropdown-item" href="#">Another action</a>
-                                                    <a class="dropdown-item" href="#">Something else here</a>
-                                                    <a class="dropdown-item" asp-action="ReusePosting" asp-route-id="@posted.Id">Reuse Posting</a>
-                                                    <a class="dropdown-item" asp-action="JobDetails" asp-route-id="@posted.Id">View posting</a>
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="#">Separated link</a>
+                                foreach (var posted in Model.Where(a => a.IsDraft == false).Reverse().Take(6))
+                                {
+                                    <div class="myDrafts">
+                                        <div class="row m-0 p-0 mb-1"
+                                             style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
+                                            <div class="col-9 text-left ml-1">
+                                                <a href="" class="braek">
+                                                    @posted.Title
+                                                </a>
+                                            </div>
+                                            <div class="col-2 text-right" style="width: 50px; height: 50px; margin: 0;padding:0;">
+                                                <div class="container text-right dropdown "
+                                                     style="width: 48px; height: 48px; margin: 0;padding:0;">
+                                                    <span class=" circlee-points container-circlee " data-toggle="dropdown"
+                                                          aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fa fa-ellipsis-h 2x "
+                                                           style="color:rgb(83, 83, 83) ;"></i>
+                                                    </span>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="#">Action</a>
+                                                        <a class="dropdown-item" href="#">Another action</a>
+                                                        <a class="dropdown-item" href="#">Something else here</a>
+                                                        <a class="dropdown-item" asp-action="ReusePosting" asp-route-id="@posted.Id">Reuse Posting</a>
+                                                        <a class="dropdown-item" asp-action="JobDetails" asp-route-id="@posted.Id">View posting</a>
+                                                        <div class="dropdown-divider"></div>
+                                                        <a class="dropdown-item" href="#">Separated link</a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row m-0 p-0 mt-1"
-                                         style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
-                                        <div class="col-5 text-left ml-1">
-                                            <p class="mb-0">Hourly</p>
-                                            <p>Public - Created @posted.CreateDate</p>
-                                        </div>
-                                        <div class="col-2 mr-1">
-                                            <p class="mb-0" style="color: black; font-size: 16px;">0</p>
-                                            <p>Proposals</p>
-                                        </div>
-                                        <div class="col-2 ">
-                                            <p class="mb-0 " style="color: black; font-size: 16px;">0</p>
-                                            <p>Messaged</p>
-                                        </div>
-                                        <div class="col-2 ">
-                                            <p class="mb-0" style="color: black; font-size: 16px;">2</p>
-                                            <p>Hired</p>
-                                        </div>
+                                        <div class="row m-0 p-0 mt-1"
+                                             style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
+                                            <div class="col-5 text-left ml-1">
+                                                <p class="mb-0">Hourly</p>
+                                                <p>Public - Created @posted.CreateDate</p>
+                                            </div>
+                                            <div class="col-2 mr-1">
+                                                <p class="mb-0" style="color: black; font-size: 16px;">0</p>
+                                                <p>Proposals</p>
+                                            </div>
+                                            <div class="col-2 ">
+                                                <p class="mb-0 " style="color: black; font-size: 16px;">0</p>
+                                                <p>Messaged</p>
+                                            </div>
+                                            <div class="col-2 ">
+                                                <p class="mb-0" style="color: black; font-size: 16px;">2</p>
+                                                <p>Hired</p>
+                                            </div>
 
+                                        </div>
+                                    </div>
+                                }
+                                <div class="row text-center">
+                                    <div class="col-4 mx-auto my-3">
+                                        <a class="btn text-success py-2"
+                                           style="width:auto ; height: auto;">
+                                            <a class="m-0 p-1 success" asp-action="AllJobPosts" asp-route-drafted="false">See More</a>
+                                        </a>
                                     </div>
                                 </div>
                             }
+                            else
+                            {
+                                foreach (var posted in Model.Where(a => a.IsDraft == false).Reverse())
+                                {
+                                    <div class="myDrafts">
+                                        <div class="row m-0 p-0 mb-1"
+                                             style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
+                                            <div class="col-9 text-left ml-1">
+                                                <a href="" class="braek">
+                                                    @posted.Title
+                                                </a>
+                                            </div>
+                                            <div class="col-2 text-right" style="width: 50px; height: 50px; margin: 0;padding:0;">
+                                                <div class="container text-right dropdown "
+                                                     style="width: 48px; height: 48px; margin: 0;padding:0;">
+                                                    <span class=" circlee-points container-circlee " data-toggle="dropdown"
+                                                          aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fa fa-ellipsis-h 2x "
+                                                           style="color:rgb(83, 83, 83) ;"></i>
+                                                    </span>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="#">Action</a>
+                                                        <a class="dropdown-item" href="#">Another action</a>
+                                                        <a class="dropdown-item" href="#">Something else here</a>
+                                                        <a class="dropdown-item" asp-action="ReusePosting" asp-route-id="@posted.Id">Reuse Posting</a>
+                                                        <a class="dropdown-item" asp-action="JobDetails" asp-route-id="@posted.Id">View posting</a>
+                                                        <div class="dropdown-divider"></div>
+                                                        <a class="dropdown-item" href="#">Separated link</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row m-0 p-0 mt-1"
+                                             style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
+                                            <div class="col-5 text-left ml-1">
+                                                <p class="mb-0">Hourly</p>
+                                                <p>Public - Created @posted.CreateDate</p>
+                                            </div>
+                                            <div class="col-2 mr-1">
+                                                <p class="mb-0" style="color: black; font-size: 16px;">0</p>
+                                                <p>Proposals</p>
+                                            </div>
+                                            <div class="col-2 ">
+                                                <p class="mb-0 " style="color: black; font-size: 16px;">0</p>
+                                                <p>Messaged</p>
+                                            </div>
+                                            <div class="col-2 ">
+                                                <p class="mb-0" style="color: black; font-size: 16px;">2</p>
+                                                <p>Hired</p>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                }
+                            }
                         }
+
                         else
                         {
-                            <div class="row text-center">
+                            <div class="row text-center mx-0 my-3">
                                 <div class="col-4" style="margin: auto;">
                                     <a class="btn text-light px-4 py-2 devBtnGreen"
                                        style="width:auto ; height: auto;" asp-action="PostJob">
@@ -141,36 +208,35 @@
                         <div class="col-4 text-right"><a href="#" class="greenLinks">All Drafts</a></div>
                     </div>
                 </div>
-
-                @foreach (var drafted in Model.Where(a => a.IsDraft == true).Reverse().Take(6))
+                @if (Model.Where(a => a.IsDraft == true).Count() > 6)
                 {
-                    <div class="myDrafts">
-                        <div class="row m-0 p-0"
-                             style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
-                            <div class="col-9 text-left ml-1">
-                                <a href="" class="braek">
-                                    @drafted.Title
-                                </a>
-                                <p>Saved @drafted.CreateDate</p>
-                            </div>
-                            <div class="col-2 text-right" style="width: 50px; height: 50px; margin: 0;padding:0;">
-                                <div class="container text-right"
-                                     style="width: 48px; height: 48px; margin: 0;padding:0;">
-                                    <span class=" circlee-points container-circlee " data-toggle="dropdown"
-                                          aria-haspopup="true" aria-expanded="false">
-                                        <i class="fa fa-ellipsis-h 2x" style="color:rgb(83, 83, 83) ;"></i>
-                                    </span>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" asp-action="EditJob" asp-route-id="@drafted.Id">Edit Draft</a>
-                                        <a class="dropdown-item" asp-action="DeleteJob" asp-route-id="@drafted.Id">Remove Draft</a>
+                    foreach (var drafted in Model.Where(a => a.IsDraft == true).Reverse().Take(6))
+                    {
+                        <div class="myDrafts">
+                            <div class="row m-0 p-0"
+                                 style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
+                                <div class="col-9 text-left ml-1">
+                                    <a href="" class="braek">
+                                        @drafted.Title
+                                    </a>
+                                    <p>Saved @drafted.CreateDate</p>
+                                </div>
+                                <div class="col-2 text-right" style="width: 50px; height: 50px; margin: 0;padding:0;">
+                                    <div class="container text-right"
+                                         style="width: 48px; height: 48px; margin: 0;padding:0;">
+                                        <span class=" circlee-points container-circlee " data-toggle="dropdown"
+                                              aria-haspopup="true" aria-expanded="false">
+                                            <i class="fa fa-ellipsis-h 2x" style="color:rgb(83, 83, 83) ;"></i>
+                                        </span>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" asp-action="EditJob" asp-route-id="@drafted.Id">Edit Draft</a>
+                                            <a class="dropdown-item" asp-action="DeleteJob" asp-route-id="@drafted.Id">Remove Draft</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                }
-                @if (Model.Where(a => a.IsDraft == true).Count() > 6)
-                {
+                    }
                     <div class="row text-center">
                         <div class="col-4 mx-auto my-3">
                             <a class="btn text-success py-2"
@@ -179,6 +245,36 @@
                             </a>
                         </div>
                     </div>
+                }
+                else
+                {
+                    foreach (var drafted in Model.Where(a => a.IsDraft == true).Reverse())
+                    {
+                        <div class="myDrafts">
+                            <div class="row m-0 p-0"
+                                 style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
+                                <div class="col-9 text-left ml-1">
+                                    <a href="" class="braek">
+                                        @drafted.Title
+                                    </a>
+                                    <p>Saved @drafted.CreateDate</p>
+                                </div>
+                                <div class="col-2 text-right" style="width: 50px; height: 50px; margin: 0;padding:0;">
+                                    <div class="container text-right"
+                                         style="width: 48px; height: 48px; margin: 0;padding:0;">
+                                        <span class=" circlee-points container-circlee " data-toggle="dropdown"
+                                              aria-haspopup="true" aria-expanded="false">
+                                            <i class="fa fa-ellipsis-h 2x" style="color:rgb(83, 83, 83) ;"></i>
+                                        </span>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" asp-action="EditJob" asp-route-id="@drafted.Id">Edit Draft</a>
+                                            <a class="dropdown-item" asp-action="DeleteJob" asp-route-id="@drafted.Id">Remove Draft</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
                 }
             </div>
                 }
