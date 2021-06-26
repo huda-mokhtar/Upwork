@@ -28,7 +28,11 @@ namespace Upwork.Controllers
         {
             //CurrentUser = await _UserManager.GetUserAsync(User);
             var freelancer = await _context.Freelancers.Include(a=>a.SubCategory).Include(a=>a.Category).Include(a => a.Freelancer_Jobs).Include(a =>a.User).FirstOrDefaultAsync(a =>a.FreelancerId == "a123");
-            var Jobs = await _context.Jobs.Include(a=>a.freelancer_Jobs).Where(a => a.subCategoryId == freelancer.SubCategoryId && a.IsDraft == false).Include(a=>a.jobsSkills).ToListAsync();
+            if(freelancer == null)
+            {
+                return BadRequest();
+            }
+            var Jobs = await _context.Jobs.Where(a => a.subCategoryId == freelancer.SubCategoryId && a.IsDraft == false).Include(a=>a.jobsSkills).Include(a => a.freelancer_Jobs).ToListAsync();
             var Dislikejobs =  _context.Freelancer_Jobs.Where(a => a.Isdislike == true).Select(a => a.Jobs).ToList();
             var jobskills = _context.JobsSkills.Select(s => s.skill);
             ViewData["Skills"] = jobskills.ToList();
@@ -84,7 +88,7 @@ namespace Upwork.Controllers
                 return NotFound();
             }
             ViewData["Skills"] = _context.JobsSkills.Select(s => s.skill).ToList();
-            ViewData["SavesJobs"] = _context.Freelancer_Jobs.Include(a => a.Jobs).Where(a => a.FreelancerId == Freelancer && a.IsSaved ==true);
+            ViewData["SavesJobs"] = _context.Freelancer_Jobs.Include(a => a.Jobs).Where(a => a.FreelancerId == Freelancer && a.IsSaved ==true && a.Isdislike == false);
             return View(Job.Union(JobList));
         }
 
@@ -182,10 +186,6 @@ namespace Upwork.Controllers
             ViewData["FreelancerId"] = new SelectList(_context.Set<ApplicationUser>(), "Id", "Id", freelancer.FreelancerId);
             return View(freelancer);
         }
-
-        // POST: Freelancers/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("FreelancerId,CategoryId,SubCategoryId,ExperienceLevel,HourlyRate,Title,Overview,Image,CityId,Street,ZIP,PhoneNumber,VideoLink")] Freelancer freelancer)
@@ -254,7 +254,13 @@ namespace Upwork.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
+        //View All Proposal
+        public async Task<IActionResult> AllProposal()
+        {
+            var Freelancer = "a13";
+            var AllProposal = _context.Freelancer_Jobs.Where(a=>a.FreelancerId==Freelancer && a.IsProposal==true).Include(a=>a.Jobs);
+            return View(AllProposal);
+        }
         private bool FreelancerExists(string id)
         {
             return _context.Freelancers.Any(e => e.FreelancerId == id);

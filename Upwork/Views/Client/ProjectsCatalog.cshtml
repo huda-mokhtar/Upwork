@@ -20,14 +20,16 @@
 
                     </div>
                     <div class="col-7 mt-5 text-right ">
-                        <div class="input-group">
-                            <input type="text"  class="form-control" placeholder="Search By Project's Category" id="input">
-                            <div class="input-group-append">
-                                <button class="btn btn-success" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
+                        <form  asp-action="SearchForProject" asp-controller="Client">
+                            <div class="input-group mx-auto" style="width: 93%;">
+                                <input type="text" class="form-control " name="search" placeholder="Search for Projects" required>
+                                <div class="input-group-append">
+                                    <button class="btn btn-success" type="submit">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
 
@@ -72,7 +74,7 @@
                     </div>
                 <div class="content p-3">
                     <h4 style="height:5rem" class="mt-1 text-left"><a href="#" class="text-success title">@project.Title</a></h4>
-                    <small class="text-muted p float-right">19th Oct, 19</small>
+                    <small class="text-muted p float-right"> @CultureInfo.CreateSpecificCulture("en-US").DateTimeFormat.GetAbbreviatedMonthName(project.Date.Value.Month) @project.Date.Value.Year</small>
                     <small><p class="text-dark text-left" style="font-weight: 500; font-size: 14px;">@project.SubCategory.Name</p></small>
                     <div class="pt-2 mt-2 border-top d-flex">
                         <img src="~/Images/@project.Freelancer.Image" width="36px" class="img-fluid avatar avatar-ex-sm rounded-pill mr-3 shadow" alt="">
