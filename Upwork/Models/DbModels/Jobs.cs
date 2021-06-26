@@ -38,6 +38,8 @@ namespace Upwork.Models.DbModels
         //public int ClientId { get; set; }
         //public Client Client { get; set; }
         public List<JobsSkills> jobsSkills { get; set; }
+        public List<JobQuestions> jobQuestions { get; set; }
+
         public List<Freelancer_Job> freelancer_Jobs{ get; set; }
     }
 }
