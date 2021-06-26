@@ -591,5 +591,11 @@ namespace Upwork.Controllers
             return View("ProjectsCatalog", project.Union(ProjectList));
         }
 
-    }
+        public IActionResult ProjectDetails()
+        {
+            return View();
+        }
+
+
+        }
 }

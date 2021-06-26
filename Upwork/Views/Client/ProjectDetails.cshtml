@@ -113,18 +113,16 @@
 
 
                     <div class="col-12 m-0 p-0 my-2">
-                        <form method="post row " action="send.php">
+                        <form method="post" class="row" action="send.php">
                             <div class="radio-group col-12 mx-0 p-0 my-2">
                                 <div class="row border-bottom m-0 p-0 px-1">
-
-
                                     <div class="col-4 m-0 p-0">
                                         <div class="container pl-0 ml-0">
                                             <div class="radioBox">
-                                                <label for="starter">
+                                                <label for="StarterInput">
                                                     <div class="radioBody p-2 mb-0 text-center">
                                                         <div class="text-center mx-auto mb-0">
-                                                            <input class="mx-auto" type="radio" id="starter" name="Expertise-Level" checked />
+                                                            <input class="mx-auto" type="radio" id="StarterInput" name="Expertise-Level" checked />
                                                             <span class="checkround mx-auto"></span>
 
                                                             <p class="mt-4 mb-0 pl-3" style="font-size: 16px;"> Starter</p>
@@ -139,10 +137,10 @@
                                     <div class="col-4 m-0 p-0">
                                         <div class="container pl-0 ml-0">
                                             <div class="radioBox">
-                                                <label for="standard">
+                                                <label for="StandardInput">
                                                     <div class="radioBody p-2 mb-0 text-center">
                                                         <div class="text-center mb-0">
-                                                            <input class="" type="radio" id="standard" name="Expertise-Level" />
+                                                            <input class="" type="radio" id="StandardInput" name="Expertise-Level" />
                                                             <span class="checkround "></span>
 
                                                             <p class="mt-4 mb-0 ml-3 " style="font-size: 16px;">Standard</p>
@@ -157,12 +155,11 @@
                                     <div class="col-4 m-0 p-0">
                                         <div class="container pl-0 pr-4 ml-0">
                                             <div class="radioBox pr-4">
-                                                <label for="Advanced">
+                                                <label for="AdvancedInput">
                                                     <div class="radioBody p-2 mb-0 text-center">
                                                         <div class="text-center mb-0">
-                                                            <input class="" type="radio" id="Advanced" name="Expertise-Level" />
+                                                            <input class="" type="radio" id="AdvancedInput" name="Expertise-Level" />
                                                             <span class="checkround "></span>
-
                                                             <p class="mt-4 mb-0 ml-3 " style="font-size: 16px;">Advanced</p>
                                                             <p class="mt-0 ml-3" style="font-size: 18px;"> $200.00</p>
                                                         </div>
@@ -179,7 +176,7 @@
 
                     </div>
 
-                    <div class="col-12 m-0 p-0 my-2">
+                    <div class="col-12 m-0 p-0 my-2" id="starter">
                         <div class="row m-1 p-0">
                             <div class="col-7">
                                 <p style="font-weight: 400;">
@@ -191,7 +188,6 @@
                                     7
                                 </p>
                             </div>
-
                         </div>
                         <div class="row m-1 mt-0 p-0">
                             <div class="col-7">
@@ -204,16 +200,73 @@
                                     8
                                 </p>
                             </div>
-
                         </div>
+                    </div>
+
+                    <div class="col-12 m-0 p-0 my-2 d-none" id="standard">
+                        <div class="row m-1 p-0">
+                            <div class="col-7">
+                                <p style="font-weight: 400;">
+                                    Delivery Time
+                                </p>
+                            </div>
+                            <div class="col-4 text-right">
+                                <p style="font-weight: 500;">
+                                    11
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row m-1 mt-0 p-0">
+                            <div class="col-7">
+                                <p style="font-weight: 400;">
+                                    Management Duration (Days)
+                                </p>
+                            </div>
+                            <div class="col-4 text-right">
+                                <p style="font-weight: 500;">
+                                    14
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 m-0 p-0 my-2 d-none" id="advanced">
+                        <div class="row m-1 p-0">
+                            <div class="col-7">
+                                <p style="font-weight: 400;">
+                                    Delivery Time
+                                </p>
+                            </div>
+                            <div class="col-4 text-right">
+                                <p style="font-weight: 500;">
+                                    16
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row m-1 mt-0 p-0">
+                            <div class="col-7">
+                                <p style="font-weight: 400;">
+                                    Management Duration (Days)
+                                </p>
+                            </div>
+                            <div class="col-4 text-right">
+                                <p style="font-weight: 500;">
+                                    20
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
                         <div class="row mx-2 my-4 p-0">
                             <div class="col-11 mx-auto">
                                 <a href="" class="btn  w-100" style="font-weight: 500; border-radius: 20px; background-color: #14a800;color: white;">
-                                    Continue <span>  $45.00 </span>
+                                    Continue <span id="price">  $45.00 </span>
                                 </a>
                             </div>
                         </div>
                     </div>
+
 
                 </div>
             </div>
@@ -221,3 +274,21 @@
 
     </div>
 </div>
+@section Scripts {
+    <script>
+        $(".radio-group .row .col-4 .container .radioBox").click(function () {
+            console.log($(this).children()[0].firstElementChild.firstElementChild.firstElementChild.nextElementSibling.nextElementSibling.textContent);
+            let Expselected = $(this).children()[0].firstElementChild.firstElementChild.firstElementChild.nextElementSibling.nextElementSibling.textContent;
+
+
+            //$("#ExpSelected").text(Expselected);
+            //$("#jobExpContainer").addClass("d-none");
+            //$("#jobExperianceDetails").removeClass("d-none");
+            //$("#continue").children()[0].classList.add('continueBtnEnable');
+            //$("#continue").children()[0].classList.remove('continueBtn');
+        });
+
+
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
