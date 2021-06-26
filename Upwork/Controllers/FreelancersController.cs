@@ -155,7 +155,7 @@ namespace Upwork.Controllers
                 return BadRequest();
             }
 
-            var Freelancer = _context.Freelancers.Where(a => a.FreelancerId == "a123").FirstOrDefault();
+            var Freelancer = _context.Freelancers.Where(a => a.FreelancerId == "a123" ).FirstOrDefault();
             var Job = _context.Jobs.Where(a => a.Id == Id).FirstOrDefault();
             if(Freelancer == null || Job == null)
             {
