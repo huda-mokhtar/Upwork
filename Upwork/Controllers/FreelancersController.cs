@@ -27,7 +27,7 @@ namespace Upwork.Controllers
         public async Task<IActionResult> Index()
         {
             //CurrentUser = await _UserManager.GetUserAsync(User);
-            var freelancer = await _context.Freelancers.Include(a=>a.SubCategory).Include(a=>a.Category).Include(a => a.Freelancer_Jobs).FirstOrDefaultAsync(a =>a.FreelancerId == "a123");
+            var freelancer = await _context.Freelancers.Include(a=>a.SubCategory).Include(a=>a.Category).Include(a => a.Freelancer_Jobs).Include(a =>a.User).FirstOrDefaultAsync(a =>a.FreelancerId == "a123");
             var Jobs = await _context.Jobs.Include(a=>a.freelancer_Jobs).Where(a => a.subCategoryId == freelancer.SubCategoryId && a.IsDraft == false).Include(a=>a.jobsSkills).ToListAsync();
             var Dislikejobs =  _context.Freelancer_Jobs.Where(a => a.Isdislike == true).Select(a => a.Jobs).ToList();
             var jobskills = _context.JobsSkills.Select(s => s.skill);
@@ -43,22 +43,19 @@ namespace Upwork.Controllers
             {
                 return NotFound();
             }
-            var freelancer = await _context.Freelancers
-                .Include(f => f.Category)
-                .Include(f => f.City)
-                .Include(f => f.SubCategory)
-                .Include(f => f.Languages)
-                .Include(a => a.Skills)
-                .FirstOrDefaultAsync(m => m.FreelancerId == id);
+            var freelancer = await _context.Freelancers.Include(a => a.Educations).Include(a => a.SubCategory).Include(a => a.Category).Include(a => a.Freelancer_Jobs).Include(a => a.User).Include(a => a.City).Include(a => a.Skills).Include(a => a.Languages).FirstOrDefaultAsync(a => a.FreelancerId == id);
+            
             if (freelancer == null)
             {
                 return NotFound();
             }
 
             ViewData["countries"] = _context.Countries.ToList();
-            ViewData["Languages"] = _context.Languages.ToList();
-            ViewData["Languagesprofession"] = _context.Language_Proficiency.ToList();
+            ViewData["Languages"] = _context.Freelancer_Language.Where(a => a.FreelancerId == freelancer.FreelancerId).Include(a => a.Language).Include(a => a.Proficiency).ToList();
             ViewData["Skills"] = _context.Skills.ToList();
+            ViewData["Education"] = _context.Freelancer_Education.Where(a => a.FreelancerId == freelancer.FreelancerId).Include(a => a.AreaOfStudy).Include(a => a.Degree).Include(a => a.School).ToList();
+            ViewData["Experience"] = _context.Freelancer_Experience.Where(a => a.FreelancerId == freelancer.FreelancerId).Include(a => a.Company).Include(a => a.Country).Include(a => a.JobTitle).ToList();
+        
             return View(freelancer);
         }
 
@@ -77,17 +74,17 @@ namespace Upwork.Controllers
                 var SearchBySkill = _context.JobsSkills.Where(a => a.skillId == Skill.SkillId).ToList();
                 foreach(var item in SearchBySkill)
                 {
-                    var j = _context.Jobs.Include(a => a.jobsSkills).FirstOrDefault(a => a.Id == item.JobsId);
+                    var j = _context.Jobs.Include(a => a.jobsSkills).Include(a => a.freelancer_Jobs).FirstOrDefault(a => a.Id == item.JobsId);
                     JobList.Add(j);
                 }
             }
-            var Job = _context.Jobs.Where(a => a.Title.Contains(search) || a.JobDescription.Contains(search)).Include(a=>a.jobsSkills).ToList();
+            var Job = _context.Jobs.Where(a => a.Title.Contains(search) || a.JobDescription.Contains(search)).Include(a=>a.jobsSkills).Include(a => a.freelancer_Jobs).ToList();
             if(Job == null && (JobList.Count() == 0))
             {
                 return NotFound();
             }
             ViewData["Skills"] = _context.JobsSkills.Select(s => s.skill).ToList();
-          //ViewData["SavesJobs"] = _context.FreelancerSavedJobs.Where(a => a.FreelancerId == Freelancer).Include(a => a.Jobs).ToList();
+            ViewData["SavesJobs"] = _context.Freelancer_Jobs.Include(a => a.Jobs).Where(a => a.FreelancerId == Freelancer && a.IsSaved ==true);
             return View(Job.Union(JobList));
         }
 
@@ -138,7 +135,7 @@ namespace Upwork.Controllers
             }
             else
             {
-                if (savedJobs.Isdislike == false)
+                if (savedJobs.Isdislike != true)
                 {
                     savedJobs.Isdislike = true;
                     _context.SaveChanges();

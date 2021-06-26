@@ -60,20 +60,34 @@
                                                 <a href=""><b>@item.Title </b> </a>
                                             </div>
                                             <div class="col-3 text-right">
+                                                <a>
+                                                    @foreach (var Jobs in item.freelancer_Jobs)
+                                                    {
+                                                        if (Jobs.IsSaved == true)
+                                                        {
+                                                            <div onclick="saveJob(@item.Id,this)" class="circlee-like">
+                                                                <i class="fa fa-heart 2x" style="color:rgb(83, 83, 83) ;"></i>
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div onclick="saveJob(@item.Id,this)" class="circlee-like">
+                                                                <i class="fa fa-heart-o 2x" style="color:rgb(83, 83, 83) ;"></i>
+                                                            </div>
+                                                        }
 
-                                                <div class="circlee-like">
-                                                    <a asp-action="SaveJob" asp-controller="Freelancers"  asp-route-id="@item.Id"> <i class="fas fa-heart 2x" style="color:rgb(83, 83, 83) ;"></i></a>
-                                                </div>
-
-
-                                                <div class="circlee-like">
-                                                    <a asp-action="UnSaveJob" asp-controller="Freelancers" asp-route-id="@item.Id" > <i class="fa fa-heart-o 2x" style="color:rgb(83, 83, 83) ;"></i></a>
-                                                </div>
-
-
+                                                    }
+                                                    @if (item.freelancer_Jobs.FirstOrDefault(a => a.JobsId == item.Id) == null)
+                                                    {
+                                                        <div onclick="saveJob(@item.Id,this)" class="circlee-like">
+                                                            <i class="fa fa-heart-o 2x" style="color:rgb(83, 83, 83) ;"></i>
+                                                        </div>
+                                                    }
+                                                </a>
                                                 <div class="circlee-dislike container-freelancer">
-                                                    <i class="fa fa-thumbs-o-down 2x" style="color:rgb(83, 83, 83) ;"></i>
+                                                    <a onclick="DislikeJob(@item.Id,this)"> <i class="fa fa-thumbs-o-down 2x" style="color:rgb(83, 83, 83) ;"></i></a>
                                                 </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -164,7 +178,7 @@
                     </div>
                 </div>
                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                    @*@foreach (var item in ViewBag.SavesJobs)
+                    @foreach (var item in ViewBag.SavesJobs)
                     {
                         <div class="card-body jobs">
                             <div class="container">
@@ -266,7 +280,7 @@
                             </div>
                         </div>
                     </div>
-                }*@
+                }
                 
                 </div>
 
