@@ -5,8 +5,8 @@
     <link href="~/css/ProjectCatalog.css" rel="stylesheet" />
 }
 
-<div class="text-center bg-white m-0 p-0">
-    <div class="container">
+<div class="text-center bg-white m-0 p-0" id="Page">
+    <div class="container" id="PageIn">
 
         <div class="row m-0 p-0">
             <div class="col-12 my-5 mx-0">
@@ -21,7 +21,7 @@
                     </div>
                     <div class="col-7 mt-5 text-right ">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search By Project's Category">
+                            <input type="text"  class="form-control" placeholder="Search By Project's Category" id="input">
                             <div class="input-group-append">
                                 <button class="btn btn-success" type="button">
                                     <i class="fa fa-search"></i>
@@ -94,7 +94,6 @@
     <script>
             function SaveProject(Id,e)
             {
-   
                 console.log($(e).children()[0].classList.contains('fa-heart-o'));
                 if ($(e).children()[0].classList.contains('fa-heart-o')) {
                     $.ajax({
@@ -121,7 +120,9 @@
                         }
                     })
                 }
-            }
+        }
+       
+            
     </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

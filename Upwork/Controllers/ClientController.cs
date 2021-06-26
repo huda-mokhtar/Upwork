@@ -75,54 +75,54 @@ namespace Upwork.Controllers
 
         public IActionResult PostJobTitle()
         {
-                if (HttpContext.Session.GetString("JobId") != null)
+            if (HttpContext.Session.GetString("JobId") != null)
+            {
+                var jobId = int.Parse(HttpContext.Session.GetString("JobId"));
+                var jobOld = _context.Jobs.FirstOrDefault(a => a.Id == jobId);
+                if (jobOld.subCategoryId != null)
                 {
-                    var jobId = int.Parse(HttpContext.Session.GetString("JobId"));
-                    var jobOld = _context.Jobs.FirstOrDefault(a => a.Id == jobId);
-                    if (jobOld.subCategoryId != null)
-                    {
-                        var categoryId = (_context.SubCategories.FirstOrDefault(a => a.SubCategoryId == jobOld.subCategoryId)).CategoryId;
-                        //ViewData["categoryId"] = categoryId;
-                        ViewData["SubCategory"] = _context.SubCategories;
-                        ViewData["Categoryid"] = categoryId;
-                        ViewData["Category"] = new SelectList(_context.Categories, "CategoryId", "Name", categoryId);
-                        return View(jobOld);
-                    }
-                    else
-                    {
-                        ViewData["SubCategory"] = _context.SubCategories;
-                        ViewData["Category"] = new SelectList(_context.Categories, "CategoryId", "Name");
-                        return View(jobOld);
-                    }
-
-                }
-                else if (HttpContext.Session.GetString("reuseJob") != null)
-                {
-                    var reusejobId = int.Parse(HttpContext.Session.GetString("reuseJob"));
-                    var reusejobOld = _context.Jobs.FirstOrDefault(a => a.Id == reusejobId);
-                    if (reusejobOld.subCategoryId != null)
-                    {
-                        var categoryId = (_context.SubCategories.FirstOrDefault(a => a.SubCategoryId == reusejobOld.subCategoryId)).CategoryId;
-                        //ViewData["categoryId"] = categoryId;
-                        ViewData["SubCategory"] = _context.SubCategories;
-                        ViewData["Categoryid"] = categoryId;
-                        ViewData["Category"] = new SelectList(_context.Categories, "CategoryId", "Name", categoryId);
-                        return View(reusejobOld);
-                    }
-                    else
-                    {
-                        ViewData["SubCategory"] = _context.SubCategories;
-                        ViewData["Category"] = new SelectList(_context.Categories, "CategoryId", "Name");
-                        return View(reusejobOld);
-                    }
+                    var categoryId = (_context.SubCategories.FirstOrDefault(a => a.SubCategoryId == jobOld.subCategoryId)).CategoryId;
+                    //ViewData["categoryId"] = categoryId;
+                    ViewData["SubCategory"] = _context.SubCategories;
+                    ViewData["Categoryid"] = categoryId;
+                    ViewData["Category"] = new SelectList(_context.Categories, "CategoryId", "Name", categoryId);
+                    return View(jobOld);
                 }
                 else
                 {
                     ViewData["SubCategory"] = _context.SubCategories;
                     ViewData["Category"] = new SelectList(_context.Categories, "CategoryId", "Name");
-                    return View(new Jobs());
+                    return View(jobOld);
                 }
-            
+
+            }
+            else if (HttpContext.Session.GetString("reuseJob") != null)
+            {
+                var reusejobId = int.Parse(HttpContext.Session.GetString("reuseJob"));
+                var reusejobOld = _context.Jobs.FirstOrDefault(a => a.Id == reusejobId);
+                if (reusejobOld.subCategoryId != null)
+                {
+                    var categoryId = (_context.SubCategories.FirstOrDefault(a => a.SubCategoryId == reusejobOld.subCategoryId)).CategoryId;
+                    //ViewData["categoryId"] = categoryId;
+                    ViewData["SubCategory"] = _context.SubCategories;
+                    ViewData["Categoryid"] = categoryId;
+                    ViewData["Category"] = new SelectList(_context.Categories, "CategoryId", "Name", categoryId);
+                    return View(reusejobOld);
+                }
+                else
+                {
+                    ViewData["SubCategory"] = _context.SubCategories;
+                    ViewData["Category"] = new SelectList(_context.Categories, "CategoryId", "Name");
+                    return View(reusejobOld);
+                }
+            }
+            else
+            {
+                ViewData["SubCategory"] = _context.SubCategories;
+                ViewData["Category"] = new SelectList(_context.Categories, "CategoryId", "Name");
+                return View(new Jobs());
+            }
+
         }
         public async Task<IActionResult> GetSubCategories(int Id)
         {
@@ -212,10 +212,10 @@ namespace Upwork.Controllers
                 {
                     //List<Skill> unselected = new List<Skill>();
                     List<Skill> selectedSkills = new List<Skill>();
-                    for (var s=0; s<Skills.Count(); s++)
+                    for (var s = 0; s < Skills.Count(); s++)
                     {
                         if (SkillsList.Where(a => a.skillId == Skills[s].SkillId).Count() == 1)
-                        { 
+                        {
                             selectedSkills.Add(Skills[s]);
                         }
                     }
@@ -240,7 +240,7 @@ namespace Upwork.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> PostJobSkills( IFormCollection job)
+        public async Task<IActionResult> PostJobSkills(IFormCollection job)
         {
             //return Json(Request.Form["Skills"]);
             if (ModelState.IsValid)
@@ -251,17 +251,17 @@ namespace Upwork.Controllers
                     var Job = _context.Jobs.FirstOrDefault(s => s.Id == jobId);
                     if (_context.JobsSkills.Where(a => a.JobsId == jobId).Count() > 0)
                     {
-                        foreach(var item in _context.JobsSkills.Where(a => a.JobsId == jobId))
+                        foreach (var item in _context.JobsSkills.Where(a => a.JobsId == jobId))
                         {
                             _context.JobsSkills.Remove(item);
                         }
-                      await  _context.SaveChangesAsync();
+                        await _context.SaveChangesAsync();
                     }
                     foreach (var item in Request.Form["Skills"])
                     {
-                            JobsSkills skill = new JobsSkills() { JobsId = jobId, skillId = int.Parse(item) };
-                            _context.JobsSkills.Add(skill);
-                            await _context.SaveChangesAsync();
+                        JobsSkills skill = new JobsSkills() { JobsId = jobId, skillId = int.Parse(item) };
+                        _context.JobsSkills.Add(skill);
+                        await _context.SaveChangesAsync();
                     }
                     return RedirectToAction(nameof(PostJobScope));
                 }
@@ -344,7 +344,7 @@ namespace Upwork.Controllers
                     else
                     {
                         Job.BudgetFrom = job.BudgetFrom;
-                        Job.BudgetTo =job.BudgetTo ;
+                        Job.BudgetTo = job.BudgetTo;
                     }
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(ReviewJobPosting));
@@ -382,24 +382,24 @@ namespace Upwork.Controllers
         {
             //if (ModelState.IsValid)
             //{
-                if (HttpContext.Session.GetString("JobId") != null)
-                {
-                    var jobId = int.Parse(HttpContext.Session.GetString("JobId"));
-                    var Job = _context.Jobs.FirstOrDefault(s => s.Id == jobId);
-                    Job.Title = job.Title;
-                    Job.JobDescription = job.JobDescription;
-                    Job.Language_ProficiencyId = job.Language_ProficiencyId;
-                    Job.TimeRequirement = job.TimeRequirement;
-                    Job.TalentType = job.TalentType;
-                    Job.IsDraft = job.IsDraft;
-                    await _context.SaveChangesAsync();
-                    HttpContext.Session.Remove("JobId");
-                    return RedirectToAction(nameof(Index));
-                }
-                else
-                {
-                    return RedirectToAction(nameof(PostJobBudget));
-                }
+            if (HttpContext.Session.GetString("JobId") != null)
+            {
+                var jobId = int.Parse(HttpContext.Session.GetString("JobId"));
+                var Job = _context.Jobs.FirstOrDefault(s => s.Id == jobId);
+                Job.Title = job.Title;
+                Job.JobDescription = job.JobDescription;
+                Job.Language_ProficiencyId = job.Language_ProficiencyId;
+                Job.TimeRequirement = job.TimeRequirement;
+                Job.TalentType = job.TalentType;
+                Job.IsDraft = job.IsDraft;
+                await _context.SaveChangesAsync();
+                HttpContext.Session.Remove("JobId");
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                return RedirectToAction(nameof(PostJobBudget));
+            }
             //}
             //return View(job);
         }
@@ -428,10 +428,10 @@ namespace Upwork.Controllers
                 if (_context.JobsSkills.Where(a => a.JobsId == editJob.Id).Count() < 1)
                 {
                     return RedirectToAction(nameof(PostJobSkills));
-                }else if(editJob.Scope == null)
+                } else if (editJob.Scope == null)
                 {
                     return RedirectToAction(nameof(PostJobScope));
-                }else if(editJob.TypeOfBudget == null)
+                } else if (editJob.TypeOfBudget == null)
                 {
                     return RedirectToAction(nameof(PostJobBudget));
                 }
@@ -446,16 +446,16 @@ namespace Upwork.Controllers
         {
             return View();
         }
-        public IActionResult AllJobPosts(string drafted=null)
+        public IActionResult AllJobPosts(string drafted = null)
         {
             if (drafted != null)
             {
                 if (drafted == "true")
                 {
-                    List<Jobs> allJobsdrafted = new List<Jobs>(_context.Jobs.Where(a=>a.IsDraft==true));
+                    List<Jobs> allJobsdrafted = new List<Jobs>(_context.Jobs.Where(a => a.IsDraft == true));
                     allJobsdrafted.Reverse();
                     return View(allJobsdrafted);
-                }else if(drafted == "false")
+                } else if (drafted == "false")
                 {
                     List<Jobs> allJobsposted = new List<Jobs>(_context.Jobs.Where(a => a.IsDraft == false));
                     allJobsposted.Reverse();
@@ -469,7 +469,7 @@ namespace Upwork.Controllers
                 allJobs.Reverse();
                 return View(allJobs);
             }
-            
+
         }
         public IActionResult JobDetails(int id)
         {
@@ -495,52 +495,32 @@ namespace Upwork.Controllers
             }
             return View(job);
         }
-        public  IActionResult ProjectsCatalog()
+        public IActionResult ProjectsCatalog()
         {
-            var Projects = _context.Projects.Include(a => a.client_Projects).Include(a => a.Freelancer.User).Include(a=>a.SubCategory).ToList();
+            var Projects = _context.Projects.Include(a => a.client_Projects).Include(a => a.Freelancer.User).Include(a => a.SubCategory).ToList();
             return View(Projects);
         }
 
 
-        public async Task<IActionResult> JobRate(int? Id , int? Rate , string FreelancerId)
+        public async Task<IActionResult> JobRate(int? Id, int? Rate, string FreelancerId)
         {
-            if(Id == null || Rate == null || FreelancerId == null)
+            if (Id == null || Rate == null || FreelancerId == null)
             {
                 return BadRequest();
             }
             var Job = _context.Jobs.Where(a => a.Id == Id).FirstOrDefault();
-            if(Job == null)
+            if (Job == null)
             {
                 return NotFound();
             }
 
             return Ok();
         }
-        //public async Task<IActionResult> SaveJob(int id)
-        //{
-        //    var ClientId = "a123";
-        //    Freelancer_Job savedJobs =await _context.Client_Projects.Where(a => a.ProjectId == id && a.ClientId == ClientId).FirstOrDefault();
-        //    if (savedJobs == null)
-        //    {
-        //        savedJobs = new Freelancer_Job() { FreelancerId = FreelancerId, JobsId = id, IsSaved = true };
-        //        _context.Freelancer_Jobs.Add(savedJobs);
-        //        _context.SaveChanges();
-        //    }
-        //    else
-        //    {
-        //        if (savedJobs.IsSaved == false)
-        //        {
-        //            savedJobs.IsSaved = true;
-        //            _context.SaveChanges();
-        //        }
-        //    }
-
-        //    return RedirectToAction(nameof(Index));
 
         public async Task<IActionResult> SaveProject(int id)
         {
             var ClientId = "a123";
-            Client_Projects Projected =  _context.Client_Projects.Where(a => a.ProjectId == id && a.ClientId == ClientId).FirstOrDefault();
+            Client_Projects Projected = _context.Client_Projects.Where(a => a.ProjectId == id && a.ClientId == ClientId).FirstOrDefault();
             if (Projected == null)
             {
                 Client_Projects client_Project = new Client_Projects() { ClientId = ClientId, ProjectId = id, IsSaved = true };
@@ -557,9 +537,9 @@ namespace Upwork.Controllers
             }
 
 
-               return Ok();
+            return Ok();
 
-            }
+        }
 
         public async Task<IActionResult> UnSaveProjecte(int id)
         {
@@ -571,6 +551,32 @@ namespace Upwork.Controllers
                 _context.SaveChanges();
             }
             return RedirectToAction(nameof(Index));
+        }
+        public async Task<IActionResult> SearchForProject(string search)
+        {
+            var Freelancer = "a123";
+            if (string.IsNullOrEmpty(search))
+            {
+                return BadRequest();
+            }
+            var Skill = _context.Skills.FirstOrDefault(s => s.Name == search);
+            var ProjectList = new List<Project>();
+            if (Skill != null)
+            {
+                var SearchBySkill = _context.ProjectSkills.Where(a => a.SkillId == Skill.SkillId).ToList();
+                foreach (var item in SearchBySkill)
+                {
+                    var p = _context.Projects.Include(a => a.Skills).FirstOrDefault(a => a.ProjectId == item.ProjectId);
+                    ProjectList.Add(p);
+                }
+            }
+            var project = _context.Projects.Where(a => a.Title.Contains(search) || a.Description.Contains(search)).Include(a => a.Skills).ToList();
+            if (project == null && (ProjectList.Count() == 0))
+            {
+                return NotFound();
+            }
+            ViewData["Skills"] = _context.ProjectSkills.Select(s => s.Skill).ToList();
+            return View(project.Union(ProjectList));
         }
 
 
