@@ -458,8 +458,10 @@ namespace Upwork.Controllers
         }
         public IActionResult Profile()
         {
-            
-            return View();
+            var clientid = "c123";
+            Client client = _context.Clients.Include(a => a.User).ThenInclude(a=>a.Country).Where(a => a.ClientId == clientid).FirstOrDefault();
+            ViewData["Countries"]= new SelectList(_context.Countries, "CountryId", "Name", client.User.CountryId);
+            return View(client);
         }
         public IActionResult AllJobPosts(string drafted = null)
         {
