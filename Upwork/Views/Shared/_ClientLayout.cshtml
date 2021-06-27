@@ -35,12 +35,12 @@
                             </a>
                             <ul data-cy="dropdown-menu" class="dropdown-menu mw-240" aria-labelledby="dropdownMenuLink">
                                 <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/f/home/" class="dropdown-item">
+                                    <a target="_self" data-cy="menu-item-trigger" asp-action="Index" class="dropdown-item">
                                         My Jobs
                                     </a>
                                 </li>
                                 <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/f/contracts/" class="dropdown-item">
+                                    <a target="_self" data-cy="menu-item-trigger" asp-action="AllJobPosts" class="dropdown-item">
                                         All Job Posts
                                     </a>
                                 </li>
@@ -55,7 +55,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/workdiary/freelancer/" class="dropdown-item">
+                                    <a target="_self" data-cy="menu-item-trigger" asp-action="PostJob" class="dropdown-item">
                                         Post a Job
                                     </a>
                                 </li>
@@ -166,18 +166,7 @@
                         </li>
                         <li class="nav-item dropdown p-lg-2 my-lg-2">
                             <img src="~/Images/16938730_371690419878868_4123771690068118215_n.jpg" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" class="dropdown-toggle img-fluid profile-img" />
-                            <!--<ul data-cy="dropdown-menu" class="dropdown-menu dropdown-menu-right profile-menue" aria-labelledby="dropdownMenuLink">
-                                <li class="dropdown-item ">
-                                    <div class="status">
-                                        <a target="_self" data-cy="menu-item-trigger" href="/ab/f/home/" class="btn active  profile-status">
-                                            inline
-                                        </a>
-                                        <a target="_self" data-cy="menu-item-trigger" href="/ab/f/home/" class="btn profile-status">
-                                            invisable
-                                        </a>
-                                    </div>
-
-                                </li>
+                            <ul data-cy="dropdown-menu" class="dropdown-menu dropdown-menu-right profile-menue" aria-labelledby="dropdownMenuLink">
                                 <li>
                                     <a target="_self" data-cy="menu-item-trigger" href="/ab/f/contracts/" class="dropdown-item">
                                         <img src="~/Images/16938730_371690419878868_4123771690068118215_n.jpg" class="img-fluid rounded-circle" />
@@ -185,18 +174,18 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/workdiary/freelancer/" class="dropdown-item">
+                                    <a target="_self" data-cy="menu-item-trigger" asp-action="Profile" class="dropdown-item">
                                         <i class="fas fa-cog"></i>
                                         Setting
                                     </a>
                                 </li>
                                 <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/workdiary/freelancer/" class="dropdown-item">
+                                    <a target="_self" data-cy="menu-item-trigger" href="/account/logout" class="dropdown-item">
                                         <i class="fas fa-sign-out-alt"></i>
                                         Logout
                                     </a>
                                 </li>
-                            </ul>-->
+                            </ul>
                         </li>
 
                     </ul>

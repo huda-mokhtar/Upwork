@@ -125,13 +125,13 @@
                                         <a>
                                         @foreach (var Jobs in item.freelancer_Jobs)
                                         {
-                                            if (Jobs.IsSaved == true)
+                                            if (Jobs.IsSaved == true &&Jobs.FreelancerId == ViewBag.Freelancer.FreelancerId)
                                             {
                                                 <div onclick="saveJob(@item.Id,this)" class="circlee-like">
                                                     <i class="fa fa-heart 2x" style="color:rgb(83, 83, 83) ;"></i>
                                                 </div>
                                             }
-                                            else
+                                            else if (Jobs.IsSaved == false && Jobs.FreelancerId == ViewBag.Freelancer.FreelancerId)
                                             {
                                                 <div onclick="saveJob(@item.Id,this)" class="circlee-like">
                                                      <i class="fa fa-heart-o 2x" style="color:rgb(83, 83, 83) ;"></i>
@@ -263,7 +263,7 @@
         <div class="d-none d-lg-block col-lg-3">
             <div class="row">
                 <div class="m-0 p-0" style="display:-webkit-box; -webkit-box-align:center; ">
-                    <img src="~/images/@ViewBag.Freelancer.Image" class="imgContainer" alt="Profile Photo" />
+                    <img src="~/images/ProfilePhotos/@ViewBag.Freelancer.Image" class="imgContainer" alt="Profile Photo" />
                     <h6>My Profile</h6>
                 </div>
             </div>
