@@ -18,7 +18,8 @@ using Upwork.Models.ViewModels.Register;
 using Microsoft.AspNetCore.Authentication;
 using SendGrid;
 using SendGrid.Helpers.Mail;
-
+using System.Security.Claims;
+using System.Net;
 
 namespace Upwork.Controllers
 {
@@ -63,10 +64,13 @@ namespace Upwork.Controllers
                     var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
                     var confirmationLink = Url.Action("ConfirmEmail", "Account",
                                     new { userId = user.Id, token = token }, Request.Scheme);
-
+                    //
+                    await signInManager.SignOutAsync();
+                    return Content(confirmationLink);
+                    /*
                     // Send Emails using SendGrid
-                    var apiKey = "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";
-                    var client = new SendGridClient(apiKey);
+                    var apikey = "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";
+                    var client = new SendGridClient(apikey);
                     var from = new EmailAddress("itiupwork@gmail.com","Upwork");
                     var to = new EmailAddress(user.Email);
                     var subject = "Confirm your email";
@@ -76,7 +80,8 @@ namespace Upwork.Controllers
                     var response = await client.SendEmailAsync(msg);
                     await signInManager.SignOutAsync();
                     return RedirectToAction("VerifyEmail", new { id = user.Id });                                    
-                }
+               */
+                    }
                 foreach (var error in result.Errors)
                 {
                     ViewBag.Message = "This email is already in use.";
@@ -137,11 +142,208 @@ namespace Upwork.Controllers
 
         }
 
+        // SignUp with Google
+        public IActionResult GoogleSignup()
+        {
+            var redircetUrl = Url.Action("GoogleSignupCallback", "Account");
+            var Properties = signInManager.ConfigureExternalAuthenticationProperties("Google",redircetUrl);
+            return new ChallengeResult("Google",Properties);
+        }
+
+        public async Task<IActionResult> GoogleSignupCallback(string remoteError = null)
+        {
+            if (remoteError != null)
+            {
+                ViewBag.GoogleMessage = "Error from Google provider!";
+                return View("SignUp");
+            }
+            var info = await signInManager.GetExternalLoginInfoAsync();
+            if (info == null)
+            {
+                ViewBag.GoogleMessage = "Error loading external login information!";
+                return View("SignUp");
+            }
+
+            var signInResult = await signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: true,bypassTwoFactor: true);
+            var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+            var user = await userManager.FindByEmailAsync(email);
+
+            if (signInResult.Succeeded)
+            {          
+                if (await userManager.IsInRoleAsync(user, "Freelancer"))
+                {
+                    return RedirectToAction("Index", "Freelancers");
+                }
+                else if (await userManager.IsInRoleAsync(user, "Client"))
+                {
+                    return RedirectToAction("Index", "Client");
+                }
+                else if (await userManager.IsInRoleAsync(user, "Admin"))
+                {
+                    return Content("Admin home page...");
+                }
+                else if (db.Freelancers.FirstOrDefault(a => a.FreelancerId == user.Id) != null)
+                {
+                    return RedirectToAction("Phone");
+                }
+                else
+                {
+                    return RedirectToAction("DataExternal");
+                }      
+            }
+            else
+            {         
+                if (email != null)
+                {              
+                    if (user == null)
+                    {
+                        user = new ApplicationUser
+                        {
+                            Email = info.Principal.FindFirstValue(ClaimTypes.Email),
+                            UserName = info.Principal.FindFirstValue(ClaimTypes.Email),
+                            FirstName = info.Principal.FindFirstValue(ClaimTypes.GivenName),
+                            LastName = info.Principal.FindFirstValue(ClaimTypes.Surname),
+                            EmailConfirmed = true
+                        };
+
+                        await userManager.CreateAsync(user);
+                        
+                    }
+                    await userManager.AddLoginAsync(user, info);
+                    await signInManager.SignInAsync(user, isPersistent: true);
+                    return RedirectToAction("DataExternal");
+                }
+
+                ViewBag.GoogleMessage = "Error loading external login information!";
+                return View("SignUp");
+            }   
+        }
+
+        // Login Google
+        public IActionResult GoogleLogin()
+        {
+            var redircetUrl = Url.Action("GoogleLoginCallback", "Account");
+            var Properties = signInManager.ConfigureExternalAuthenticationProperties("Google", redircetUrl);
+            return new ChallengeResult("Google", Properties);
+        }
+
+        public async Task<IActionResult> GoogleLoginCallback(string remoteError = null)
+        {
+            if (remoteError != null)
+            {
+                ViewBag.GoogleMessage = "Error from Google provider!";
+                return View("Login");
+            }
+            var info = await signInManager.GetExternalLoginInfoAsync();
+            if (info == null)
+            {
+                ViewBag.GoogleMessage = "Error loading external login information!";
+                return View("Login");
+            }
+
+            var signInResult = await signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: true, bypassTwoFactor: true);
+
+            if (signInResult.Succeeded)
+            {            
+                var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+                var user = await userManager.FindByEmailAsync(email);
+                if (await userManager.IsInRoleAsync(user, "Freelancer"))
+                {
+                    return RedirectToAction("Index", "Freelancers");
+                }
+                else if (await userManager.IsInRoleAsync(user, "Client"))
+                {
+                    return RedirectToAction("Index", "Client");
+                }
+                else if (await userManager.IsInRoleAsync(user, "Admin"))
+                {
+                    return Content("Admin home page...");
+                }
+                else if (db.Freelancers.FirstOrDefault(a => a.FreelancerId == user.Id) != null)
+                {
+                    return RedirectToAction("Phone");
+                }
+                else
+                {
+                    return RedirectToAction("DataExternal");
+                }             
+            }
+            else
+            {      
+                ViewBag.GoogleMessage = "Invalid login attempt!";
+                return View("Login");
+            }         
+        }
+
+        // Extrnal User data 
+        [Authorize]
+        public async Task<IActionResult> DataExternal()
+        {         
+            var u = await userManager.GetUserAsync(User);
+            if (db.UserLogins.FirstOrDefault(a => a.UserId == u.Id) == null)
+            {
+                return RedirectToAction("Data");
+            }
+            if (db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id) != null || db.Clients.FirstOrDefault(a=>a.ClientId == u.Id) != null)
+            {
+                return RedirectToAction("SignUp");
+            }
+            ViewBag.Email = u.Email;
+            ViewBag.CountryId = new SelectList(db.Countries, "CountryId", "Name");            
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DataExternal(ExternalUserData model)
+        {
+            var u = await userManager.GetUserAsync(User);
+            if (ModelState.IsValid)
+            {
+                if (model.Username != null)
+                {
+                    var oldUserWithSameUsername = db.Users.FirstOrDefault(a => a.UserName == model.Username);
+                    if (oldUserWithSameUsername != null)
+                    {
+                        ViewBag.UsernameMessage = "This username is already in use";
+                        ViewBag.Email = u.Email;
+                        ViewBag.CountryId = new SelectList(db.Countries, "CountryId", "Name");
+                        return View(model);
+                    }
+                    u.UserName = model.Username;           
+                    u.CountryId = model.CountryId;
+                    u.SendMe = model.SendMe;
+                    db.Freelancers.Add(new Freelancer() { FreelancerId = u.Id });
+                    db.SaveChanges();
+                    return RedirectToAction("GettingStarted");
+                }
+                else
+                {            
+                    u.CountryId = model.CountryId;
+                    u.SendMe = model.SendMe;
+                    await userManager.AddToRoleAsync(u, "Client");
+                    db.Clients.Add(new Models.DbModels.Client() { ClientId = u.Id });
+                    db.SaveChanges();
+                    return RedirectToAction("Index", "Client");
+                    // redirect to client home page
+                    //  return Content("Client home here...");
+                }
+            }
+            ViewBag.Email = u.Email;
+            ViewBag.CountryId = new SelectList(db.Countries, "CountryId", "Name");
+            return View(model);
+        }
+
+
+        // User data
         [Authorize]
         public async Task<IActionResult> Data()
         {
             var u = await userManager.GetUserAsync(User);
-            if (db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id) != null)
+            if (db.UserLogins.FirstOrDefault(a=>a.UserId == u.Id) != null)
+            {
+                return RedirectToAction("DataExternal");
+            }
+            if (db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id) != null || db.Clients.FirstOrDefault(a => a.ClientId == u.Id) != null)
             {
                 return RedirectToAction("SignUp");
             }
@@ -149,6 +351,7 @@ namespace Upwork.Controllers
             ViewBag.CountryId = new SelectList(db.Countries, "CountryId", "Name");
             return View();         
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Data(UserData model)
@@ -184,6 +387,8 @@ namespace Upwork.Controllers
                     u.SendMe = model.SendMe;
                     await userManager.AddPasswordAsync(u, model.Password);                  
                     await userManager.AddToRoleAsync(u, "Client");
+                    db.Clients.Add(new Models.DbModels.Client() { ClientId = u.Id });
+                    db.SaveChanges();
                     return RedirectToAction("Index", "Client");
                     // redirect to client home page
                   //  return Content("Client home here...");
@@ -191,8 +396,9 @@ namespace Upwork.Controllers
             }
             ViewBag.Email = u.Email;
             ViewBag.CountryId = new SelectList(db.Countries, "CountryId", "Name");
-            return View(model);
+            return View(model);    
         }
+
 
         //Check state of freelancer (done or not)
         private async Task CheckState()
@@ -484,14 +690,77 @@ namespace Upwork.Controllers
                 var SchoolId = db.Schools.FirstOrDefault(a => a.Name == model.School).SchoolId;
                 var AreaId = db.AreasOfStudy.FirstOrDefault(a => a.Name == model.AreaOfStudy).AreaId;
                 var DegreeId = db.Degrees.FirstOrDefault(a => a.Name == model.Degree).DegreeId;
-                db.Freelancer_Education.Add(new Freelancer_Education() { FreelancerId=Freelancer.FreelancerId , AreaId = AreaId , SchoolId = SchoolId, DegreeId = DegreeId,From = new DateTime(model.From, 1, 1) , To = new DateTime(model.To, 1, 1), Description = model.Description}) ;
+                db.Freelancer_Education.Add(new Freelancer_Education() { FreelancerId=Freelancer.FreelancerId , AreaId = AreaId , SchoolId = SchoolId, DegreeId = DegreeId,From = new DateTime(model.From.Value, 1, 1) , To = new DateTime(model.To.Value, 1, 1), Description = model.Description}) ;
                 db.SaveChanges();
                 return RedirectToAction("Education", "Account");
             }
             return PartialView("AddEducationModal");
         }
-        
-       [Authorize]
+
+              
+        [Authorize]
+        public async Task<IActionResult> EditEducation(int AreaId, int SchoolId, int DegreeId, string FreelancerId)
+        {
+            if (await NotAuthorized())
+            {
+                return RedirectToAction("Data");
+            }
+            AddEducationViewModel model = new AddEducationViewModel();
+            var education = db.Freelancer_Education.Include(a=>a.School).Include(a=>a.AreaOfStudy).Include(a=>a.Degree).FirstOrDefault(a => a.FreelancerId == FreelancerId && a.AreaId == AreaId && a.SchoolId == SchoolId && a.DegreeId == DegreeId);
+            if (education != null)
+            {               
+                model.School = education.School.Name;
+                model.AreaOfStudy = education.AreaOfStudy.Name;
+                model.Degree = education.Degree.Name;
+                model.From = education.From.Year;
+                model.To = education.To.Year;
+                model.Description = education.Description;
+                model.FreerlancerId = education.FreelancerId;
+                model.AreaId = education.AreaId;
+                model.DegreeId = education.DegreeId;
+                model.SchoolId = education.SchoolId;
+            }
+            return PartialView("EditEducationModal",model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditEducation(AddEducationViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var u = await userManager.GetUserAsync(User);
+                var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+                if (db.Schools.FirstOrDefault(a=>a.Name == model.School) == null)
+                {
+                    db.Schools.Add(new School() { Name = model.School });
+                }
+                if (db.AreasOfStudy.FirstOrDefault(a=>a.Name == model.AreaOfStudy) == null)
+                {
+                    db.AreasOfStudy.Add(new AreaOfStudy() { Name = model.AreaOfStudy });
+                }
+                if (db.Degrees.FirstOrDefault(a=>a.Name == model.Degree) == null)
+                {
+                    db.Degrees.Add(new Degree() { Name = model.Degree });
+                }
+                db.SaveChanges();
+                var SchoolId = db.Schools.FirstOrDefault(a => a.Name == model.School).SchoolId;
+                var AreaId = db.AreasOfStudy.FirstOrDefault(a => a.Name == model.AreaOfStudy).AreaId;
+                var DegreeId = db.Degrees.FirstOrDefault(a => a.Name == model.Degree).DegreeId;
+                var education = db.Freelancer_Education.FirstOrDefault(a => a.FreelancerId == model.FreerlancerId && a.DegreeId == model.DegreeId && a.SchoolId == model.SchoolId && a.AreaId == model.AreaId);
+                education.AreaId = AreaId;
+                education.DegreeId = DegreeId;
+                education.SchoolId = SchoolId;
+                education.From = new DateTime(model.From.Value, 1, 1);
+                education.To = new DateTime(model.To.Value, 1, 1);
+                education.Description = model.Description;
+                db.SaveChanges();
+                return RedirectToAction("Education", "Account");
+            }
+            return PartialView("AddEducationModal");
+        }
+
+
+        [Authorize]
         public async Task<IActionResult> DeleteEducation(int AreaId, int SchoolId, int DegreeId, string FreelancerId)
         {
             if (await NotAuthorized())
@@ -935,7 +1204,8 @@ namespace Upwork.Controllers
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
-            return Content("Home page...");
+            return RedirectToAction("Login");
+           // return Content("Home page...");
         }
 
 

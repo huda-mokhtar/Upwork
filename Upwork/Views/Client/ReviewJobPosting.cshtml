@@ -11,6 +11,7 @@
     <div class="row m-auto">
         <div class="col-11 text-center mt-2">
             <form method="post" asp-action="ReviewJobPosting" id="postJobForm">
+                <input type="hidden" asp-for="Id" id="jobId"/>
                 <div class="card">
                     <div class="card-header bg-white">
                         <div class="row p-3 " style="display:-webkit-box; -webkit-box-align:center; ">
@@ -664,9 +665,20 @@
 </div>
 @section Scripts {
     <script>
+        var id = $("#jobId").val();
+        $("#PrevStep").attr("href", "/Client/PostJobBudget/" + id);
+        if ($("#description").val().length > 0) {
 
-        $("#PrevStep").attr("href", "/Client/PostJobBudget");
-
+            $("#NotDraftedTopButton").addClass('continueBtnEnable');
+            $("#NotDraftedTopButton").removeClass('continueBtn');
+            $("#NotDraft").removeClass('continueBtn');
+            $("#NotDraft").addClass('continueBtnEnable');
+        } else {
+            $("#NotDraftedTopButton").addClass('continueBtn');
+            $("#NotDraftedTopButton").removeClass('continueBtnEnable');
+            $("#NotDraft").addClass('continueBtn');
+            $("#NotDraft").removeClass('continueBtnEnable');
+        }
         $(".rotateLink1").click(function () {
             console.log
             $(".rotateAngle1").toggleClass("rotate");

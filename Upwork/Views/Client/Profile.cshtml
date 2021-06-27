@@ -93,7 +93,6 @@
                             </h6>
                             <p class="mt-2" id="countryName">@Model.User.Country.Name</p>
                             <p class="mt-2 d-none" id="CountryId">@Model.User.CountryId</p>
-                            <p class="d-none" id="databasepass">@Model.User.PasswordHash</p>
                         </div>
                     </div>
                     <div class="row  mx-2">
@@ -133,11 +132,11 @@
                                         <form method="post" asp-action="ChangePass">
                                             <div class="form-group m-2 my-4">
                                                 <label for="OldPassword" class="h6">Old Password</label>
-                                                <input type="password" class="form-control" id="OldPassword" required/>
+                                                <input type="password" class="form-control" id="OldPassword" name="OldPassword" required/>
                                             </div>
                                             <div class="form-group m-2 my-4">
                                                 <label for="NewPassword" class="h6">New Password</label>
-                                                <input type="password" class="form-control" id="NewPassword" required />
+                                                <input type="password" class="form-control" id="NewPassword" name="NewPassword" required />
                                                 <div class="text-right" style="font-size: 14px; color: #656565;">
                                                     <span><i class="fa fa-times" aria-hidden="true" style="font-weight: 350;"></i> Numbers <i class="fa fa-times" aria-hidden="true" style="font-weight: 350;"></i> Symbols</span>
                                                 </div>
@@ -145,7 +144,7 @@
                                             </div>
                                             <div class="form-group m-2 my-4">
                                                 <label for="ConfirmPassword" class="h6">Confirm New Password</label>
-                                                <input type="password" class="form-control" id="ConfirmPassword" required/>
+                                                <input type="password" class="form-control" id="ConfirmPassword" name="ConfirmPassword" required/>
                                             </div>
 
                                             <div class="m-2 mt-5">
@@ -243,19 +242,7 @@
 
 
         })
-        $("#OldPassword").focusout(function () {
-            console.log("Dc");
-            if ($(this).val() == $("#databasepass").text()) {
-                $(this).addClass("is-valid");
-                $(this).removeClass("is-invalid");
-
-            } else {
-                $(this).removeClass("is-valid");
-                $(this).addClass("is-invalid");
-            }
-        })
         $("#ConfirmPassword").keyup(function () {
-            console.log("jmkl");
             if ($(this).val() == $("#NewPassword").val()) {
                 $(this).addClass("is-valid");
                 $(this).removeClass("is-invalid");

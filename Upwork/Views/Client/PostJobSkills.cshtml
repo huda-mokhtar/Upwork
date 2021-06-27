@@ -24,28 +24,49 @@
                     <input type="search" class="form-control" placeholder="Search skills or add your own">
                 </div>
                 <form class="d-none" id="skillsAdded" method="post" asp-action="PostJobSkills">
+                    <input type="hidden" asp-for="Id" id="jobId" />
                     <p class="text-muted">Selected skills</p>
-                    @if (ViewBag.skillsSelectedCount > 0)
+                    @*@foreach (var item in Model)
                     {
-                        foreach (var sl in ViewBag.SkillsSelected)
+                        if (item.Value == true)
                         {
                             <div class="text-center mb-2 mr-1 skillAdded remove">
-                                <p class="m-0">@sl.Name<i class="fa fa-times pl-1" aria-hidden="true"></i></p>
-                                <input type="hidden" value="@sl.SkillId" name="Skills" required />
+                                <p class="m-0">@item.Key.Name <i class="fa fa-times pl-1" aria-hidden="true"></i></p>
+                                <input style="all:unset" type="checkbox" checked id="Suggestedskill.@item.Key.SkillId" name="Suggestedskill.@item.Key.SkillId" value="true">
                             </div>
-
                         }
-                    }
-                </form>
+                    }*@
+                        @if (ViewBag.skillsSelectedCount > 0)
+                        {
+                            foreach (var sl in ViewBag.SkillsSelected)
+                            {
+                                <div class="text-center mb-2 mr-1 skillAdded remove">
+                                    <p class="m-0">@sl.Name<i class="fa fa-times pl-1" aria-hidden="true"></i></p>
+                                    <input type="hidden" value="@sl.SkillId" name="Skills" required />
+                                </div>
+
+                            }
+                        }
+                    </form>
                 <h5 class="card-title pb-3">Popular skills</h5>
                 <div class="container-fluid">
                     <div class="row" id="defaultSkills">
+                        @*@foreach (var item in Model)
+                        {
+                            if (item.Value == true)
+                            {
+                                <div class="text-center mb-2 mr-1 addskills add">
+                                    <p class="m-0">@item.Key.Name <i class="fa fa-plus pl-1" aria-hidden="true"></i></p>
+                                    <input style="all:unset" type="checkbox" id="Suggestedskill.@item.Key.SkillId" name="Suggestedskill.@item.Key.SkillId" value="true">
+                                </div>
+                            }
+                        }*@
                         @{ var i = 0;}
                         @foreach (var s in ViewBag.Skills)
                         {
                             <div class="text-center mb-2 mr-1 addskills add">
                                 <p class="m-0">@s.Name<i class="fa fa-plus pl-1" aria-hidden="true"></i></p>
-                                <input type="hidden" value="@s.SkillId" name="Skills" required/>
+                                <input type="hidden" value="@s.SkillId" name="Skills" required />
                                 @{ i++;}
                             </div>
 
@@ -114,9 +135,10 @@
         $("#progressTitle").css("color", " #95df00");
         $("#progressSkills").css("color", " #95df00");
         $("#NextStep").text("Next:Scope");
-        $("#PrevStep").attr("href", "/Client/PostJobTitle");
+        var id = $("#jobId").val();
+        $("#PrevStep").attr("href", "/Client/PostJobTitle/" + id);
 
-        if ($("#skillsAdded").children().length > 2) {
+        if ($("#skillsAdded").children().length > 3) {
             $("#continue").children()[0].classList.add('continueBtnEnable');
             $("#continue").children()[0].classList.remove('continueBtn');
             $("#skillsAdded").removeClass("d-none");
@@ -137,11 +159,11 @@
             $("#skillsAdded").removeClass("d-none");
 
             $("#skillsAdded").append($(this));
-            if ($("#skillsAdded").children().length > 2) {
+            if ($("#skillsAdded").children().length > 3) {
                 $("#continue").children()[0].classList.add('continueBtnEnable');
                 $("#continue").children()[0].classList.remove('continueBtn');
             }
-            if ($("#defaultSkills").children().length <= 2) {
+            if ($("#defaultSkills").children().length <= 1) {
                 $("#defaultSkills").addClass("d-none");
             }
         });
@@ -166,13 +188,13 @@
             $(this).insertBefore("#seeMore");
             //$("#defaultSkills").append(el2);
             //console.log($("#skillsAdded").children().length);
-            if ($("#skillsAdded").children().length <= 2) {
+            if ($("#skillsAdded").children().length <= 3) {
                 //console.log($("#skillsAdded").children().length);
                 $("#continue").children()[0].classList.remove('continueBtnEnable');
                 $("#continue").children()[0].classList.add('continueBtn');
                 $("#skillsAdded").addClass("d-none");
             }
-            if ($("#defaultSkills").children().length > 2) {
+            if ($("#defaultSkills").children().length > 1) {
                 $("#defaultSkills").removeClass("d-none");
                 //console.log($("#skillsAdded").children().length);
 

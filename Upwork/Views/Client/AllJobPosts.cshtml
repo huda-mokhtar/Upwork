@@ -103,7 +103,7 @@
                                         <div class="row m-0">
                                             <div class="col-9 text-right">
                                                 <div class="text-light text-center px-3 py-2 devBtnGreen m-0" style=" width:fit-content ; height: auto; display: inline-block;">
-                                                    <h6 class="m-0 p-0"> Reuse posting </h6>
+                                                    <a class="m-0 p-0 text-white" asp-action="PostJobTitle" asp-route-id="@job.Id"> Reuse posting </a>
                                                 </div>
                                             </div>
                                             <div class="col-3 text-right">
@@ -113,8 +113,8 @@
                                                         <i class="fa fa-ellipsis-h 2x " style="color:rgb(83, 83, 83) ;"></i>
                                                     </div>
                                                     <div class="dropdown-menu">
-                                                        <a class="dropdown-item" href="#">Edit Draft</a>
-                                                        <a class="dropdown-item" href="#">Remove Draft</a>
+                                                        <a class="dropdown-item" asp-action="PostJobTitle" asp-route-id="@job.Id">Reuse Posting</a>
+                                                        <a class="dropdown-item" asp-action="JobDetails" asp-route-id="@job.Id">View posting</a>
 
                                                     </div>
                                                 </div>

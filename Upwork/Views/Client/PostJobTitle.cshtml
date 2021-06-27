@@ -20,6 +20,7 @@
         <div id="Jobtitle">
             <h5 class="d-none d-sm-block mb-2">Write a title for your job post</h5>
             <form method="post" asp-action="PostJobTitle" id="TitleForm">
+                <input type="hidden" asp-for="Id" id="jobId"/>
                 <div class="w-100">
                     <div class="form-group">
                         <input type="text" class="form-control" id="titleInput" asp-for="Title" name="Title" required>
@@ -80,7 +81,8 @@
         $("#prorBar").children()[0].classList.add("w-25");
         $("#progressTitle").css("color", " #95df00");
         $("#NextStep").text("Next:Skills");
-        $("#PrevStep").attr("href", "/Client/PostJob");
+        var id = $("#jobId").val();
+        $("#PrevStep").attr("href", "/Client/PostJob/" + id);
         if ($('#titleInput').val().length > 0) {
             $("#titleExamples").addClass('d-none');
             $("#catogery").removeClass('d-none');
