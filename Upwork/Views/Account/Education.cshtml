@@ -32,9 +32,9 @@
                                         <p> @item.Description </p>
                                     </div>
                                     <div class="col-2">
-                                        <a>
+                                        <button style="all:unset;cursor:pointer" type="button" data-toggle="ajax-modal" data-target="#AddEducation" data-url="@Url.Action("EditEducation","Account",new {AreaId=@item.AreaId , SchoolId=item.SchoolId , DegreeId=item.DegreeId ,FreelancerId=item.FreelancerId })">
                                             <span style="font-size: 0.8rem; color: #656565; border: 1px solid #ccc; border-radius: 50%; padding: 0.6rem; " class="fa fa-pen"></span>
-                                        </a>
+                                        </button>
                                         <a asp-action="DeleteEducation" asp-controller="Account" asp-route-AreaId="@item.AreaId" asp-route-SchoolId="@item.SchoolId" asp-route-DegreeId="@item.DegreeId" asp-route-FreelancerId="@item.FreelancerId">
                                             <span style="font-size: 0.8rem; color: #656565; border: 1px solid #ccc; border-radius: 50%; padding: 0.6rem; " class="fa fa-trash-alt"></span>
                                         </a>

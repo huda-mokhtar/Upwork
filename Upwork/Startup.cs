@@ -72,6 +72,12 @@ namespace Upwork
 
             });
 
+            services.AddAuthentication().AddGoogle(options =>
+            {
+                options.ClientId = "315025860685-s8qmfdi9tsa6m8r080norgckon3qe85v.apps.googleusercontent.com";
+                options.ClientSecret = "d7aakXRMh0w1VBZ9EyEbWAAr";
+            });
+
 
             services.AddAuthorization();
 
