@@ -642,9 +642,11 @@ namespace Upwork.Controllers
             return View("ProjectsCatalog", project.Union(ProjectList));
         }
 
-        public IActionResult ProjectDetails()
+        public IActionResult ProjectDetails(int id)
         {
-            return View();
+            var Project = _context.Projects.Include(a => a.Skills).Include(a => a.SubCategory).
+                Include(a=>a.Freelancer).Include(a=>a.Freelancer.Experiences).Include(a=>a.Freelancer.User).Include(a => a.Freelancer.City).FirstOrDefault(a => a.ProjectId == id);
+            return View(Project);
         }
 
 
