@@ -30,7 +30,7 @@
             {
                 <span id="InvalidErrorMsg" class="text-danger offset-3 mt-2"> @ViewBag.Message </span>
             }
-        </div>  
+        </div>
         <div class="container-fluid align-content-center text-center border-dark">
             <div class="row pb-3">
                 <button type="submit" style="all:unset;padding: 10px 200px;text-align: center;text-decoration: none;display: inline-block;margin: 4px 2px;cursor: pointer;border-radius: 20px" class="bg-success text-white">
@@ -50,7 +50,7 @@
             <hr />
         </div>
     </div>
-    <a>
+    <a asp-action="GoogleLogin" asp-controller="Account">
         <div class="row bg-primary col-12 mb-3 mt-3 ml-1" style="border-radius:23px;font-weight:500;padding:1px;width:550px">
             <div>
                 <img style="border-radius:50%;width:50px;height:50px;background-color:white" src="~/Images/google.png" />
@@ -60,6 +60,10 @@
             </div>
         </div>
     </a>
+    @if (ViewBag.GoogleMessage != null)
+    {
+        <span class="text-danger offset-1 pt-2 pb-2"> @ViewBag.GoogleMessage </span>
+    }
     <a>
         <div class="container-fluid align-content-center text-center border-dark mb-3">
             <div class="row pb-3">

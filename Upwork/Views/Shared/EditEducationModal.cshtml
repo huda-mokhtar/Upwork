@@ -1,0 +1,68 @@
+﻿@model AddEducationViewModel
+<div class="modal bg-white offset-3 col-6 mt-3" id="AddEducation">
+    <div>
+        <div class="modal-header mb-3">
+            <h4 class="modal-title"> Edit Education </h4>
+            <button type="button" class="close" data-dismiss="modal">
+                <span class="text-muted"> X </span>
+            </button>
+        </div>
+        <form id="AddEducationForm" asp-action="EditEducation" asp-controller="Account">
+            <div class="modal-body">
+                <div class="mb-4">
+                    <h6 class="text-left" style="padding:0;margin:0"> School </h6>
+                    <input type="text" asp-for="School" class="School form-control mt-2" placeholder="Ex: Northwestern University" />
+                    <span asp-validation-for="School" class="text-danger ml-3"></span>
+                    <span id="SchoolErrorMsg" style="display:none" class="text-danger ml-3"> This field is required. </span>
+                </div>
+                <div class="mb-4">
+                    <h6 class="text-left" style="padding:0;margin:0"> Area of Study <span class="text-muted">(Optional)</span> </h6>
+                    <input type="text" asp-for="AreaOfStudy" class="form-control mt-2" placeholder="Ex: Computer Science" />
+                </div>
+                <div class="mb-4">
+                    <h6 class="text-left" style="padding:0;margin:0"> Degree <span class="text-muted">(Optional)</span> </h6>
+                    <input type="text" asp-for="Degree" class="form-control mt-2" placeholder="Ex: Bachelor's" />
+                </div>
+                <input asp-for="FreerlancerId" hidden />
+                <input asp-for="SchoolId" hidden />
+                <input asp-for="AreaId" hidden />
+                <input asp-for="DegreeId" hidden />
+                <div class="mb-4">
+                    <h6 class="text-left" style="padding:0;margin:0"> Dates Attended (Optional) </h6>
+                    <div class="row mt-2">
+                        <div class="col-6">
+                            <select asp-for="From" class="form-control">
+                                <option selected disabled hidden>
+                                    From
+                                </option>
+                                @for (int i = 2028; i >= 1950; i--)
+                                {
+                                    <option value="@i"> @i </option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <select asp-for="To" class="form-control">
+                                <option selected disabled hidden>
+                                    To (or expected graduation year)
+                                </option>
+                                @for (int i = 2028; i >= 1950; i--)
+                                {
+                                    <option value="@i"> @i </option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-5">
+                    <h6 class="text-left" style="padding:0;margin:0"> Description <span class="text-muted">(Optional)</span> </h6>
+                    <textarea asp-for="Description" class="form-control mt-2" placeholder="Describe your studies, awards, etc."></textarea>
+                </div>
+                <div class="offset-8 mb-3">
+                    <button type="button" class="btn text-success bg-white" style="border-color:lightgrey" data-dismiss="modal"> Cancel </button>
+                    <button type="button" class="btn btn-success" style="border-color:lightgrey" data-save="modal"> Save </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -33,6 +33,7 @@
                                                                 <div class="row">
                                                                     <div class="col-12 p-0">
                                                                         <form method="post" id="nextForm" asp-action="PostJob">
+                                                                            <input type="hidden" asp-for="Id"/>
                                                                             <div class="radio-group">
                                                                                 <div class="container">
                                                                                     <div class="row">
@@ -149,7 +150,7 @@
             $("#gotoSteps").children()[0].classList.add('continueBtnEnable');
             var val = $(this).attr('data-value');
         });
-        $("#gotoSteps").on('click','#submit',function (event) {
+        $("#gotoSteps").on('click', '#submit', function (event) {
             $("#nextForm").append("<button type='submit' id='go' class='d-none'></button>");
             $("#go").click();
         })

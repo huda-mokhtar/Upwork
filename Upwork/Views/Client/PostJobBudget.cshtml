@@ -34,6 +34,7 @@
     }
     @section RightSide{
         <form id="JobBudget" method="post" asp-action="PostJobBudget">
+            <input type="hidden" asp-for="Id" id="jobId"/>
             <div class="row m-0">
                 <div class="col-12 p-0">
                     <div class="container-fluid align-content-center p-0">
@@ -91,7 +92,7 @@
                                         {
                                         <input type="number" class="form-control-dolars d-inline pt-2 pr-3 pb-2 pl-5" name="BudgetFrom" asp-for="BudgetFrom" id="BudgetFromHourly" min="0" required value="@Model.BudgetFrom">
                                         }
-                                        else {<input type="number" class="form-control-dolars d-inline pt-2 pr-3 pb-2 pl-5" name="BudgetFrom" asp-for="BudgetFrom" id="BudgetFromHourly" min="0" required value="0"> }
+                                        else {<input type="number" class="form-control-dolars d-inline pt-2 pr-3 pb-2 pl-5" name="BudgetFrom" asp-for="BudgetFrom" id="BudgetFromHourly" min="0" required > }
                                     </div>
                                 </div>
                                 <span class="d-inline" aria-hidden="true">/hour</span>
@@ -106,7 +107,7 @@
                                         @if (Model.TypeOfBudget == false) { 
                                             <input type="number" class="form-control-dolars d-inline pt-2 pr-3 pb-2 pl-5" name="BudgetTo" asp-for="BudgetTo" id="BudgetToHourly" min="0" required value="@Model.BudgetTo">
             }
-            else { <input type="number" class="form-control-dolars d-inline pt-2 pr-3 pb-2 pl-5" name="BudgetTo" asp-for="BudgetTo" id="BudgetToHourly" min="0" required value="0">}
+            else { <input type="number" class="form-control-dolars d-inline pt-2 pr-3 pb-2 pl-5" name="BudgetTo" asp-for="BudgetTo" id="BudgetToHourly" min="0" required >}
                                     </div>
                                 </div>
                                 <span class="d-inline" aria-hidden="true">/hour</span>
@@ -139,7 +140,7 @@
                                 }
                                 else
                                 {
-                                    <input type="number" class="form-control-dolars d-inline pt-2 pr-3 pb-2 pl-5" id="projectBudgetFrom" asp-for="BudgetFrom" min="0" value="0">
+                                    <input type="number" class="form-control-dolars d-inline pt-2 pr-3 pb-2 pl-5" id="projectBudgetFrom" asp-for="BudgetFrom" min="0">
                                 }
                             </div>
                         </div>
@@ -167,7 +168,8 @@
         $("#progressScope").css("color", " #95df00");
         $("#progressBudget").css("color", " #95df00");
         $("#NextStep").text("Review Job Post");
-        $("#PrevStep").attr("href", "/Client/PostJobScope");
+        var id = $("#jobId").val();
+        $("#PrevStep").attr("href", "/Client/PostJobScope/" + id);
         $("#continue").children()[0].classList.add('continueBtnEnable');
         $("#continue").children()[0].classList.remove('continueBtn');
 

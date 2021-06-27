@@ -35,32 +35,30 @@
                                         <h4 class="modal-title">Change Info</h4>
                                     </div>
                                     <div class="modal-body m-2">
-                                        <form>
-                                            <div class="form-group m-2 my-4">
-                                                <label for="username" class="h6">UserName</label>
-                                                <input type="text" class="form-control" id="username" required asp-for="User.UserName"/>
-                                            </div>
-                                            <div class="form-group m-2 my-4">
-                                                <label for="firstName" class="h6">First Name</label>
-                                                <input type="text" class="form-control" id="firstName" required asp-for="User.FirstName"/>
-                                            </div>
-                                            <div class="form-group m-2 my-4">
-                                                <label for="lastName" class="h6">Last Name</label>
-                                                <input type="text" class="form-control" id="lastName" required asp-for="User.LastName"/>
-                                            </div>
-                                            <div class="form-group m-2 my-4">
-                                                <label for="email" class="h6">Email</label>
-                                                <input type="email" class="form-control" id="email" required asp-for="User.Email"/>
-                                            </div>
-                                            <div class="form-group m-2 my-4">
-                                                <select class="form-control" asp-items="ViewBag.Countries" required id="categoryselction"></select>
-                                            </div>
-                                            <div class="text-right">
-                                                <input type="button" class="btn text-success bg-white mr-2"
-                                                       style="border-color:lightgrey; width: 80px; " data-dismiss="modal" data-target="#modalone" value="Cancel" />
-                                                <input type="button" class="btn text-light mr-2" style="border-color:lightgrey; width: 80px; background-color:#14a800 ;" value="Save" />
-                                            </div>
-                                        </form>
+                                        <div class="form-group m-2 my-4">
+                                            <label for="username" class="h6">UserName</label>
+                                            <input type="text" class="form-control" id="username" required asp-for="User.UserName" />
+                                        </div>
+                                        <div class="form-group m-2 my-4">
+                                            <label for="firstName" class="h6">First Name</label>
+                                            <input type="text" class="form-control" id="firstName" required asp-for="User.FirstName" />
+                                        </div>
+                                        <div class="form-group m-2 my-4">
+                                            <label for="lastName" class="h6">Last Name</label>
+                                            <input type="text" class="form-control" id="lastName" required asp-for="User.LastName" />
+                                        </div>
+                                        <div class="form-group m-2 my-4">
+                                            <label for="email" class="h6">Email</label>
+                                            <input type="email" class="form-control" id="email" required asp-for="User.Email" />
+                                        </div>
+                                        <div class="form-group m-2 my-4">
+                                            <select class="form-control" asp-items="ViewBag.Countries" required id="country"></select>
+                                        </div>
+                                        <div class="text-right">
+                                            <input type="button" class="btn text-success bg-white mr-2"
+                                                   style="border-color:lightgrey; width: 80px; " data-dismiss="modal" data-target="#modalone" value="Cancel" />
+                                            <input type="button" class="btn text-light mr-2" style="border-color:lightgrey; width: 80px; background-color:#14a800 ;" value="Save" id="updateClientInfo" data-dismiss="modal" data-target="#modalone" value="Cancel"/>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -76,12 +74,8 @@
                 <div class="card-footer bg-white">
                     <div class="row mx-2">
                         <div>
-                            <h6 class="mb-0">
-                                @Model.User.UserName
-                            </h6>
-                            <p class="mt-2">
-                                @Model.User.FirstName @Model.User.LastName - Client
-                            </p>
+                            <h6 class="mb-0"><span id="UserNameText">@Model.User.UserName</span></h6>
+                            <p class="mt-2"><span id="FullNameText">@Model.User.FirstName @Model.User.LastName</span> - Client</p>
                         </div>
                     </div>
                     <div class="row  mx-2">
@@ -89,19 +83,25 @@
                             <h6 class="mb-0">
                                 Email
                             </h6>
-                            <p class="mt-2">
-                                @Model.User.Email
-                            </p>
+                            <p class="mt-2"><span id="emailText">@Model.User.Email</span></p>
                         </div>
                     </div>
-                    <div class="row  mx-2">
+                    <div class="row  mx-2 text-right">
                         <div class="mt-3">
                             <h6 class="mb-0">
                                 Country
                             </h6>
-                            <p class="mt-2">
-                                @Model.User.Country.Name
-                            </p>
+                            <p class="mt-2" id="countryName">@Model.User.Country.Name</p>
+                            <p class="mt-2 d-none" id="CountryId">@Model.User.CountryId</p>
+                            <p class="d-none" id="databasepass">@Model.User.PasswordHash</p>
+                        </div>
+                    </div>
+                    <div class="row  mx-2">
+                        <div class="mt-3">
+                            <form id="updateClientForm" method="post" asp-action="Profile" class="d-none">
+
+                                <input type="submit" value="Save Changes" class="btn  text-light  py-2 px-3 mr-5 devBtnGreen" style=" width:auto ; height: auto; display: block;" />
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -130,10 +130,10 @@
                                         <h4 class="modal-title">Change Password</h4>
                                     </div>
                                     <div class="modal-body m-2">
-                                        <form>
+                                        <form method="post" asp-action="ChangePass">
                                             <div class="form-group m-2 my-4">
                                                 <label for="OldPassword" class="h6">Old Password</label>
-                                                <input type="password" class="form-control" id="OldPassword" required />
+                                                <input type="password" class="form-control" id="OldPassword" required/>
                                             </div>
                                             <div class="form-group m-2 my-4">
                                                 <label for="NewPassword" class="h6">New Password</label>
@@ -145,7 +145,7 @@
                                             </div>
                                             <div class="form-group m-2 my-4">
                                                 <label for="ConfirmPassword" class="h6">Confirm New Password</label>
-                                                <input type="password" class="form-control" id="ConfirmPassword" required />
+                                                <input type="password" class="form-control" id="ConfirmPassword" name="ConfirmPassword" required/>
                                             </div>
 
                                             <div class="m-2 mt-5">
@@ -156,8 +156,8 @@
                                             </div>
                                             <div class="text-right">
                                                 <input type="button" class="btn text-success bg-white mr-2"
-                                                       style="border-color:lightgrey; width: 80px; " data-dismiss="modal" data-target="#modalone" value="Cancel" />
-                                                <input type="button" class="btn text-light mr-2" style="border-color:lightgrey; width: 80px; background-color:#14a800 ;" value="Save" />
+                                                       style="border-color:lightgrey; width: 80px; " data-dismiss="modal" data-target="#modaltwo" value="Cancel" />
+                                                <input type="submit" class="btn text-light mr-2" style="border-color:lightgrey; width: 80px; background-color:#14a800 ;" value="Save" />
                                             </div>
                                         </form>
                                     </div>
@@ -200,7 +200,7 @@
                         <a href="" style="display: block; color: #14a800;">
                             <h6 class="m-0 p-0 text-Success"> Close Account </h6>
                         </a>
-
+                        
 
                     </div>
                 </div>
@@ -209,3 +209,63 @@
         </div>
     </div>
 </div>
+@section Scripts{
+    <script>
+        $("#updateClientInfo").click(function () {
+            var userName = $("#username").val().trim();
+            var firstName = $("#firstName").val().trim();
+            var lastName = $("#lastName").val().trim();
+            var email = $("#email").val().trim();
+            var country = $("#country").val().trim();
+            if ($("#UserNameText").text() != userName || $("#FullNameText").text() != (firstName + " " + lastName) || $("#emailText").text() != email || $("#CountryId").text() != country)
+            {
+                $("#UserNameText").text(userName);
+                $("#FullNameText").text(firstName + " " + lastName);
+                $("#emailText").text(email);
+                $("#CountryId").text(country);
+
+                for (var i = 0; i < $("#country")[0].children.length; i++) {
+                    if ($("#country")[0].children[i].selected == true) {
+                        $("#countryName").text($("#country")[0].children[i].text);
+                    }
+                }
+                $("#updateClientForm").removeClass("d-none");
+                $("#updateClientForm").append("<input type='text' asp-for='User.UserName' value='" + userName + "' name='UserName' class='d-none' required/>");
+
+                $("#updateClientForm").append("<input type='text' asp-for='User.FirstName' value='" + firstName + "' name='FirstName' class='d-none' required/>");
+
+                $("#updateClientForm").append("<input type='text' asp-for='User.LastName' value='" + lastName + "' name='LastName' class='d-none' required/>");
+
+                $("#updateClientForm").append("<input type='email' asp-for='User.Email' value='" + email + "' name='Email' class='d-none' required/>");
+
+                $("#updateClientForm").append("<input type='number' asp-for='User.CountryId' value='" + country + "' name='CountryId' class='d-none' required/>");
+            }
+
+
+        })
+        $("#OldPassword").focusout(function () {
+            console.log("Dc");
+            if ($(this).val() == $("#databasepass").text()) {
+                $(this).addClass("is-valid");
+                $(this).removeClass("is-invalid");
+
+            } else {
+                $(this).removeClass("is-valid");
+                $(this).addClass("is-invalid");
+            }
+        })
+        $("#ConfirmPassword").keyup(function () {
+            console.log("jmkl");
+            if ($(this).val() == $("#NewPassword").val()) {
+                $(this).addClass("is-valid");
+                $(this).removeClass("is-invalid");
+
+            } else {
+                $(this).removeClass("is-valid");
+                $(this).addClass("is-invalid");
+            }
+        })
+        
+    </script>
+
+}

@@ -1,11 +1,11 @@
-﻿@model IEnumerable<Project>
-@{ ViewData["Title"] = "All Projects Posts";
+﻿@model Project
+@{ ViewData["Title"] = "Project Details";
     Layout = "_ClientLayout"; }
 @section Style{
     <link href="~/css/ProjectDetails.css" rel="stylesheet" />
 }
 
-<div class="text-center bg-white m-0 p-0" id="Page">
+<div class="text-center bg-white m-0 p-0 border-bottom mb-3" id="Page">
     <div class="container">
         <div class="row m-1 p-0">
             <div class="col-6 mt-5 text-left">
@@ -22,14 +22,14 @@
             <div class="col-8 mt-2">
                 <div class="row m-0">
                     <h3 class="mx-0 mt-0 p-0" style="color: #1d4354; font:  bold 28px Rza;">
-                        You will get an amazing logo
-                        designed for your business
+                        @Model.Title
                     </h3>
                 </div>
                 <div class="row m-0 my-3">
                     <div class="col-8 m-0 p-0 mt-1" style="display:-webkit-box; -webkit-box-align:center; ">
-                        <img src="Wafaa1.JPG" class="imgContainer mr-1" />
-                        <a href="#" style="color: #14a800; font-weight: 500;font-size: 16px;">Wafaa Wadea</a>
+                        <img src="~/Images/@Model.Freelancer.Image" class="imgContainer mr-1" />
+                        <a href="#" style="color: #14a800; font-weight: 500;font-size: 16px;">@Model.Freelancer.User.FirstName 
+                        @Model.Freelancer.User.LastName</a>
 
                     </div>
 
@@ -45,47 +45,54 @@
                 </div>
                 <div class="row m-0 mb-2">
                     <div class="project-photo">
-                        <img src="advertising3.jpg" alt="project photo" width="100%" style="border-radius: 10px;">
+                        <img src="~/Images/@Model.Image"  alt="project photo" width="100%" style="border-radius: 10px;">
                     </div>
                 </div>
-                <div class="row m-0 mt-5 mb-3 border-bottom">
+                <div class="row m-0 mt-5 mb-3 border-bottom text-left">
                     <h4 class="mb-4">
-                        Project details
+                        @Model.Description
                     </h4>
-                    <ul class="" style="font-weight: 380;">
-                        <li class="mb-3">
-                            Original logo design concepts to Choose from within 34hrs.
+                    <ul class="text-left" style="font-weight: 380;">
+                        <li class="mb-3" style="list-style-type:disc">
+                            <b>Requierments:</b> @Model.Requierments
                         </li>
-                        <li class="mb-3">
-                            UNLIMITED Round of Revisions & Redraws.
+                        <li class="mb-3" style="list-style-type:disc">
+                            <b>Subcatogray:</b> @Model.SubCategory.Name<br />
+                            <b>Skills:</b> <ul class="text-left" style="font-weight: 380;">
+                                @foreach (var item in Model.Skills)
+                                {
+                                    <li>@item.Skill</li>
+                                }
+                            </ul>
                         </li>
-                        <li class="mb-3">
-                            100% Money Back Guarantee if you are not satisfied.
+                        <li class="mb-3" style="list-style-type:disc">
+                            <b> Question</b>: @Model.QuestionContent<br />
+                            <b>Answer</b>: @Model.QuestionAnswer
                         </li>
-                        <li class="mb-3">
-                            100% Copyright Ownership on your Finalise design.
+                        <li class="mb-3" style="list-style-type:disc">
+                            <b>StepName:</b> @Model.StepName<br />
+                            <b>StepDescription:</b> @Model.StepDescription
                         </li>
-                        <li class="mb-3">
-                            Deliverable Format- AI (Vector), EPS, PDF, PSD, JPEG, TIFF, PNG (transparent background
-                            version), SVG along with Fonts used.
+                        <li class="mb-3" style="list-style-type:disc">
+                            <b>SimultaneousProjects:</b> @Model.SimultaneousProjects
                         </li>
                     </ul>
                 </div>
                 <div class="row my-3 mx-0 p-0 ">
-                    <div class="col-11 mb-2 mx-0">
+                    <div class="col-11 mb-2 mx-0 text-left">
                         <h3>
-                            About Wafaa
+                            About @Model.Freelancer.User.FirstName  @Model.Freelancer.User.LastName
                         </h3>
                     </div>
                     <div class="row" style="display:-webkit-box; -webkit-box-align:center; ">
                         <div class="m-0 p-0">
-                            <img src="Wafaa1.JPG" class="Freelancer-photo my-auto" />
+                            <img src="~/Images/@Model.Freelancer.Image" class="Freelancer-photo my-auto" />
                         </div>
-                        <div class="ml-1">
-                            <h5 class="mb-3">Wordpress, Shopify, Wix, Webflow, Graphic Design, Data Entry, Research</h5>
+                        <div class="ml-1 text-left">
+                            <h5 class="mb-3"> </h5>
                             <i class="fa fa-map-marker  Address-time" aria-hidden="true" style="color: #656565;"></i>
                             <p class="Address-time my-auto" style="display: inline-block;">
-                                Al Mansourah , Egypt
+                              @Model.Freelancer.City.Name
                             </p>
                             <p class="Address-time my-auto" style="display: inline-block;">
                                 – 4:56 am local time
@@ -93,19 +100,20 @@
                         </div>
                     </div>
                     <div class="row m-0 p-0 my-3">
-                        <p class="freelancerDetails">
-                            I'm expert in Data Entry, Web Research, SEO, Whiteboard Video, Video Editing, Animaton,
-                            QuickBooks, Transcription, Wordpress / Shopify / Wix / HTML / CSS / Laravel / PHP / Webflow
-                            / Python / Graphic Design / AutoCad / Ebook / T-shirt / Logo design, Article Writing,
-                            Proofreading, etc.
+                        <p class="freelancerDetails text-left">
+                            @foreach (var item in Model.Freelancer.Experiences)
+                            {
+                                <p>@item.Description, @item.JobTitle, @item.Country, @item.Company</p>
+
+                            }
                         </p>
                     </div>
 
                 </div>
             </div>
-            <div class="col-4 mt-3">
-                <div class="row border">
-                    <div class="col-12 m-1 my-4 p-0">
+            <div class="col-4 mt-3" style="position:relative">
+                <div class="row border" style="position:absolute">
+                    <div class="col-12 m-1 my-4 p-0 text-left">
                         <h5 class="ml-3" style="color: #08141a;">
                             Select service tier
                         </h5>
@@ -115,7 +123,7 @@
                     <div class="col-12 m-0 p-0 my-2">
                         <form method="post" class="row" action="send.php">
                             <div class="radio-group col-12 mx-0 p-0 my-2">
-                                <div class="row border-bottom m-0 p-0 px-1">
+                                <div class="row border-bottom m-1 p-1 px-1">
                                     <div class="col-4 m-0 p-0">
                                         <div class="container pl-0 ml-0">
                                             <div class="radioBox">
@@ -125,8 +133,8 @@
                                                             <input class="mx-auto" type="radio" id="StarterInput" name="Expertise-Level" checked />
                                                             <span class="checkround mx-auto"></span>
 
-                                                            <p class="mt-4 mb-0 pl-3" style="font-size: 16px;"> Starter</p>
-                                                            <p class="mt-0 pl-3" style="font-size: 18px;"> $45.00</p>
+                                                            <p class="mt-4 mb-0 pl-3" style="font-size: 16px;">Starter</p>
+                                                            <p class="mt-0 pl-3" style="font-size: 18px;"> $@Model.StarterPrice</p>
                                                         </div>
                                                     </div>
                                                 </label>
@@ -144,7 +152,7 @@
                                                             <span class="checkround "></span>
 
                                                             <p class="mt-4 mb-0 ml-3 " style="font-size: 16px;">Standard</p>
-                                                            <p class="mt-0 ml-3" style="font-size: 18px;"> $100.00</p>
+                                                            <p class="mt-0 ml-3" style="font-size: 18px;"> $@Model.StandardPrice</p>
                                                         </div>
                                                     </div>
                                                 </label>
@@ -161,7 +169,7 @@
                                                             <input class="" type="radio" id="AdvancedInput" name="Expertise-Level" />
                                                             <span class="checkround "></span>
                                                             <p class="mt-4 mb-0 ml-3 " style="font-size: 16px;">Advanced</p>
-                                                            <p class="mt-0 ml-3" style="font-size: 18px;"> $200.00</p>
+                                                            <p class="mt-0 ml-3" style="font-size: 18px;"> $@Model.AdvancedPrice</p>
                                                         </div>
                                                     </div>
                                                 </label>
@@ -178,26 +186,24 @@
 
                     <div class="col-12 m-0 p-0 my-2" id="starter">
                         <div class="row m-1 p-0">
-                            <div class="col-7">
+                            <div class="col-7 text-left">
                                 <p style="font-weight: 400;">
                                     Delivery Time
                                 </p>
                             </div>
                             <div class="col-4 text-right">
                                 <p style="font-weight: 500;">
-                                    7
+                                    @Model.StarterDeliverDays (Days)
                                 </p>
                             </div>
                         </div>
                         <div class="row m-1 mt-0 p-0">
-                            <div class="col-7">
+                            <div class="col-7 text-left">
                                 <p style="font-weight: 400;">
-                                    Management Duration (Days)
                                 </p>
                             </div>
                             <div class="col-4 text-right">
                                 <p style="font-weight: 500;">
-                                    8
                                 </p>
                             </div>
                         </div>
@@ -205,26 +211,25 @@
 
                     <div class="col-12 m-0 p-0 my-2 d-none" id="standard">
                         <div class="row m-1 p-0">
-                            <div class="col-7">
+                            <div class="col-7 text-left">
                                 <p style="font-weight: 400;">
                                     Delivery Time
                                 </p>
                             </div>
                             <div class="col-4 text-right">
                                 <p style="font-weight: 500;">
-                                    11
+                                    @Model.StandardDeliverDays (Days)
                                 </p>
                             </div>
                         </div>
                         <div class="row m-1 mt-0 p-0">
-                            <div class="col-7">
+                            <div class="col-7 text-left">
                                 <p style="font-weight: 400;">
-                                    Management Duration (Days)
                                 </p>
                             </div>
                             <div class="col-4 text-right">
                                 <p style="font-weight: 500;">
-                                    14
+
                                 </p>
                             </div>
                         </div>
@@ -232,26 +237,26 @@
 
                     <div class="col-12 m-0 p-0 my-2 d-none" id="advanced">
                         <div class="row m-1 p-0">
-                            <div class="col-7">
+                            <div class="col-7 text-left">
                                 <p style="font-weight: 400;">
                                     Delivery Time
                                 </p>
                             </div>
                             <div class="col-4 text-right">
                                 <p style="font-weight: 500;">
-                                    16
+                                    @Model.AdvancedDeliverDays (Days)
                                 </p>
                             </div>
                         </div>
                         <div class="row m-1 mt-0 p-0">
-                            <div class="col-7">
+                            <div class="col-7 text-left">
                                 <p style="font-weight: 400;">
-                                    Management Duration (Days)
+
                                 </p>
                             </div>
                             <div class="col-4 text-right">
                                 <p style="font-weight: 500;">
-                                    20
+
                                 </p>
                             </div>
                         </div>
@@ -261,7 +266,7 @@
                         <div class="row mx-2 my-4 p-0">
                             <div class="col-11 mx-auto">
                                 <a href="" class="btn  w-100" style="font-weight: 500; border-radius: 20px; background-color: #14a800;color: white;">
-                                    Continue <span id="price">  $45.00 </span>
+                                    Continue <span id="price">   </span>
                                 </a>
                             </div>
                         </div>
@@ -276,16 +281,29 @@
 </div>
 @section Scripts {
     <script>
+
         $(".radio-group .row .col-4 .container .radioBox").click(function () {
             console.log($(this).children()[0].firstElementChild.firstElementChild.firstElementChild.nextElementSibling.nextElementSibling.textContent);
-            let Expselected = $(this).children()[0].firstElementChild.firstElementChild.firstElementChild.nextElementSibling.nextElementSibling.textContent;
-
-
-            //$("#ExpSelected").text(Expselected);
-            //$("#jobExpContainer").addClass("d-none");
-            //$("#jobExperianceDetails").removeClass("d-none");
-            //$("#continue").children()[0].classList.add('continueBtnEnable');
-            //$("#continue").children()[0].classList.remove('continueBtn');
+            let selected = $(this).children()[0].firstElementChild.firstElementChild.firstElementChild.nextElementSibling.nextElementSibling.textContent;
+            let price = $(this).children()[0].firstElementChild.firstElementChild.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.textContent;
+            $("#price").text(price);
+            if (selected == "Starter") {
+                console.log("starter");
+                $("#standard").addClass("d-none");
+                $("#advanced").addClass("d-none");
+                $("#starter").removeClass("d-none");
+            }
+            if (selected == "Standard") {
+                $("#starter").addClass("d-none");
+                $("#advanced").addClass("d-none");
+                $("#standard").removeClass("d-none");
+            }
+            if (selected == "Advanced") {
+                $("#standard").addClass("d-none");
+                $("#starter").addClass("d-none");
+                $("#advanced").removeClass("d-none");
+            }
+           
         });
 
 
