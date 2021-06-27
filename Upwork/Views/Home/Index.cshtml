@@ -1,8 +1,353 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    Layout = null;
 }
+<!DOCTYPE html>
+<html lang="en">
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="~/lib/font-awesome/css/solid.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/fontawesome.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <title>Upwork</title>
+    <style>
+        .signup {
+            background-color: #14a800;
+            color: white;
+            font-weight: 500;
+            border-radius: 30px;
+        }
+
+            .signup:hover {
+                background-color: rgb(2, 128, 2);
+                color: white;
+                font-weight: 500;
+            }
+
+        .lightDiv {
+            background-color: white;
+            color: #14a800;
+            font-weight: 500;
+            border-radius: 30px;
+            border: 1px solid #14a800;
+        }
+
+            .lightDiv:hover {
+                background-color: rgb(230, 223, 223);
+                color: rgb(3, 116, 3);
+                font-weight: 500;
+            }
+
+        .findTalent {
+            background-image: url(https://www.upwork.com/static/assets/Brontes/083b9ca/img/find-talent.bf9ad20.jpg);
+            border-radius: 10px;
+            background-position: absluote;
+        }
+
+        .clientOptions {
+            background-color: #14a800;
+            border-radius: 10px;
+            padding: 10px;
+            padding-left: 20px;
+            color: white;
+        }
+
+            .clientOptions:hover {
+                color: #14a800;
+                border-radius: 10px;
+                background-color: white;
+                cursor: pointer;
+            }
+
+        .firstSkill {
+            color: #14a800;
+        }
+
+            .firstSkill:hover {
+                color: #2f7725;
+                text-decoration: none;
+            }
+
+        .otherSkills {
+            color: #d5e0d5;
+        }
+
+            .otherSkills:hover {
+                color: #2f7725;
+                text-decoration: none;
+            }
+
+        .Freelancer-skills {
+            border: 1px solid #65735b;
+            cursor: pointer;
+            font-size: 14px;
+            background-color: white;
+            border-radius: 16px;
+            width: fit-content;
+            height: fit-content;
+            padding: 40px 8px;
+            color: #65735b;
+            display: inline-block;
+            font-weight: 500;
+        }
+
+            .Freelancer-skills:hover {
+                background-color: rgb(238, 236, 236);
+            }
+
+        .border-top {
+            color: white;
+        }
+
+        .findOpportunities {
+            background-color: white;
+            color: #1f57c3;
+            border-radius: 30px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <nav class="row navbar navbar-expand-sm sticky-top navbar-white bg-white m-0 p-0">
+        <div class="row w-100 border-top border-bottom mx-0 mt-0 mb-0 px-5 py-2">
+            <div class="col-5 ml-3 my-auto mt-2">
+                <h3 class="navbar-brand m-0" style="font-weight: 700; color: #14a800;font-size: 28px;">
+                    <span class="text-green">Up</span>work
+                </h3>
+            </div>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                    data-target="#navbar1">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="col-6 my-auto text-right py-auto">
+
+                <a href="" class="my-auto py-auto" style="color: rgb(97, 97, 97);font-weight: 500;">
+                    Log In
+                </a>
+                <a href="" class="btn my-auto p-2 ml-4 px-4 signup">
+                    Sign Up
+                </a>
+
+            </div>
+
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row m-0 p-0">
+            <div class="col-7 mt-4 m-0 p-0">
+                <h3 class="mx-1 p-0 mb-2" style="color: #14A800; font:  bold 75px Rza;">
+                    Join the world's
+                    work marketplace
+                </h3>
+                <p class="mx-1 p-0 mb-0" style="color: #65735b; font-size:24px ;font-weight: 500;">
+                    Find great talent. Build your business.
+                </p>
+                <p class="mx-1 p-0 mt-0" style="color: #65735b; font-size:24px ;font-weight: 500;">
+                    Take your career to the next level.
+                </p>
+                <div class="mt-4 p-0 mx-1 mb-5">
+                    <a href="" class="btn my-auto p-2 px-4 signup">
+                        Find Talent
+                    </a>
+                    <a href="" class="btn my-auto p-2 px-4 lightDiv ml-3">
+                        Find Work
+                    </a>
+                </div>
+                <p class="mx-1 p-0 mt-5 mb-1" style="color: #9aaa97; font-size: 16px;font-weight: 500;">
+                    Trusted by
+                </p>
+                <div class="row ml-1 p-0 mt-1">
+                    <div class="col-3 m-0 p-0 py-auto pt-1">
+                        <img src="microsoft.png" class="w-80" style="float: left;">
+                    </div>
+                    <div class="col-3 m-0 p-0 py-auto pt-2 pr-1">
+                        <img src="airbnb.png" class="w-80" style="float: left;">
+                    </div>
+                    <div class="col-3 m-0 p-0 pt-0">
+                        <img src="bissell.png" class="w-80" style="float: left;">
+                    </div>
+                    <div class="col-3 m-0 p-0 py-0 pt-1">
+                        <img src="godaddy.png" class="w-70" style="float: left;">
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-5 m-0 p-0  mt-4">
+                <img src="homePhoto1.png" style="border-radius: 50%;">
+
+            </div>
+        </div>
+        <div class="row mt-5 findTalent">
+            <div class="col-12 text-left mt-3 mb-5">
+                <p class="ml-3 text-light mb-2" style="font-weight: 600;font-size: 28px;">For clients</p>
+            </div>
+            <div class="col-5 ml-5">
+                <h2 class="mx-1 p-0 mb-2 text-light" style=" font:  bold 75px Rza; font-weight:bolder;">
+                    Find talent your way
+                </h2>
+            </div>
+            <div class="col-4">
+
+            </div>
+            <div class="col-12 text-light ml-5 mt-3 mb-2">
+                <div class="col-5">
+                    <p style="font-weight: 500;font-size: 19px;">
+                        Work with the largest network of independent professionals and get things done—from quick
+                        turnarounds to big transformations.
+                    </p>
+                </div>
+            </div>
+            <div class="col-12 my-4">
+                <div class="row mx-1">
+                    <div class="col-4">
+                        <div class="clientOptions">
+                            <h2 class="mb-4">
+                                Post a job and hire a pro
+                            </h2>
+                            <p class="mt-3" style="font-weight: 500;font-size: 19px;">
+                                Talent Marketplace <i class="fa fa-arrow-right ml-2"></i>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="clientOptions">
+                            <h2 class="mb-4">
+                                Browse and buy projects
+                            </h2>
+                            <p class="mt-3" style="font-weight: 500;font-size: 19px;">
+                                Project Catalog <i class="fa fa-arrow-right ml-2"></i>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="clientOptions">
+                            <h2 class="mb-4">
+                                Let us help you find the right talent
+                            </h2>
+                            <p class="mt-3" style="font-weight: 500;font-size: 19px;">
+                                Talent Scout <i class="fa fa-arrow-right ml-2"></i>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="">
+
+            </div>
+        </div>
+        <div class="container my-5">
+            <div class="row m-1 p-0">
+                <div class="col-5 mt-3">
+                    <h3 class="mx-2 p-0 mb-5" style="color: black; font:  bold 75px Rza;">
+                        Hire a pro for any skill
+                    </h3>
+                    <h2 class="mt-4 ml-2">
+                        <a href="" class="firstSkill">Devolpment & IT</a>
+                    </h2>
+                    <h2 class="ml-2">
+                        <a href="" class="otherSkills">Design & Creative</a>
+                    </h2>
+                    <h2 class="ml-2">
+                        <a href="" class="otherSkills">Sales & Marketing</a>
+                    </h2>
+                    <h2 class="ml-2">
+                        <a href="" class="otherSkills">Writing & Translation</a>
+                    </h2>
+                    <h2 class="ml-2">
+                        <a href="" class="otherSkills">Admin & Customer Support</a>
+                    </h2>
+                    <h2 class="ml-2">
+                        <a href="" class="otherSkills">Finance & Accounting</a>
+                    </h2>
+                    <h2 class="ml-2">
+                        <a href="" class="otherSkills">See all specializations</a>
+                    </h2>
+                </div>
+                <div class="col-5 mt-3 ml-1">
+                    <div class="mt-3 p-2">
+                        <img src="https://www.upwork.com/static/assets/Brontes/083b9ca/img/admin.1476b5c.jpg"
+                             style="border-radius: 10px;" />
+                    </div>
+                    <div class="my-3 ml-1">
+                        <div class="Freelancer-skills py-1 px-3 m-1">Customer Service</div>
+                        <div class="Freelancer-skills py-1 px-3 m-1 ">Data Entry</div>
+                        <div class="Freelancer-skills py-1 px-3 m-1 ">Project Management </div>
+                        <div class="Freelancer-skills py-1 px-3 m-1 ">Order Processing</div>
+                        <div class="Freelancer-skills py-1 px-3 m-1">Online Research</div>
+                        <div class="Freelancer-skills py-1 px-3 m-1 ">Tech Support</div>
+                        <div class="Freelancer-skills py-1 px-3 m-1 ">Transcription</div>
+                        <div class="Freelancer-skills py-1 px-3 m-1 ">Virtual/Administrative Assistance</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row my-4 p-0" style="border-radius: 10px;">
+            <div class="col-6 p-0 m-0" style="background-image: url(https://www.upwork.com/static/assets/Brontes/083b9ca/img/find-great-work.935b155.jpg);border-top-left-radius: 10px;border-bottom-left-radius: 10px;">
+
+            </div>
+            <div class="col-6 p-0 m-0" style="background-color: #1f57c3;border-top-right-radius: 10px;border-bottom-right-radius: 10px;">
+                <div class="col-12 text-left mt-4 mb-4">
+                    <p class="ml-3 text-light mb-2" style="font-weight: 600;font-size: 28px;">For talents</p>
+                </div>
+                <div class="col-10 ml-2 mt-3">
+                    <h2 class="mx-1 p-0 mb-2 text-light" style=" font:  bold 75px Rza; font-weight:bolder;">
+                        Find great work
+                    </h2>
+                </div>
+                <div class="col-10 ml-2 my-4">
+                    <h5 class="mx-1 p-0 mb-5 text-light">
+                        Meet clients you’re excited to work with and take
+                        your career or business to new heights.
+                    </h5>
+                </div>
+                <br>
+
+                <div class="col-11 mx-4 mt-4 mb-3 border-top">
+                    <div class="row m-0 p-0">
+                        <div class="col-4 p-0 m-0 mt-3">
+                            <h6 class="p-0 m-0 mb-5 text-light">
+                                Find opportunities for every stage of your freelance career
+                            </h6>
+                        </div>
+                        <div class="col-4 p-0 m-0 mt-3">
+                            <h6 class="p-0 m-0 ml-5 mb-5 text-light">
+                                Control when, where, and how you work
+                            </h6>
+                        </div>
+                        <div class="col-4 p-0 m-0 mt-3">
+                            <h6 class="p-0 ml-5 mb-5 text-light">
+                                Explore different ways to earn
+                            </h6>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-11 mb-3 mt-0">
+                    <a href="" class="btn my-auto p-2 px-5 ml-4 findOpportunities">
+                        Find Opportunities
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
+    <script src="https://kit.fontawesome.com/fa50145e5d.js" crossorigin="anonymous"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
