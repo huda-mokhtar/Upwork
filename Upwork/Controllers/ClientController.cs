@@ -446,7 +446,7 @@ namespace Upwork.Controllers
         }
         public IActionResult Profile()
         {
-            var clientid = "c123";
+            var clientid = "4079d308-f17c-44e9-978a-c3e571ee5075";
             Client client = _context.Clients.Include(a => a.User).ThenInclude(a=>a.Country).Where(a => a.ClientId == clientid).FirstOrDefault();
             ViewData["Countries"]= new SelectList(_context.Countries, "CountryId", "Name", client.User.CountryId);
             return View(client);
@@ -455,7 +455,7 @@ namespace Upwork.Controllers
         [ValidateAntiForgeryToken]
         public async Task< IActionResult> Profile( ApplicationUser data)
         {
-            var clientid = "c123";
+            var clientid = "4079d308-f17c-44e9-978a-c3e571ee5075";
             Client client = _context.Clients.Include(a => a.User).ThenInclude(c=>c.Country).Where(a => a.ClientId == clientid).FirstOrDefault();
             if (ModelState.IsValid)
             {
@@ -472,16 +472,20 @@ namespace Upwork.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ChangePass(string ConfirmPassword)
+        public async Task<IActionResult> ChangePass(string ConfirmPassword ,string OldPassword)
         {
-            var clientid = "c123";
+            var clientid = "4079d308-f17c-44e9-978a-c3e571ee5075";
             Client client = _context.Clients.Include(a => a.User).ThenInclude(c => c.Country).Where(a => a.ClientId == clientid).FirstOrDefault();
             if (ModelState.IsValid)
             {
-                //await userManager.ChangePasswordAsync(client.User, client.User.ToString(), ConfirmPassword);
-                client.User.PasswordHash = ConfirmPassword;
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Profile));
+                if(await userManager.CheckPasswordAsync(client.User, OldPassword) == true)
+                {
+                    await userManager.ChangePasswordAsync(client.User, client.User.ToString(), ConfirmPassword);
+                    //client.User.PasswordHash = ConfirmPassword;
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Profile));
+                }
+                
             }
             return RedirectToAction(nameof(Profile));
         }
