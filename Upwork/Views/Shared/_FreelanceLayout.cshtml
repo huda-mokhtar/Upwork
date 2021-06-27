@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@inject SignInManager<ApplicationUser> SignIn
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -50,7 +51,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/workdiary/freelancer/" class="dropdown-item">
+                                    <a target="_self" data-cy="menu-item-trigger" asp-action="AllProposal" asp-controller="Freelancers" class="dropdown-item">
                                         Proposals
                                     </a>
                                 </li>

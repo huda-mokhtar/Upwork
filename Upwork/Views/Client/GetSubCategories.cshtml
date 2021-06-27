@@ -1,1 +1,12 @@
-﻿
+﻿@*@model List<JobsSkills>
+
+<div>
+    @foreach (var job in Model.GroupBy(j => j.Jobs))
+    {
+        <div>@job.Key.Id</div>
+        foreach (var s in job)
+        {
+            <div>@s.skill.Name</div>
+        }
+    }
+</div>*@

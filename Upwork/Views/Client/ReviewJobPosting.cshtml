@@ -11,6 +11,7 @@
     <div class="row m-auto">
         <div class="col-11 text-center mt-2">
             <form method="post" asp-action="ReviewJobPosting" id="postJobForm">
+                <input type="hidden" asp-for="Id" id="jobId"/>
                 <div class="card">
                     <div class="card-header bg-white">
                         <div class="row p-3 " style="display:-webkit-box; -webkit-box-align:center; ">
@@ -19,8 +20,8 @@
                             </div>
 
                             <div class="col-3  text-right m-0">
-                                <div class="devBtnGreen text-center p-2 mr-0 text-light">
-                                    <h6 class="m-0 p-0">Post Your Job Now</h6>
+                                <div class="text-center p-2 mr-0 text-light">
+                                    <a class="m-0 p-2 continueBtn text-white" id="NotDraftedTopButton">Post Your Job Now</a>
                                 </div>
                             </div>
                         </div>
@@ -137,8 +138,17 @@
                                 <div id="collapseOne" class="collapse" data-parent="#accordion">
                                     <div class="mr-1 text-left ">
                                         <p class="thirdHeaders mb-2">Select or add up to 5 questions</p>
-
-                                        <div class="mb-2">
+                                        @foreach (var que in ViewBag.Questions)
+                                        {
+                                            <div class="mb-2">
+                                                <label class="checkbox" style="display:-webkit-box; -webkit-box-align:center; ">
+                                                    @Html.CheckBox($@"jobQuestions.{que.QuestionId}")
+                                                    @*<input type="checkbox" asp-for="jobQuestions" />*@
+                                                    <div class="ml-3">@que.Question</div>
+                                                </label>
+                                            </div>
+                                        }
+                                        @*<div class="mb-2">
                                             <label class="checkbox" style="display:-webkit-box; -webkit-box-align:center; ">
                                                 <input type="checkbox" />
                                                 <div class="ml-3">Describe your recent experience with similar projects</div>
@@ -167,7 +177,7 @@
                                                 <input type="checkbox" />
                                                 <div class="ml-3">Describe your approach to testing and improving QA</div>
                                             </label>
-                                        </div>
+                                        </div>*@
 
 
                                     </div>
@@ -636,8 +646,8 @@
                                 <div class="m-0 p-3">
                                     <a id="IsDrafted"> Save as a draft </a>
 
-                                    <div class="devBtnGreen text-center p-2 text-light ml-2" style="display: inline-flex; width: 155px;">
-                                        <a class="m-0 p-0" id="NotDraft">Post Your Job Now</a>
+                                    <div class="text-center p-2 text-light ml-2" style="display: inline-flex; width: 155px;">
+                                        <a class="m-0 p-2 continueBtn text-white" id="NotDraft">Post Your Job Now</a>
                                     </div>
                                 </div>
 
@@ -655,9 +665,20 @@
 </div>
 @section Scripts {
     <script>
+        var id = $("#jobId").val();
+        $("#PrevStep").attr("href", "/Client/PostJobBudget/" + id);
+        if ($("#description").val().length > 0) {
 
-        $("#PrevStep").attr("href", "/Client/PostJobBudget");
-
+            $("#NotDraftedTopButton").addClass('continueBtnEnable');
+            $("#NotDraftedTopButton").removeClass('continueBtn');
+            $("#NotDraft").removeClass('continueBtn');
+            $("#NotDraft").addClass('continueBtnEnable');
+        } else {
+            $("#NotDraftedTopButton").addClass('continueBtn');
+            $("#NotDraftedTopButton").removeClass('continueBtnEnable');
+            $("#NotDraft").addClass('continueBtn');
+            $("#NotDraft").removeClass('continueBtnEnable');
+        }
         $(".rotateLink1").click(function () {
             console.log
             $(".rotateAngle1").toggleClass("rotate");
@@ -678,8 +699,26 @@
             $(".rotateAngle4").toggleClass("rotate");
             console.log($('.rotateAngle'));
         });
+        $("#description").keyup(function () {
+            if ($(this).val().length > 0) {
+
+                $("#NotDraftedTopButton").addClass('continueBtnEnable');
+                $("#NotDraftedTopButton").removeClass('continueBtn');
+                $("#NotDraft").removeClass('continueBtn');
+                $("#NotDraft").addClass('continueBtnEnable');
+            } else {
+                $("#NotDraftedTopButton").addClass('continueBtn');
+                $("#NotDraftedTopButton").removeClass('continueBtnEnable');
+                $("#NotDraft").removeClass('continueBtn');
+                $("#NotDraft").addClass('continueBtnEnable');
+            }
+        })
         $("#IsDrafted").click(function () {
             $("#isDeraft").val("true");
+            $("#postJobForm").append("<button type='submit' id='go' class='d-none'></button>");
+            $("#go").click();
+        })
+        $("#NotDraftedTopButton").click(function () {
             $("#postJobForm").append("<button type='submit' id='go' class='d-none'></button>");
             $("#go").click();
         })

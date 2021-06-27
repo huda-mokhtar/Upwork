@@ -56,7 +56,7 @@
                                         <div class="jobTitle py-4">
                                             <h5 style="font-weight: 500;"> Job Details </h5>
                                             <p class="mt-4 mb-0" style="font-weight: 500; font-size: 16px;">
-                                                @ViewBag.subcatrogeryName
+                                                @Model.subCategory.Name
                                             </p>
                                             <p class="mb-3" style="color:#3c4858;font-weight:400; font-size: 16px;">
                                                 Posted @Model.CreateDate
@@ -144,7 +144,7 @@
                                                                 }
                                                                 else if (Model.TypeOfBudget == true)
                                                                 {
-                                                            <span>Project</span>
+                                                                <span>Fixed-price</span>
                                                                 }
                                                                 
                                                             </p>
@@ -240,20 +240,27 @@
                                         <img src="~/Images/proposals.png" />
                                     </div>
                                 </div>
+
+                                @foreach (var proposal in ViewBag.ProPosals)
+                                {
                                 <div class="porposed mt-4 mb-0">
                                     <div class="row m-0 p-0">
                                         <div class="col-2 m-0 p-0">
-                                            <img src="~/Images/noura1.jpg" class="Freelancer-photo my-auto" />
+                                            <img src="~/Images/@proposal.Freelancer.Image" class="Freelancer-photo my-auto" />
                                         </div>
                                         <div class="col-8 text-left">
                                             <a class="mb-0 reuseLink" href="#" style="font-size: 15;">
-                                                Noura Osama
+                                               @foreach(var u in ViewBag.User)
+                {
+                    if(u.Id == proposal.FreelancerId) { <span>@u.UserName</span> }
+                }
                                             </a>
                                             <p class="mb-0" style="font-size: 16px;font-weight: 650;">
-                                                Full Stack Wordpress Developer
+                                                @proposal.Freelancer.Title
                                             </p>
                                             <p class="mb-0" style="font-size: 15;color: rgb(102, 102, 102);font-weight: 600;">
-                                                Egypt
+                                                City
+
                                             </p>
                                             <p class="mb-0" style="font-size: 15; color: rgb(102, 102, 102);font-weight: 600;">
                                                 $20.00 / Hour
@@ -275,43 +282,9 @@
                                     </div>
                                 </div>
 
+                                }
 
-
-                                <div class="porposed  mb-0">
-                                    <div class="row my-3 p-0 m-0">
-                                        <div class="col-2 m-0 p-0">
-                                            <img src="~/Images/Wafaa1.jpg" class="Freelancer-photo my-auto" />
-                                        </div>
-                                        <div class="col-8 text-left">
-                                            <a class="mb-0 reuseLink" href="#" style="font-size: 15;">
-                                                Wafaa Elsaeed
-                                            </a>
-                                            <p class="mb-0" style="font-size: 16px;font-weight: 650;">
-                                                Front-End Developer
-                                            </p>
-                                            <p class="mb-0" style="font-size: 15;color: rgb(102, 102, 102);font-weight: 600;">
-                                                Egypt
-                                            </p>
-                                            <p class="mb-0" style="font-size: 15; color: rgb(102, 102, 102);font-weight: 600;">
-                                                $25.00 / Hour
-                                            </p>
-                                            <p class="mt-3" style="font-size: 16px; color: black; font-weight: 400;">
-                                                Has <span style="font-weight: 500;">4 relevant skills</span>  to your job
-                                            </p>
-                                            <div class="m-0 p-0">
-                                                <div class="Job-skills py-1 px-2 m-1">Angular</div>
-                                                <div class="Job-skills py-1 px-2 m-1">JQuery</div>
-                                                <div class="Job-skills py-1 px-2 m-1 ">CSS3</div>
-                                                <div class="Job-skills py-1 px-2 m-1 ">HTML5</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-2 p-0 text-right">
-                                            <div class="lightDev text-center py-1 px-2 m-2">
-                                                Hire
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                
 
 
 
