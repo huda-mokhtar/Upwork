@@ -538,9 +538,15 @@ namespace Upwork.Controllers
 
 
             ViewData["ProPosals"] = _context.Freelancer_Jobs.Where(a=> a.JobsId == id && a.IsProposal == true).Include(a => a.Freelancer);
-            ViewData["User"] = _context.Freelancers.Select(a => a.User);
-            ViewData["Cities"] = _context.Freelancers.Select(a => a.City).ToList();
+            ViewData["User"] = _context.Freelancers.Include(a => a.Freelancer_Jobs).Include(a => a.User).Include(a => a.City).Include(a => a.Skills).Include(a => a.Languages);
+            ViewData["FreelancerSkills"] = _context.Freelancer_Skill.Include(a => a.Skill);
+           
             return View(job);
+        }
+
+        public async Task<ActionResult> Hire()
+        {
+            return View();
         }
                 
         
