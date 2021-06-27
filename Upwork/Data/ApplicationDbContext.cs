@@ -74,6 +74,7 @@ namespace Upwork.Data
             builder.Entity<JobQuestions>().HasKey(o => new { o.JobsId, o.ReviewJobQuestionId });
             builder.Entity<Freelancer_Job>().HasKey(o => new { o.JobsId, o.FreelancerId });
             builder.Entity<Client_Projects>().HasKey(o => new { o.ProjectId, o.ClientId });
+           
             builder.Entity<JobsSkills>()
                 .HasOne(bc => bc.Jobs)
                 .WithMany(b => b.jobsSkills)
