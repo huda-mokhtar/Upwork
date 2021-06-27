@@ -549,10 +549,18 @@ namespace Upwork.Controllers
                     }
                 }
                 ViewData["jobSkills"] = selectedSkills;
-                return View(job);
+                //return View(job);
+
             }
+
+
+            ViewData["ProPosals"] = _context.Freelancer_Jobs.Where(a=> a.JobsId == id && a.IsProposal == true).Include(a => a.Freelancer);
+            ViewData["User"] = _context.Freelancers.Select(a => a.User);
+            ViewData["Cities"] = _context.Freelancers.Select(a => a.City).ToList();
             return View(job);
         }
+                
+        
         public IActionResult ProjectsCatalog()
         {
             var Projects = _context.Projects.Include(a => a.client_Projects).Include(a => a.Freelancer.User).Include(a => a.SubCategory).ToList();
@@ -634,5 +642,11 @@ namespace Upwork.Controllers
             return View("ProjectsCatalog", project.Union(ProjectList));
         }
 
-    }
+        public IActionResult ProjectDetails()
+        {
+            return View();
+        }
+
+
+        }
 }

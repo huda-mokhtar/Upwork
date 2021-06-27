@@ -1,0 +1,107 @@
+﻿.imgContainer {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+}
+
+.border {
+    border: 1px solid #dee2e6 !important;
+    border-radius: 8px;
+}
+
+.project-photo {
+    border-radius: 10px;
+    width: 95%;
+    height: fit-content;
+}
+
+.Freelancer-photo {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+}
+
+.freelancerDetails {
+    font-size: 15px;
+    color: rgb(43, 38, 38);
+}
+
+.radio-group {
+    position: relative;
+}
+
+
+.radio {
+    display: inline-block;
+    border-radius: 5px 5px;
+    border: 2px solid lightgrey;
+    cursor: pointer;
+}
+
+
+
+    .radio.selected {
+        border-color: rgb(74, 180, 74);
+    }
+
+input[type='radio']:checked:after {
+    background-color: #ffa500;
+}
+
+/* .radiobox:checked::after{
+        background-color: green;
+    } */
+/*.radiobox{
+      color: green!important;
+    }*/
+.radioBox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkround {
+    position: absolute;
+    top: 3px;
+    height: 16px;
+    width: 16px;
+    background-color: #fff;
+    border-color: lightgrey;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+
+/* When the radio button is checked, add a blue background */
+.radioBox input:checked ~ .checkround {
+    background-color: #fff;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkround:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.radioBox input:checked ~ .checkround:after {
+    display: block;
+}
+
+.radioBox input:checked ~ .checkround {
+    border-color: #14a800;
+}
+
+/* Style the indicator (dot/circle) */
+.radioBox .checkround:after {
+    left: 1px;
+    top: 1px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #14a800;
+    cursor: pointer;
+}
