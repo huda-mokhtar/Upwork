@@ -336,7 +336,7 @@ namespace Upwork.Controllers
         // GET: Projects/ProjectDetails/5
         public async Task<IActionResult> ProjectDetails(int id)
         {
-            var Project = _context.Projects.Include(a => a.Skills).FirstOrDefault(a => a.ProjectId == id);
+            var Project = _context.Projects.Include(a => a.Skills).Include(a=>a.SubCategory).FirstOrDefault(a => a.ProjectId == id);
             return View(Project);
         }
        private bool ProjectExists(int id)
