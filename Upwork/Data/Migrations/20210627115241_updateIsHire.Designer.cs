@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Upwork.Data;
 
 namespace Upwork.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210627115241_updateIsHire")]
+    partial class updateIsHire
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -416,9 +418,6 @@ namespace Upwork.Data.Migrations
                     b.Property<int?>("BudgetTo")
                         .HasColumnType("int");
 
-                    b.Property<string>("ClientId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("CreateDate")
                         .HasColumnType("nvarchar(max)");
 
@@ -459,8 +458,6 @@ namespace Upwork.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ClientId");
 
                     b.HasIndex("Language_ProficiencyId");
 
@@ -1050,10 +1047,6 @@ namespace Upwork.Data.Migrations
 
             modelBuilder.Entity("Upwork.Models.DbModels.Jobs", b =>
                 {
-                    b.HasOne("Upwork.Models.DbModels.Client", "Client")
-                        .WithMany("Jobs")
-                        .HasForeignKey("ClientId");
-
                     b.HasOne("Upwork.Models.Language_Proficiency", "Language_Proficiency")
                         .WithMany("Jobs")
                         .HasForeignKey("Language_ProficiencyId");
@@ -1061,8 +1054,6 @@ namespace Upwork.Data.Migrations
                     b.HasOne("Upwork.Models.SubCategory", "subCategory")
                         .WithMany("Jobs")
                         .HasForeignKey("subCategoryId");
-
-                    b.Navigation("Client");
 
                     b.Navigation("Language_Proficiency");
 
@@ -1350,8 +1341,6 @@ namespace Upwork.Data.Migrations
             modelBuilder.Entity("Upwork.Models.DbModels.Client", b =>
                 {
                     b.Navigation("client_Projects");
-
-                    b.Navigation("Jobs");
                 });
 
             modelBuilder.Entity("Upwork.Models.DbModels.Jobs", b =>

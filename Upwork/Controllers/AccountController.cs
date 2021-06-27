@@ -284,7 +284,7 @@ namespace Upwork.Controllers
             {
                 return RedirectToAction("Data");
             }
-            if (db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id) != null)
+            if (db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id) != null || db.Clients.FirstOrDefault(a=>a.ClientId == u.Id) != null)
             {
                 return RedirectToAction("SignUp");
             }
@@ -321,6 +321,8 @@ namespace Upwork.Controllers
                     u.CountryId = model.CountryId;
                     u.SendMe = model.SendMe;
                     await userManager.AddToRoleAsync(u, "Client");
+                    db.Clients.Add(new Models.DbModels.Client() { ClientId = u.Id });
+                    db.SaveChanges();
                     return RedirectToAction("Index", "Client");
                     // redirect to client home page
                     //  return Content("Client home here...");
@@ -341,7 +343,7 @@ namespace Upwork.Controllers
             {
                 return RedirectToAction("DataExternal");
             }
-            if (db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id) != null)
+            if (db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id) != null || db.Clients.FirstOrDefault(a => a.ClientId == u.Id) != null)
             {
                 return RedirectToAction("SignUp");
             }
@@ -385,6 +387,8 @@ namespace Upwork.Controllers
                     u.SendMe = model.SendMe;
                     await userManager.AddPasswordAsync(u, model.Password);                  
                     await userManager.AddToRoleAsync(u, "Client");
+                    db.Clients.Add(new Models.DbModels.Client() { ClientId = u.Id });
+                    db.SaveChanges();
                     return RedirectToAction("Index", "Client");
                     // redirect to client home page
                   //  return Content("Client home here...");
