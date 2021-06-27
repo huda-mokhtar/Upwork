@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -16,10 +17,18 @@ namespace Upwork.Controllers
     public class ClientController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private SignInManager<ApplicationUser> signInManager;
+        private UserManager<ApplicationUser> userManager;
+        private RoleManager<IdentityRole> roleManager;
         private readonly IHostingEnvironment _hostenviroment;
-        public ClientController(ApplicationDbContext context, IHostingEnvironment hostingEnvironment)
+        public ClientController(ApplicationDbContext context, IHostingEnvironment hostingEnvironment, SignInManager<ApplicationUser> _signInManager,
+            UserManager<ApplicationUser> _userManager,
+            RoleManager<IdentityRole> _roleManager)
         {
             _context = context;
+            signInManager = _signInManager;
+            userManager = _userManager;
+            roleManager = _roleManager;
             _hostenviroment = hostingEnvironment;
         }
         public IActionResult Index()
@@ -462,6 +471,40 @@ namespace Upwork.Controllers
             Client client = _context.Clients.Include(a => a.User).ThenInclude(a=>a.Country).Where(a => a.ClientId == clientid).FirstOrDefault();
             ViewData["Countries"]= new SelectList(_context.Countries, "CountryId", "Name", client.User.CountryId);
             return View(client);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task< IActionResult> Profile( ApplicationUser data)
+        {
+            var clientid = "c123";
+            Client client = _context.Clients.Include(a => a.User).ThenInclude(c=>c.Country).Where(a => a.ClientId == clientid).FirstOrDefault();
+            if (ModelState.IsValid)
+            {
+                client.User.UserName = data.UserName;
+                client.User.FirstName = data.FirstName;
+                client.User.LastName = data.LastName;
+                client.User.Email = data.Email;
+                client.User.CountryId = data.CountryId;
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Profile));
+            }
+            return RedirectToAction(nameof(Profile));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangePass(string ConfirmPassword)
+        {
+            var clientid = "c123";
+            Client client = _context.Clients.Include(a => a.User).ThenInclude(c => c.Country).Where(a => a.ClientId == clientid).FirstOrDefault();
+            if (ModelState.IsValid)
+            {
+                await userManager.ChangePasswordAsync(client.User, client.User.ToString(), ConfirmPassword);
+                //client.User.PasswordHash = ConfirmPassword;
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Profile));
+            }
+            return RedirectToAction(nameof(Profile));
         }
         public IActionResult AllJobPosts(string drafted = null)
         {
