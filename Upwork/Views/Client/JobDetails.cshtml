@@ -80,13 +80,14 @@
                                                         </div>
                                                         <div class="col-10">
                                                             <p class="mb-0" style="font-weight: 480; font-size: 16px;">
-                                                                @if(Model.Type== "ShortTime")
-            {
-                                                                <span>Less than 30 hrs/week</span>
-                                                                }else if(Model.Type== "LongTime")
-            {
-                                                            <span>More than 30 hrs/week</span>
-            }
+                                                                @if (Model.Type == "ShortTime")
+                                                                {
+                                                                    <span>Less than 30 hrs/week</span>
+                                                                }
+                                                                else if (Model.Type == "LongTime")
+                                                                {
+                                                                    <span>More than 30 hrs/week</span>
+                                                                }
 
                                                             </p>
                                                             <p style="color:rgb(131, 131, 131);font-weight: 490; font-size: 14px;">
@@ -104,16 +105,18 @@
                                                         <div class="col-10">
                                                             <p class="mb-0" style="font-weight: 480; font-size: 16px;">
                                                                 @if (Model.Duration == 2)
-            {
-                                                                <span>1 to 3 months</span>
-            }else if (Model.Duration == 5)
-            {
-                                                            <span>3 to 6 months</span>
-            }else if (Model.Duration == 6)
-            {
-                                                            <span>More than 6 months</span>
-            }
-                                                                
+                                                                {
+                                                                    <span>1 to 3 months</span>
+                                                                }
+                                                                else if (Model.Duration == 5)
+                                                                {
+                                                                    <span>3 to 6 months</span>
+                                                                }
+                                                                else if (Model.Duration == 6)
+                                                                {
+                                                                    <span>More than 6 months</span>
+                                                                }
+
                                                             </p>
                                                             <p style="color:rgb(131, 131, 131);font-weight: 490; font-size: 14px;">
                                                                 Project Length
@@ -140,13 +143,13 @@
                                                             <p class="mt-0" style="color:rgb(131, 131, 131);font-weight: 490; font-size: 14px;">
                                                                 @if (Model.TypeOfBudget == false)
                                                                 {
-                                                                <span>Hourly</span>
+                                                                    <span>Hourly</span>
                                                                 }
                                                                 else if (Model.TypeOfBudget == true)
                                                                 {
-                                                                <span>Fixed-price</span>
+                                                                    <span>Fixed-price</span>
                                                                 }
-                                                                
+
                                                             </p>
                                                         </div>
                                                     </div>
@@ -169,21 +172,21 @@
                                                                 }
                                                                 else if (Model.LevelOfExperience == "Expert level")
                                                                 {
-                                                            <span>Entry level</span>
+                                                                    <span>Entry level</span>
                                                                 }
                                                             </p>
                                                             <p style="color:rgb(131, 131, 131);font-weight: 490; font-size: 14px;">
                                                                 @if (Model.LevelOfExperience == "Entry level")
                                                                 {
-                                                                <span>Looking for someone relatively new to this field</span>
+                                                                    <span>Looking for someone relatively new to this field</span>
                                                                 }
                                                                 else if (Model.LevelOfExperience == "Intermediate level")
                                                                 {
-                                                            <span>Looking for substantial experience in this field</span>
+                                                                    <span>Looking for substantial experience in this field</span>
                                                                 }
                                                                 else if (Model.LevelOfExperience == "Expert level")
                                                                 {
-                                                            <span>Looking for comprehensive and deep expertise in this field</span>
+                                                                    <span>Looking for comprehensive and deep expertise in this field</span>
                                                                 }
                                                             </p>
                                                         </div>
@@ -211,10 +214,10 @@
                                                     <div class="Job-skills py-1 px-2 m-1">@s.Name</div>
                                                 }
                                                 @*<div class="Job-skills py-1 px-2 m-1">PHP</div>
-                                                <div class="Job-skills py-1 px-2 m-1">JavaScript</div>
-                                                <div class="Job-skills py-1 px-2 m-1 ">CSS3</div>
-                                                <div class="Job-skills py-1 px-2 m-1 ">JQuery</div>
-                                                <div class="Job-skills py-1 px-2 m-1 ">MVC</div>*@
+                                                    <div class="Job-skills py-1 px-2 m-1">JavaScript</div>
+                                                    <div class="Job-skills py-1 px-2 m-1 ">CSS3</div>
+                                                    <div class="Job-skills py-1 px-2 m-1 ">JQuery</div>
+                                                    <div class="Job-skills py-1 px-2 m-1 ">MVC</div>*@
 
                                             </div>
                                         </div>
@@ -243,48 +246,53 @@
 
                                 @foreach (var proposal in ViewBag.ProPosals)
                                 {
-                                <div class="porposed mt-4 mb-0">
-                                    <div class="row m-0 p-0">
-                                        <div class="col-2 m-0 p-0">
-                                            <img src="~/Images/@proposal.Freelancer.Image" class="Freelancer-photo my-auto" />
-                                        </div>
-                                        <div class="col-8 text-left">
-                                            <a class="mb-0 reuseLink" href="#" style="font-size: 15;">
-                                               @foreach(var u in ViewBag.User)
-                {
-                    if(u.Id == proposal.FreelancerId) { <span>@u.UserName</span> }
-                }
-                                            </a>
-                                            <p class="mb-0" style="font-size: 16px;font-weight: 650;">
-                                                @proposal.Freelancer.Title
-                                            </p>
-                                            <p class="mb-0" style="font-size: 15;color: rgb(102, 102, 102);font-weight: 600;">
-                                                City
-
-                                            </p>
-                                            <p class="mb-0" style="font-size: 15; color: rgb(102, 102, 102);font-weight: 600;">
-                                                $20.00 / Hour
-                                            </p>
-                                            <p class="mt-3" style="font-size: 16px; color: black; font-weight: 400;">
-                                                Has <span style="font-weight: 500;">3 relevant skills</span>  to your job
-                                            </p>
-                                            <div class="m-0 p-0">
-                                                <div class="Job-skills py-1 px-2 m-1">PHP</div>
-                                                <div class="Job-skills py-1 px-2 m-1">JavaScript</div>
-                                                <div class="Job-skills py-1 px-2 m-1 ">CSS3</div>
+                                    <div class="porposed mt-4 mb-0">
+                                        <div class="row m-0 p-0">
+                                            <div class="col-2 m-0 p-0">
+                                                <img src="~/Images/@proposal.Freelancer.Image" class="Freelancer-photo my-auto" />
                                             </div>
-                                        </div>
-                                        <div class="col-2 p-0 text-right">
-                                            <div class="lightDev text-center py-1 px-2 m-2">
-                                                Hire
+                                            <div class="col-8 text-left">
+                                                <a class="mb-0 reuseLink" href="#" style="font-size: 15;">
+                                                    @foreach (var u in ViewBag.User)
+                                                    {
+
+                                                        if (u.FreelancerId == proposal.FreelancerId)
+                                                        {<span>@u.User.UserName</span>}
+                                                }
+                                                </a>
+                                                <p class="mb-0" style="font-size: 16px;font-weight: 650;">
+                                                    @proposal.Freelancer.Title
+                                                </p>
+                                                <p class="mb-0" style="font-size: 15;color: rgb(102, 102, 102);font-weight: 600;">
+                                                    @proposal.Freelancer.City.Name
+                                                </p>
+                                                <p class="mb-0" style="font-size: 15; color: rgb(102, 102, 102);font-weight: 600;">
+                                                    $@proposal.Freelancer.HourlyRate / Hour
+                                                </p>
+                                                <p class="mt-3" style="font-size: 16px; color: black; font-weight: 400;">
+                                                    Has <span style="font-weight: 500;">3 relevant skills</span>  to your job
+                                                </p>
+                                                <div class="m-0 p-0">
+
+                                                   
+
+                                                    <div class="Job-skills py-1 px-2 m-1">JavaScript</div>
+                                                    <div class="Job-skills py-1 px-2 m-1 ">CSS3</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-2 p-0 text-right">
+                                                <div class="lightDev text-center py-1 px-2 m-2">
+                                                    <a asp-action="Hire" asp-controller="Client" >
+                                                        Hire
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
                                 }
 
-                                
+
 
 
 

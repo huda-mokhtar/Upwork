@@ -28,7 +28,7 @@ namespace Upwork.Models
 
         public virtual SubCategory SubCategory { get; set; }
 
-        public virtual List<Freelancer_Skill> Skills { get; set; }
+        
 
         public String ExperienceLevel { get; set; }
 
@@ -58,6 +58,7 @@ namespace Upwork.Models
 
         public string VideoLink { get; set; }
 
+        public virtual List<Freelancer_Skill> Skills { get; set; }
         public virtual List<Freelancer_Education> Educations { get; set; }
 
         public virtual List<Freelancer_Experience> Experiences { get; set; }
