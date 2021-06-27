@@ -34,9 +34,9 @@ namespace Upwork.Models.DbModels
         public bool? TalentType { get; set; }
         public string CreateDate { get; set; }
 
-        //[ForeignKey("Client")]
-        //public int ClientId { get; set; }
-        //public Client Client { get; set; }
+        [ForeignKey("Client")]
+        public string ClientId { get; set; }
+        public Client Client { get; set; }
         public List<JobsSkills> jobsSkills { get; set; }
         public List<JobQuestions> jobQuestions { get; set; }
 
