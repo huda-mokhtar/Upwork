@@ -37,6 +37,7 @@ namespace Upwork.Controllers
         {
             var u = await userManager.GetUserAsync(User);
             Client client = _context.Clients.FirstOrDefault(a => a.ClientId == u.Id);
+            ViewData["ClientName"] = (u.FirstName + " " + u.LastName);
             List<Jobs> alljobs = new List<Jobs>(_context.Jobs.Where(j=>j.ClientId==client.ClientId));
                 return View(alljobs);
         }
@@ -135,6 +136,8 @@ namespace Upwork.Controllers
                     reuseJob.TimeRequirement = Job.TimeRequirement;
                     reuseJob.TalentType = Job.TalentType;
                     reuseJob.ClientId = u.Id;
+                    reuseJob.CreateDate = DateTime.Now;
+                    reuseJob.DraftSavedDate = DateTime.Now;
                     _context.Add(reuseJob);
                     await _context.SaveChangesAsync();
                     List<JobsSkills> skills = new List<JobsSkills>(_context.JobsSkills.Where(a => a.JobsId == Job.Id));
@@ -154,7 +157,7 @@ namespace Upwork.Controllers
                 {
                     Job.Title = job.Title;
                     Job.subCategoryId = job.subCategoryId;
-                    Job.CreateDate = job.CreateDate;
+                    Job.DraftSavedDate = DateTime.Now;
                     await _context.SaveChangesAsync();
                     return RedirectToAction("PostJobSkills", new { id = Job.Id });
                 }
@@ -165,6 +168,8 @@ namespace Upwork.Controllers
                     await _context.SaveChangesAsync();
                     newJob.Type = HttpContext.Session.GetString("JobType");
                     newJob.ClientId = u.Id;
+                    newJob.CreateDate = DateTime.Now;
+                    newJob.DraftSavedDate = DateTime.Now;
                     await _context.SaveChangesAsync();
                     HttpContext.Session.Remove("JobType");
                     return RedirectToAction("PostJobSkills",new { id=newJob.Id});
@@ -238,6 +243,8 @@ namespace Upwork.Controllers
                         _context.JobsSkills.Add(skill);
                         await _context.SaveChangesAsync();
                     }
+                    Job.DraftSavedDate = DateTime.Now;
+                    await _context.SaveChangesAsync();
                     return RedirectToAction("PostJobScope", new { id = j.Id });
                 }
                 else
@@ -276,6 +283,7 @@ namespace Upwork.Controllers
                         Job.Scope = job.Scope;
                         Job.Duration = job.Duration;
                         Job.LevelOfExperience = job.LevelOfExperience;
+                        Job.DraftSavedDate = DateTime.Now;
                         await _context.SaveChangesAsync();
                         return RedirectToAction("PostJobBudget", new { id = Job.Id });
                     }
@@ -327,6 +335,7 @@ namespace Upwork.Controllers
                             Job.BudgetFrom = job.BudgetFrom;
                             Job.BudgetTo = job.BudgetTo;
                         }
+                        Job.DraftSavedDate = DateTime.Now;
                         await _context.SaveChangesAsync();
                         return RedirectToAction("ReviewJobPosting", new { id = Job.Id });
                     }
@@ -382,6 +391,7 @@ namespace Upwork.Controllers
                         Job.TimeRequirement = job.TimeRequirement;
                         Job.TalentType = job.TalentType;
                         Job.IsDraft = job.IsDraft;
+                        Job.DraftSavedDate = DateTime.Now;
                         await _context.SaveChangesAsync();
                         foreach (KeyValuePair<string, bool> item in jobQuestions)
                         {
@@ -394,6 +404,8 @@ namespace Upwork.Controllers
                         }
                     if (Job.IsDraft == false)
                     {
+                        Job.CreateDate = DateTime.Now;
+                        await _context.SaveChangesAsync();
                         return RedirectToAction("JobDetails", new { id = Job.Id });
                     }
                     else
@@ -412,6 +424,15 @@ namespace Upwork.Controllers
                 }
             //}
             //return View(job);
+        }
+        
+        public async Task<IActionResult> CloseJop(int id)
+        {
+            var CloseJob = _context.Jobs.FirstOrDefault(a => a.Id == id);
+            CloseJob.IsCanceled = true;
+            CloseJob.JobClosedDate = DateTime.Now;
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
         public async Task<IActionResult> DeleteJob(int id)
         {

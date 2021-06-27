@@ -32,7 +32,10 @@ namespace Upwork.Models.DbModels
         public Language_Proficiency Language_Proficiency { get; set; }
         public bool? TimeRequirement { get; set; }
         public bool? TalentType { get; set; }
-        public string CreateDate { get; set; }
+        public DateTime CreateDate { get; set; }
+        public bool IsCanceled { get; set; } = false;
+        public DateTime DraftSavedDate { get; set; }
+        public DateTime JobClosedDate { get; set; }
 
         [ForeignKey("Client")]
         public string ClientId { get; set; }
