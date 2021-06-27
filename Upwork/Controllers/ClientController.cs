@@ -542,7 +542,19 @@ namespace Upwork.Controllers
 
         public async Task<ActionResult> Hire()
         {
-            return View();
+            var FreelancerId = HttpContext.Request.Query["FreelancerId"];
+            var JobId = HttpContext.Request.Query["JobId"];
+            var Freelancer = _context.Freelancers.FirstOrDefault(a => a.FreelancerId == FreelancerId);
+            var Job = _context.Freelancer_Jobs.FirstOrDefault(a => a.FreelancerId == FreelancerId && a.JobsId == JobId);
+            if(Job != null)
+            {
+                if(Job.IsHire != true && Job.IsProposal == true)
+                {
+                    Job.IsHire = true;
+                    Job.IsProposal = false;
+                }
+            }
+            return Ok();
         }
                 
         

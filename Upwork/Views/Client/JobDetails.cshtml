@@ -281,10 +281,10 @@
                                                 </div>
                                             </div>
                                             <div class="col-2 p-0 text-right">
-                                                <div class="lightDev text-center py-1 px-2 m-2">
-                                                    <a asp-action="Hire" asp-controller="Client" >
-                                                        Hire
-                                                    </a>
+                                                <span class="d-none"  id="FreelanceId">@proposal.Freelancer.FreelancerId</span>
+                                                <span class="d-none"  id="JobId">@Model.Id</span>
+                                                <div class="lightDev text-center py-1 px-2 m-2" onclick="hire(this)">
+                                                    Hire
                                                 </div>
                                             </div>
                                         </div>
@@ -343,3 +343,26 @@
         </div>
     </div>
 </div>
+
+
+@section Scripts{ 
+    <script>
+        function hire(e) {
+            let FreelancerId = document.getElementById("FreelanceId").innerText;
+            let JobId = document.getElementById("JobId").innerText;
+            console.log(FreelancerId , JobId)
+            $.ajax({
+                url: "https://localhost:44367/Client/Hire/" + FreelancerId + JobId,
+                type: "GET",
+                success: () => {
+                    $(e).parent().parent().parent().remove();
+                },
+                error: (e) => {
+                    console.log(e);
+                }
+            })
+        
+            
+        }
+    </script>
+}
