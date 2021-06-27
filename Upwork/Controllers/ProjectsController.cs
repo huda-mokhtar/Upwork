@@ -14,26 +14,32 @@ using Upwork.Models.ViewModels.Projects;
 using Upwork.services;
 using Microsoft.AspNetCore.Hosting;
 using Upwork.Models.DbModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace Upwork.Controllers
 {
+    [Authorize(Roles = "Freelancer")]
     public class ProjectsController : Controller
     {
         private readonly ApplicationDbContext _context;
         private readonly IHostingEnvironment _hostenviroment;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public ProjectsController(ApplicationDbContext context,IHostingEnvironment hostingEnvironment)
+        public ProjectsController(ApplicationDbContext context,IHostingEnvironment hostingEnvironment,UserManager<ApplicationUser> usermanager)
         {
             _context = context;
-            _hostenviroment = hostingEnvironment; 
+            _hostenviroment = hostingEnvironment;
+            _userManager = usermanager;
         }
 
         // GET: Projects
         public async Task<IActionResult> Index()
         {
-            var Projects =  _context.Projects.Where(a => a.IsDraft == false).ToList();
+            var CurrentUser = await _userManager.GetUserAsync(User);
+            var Projects =  _context.Projects.Where(a => a.IsDraft == false && a.FreelancerId==CurrentUser.Id).ToList();
              
-            var Drafts =  _context.Projects.Where(a => a.IsDraft == true).ToList();
+            var Drafts =  _context.Projects.Where(a => a.IsDraft == true &&a.FreelancerId == CurrentUser.Id).ToList();
             ViewData["DraftProject"] = Drafts;
             return View(Projects);
         }
@@ -57,7 +63,8 @@ namespace Upwork.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create( Project project, Dictionary<string, bool> Skills)
         {
-                if (HttpContext.Session.GetString("ProjectId") != null)
+            var CurrentUser = await _userManager.GetUserAsync(User);
+            if (HttpContext.Session.GetString("ProjectId") != null)
                 {
                     var projectId = int.Parse(HttpContext.Session.GetString("ProjectId"));
                     var projectOld=_context.Projects.FirstOrDefault(a => a.ProjectId == projectId);
@@ -76,7 +83,7 @@ namespace Upwork.Controllers
                     return RedirectToAction(nameof(CreatePrice));
                 }
                 else{
-                    project.FreelancerId = "a123";
+                    project.FreelancerId = CurrentUser.Id;
                     _context.Add(project);
                     await _context.SaveChangesAsync();
                     HttpContext.Session.SetString("ProjectId", project.ProjectId.ToString());
@@ -243,7 +250,6 @@ namespace Upwork.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Requierment(Project model)
         {
-
             if (HttpContext.Session.GetString("ProjectId") != null)
             {
                 var projectId = int.Parse(HttpContext.Session.GetString("ProjectId"));
