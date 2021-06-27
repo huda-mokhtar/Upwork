@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -31,10 +32,13 @@ namespace Upwork.Controllers
             roleManager = _roleManager;
             _hostenviroment = hostingEnvironment;
         }
-        public IActionResult Index()
+        [Authorize(Roles = "Client")]
+        public async Task<IActionResult> Index()
         {
-            List<Jobs> alljobs = new List<Jobs>(_context.Jobs);
-            return View(alljobs);
+            var u = await userManager.GetUserAsync(User);
+            Client client = _context.Clients.FirstOrDefault(a => a.ClientId == u.Id);
+            List<Jobs> alljobs = new List<Jobs>(_context.Jobs.Where(j=>j.ClientId==client.ClientId));
+                return View(alljobs);
         }
         public IActionResult PostJob(int id)
         {
@@ -112,7 +116,7 @@ namespace Upwork.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> PostJobTitle(Jobs job)
         {
-            
+            var u = await userManager.GetUserAsync(User);
             if (job!=null)
             {
                 var Job = _context.Jobs.FirstOrDefault(s => s.Id == job.Id);
@@ -130,6 +134,7 @@ namespace Upwork.Controllers
                     reuseJob.Language_ProficiencyId = Job.Language_ProficiencyId;
                     reuseJob.TimeRequirement = Job.TimeRequirement;
                     reuseJob.TalentType = Job.TalentType;
+                    reuseJob.ClientId = u.Id;
                     _context.Add(reuseJob);
                     await _context.SaveChangesAsync();
                     List<JobsSkills> skills = new List<JobsSkills>(_context.JobsSkills.Where(a => a.JobsId == Job.Id));
@@ -159,6 +164,7 @@ namespace Upwork.Controllers
                     _context.Add(newJob);
                     await _context.SaveChangesAsync();
                     newJob.Type = HttpContext.Session.GetString("JobType");
+                    newJob.ClientId = u.Id;
                     await _context.SaveChangesAsync();
                     HttpContext.Session.Remove("JobType");
                     return RedirectToAction("PostJobSkills",new { id=newJob.Id});
@@ -444,10 +450,10 @@ namespace Upwork.Controllers
             }
             return View();
         }
-        public IActionResult Profile()
+        public async Task<IActionResult> Profile()
         {
-            var clientid = "4079d308-f17c-44e9-978a-c3e571ee5075";
-            Client client = _context.Clients.Include(a => a.User).ThenInclude(a=>a.Country).Where(a => a.ClientId == clientid).FirstOrDefault();
+            var u = await userManager.GetUserAsync(User);
+            Client client = _context.Clients.Include(a => a.User).ThenInclude(a=>a.Country).Where(a => a.ClientId == u.Id).FirstOrDefault();
             ViewData["Countries"]= new SelectList(_context.Countries, "CountryId", "Name", client.User.CountryId);
             return View(client);
         }
@@ -455,8 +461,8 @@ namespace Upwork.Controllers
         [ValidateAntiForgeryToken]
         public async Task< IActionResult> Profile( ApplicationUser data)
         {
-            var clientid = "4079d308-f17c-44e9-978a-c3e571ee5075";
-            Client client = _context.Clients.Include(a => a.User).ThenInclude(c=>c.Country).Where(a => a.ClientId == clientid).FirstOrDefault();
+            var u = await userManager.GetUserAsync(User);
+            Client client = _context.Clients.Include(a => a.User).ThenInclude(c=>c.Country).Where(a => a.ClientId == u.Id).FirstOrDefault();
             if (ModelState.IsValid)
             {
                 client.User.UserName = data.UserName;
@@ -474,13 +480,13 @@ namespace Upwork.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ChangePass(string ConfirmPassword ,string OldPassword)
         {
-            var clientid = "4079d308-f17c-44e9-978a-c3e571ee5075";
-            Client client = _context.Clients.Include(a => a.User).ThenInclude(c => c.Country).Where(a => a.ClientId == clientid).FirstOrDefault();
+            var u = await userManager.GetUserAsync(User);
+            Client client = _context.Clients.Include(a => a.User).ThenInclude(c => c.Country).Where(a => a.ClientId == u.Id).FirstOrDefault();
             if (ModelState.IsValid)
             {
                 if(await userManager.CheckPasswordAsync(client.User, OldPassword) == true)
                 {
-                    await userManager.ChangePasswordAsync(client.User, client.User.ToString(), ConfirmPassword);
+                    var result = await userManager.ChangePasswordAsync(u, OldPassword, ConfirmPassword);
                     //client.User.PasswordHash = ConfirmPassword;
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Profile));
