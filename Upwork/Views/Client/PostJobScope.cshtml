@@ -18,6 +18,7 @@
     @section RightSide{
         <div>
             <form class="row m-0" id="ScopeDurationEx" method="post" asp-action="PostJobScope">
+                <input type="hidden" asp-for="Id" id="jobId"/>
                 <div class="col-12 py-2 px-0" id="JobScope">
                     <div id="scopeForm">
                         <div class="radio-group">
@@ -202,7 +203,8 @@
         $("#progressSkills").css("color", " #95df00");
         $("#progressScope").css("color", " #95df00");
         $("#NextStep").text("Next:Budget");
-        $("#PrevStep").attr("href", "/Client/PostJobSkills");
+        var id = $("#jobId").val();
+        $("#PrevStep").attr("href", "/Client/PostJobSkills/" + id);
 
         for (var i = 0; i < $('input[name=Scope]').length; i++) {
             if ($('input[name=Scope]')[i].checked == true) {
