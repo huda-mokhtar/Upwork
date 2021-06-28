@@ -19,14 +19,11 @@ namespace Upwork.Models.DbModels
         public bool? IsProposal { get; set; } = false;
         public bool? Isdislike { get; set; } = false;
         public bool? IsHire { get; set; } = false;
-
         public string Contract { get; set; }
-
-
         [Range(0, 5)]
         public int Rate { get; set; }
-        public Jobs Jobs { get; set; }
 
+        public Jobs Jobs { get; set; }
         public Freelancer Freelancer { get; set; }
     }
 }

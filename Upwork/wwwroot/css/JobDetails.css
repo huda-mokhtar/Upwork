@@ -200,3 +200,8 @@ div.card .card-header-primary {
         background-color: rgb(247, 247, 247);
         color: rgba(0, 128, 0, 0.925);
     }
+
+input[type=file].form-control{
+    padding:2px 10px;
+    border-radius:30px;
+}
