@@ -747,6 +747,7 @@ namespace Upwork.Controllers
                 var AreaId = db.AreasOfStudy.FirstOrDefault(a => a.Name == model.AreaOfStudy).AreaId;
                 var DegreeId = db.Degrees.FirstOrDefault(a => a.Name == model.Degree).DegreeId;
                 var education = db.Freelancer_Education.FirstOrDefault(a => a.FreelancerId == model.FreerlancerId && a.DegreeId == model.DegreeId && a.SchoolId == model.SchoolId && a.AreaId == model.AreaId);
+                db.Schools.FirstOrDefault(a => a.SchoolId == model.SchoolId).FreelancerEducations.Remove(education);
                 education.AreaId = AreaId;
                 education.DegreeId = DegreeId;
                 education.SchoolId = SchoolId;
@@ -1204,7 +1205,7 @@ namespace Upwork.Controllers
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
-            return RedirectToAction("Login");
+            return RedirectToAction("Index", "Home");
            // return Content("Home page...");
         }
 

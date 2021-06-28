@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Upwork.Data;
 
 namespace Upwork.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210627144909_IsCanceldForJobs")]
+    partial class IsCanceldForJobs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -422,11 +424,8 @@ namespace Upwork.Data.Migrations
                     b.Property<string>("ClientId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DraftSavedDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("CreateDate")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("Duration")
                         .HasColumnType("int");
@@ -436,9 +435,6 @@ namespace Upwork.Data.Migrations
 
                     b.Property<bool>("IsDraft")
                         .HasColumnType("bit");
-
-                    b.Property<DateTime>("JobClosedDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("JobDescription")
                         .HasColumnType("nvarchar(max)");

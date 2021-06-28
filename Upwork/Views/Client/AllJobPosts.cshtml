@@ -59,6 +59,7 @@
                                 <div class="row m-0 p-0" style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
                                     <div class="col-8 text-left ">
                                         <a href="" class="braek">@job.Title</a>
+                                        <p class="text-muted">Created @job.CreateDate</p>
                                     </div>
                                     <div class="col-4">
                                         <div class="row m-0">
@@ -85,7 +86,7 @@
                                 </div>
                                 <div class="row m-0 p-0 mt-3" style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
                                     <div class="col-5 text-left ml-1 mt-1">
-                                        <p style="font-size: 15px;">Draft - Saved @job.CreateDate</p>
+                                        <p style="font-size: 15px;">Draft - Saved @job.DraftSavedDate</p>
                                     </div>
 
 
@@ -98,6 +99,7 @@
                                 <div class="row m-0 p-0" style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
                                     <div class="col-8 text-left ">
                                         <a href="" class="braek">@job.Title</a>
+                                        <p class="text-muted">Created @job.CreateDate</p>
                                     </div>
                                     <div class="col-4">
                                         <div class="row m-0">
@@ -115,7 +117,10 @@
                                                     <div class="dropdown-menu">
                                                         <a class="dropdown-item" asp-action="PostJobTitle" asp-route-id="@job.Id">Reuse Posting</a>
                                                         <a class="dropdown-item" asp-action="JobDetails" asp-route-id="@job.Id">View posting</a>
-
+                                                        @if (job.IsCanceled == false)
+                                                        {
+                                                            <a class="dropdown-item" asp-action="CloseJop" asp-route-id="@job.Id">Remove posting</a>
+                                                        }
                                                     </div>
                                                 </div>
                                             </div>
@@ -124,7 +129,10 @@
                                 </div>
                                 <div class="row m-0 p-0 mt-3" style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
                                     <div class="col-5 text-left ml-1 mt-1">
-                                        <p style="font-size: 15px;">Closed - @job.CreateDate</p>
+                                        @if (job.IsCanceled == true)
+                                        {
+                                            <p style="font-size: 15px;">Closed - @job.JobClosedDate</p>
+                                        }
                                     </div>
                                     <div class="col-2 mr-1">
                                         <p class="mb-0" style="color: black; font-size: 16px;">0</p>

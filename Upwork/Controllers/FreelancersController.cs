@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using Upwork.Data;
 using Upwork.Models;
@@ -18,10 +21,13 @@ namespace Upwork.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _UserManager;
-        public FreelancersController(ApplicationDbContext context , UserManager<ApplicationUser> usermanager)
+        private readonly IWebHostEnvironment hosting;
+
+        public FreelancersController(ApplicationDbContext context , UserManager<ApplicationUser> usermanager, IWebHostEnvironment _hosting)
         {
             _context = context;
             _UserManager = usermanager;
+            hosting = _hosting;
         }
 
         [Authorize(Roles = "Freelancer")]
@@ -182,5 +188,45 @@ namespace Upwork.Controllers
         {
             return _context.Freelancers.Any(e => e.FreelancerId == id);
         }
+
+        
+        public async Task<IActionResult> Contracts()
+        {
+            var user = await _UserManager.GetUserAsync(User);
+            var Freelancer = _context.Freelancers.FirstOrDefault(a => a.FreelancerId == user.Id);
+            return View(_context.Freelancer_Jobs.Where(a => a.FreelancerId == Freelancer.FreelancerId && a.IsHire == true).Include(a=>a.Jobs).Include(a=>a.Jobs.Client.User).ToList());
+        }
+
+        
+        public async Task<IActionResult> DownloadCSV(string FileName)
+        {
+            if (FileName == null)
+            {
+                return BadRequest();
+            }
+            string FolderPath = Path.Combine(hosting.WebRootPath, "Contracts");
+            string FilePath = Path.Combine(FolderPath, FileName);
+            var memory = new MemoryStream();
+            using(var stream = new FileStream(FilePath, FileMode.Open))
+            {
+                await stream.CopyToAsync(memory);
+            }
+            memory.Position = 0;
+            return File(memory, "application/pdf", Path.GetFileName(FilePath));
+        }
+
+        public async Task<IActionResult> SearchContract(string term)
+        {
+            if (term == null)
+            {
+                return RedirectToAction("Contracts");
+            }
+            var user = await _UserManager.GetUserAsync(User);
+            var Freelancer = _context.Freelancers.FirstOrDefault(a => a.FreelancerId == user.Id);
+            var result = _context.Freelancer_Jobs.Where(a => a.FreelancerId == Freelancer.FreelancerId && a.IsHire == true).Include(a => a.Jobs).Include(a => a.Jobs.Client.User).Where(a=>a.Jobs.Title.Contains(term) || a.Jobs.Client.User.FirstName.Contains(term) || a.Jobs.Client.User.LastName.Contains(term)).ToList();
+            return View("Contracts", result);
+        }
+
+
     }
 }
