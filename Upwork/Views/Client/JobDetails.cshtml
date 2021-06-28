@@ -350,7 +350,7 @@
            
             let FreelancerId = document.getElementById("freelancerId").value;
             let JobsId = document.getElementById("jobId").value;
-            let Contract = document.getElementById("contract").value;
+            let Contract = $("#hireForm").find('input:file[name="Contract"]')[0].files[0];
             console.log(FreelancerId, JobsId, Contract);
             var formData = new FormData();
             formData.append("JobsId", JobsId);
