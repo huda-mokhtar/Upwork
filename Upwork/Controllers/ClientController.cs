@@ -586,12 +586,11 @@ namespace Upwork.Controllers
                 var Freelancer = _context.Freelancers.Include(a => a.User).FirstOrDefault(a => a.FreelancerId == FreelancerId);
                 var Job = _context.Jobs.Include(a => a.Client).FirstOrDefault(a => a.Id == JobsId);
                 var FreelancerJob = _context.Freelancer_Jobs.FirstOrDefault(a => a.JobsId == JobsId && a.FreelancerId == FreelancerId && a.IsProposal == true);
-                string UniqueFileName = null;
                 string ContractName = null;
                 if (Contract != null)
                 {
                     string folder = Path.Combine(_hostenviroment.WebRootPath, "contracts");
-                    ContractName = Freelancer.User.UserName + "_" + Job.Title;
+                    ContractName = Freelancer.User.UserName + "_" + Job.Title+ Path.GetExtension(Contract.FileName);
                     string photoPath = Path.Combine(folder, ContractName);
                     Contract.CopyTo(new FileStream(photoPath, FileMode.Create));
                 }
