@@ -35,13 +35,13 @@
                                     <li class="nav-item mx-4">
                                         <a class="nav-link px-5" href="#jobProposal" data-toggle="tab">
 
-                                            Review Proposals (2)
+                                            Review Proposals (@ViewBag.ProPosalsCount)
                                         </a>
                                     </li>
                                     <li class="nav-item mx-4">
                                         <a class="nav-link px-5" href="#hires" data-toggle="tab">
 
-                                            Hired (0)
+                                            Hired (@ViewBag.HiredCount)
                                         </a>
 
                                     </li>
@@ -238,13 +238,16 @@
 
                             </div>
                             <div class="tab-pane" id="jobProposal">
-
+                                @if (ViewBag.ProPosalsCount == 0)
+                                {
                                 <div class="row m-0 p-0 mt-3">
                                     <div class="col-9 m-auto p-2">
                                         <img src="~/Images/proposals.png" />
                                     </div>
                                 </div>
-
+                                }
+                                else
+                                {
                                 @foreach (var proposal in ViewBag.ProPosals)
                                 {
                                     <div class="porposed mt-4 mb-0">
@@ -259,7 +262,7 @@
 
                                                         if (u.FreelancerId == proposal.FreelancerId)
                                                         {<span>@u.User.UserName</span>}
-                                                }
+                                                    }
                                                 </a>
                                                 <p class="mb-0" style="font-size: 16px;font-weight: 650;">
                                                     @proposal.Freelancer.Title
@@ -297,30 +300,43 @@
                                     </div>
 
                                 }
+                                }
                             </div>
                             <div class="tab-pane" id="hires">
+                                @if (ViewBag.HiredCount == 0)
+                                {
                                 <div class="row m-0 p-0 mt-3">
                                     <div class="col-9 m-auto p-2">
                                         <img src="~/Images/hired0.png" />
                                     </div>
                                 </div>
+                                }
+                                else
+                                {
+                                @foreach (var hire in ViewBag.Hired)
+                                {
                                 <div class="porposed  mb-0">
                                     <div class="row my-3 p-0 m-0">
                                         <div class="col-2 m-0 p-0">
-                                            <img src="~/Images/Wafaa1.jpg" class="Freelancer-photo my-auto" />
+                                            <img src="~/Images/@hire.Freelancer.Image" class="Freelancer-photo my-auto" />
                                         </div>
                                         <div class="col-8 text-left">
                                             <a class="mb-0 reuseLink" href="#" style="font-size: 15;">
-                                                Wafaa Elsaeed
+                                                @foreach (var u in ViewBag.User)
+                                                {
+
+                                                    if (u.FreelancerId == hire.FreelancerId)
+                                                    {<span>@u.User.UserName</span>}
+                                                }
                                             </a>
                                             <p class="mb-0" style="font-size: 16px;font-weight: 650;">
-                                                Front-End Developer
+                                                @hire.Freelancer.Title
                                             </p>
                                             <p class="mb-0" style="font-size: 15;color: rgb(102, 102, 102);font-weight: 600;">
-                                                Egypt
+                                                @hire.Freelancer.City.Name
                                             </p>
                                             <p class="mb-0" style="font-size: 15; color: rgb(102, 102, 102);font-weight: 600;">
-                                                $25.00 / hr
+                                                $@hire.Freelancer.HourlyRate / hr
                                             </p>
 
                                         </div>
@@ -331,6 +347,8 @@
                                         </div>
                                     </div>
                                 </div>
+                                }
+                                }
                             </div>
                         </div>
                     </div>
