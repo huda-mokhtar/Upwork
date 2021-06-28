@@ -32,7 +32,7 @@ namespace Upwork
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                   Configuration.GetConnectionString("DefaultConnection")));
+                   Configuration.GetConnectionString("SQLConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>()
@@ -76,6 +76,10 @@ namespace Upwork
             {
                 options.ClientId = "315025860685-s8qmfdi9tsa6m8r080norgckon3qe85v.apps.googleusercontent.com";
                 options.ClientSecret = "d7aakXRMh0w1VBZ9EyEbWAAr";
+            }).AddFacebook(options =>
+            {
+                options.AppId = "423037182020001";
+                options.AppSecret = "83eeea8f94faafbd9ca0b44f945e808d";
             });
 
 
