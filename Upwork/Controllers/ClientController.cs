@@ -7,11 +7,13 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Upwork.Data;
 using Upwork.Models;
 using Upwork.Models.DbModels;
+using Upwork.Models.ViewModels;
 
 namespace Upwork.Controllers
 {
@@ -576,9 +578,30 @@ namespace Upwork.Controllers
             return View(job);
         }
 
-        public async Task<ActionResult> Hire()
+        [HttpPost]
+        public async Task<ActionResult> Hire(string FreelancerId , int JobsId, IFormFile Contract)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                var Freelancer = _context.Freelancers.Include(a => a.User).FirstOrDefault(a => a.FreelancerId == FreelancerId);
+                var Job = _context.Jobs.Include(a => a.Client).FirstOrDefault(a => a.Id == JobsId);
+                var FreelancerJob = _context.Freelancer_Jobs.FirstOrDefault(a => a.JobsId == JobsId && a.FreelancerId == FreelancerId && a.IsProposal == true);
+                string ContractName = null;
+                if (Contract != null)
+                {
+                    string folder = Path.Combine(_hostenviroment.WebRootPath, "contracts");
+                    ContractName = Freelancer.User.UserName + "_" + Job.Title+ Path.GetExtension(Contract.FileName);
+                    string photoPath = Path.Combine(folder, ContractName);
+                    Contract.CopyTo(new FileStream(photoPath, FileMode.Create));
+                }
+                FreelancerJob.IsHire = true;
+                FreelancerJob.IsProposal = false;
+                FreelancerJob.Contract = ContractName;
+                _context.SaveChanges();
+                return Ok();
+            }
+            
+            return BadRequest();
         }
 
 

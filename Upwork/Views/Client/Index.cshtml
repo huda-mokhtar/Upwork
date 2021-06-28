@@ -71,7 +71,7 @@
                                         <div class="row m-0 p-0 mb-1"
                                              style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
                                             <div class="col-9 text-left ml-1">
-                                                <a href="" class="braek">
+                                                <a class="braek" asp-action="JobDetails" asp-route-id="@posted.Id">
                                                     @posted.Title
                                                 </a>
                                             </div>
@@ -135,7 +135,7 @@
                                         <div class="row m-0 p-0 mb-1"
                                              style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
                                             <div class="col-9 text-left ml-1">
-                                                <a href="" class="braek">
+                                                <a class="braek" asp-action="JobDetails" asp-route-id="@posted.Id">
                                                     @posted.Title
                                                 </a>
                                             </div>
@@ -218,7 +218,7 @@
                             <div class="row m-0 p-0"
                                  style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
                                 <div class="col-9 text-left ml-1">
-                                    <a href="" class="braek">
+                                    <a class="braek" asp-action="EditJob" asp-route-id="@drafted.Id">
                                         @drafted.Title
                                     </a>
                                     <p>Saved @drafted.DraftSavedDate</p>
@@ -256,7 +256,7 @@
                             <div class="row m-0 p-0"
                                  style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
                                 <div class="col-9 text-left ml-1">
-                                    <a href="" class="braek">
+                                    <a class="braek" asp-action="EditJob" asp-route-id="@drafted.Id">
                                         @drafted.Title
                                     </a>
                                     <p>Saved @drafted.DraftSavedDate</p>

@@ -58,7 +58,7 @@
                             <div class="myDrafts py-3 px-4">
                                 <div class="row m-0 p-0" style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
                                     <div class="col-8 text-left ">
-                                        <a href="" class="braek">@job.Title</a>
+                                        <a class="braek" asp-action="EditJob" asp-route-id="@job.Id">@job.Title</a>
                                         <p class="text-muted">Created @job.CreateDate</p>
                                     </div>
                                     <div class="col-4">
@@ -98,7 +98,7 @@
                             <div class="myDrafts py-3 px-4">
                                 <div class="row m-0 p-0" style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
                                     <div class="col-8 text-left ">
-                                        <a href="" class="braek">@job.Title</a>
+                                        <a class="braek" asp-action="JobDetails" asp-route-id="@job.Id">@job.Title</a>
                                         <p class="text-muted">Created @job.CreateDate</p>
                                     </div>
                                     <div class="col-4">
