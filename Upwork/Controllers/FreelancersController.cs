@@ -227,6 +227,17 @@ namespace Upwork.Controllers
             return View("Contracts", result);
         }
 
+        public async Task<IActionResult> JobDetails(int Id)
+        {
+            var Job = _context.Jobs.Include(a => a.Client).Include(a => a.jobsSkills).Include(a => a.subCategory).FirstOrDefault(a => a.Id == Id && a.IsDraft == false && a.IsCanceled == false);
+            if(Job == null)
+            {
+                return NotFound();
+            }
+            ViewData["Skills"] = _context.JobsSkills.Where(a => a.JobsId == Id).Select(a => a.skill);
+            return View(Job);
+        }
+
 
     }
 }
