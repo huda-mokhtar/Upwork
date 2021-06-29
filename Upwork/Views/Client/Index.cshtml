@@ -14,7 +14,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-5">
-                            <div class="h3">Client Name</div>
+                            <div class="h3">@ViewBag.ClientName</div>
                         </div>
                         <div class="col-6 text-left mt-2">
                             <i class="fa fa-user-plus" aria-hidden="true"></i>
@@ -61,7 +61,7 @@
                         </div>
                     </div>
                     <div>
-                        @if (Model.Where(a => a.IsDraft == false).Count() > 0)
+                        @if (Model.Where(a => a.IsDraft == false && a.IsCanceled==false).Count() > 0)
                         {
                             if (Model.Where(a => a.IsDraft == false).Count() > 6)
                             {
@@ -71,7 +71,7 @@
                                         <div class="row m-0 p-0 mb-1"
                                              style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
                                             <div class="col-9 text-left ml-1">
-                                                <a href="" class="braek">
+                                                <a class="braek" asp-action="JobDetails" asp-route-id="@posted.Id">
                                                     @posted.Title
                                                 </a>
                                             </div>
@@ -89,6 +89,7 @@
                                                         <a class="dropdown-item" href="#">Something else here</a>
                                                         <a class="dropdown-item" asp-action="PostJobTitle" asp-route-id="@posted.Id">Reuse Posting</a>
                                                         <a class="dropdown-item" asp-action="JobDetails" asp-route-id="@posted.Id">View posting</a>
+                                                        <a class="dropdown-item" asp-action="CloseJop" asp-route-id="@posted.Id">Remove posting</a>
                                                         <div class="dropdown-divider"></div>
                                                         <a class="dropdown-item" href="#">Separated link</a>
                                                     </div>
@@ -134,7 +135,9 @@
                                         <div class="row m-0 p-0 mb-1"
                                              style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
                                             <div class="col-9 text-left ml-1">
-                                                <a href="" class="braek">
+
+                                                <a class="braek" asp-action="JobDetails" asp-route-id="@posted.Id">
+ 
                                                     @posted.Title
                                                 </a>
                                             </div>
@@ -152,6 +155,7 @@
                                                         <a class="dropdown-item" href="#">Something else here</a>
                                                         <a class="dropdown-item" asp-action="PostJobTitle" asp-route-id="@posted.Id">Reuse Posting</a>
                                                         <a class="dropdown-item" asp-action="JobDetails" asp-route-id="@posted.Id">View posting</a>
+                                                        <a class="dropdown-item" asp-action="CloseJop" asp-route-id="@posted.Id">Remove posting</a>
                                                         <div class="dropdown-divider"></div>
                                                         <a class="dropdown-item" href="#">Separated link</a>
                                                     </div>
@@ -216,10 +220,10 @@
                             <div class="row m-0 p-0"
                                  style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
                                 <div class="col-9 text-left ml-1">
-                                    <a href="" class="braek">
+                                    <a class="braek" asp-action="EditJob" asp-route-id="@drafted.Id">
                                         @drafted.Title
                                     </a>
-                                    <p>Saved @drafted.CreateDate</p>
+                                    <p>Saved @drafted.DraftSavedDate</p>
                                 </div>
                                 <div class="col-2 text-right" style="width: 50px; height: 50px; margin: 0;padding:0;">
                                     <div class="container text-right"
@@ -254,10 +258,10 @@
                             <div class="row m-0 p-0"
                                  style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
                                 <div class="col-9 text-left ml-1">
-                                    <a href="" class="braek">
+                                    <a class="braek" asp-action="EditJob" asp-route-id="@drafted.Id">
                                         @drafted.Title
                                     </a>
-                                    <p>Saved @drafted.CreateDate</p>
+                                    <p>Saved @drafted.DraftSavedDate</p>
                                 </div>
                                 <div class="col-2 text-right" style="width: 50px; height: 50px; margin: 0;padding:0;">
                                     <div class="container text-right"

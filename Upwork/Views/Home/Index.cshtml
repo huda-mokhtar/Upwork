@@ -15,6 +15,7 @@
     <link href="~/lib/font-awesome/css/v4-shims.css" rel="stylesheet" />
     <title>Upwork</title>
     <style>
+        
         .signup {
             background-color: #14a800;
             color: white;
@@ -108,6 +109,63 @@
             color: #1f57c3;
             border-radius: 30px;
         }
+        .findOpportunities {
+            background-color: rgb(238, 236, 236);
+        }
+
+            footer {
+                padding: 0;
+                margin: 0;
+                list-style: none;
+                box-sizing: border-box;
+                background-color: #001e00;
+                color: white;
+            }
+
+        footer a {
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: none;
+        }
+        footer a:hover {
+            color: white;
+            border-bottom: 1px white solid;
+        }
+
+        footer p {
+            margin-bottom: 0rem;
+        }
+
+        .up-footer-items a {
+            color: #656565;
+        }
+
+        .up-footer-items a:hover {
+            color: #656565;
+        }
+
+        footer i {
+            color: white;
+            border-radius: 50%;
+            border:1px solid white;
+            background-color: #001e00;
+            padding: 0.4rem;
+            margin: .4rem;
+        }
+        /******* end footer*********/
+        
+        .form-control:focus {
+            color: #495057;
+            background-color: #fff;
+            border-color: #3ce026d8;
+            outline: 0;
+            box-shadow: 0 0 0 0.1rem #81e774;
+        }
+        
+
+
     </style>
 
 </head>
@@ -152,10 +210,10 @@
                     Take your career to the next level.
                 </p>
                 <div class="mt-4 p-0 mx-1 mb-5">
-                    <a href="/account/signup class="btn my-auto p-2 px-4 signup">
+                    <a class="btn my-auto p-2 px-4 signup" href="/account/signup" >
                         Find Talent
                     </a>
-                    <a href="/account/signup class="btn my-auto p-2 px-4 lightDiv ml-3">
+                    <a class="btn my-auto p-2 px-4 lightDiv ml-3" href="/account/signup">
                         Find Work
                     </a>
                 </div>
@@ -332,7 +390,7 @@
                 </div>
 
                 <div class="col-11 mb-3 mt-0">
-                    <a href="/account/signup class="btn my-auto p-2 px-5 ml-4 findOpportunities">
+                    <a class="btn my-auto p-2 px-5 ml-4 findOpportunities" href="/account/signup">
                         Find Opportunities
                     </a>
                 </div>
@@ -341,7 +399,169 @@
 
 
     </div>
-
+    <!--Footer-->
+    <footer role="contentinfo" class="up-footer text-center py-3">
+        <div role="heading" aria-level="2" class="sr-only">
+            Footer navigation
+        </div>
+        <div class="container">
+            <div class="up-footer-items justify-content-between d-flex">
+                <div>
+                    <ul class="up-footer-list">
+                        <li class="up-footer-list-item">
+                            <a href="/about/" target="_self" class="up-footer-list-link">
+                                About Us
+                            </a>
+                        </li>
+                        <li class="up-footer-list-item">
+                            <a href="javascript:" target="_self" data-cy="feedback-link" class="up-footer-list-link">
+                                Feedback
+                            </a>
+                        </li>
+                        <li class="up-footer-list-item">
+                            <a href="http://community.upwork.com" target="_self" class="up-footer-list-link">
+                                Community
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <ul class="up-footer-list">
+                        <li class="up-footer-list-item">
+                            <a href="/trust-and-safety/security/" target="_self" class="up-footer-list-link">
+                                Trust, Safety &amp; Security
+                            </a>
+                        </li>
+                        <li class="up-footer-list-item">
+                            <a href="https://support.upwork.com/login" target="_self" class="up-footer-list-link">
+                                Help &amp; Support
+                            </a>
+                        </li>
+                        <li class="up-footer-list-item">
+                            <a href="/ppc/foundation/" target="_self" class="up-footer-list-link">
+                                Upwork Foundation
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <ul class="up-footer-list">
+                        <li class="up-footer-list-item">
+                            <a href="/legal#terms" target="_self" class="up-footer-list-link">
+                                Terms of Service
+                            </a>
+                        </li>
+                        <li class="up-footer-list-item">
+                            <a href="/legal#privacy" target="_self" class="up-footer-list-link">
+                                Privacy Policy
+                            </a>
+                        </li>
+                        <li class="up-footer-list-item">
+                            <a href="/legal#accessibility" target="_self" class="up-footer-list-link">
+                                Accessibility
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <ul class="up-footer-list">
+                        <li class="up-footer-list-item">
+                            <a href="/downloads?source=Footer" target="_self" class="up-footer-list-link">
+                                Desktop App
+                            </a>
+                        </li>
+                        <li class="up-footer-list-item">
+                            <a href="/legal#cookie-policy" target="_self" class="up-footer-list-link">
+                                Cookie Policy
+                            </a>
+                        </li>
+                        <li class="up-footer-list-item">
+                            <a href="/enterprise" target="_self" class="up-footer-list-link">
+                                Enterprise Solutions
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="up-footer-social justify-content-between d-flex">
+                <div class="up-footer-social-icons d-flex" style="display:-webkit-box; -webkit-box-align:center; ">
+                    <div role="heading" aria-level="3" class="up-footer-social-header m-auto">
+                        Follow us
+                    </div>
+                    <ul class="up-footer-social-list d-flex m-auto">
+                        <li class="up-footer-social-list-item">
+                            <a href="https://www.facebook.com/upwork" title="Visit Upwork on Facebook" target="_blank" rel="noopener noreferrer" class="up-footer-social-list-link">
+                                <span class="sr-only">Visit Upwork on Facebook</span>
+                                <div class="up-icon">
+                                    <i class="fab fa-facebook-f"></i>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="up-footer-social-list-item">
+                            <a href="https://www.linkedin.com/company/upwork" title="Read Upwork company news on LinkedIn" target="_blank" rel="noopener noreferrer" class="up-footer-social-list-link">
+                                <span class="sr-only">Read Upwork company news on LinkedIn</span>
+                                <div class="up-icon">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="up-footer-social-list-item">
+                            <a href="https://twitter.com/Upwork" title="Follow  on Twitter" target="_blank" rel="noopener noreferrer"
+                               class="up-footer-social-list-link">
+                                <span class="sr-only">Follow Twitter</span>
+                                <div class="up-icon">
+                                    <i class="fab fa-twitter"></i>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="up-footer-social-list-item">
+                            <a href="https://www.youtube.com/channel/UCvxGFOnwUBDHHcxuPqhe4CQ" title="Watch Upwork videos on YouTube" target="_blank" rel="noopener noreferrer" class="up-footer-social-list-link">
+                                <span class="sr-only">Watch Upwork videos on YouTube</span>
+                                <div class="up-icon">
+                                    <i class="fab fa-youtube"></i>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="up-footer-social-list-item">
+                            <a href="https://www.instagram.com/upworkinc/" title="Follow Upwork on Instagram" target="_blank" rel="noopener noreferrer" class="up-footer-social-list-link">
+                                <span class="sr-only">Follow Upwork on Instagram</span>
+                                <div class="up-icon">
+                                    <i class="fab fa-instagram"></i>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="up-footer-social-icons up-footer-download d-flex">
+                    <div role="heading" aria-level="3" class="up-footer-social-header m-auto">
+                        Mobile app
+                    </div>
+                    <ul class="up-footer-social-list d-flex m-auto">
+                        <li class="up-footer-social-list-item">
+                            <a href="https://apps.apple.com/us/developer/upwork-global-inc/id329377609" title="Download Upwork app from iTunes" target="_blank" rel="noopener noreferrer" class="up-footer-social-list-link">
+                                <span class="sr-only">Download Upwork app from iTunes</span> <div class="up-icon">
+                                    <i class="fab fa-apple"></i>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="up-footer-social-list-item">
+                            <a href="https://play.google.com/store/apps/dev?id=8802639270489632480" title="Download Upwork app from Google Play" target="_blank" rel="noopener noreferrer" class="up-footer-social-list-link">
+                                <span class="sr-only">Download Upwork app from Google Play</span>
+                                <div class="up-icon">
+                                    <i class="fab fa-android"></i>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div> <p class="up-footer-copyright">
+                <span>
+                    © 2015 - 2021 Upwork® Global Inc.
+                </span>
+            </p>
+        </div>
+    </footer>
+    <!-- End Footer-->
 
 
 

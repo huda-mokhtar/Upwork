@@ -218,6 +218,82 @@ namespace Upwork.Controllers
                 return View("SignUp");
             }   
         }
+        //Signup with Facebook
+        public IActionResult FacebookSignup()
+        {
+            var redircetUrl = Url.Action("FacebookSignupCallback", "Account");
+            var Properties = signInManager.ConfigureExternalAuthenticationProperties("Facebook", redircetUrl);
+            return new ChallengeResult("Facebook", Properties);
+        }
+
+        public async Task<IActionResult> FacebookSignupCallback(string remoteError = null)
+        {
+            if (remoteError != null)
+            {
+                ViewBag.FacebookMessage = "Error from Facebook provider!";
+                return View("SignUp");
+            }
+            var info = await signInManager.GetExternalLoginInfoAsync();
+            if (info == null)
+            {
+                ViewBag.FacebookMessage = "Error loading external login information!";
+                return View("SignUp");
+            }
+
+            var signInResult = await signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: true, bypassTwoFactor: true);
+            var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+            var user = await userManager.FindByEmailAsync(email);
+
+            if (signInResult.Succeeded)
+            {
+                if (await userManager.IsInRoleAsync(user, "Freelancer"))
+                {
+                    return RedirectToAction("Index", "Freelancers");
+                }
+                else if (await userManager.IsInRoleAsync(user, "Client"))
+                {
+                    return RedirectToAction("Index", "Client");
+                }
+                else if (await userManager.IsInRoleAsync(user, "Admin"))
+                {
+                    return Content("Admin home page...");
+                }
+                else if (db.Freelancers.FirstOrDefault(a => a.FreelancerId == user.Id) != null)
+                {
+                    return RedirectToAction("Phone");
+                }
+                else
+                {
+                    return RedirectToAction("DataExternal");
+                }
+            }
+            else
+            {
+                if (email != null)
+                {
+                    if (user == null)
+                    {
+                        user = new ApplicationUser
+                        {
+                            Email = info.Principal.FindFirstValue(ClaimTypes.Email),
+                            UserName = info.Principal.FindFirstValue(ClaimTypes.Email),
+                            FirstName = info.Principal.FindFirstValue(ClaimTypes.GivenName),
+                            LastName = info.Principal.FindFirstValue(ClaimTypes.Surname),
+                            EmailConfirmed = true
+                        };
+
+                        await userManager.CreateAsync(user);
+
+                    }
+                    await userManager.AddLoginAsync(user, info);
+                    await signInManager.SignInAsync(user, isPersistent: true);
+                    return RedirectToAction("DataExternal");
+                }
+
+                ViewBag.FacebookMessage = "Error loading external login information!";
+                return View("SignUp");
+            }
+        }
 
         // Login Google
         public IActionResult GoogleLogin()
@@ -273,6 +349,62 @@ namespace Upwork.Controllers
                 ViewBag.GoogleMessage = "Invalid login attempt!";
                 return View("Login");
             }         
+        }
+
+        // Login with Facebook
+        public IActionResult FacebookLogin()
+        {
+            var redircetUrl = Url.Action("FacebookLoginCallback", "Account");
+            var Properties = signInManager.ConfigureExternalAuthenticationProperties("Facebook", redircetUrl);
+            return new ChallengeResult("Facebook", Properties);
+        }
+
+        public async Task<IActionResult> FacebookLoginCallback(string remoteError = null)
+        {
+            if (remoteError != null)
+            {
+                ViewBag.FacebookMessage = "Error from Facebook provider!";
+                return View("Login");
+            }
+            var info = await signInManager.GetExternalLoginInfoAsync();
+            if (info == null)
+            {
+                ViewBag.FacebookMessage = "Error loading external login information!";
+                return View("Login");
+            }
+
+            var signInResult = await signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: true, bypassTwoFactor: true);
+
+            if (signInResult.Succeeded)
+            {
+                var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+                var user = await userManager.FindByEmailAsync(email);
+                if (await userManager.IsInRoleAsync(user, "Freelancer"))
+                {
+                    return RedirectToAction("Index", "Freelancers");
+                }
+                else if (await userManager.IsInRoleAsync(user, "Client"))
+                {
+                    return RedirectToAction("Index", "Client");
+                }
+                else if (await userManager.IsInRoleAsync(user, "Admin"))
+                {
+                    return Content("Admin home page...");
+                }
+                else if (db.Freelancers.FirstOrDefault(a => a.FreelancerId == user.Id) != null)
+                {
+                    return RedirectToAction("Phone");
+                }
+                else
+                {
+                    return RedirectToAction("DataExternal");
+                }
+            }
+            else
+            {
+                ViewBag.FacebookMessage = "Invalid login attempt!";
+                return View("Login");
+            }
         }
 
         // Extrnal User data 
@@ -747,6 +879,7 @@ namespace Upwork.Controllers
                 var AreaId = db.AreasOfStudy.FirstOrDefault(a => a.Name == model.AreaOfStudy).AreaId;
                 var DegreeId = db.Degrees.FirstOrDefault(a => a.Name == model.Degree).DegreeId;
                 var education = db.Freelancer_Education.FirstOrDefault(a => a.FreelancerId == model.FreerlancerId && a.DegreeId == model.DegreeId && a.SchoolId == model.SchoolId && a.AreaId == model.AreaId);
+                db.Schools.FirstOrDefault(a => a.SchoolId == model.SchoolId).FreelancerEducations.Remove(education);
                 education.AreaId = AreaId;
                 education.DegreeId = DegreeId;
                 education.SchoolId = SchoolId;
@@ -1204,7 +1337,7 @@ namespace Upwork.Controllers
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
-            return RedirectToAction("Login");
+            return RedirectToAction("Index", "Home");
            // return Content("Home page...");
         }
 

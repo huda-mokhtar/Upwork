@@ -1,0 +1,82 @@
+﻿@model List<Jobs>
+
+@{
+    ViewData["Title"] = "All Contracts";
+    Layout = "_ClientLayout";
+}
+@section Style{
+    <link href="~/css/AllJobPosts.css" rel="stylesheet" />
+}
+
+
+<div class="text-center my-0">
+    <div class="container">
+        <div class="row" style="display:-webkit-box; -webkit-box-align:center;">
+            <div class="col-5 mb-2 mt-5" style="display:-webkit-box; -webkit-box-align:center;">
+                <div class="container m-0 p-0">
+                    <div class="row text-left p-0">
+                        <h3 class="mx-0 p-0" style="color: #1d4354; font:  bold 28px Rza;">Contracts</h3>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="container mt-2 mb-5 pb-5">
+        <div class="card mt-2 mb-5">
+            <div class="card-header bg-white">
+                <div class="row" style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
+                    <div class="col-7 text-left">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search contract, freelancer, agency name ">
+                            <div class="input-group-append">
+                                <button class="btn btn-success" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="myDrafts py-3 px-4">
+                <div class="row m-0 p-0" style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
+                    <div class="col-8 text-left ">
+                        <a href="" class="braek">
+                            UX/UI designer to bring website mockup and prototype to
+                            life
+                        </a>
+                    </div>
+                    <div class="col-4">
+                        <div class="row m-0">
+                            <div class="col-9 text-right">
+                                <div class="text-light text-center px-3 py-2 devBtnGreen m-0" style=" width:fit-content ; height: auto; display: inline-block;">
+                                    <h6 class="m-0 p-0"> Download CSV</h6>
+                                </div>
+                            </div>
+                            <div class="col-3 text-right">
+                                <!-- <div class="m-0 text-right dropdown">
+                                    <div class=" circlee-points container-circleeAlljobs " data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-ellipsis-h 2x " style="color:rgb(83, 83, 83) ;"></i>
+                                    </div>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">Edit Draft</a>
+                                        <a class="dropdown-item" href="#">Remove Draft</a>
+
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row m-0 p-0 mt-3" style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
+                    <div class="col-5 text-left ml-1 mt-1">
+                        <p style="font-size: 15px;"> "Client Name"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
