@@ -1,6 +1,14 @@
 ﻿@model Upwork.Models.Freelancer
 @{
-    ViewData["Title"] = "Freelancer Profile ";
+    ViewData["Title"] = "Profile ";
+    if (User.IsInRole("Client"))
+    {
+        Layout = "_ClientLayout";
+    }
+    else
+    {
+        Layout = "_FreelanceLayout";
+    }
 }
 @section Style {
     <link href="~/css/FreelancerProfile.css" rel="stylesheet" />
@@ -14,9 +22,6 @@
                         <div class="col-8">
                             <div class="row text-left" style="display:-webkit-box; -webkit-box-align:center; ">
                                 <div class=" ml-2 mr-2 p-0">
-                                    <div class="editPhoto mb-0 ml-0">
-                                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                                    </div>
                                     <img src="~/Images/ProfilePhotos/@Model.Image" class="Freelancer-photo my-auto" />
                                 </div>
                                 <div class="ml-2">
@@ -24,21 +29,17 @@
                                     <i class="fa fa-map-marker  Address-time" aria-hidden="true"
                                        style="color: #656565;"></i>
                                     <p class="Address-time my-auto" style="display: inline-block;">
-                                        @Model.City.Name , @foreach(var country in ViewBag.countries) { if (country.CountryId == Model.PhoneCountryId)
-                                            {<span> @country.Name </span>} }
+                                        @Model.City.Name , @foreach (var country in ViewBag.countries)
+                                        {
+                                            if (country.CountryId == Model.PhoneCountryId)
+                                            {<span> @country.Name </span>}
+                                    }
                                     </p>
                                     <p class="Address-time my-auto" style="display: inline-block;">
                                         – 4:56 am local time
                                     </p>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-4 text-left my-auto">
-                            <a class="btn devBtnGreen  px-4 py-2 text-light">
-                                <h6 class="my-auto">
-                                    Profile Settings
-                                </h6>
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -49,9 +50,6 @@
                             <div class="my-4">
                                 <div class="mx-2 my-1" style="display:-webkit-box; -webkit-box-align:center;">
                                     <h5 style="font-weight: 490;">Hours</h5>
-                                    <div class="editIcon">
-                                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                                    </div>
                                 </div>
                                 <div class="mt-2 mb-5 mx-2">
                                     <p class="mb-0" style="font-weight: 550;">Available</p>
@@ -62,19 +60,12 @@
                             <div class="my-4 ">
                                 <div class="mx-2" style="display:-webkit-box; -webkit-box-align:center;">
                                     <h5 style="font-weight: 490;">Languages</h5>
-                                    <div class="editIcon">
-                                        <i class="fa fa-plus" aria-hidden="true"></i>
-                                    </div>
-                                    <div class="editIcon ">
-                                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                                    </div>
-
                                 </div>
                                 @foreach (var Language in ViewBag.Languages)
                                 {
 
                                     <div class="mt-2 mb-0 mx-2" style="display:-webkit-box; -webkit-box-align:center;">
-                                        
+
                                         <p style="font-weight: 550;" class="mb-0">@Language.Language.Name :</p>
                                         <p class=" ml-1 mb-0" style="color: #656565;">@Language.Proficiency.Name </p>
                                     </div>
@@ -85,28 +76,17 @@
                             <div class="my-4">
                                 <div class="mx-2 my-1" style="display:-webkit-box; -webkit-box-align:center;">
                                     <h5 style="font-weight: 490;">Education</h5>
-                                    <div class="editIcon">
-                                        <i class="fa fa-plus" aria-hidden="true"></i>
-                                    </div>
                                 </div>
                                 @foreach (var Education in ViewBag.Education)
                                 {
-                                <div class="mt-2 mb-4">
-                                    <div class="my-0 mx-2" style="display:-webkit-box; -webkit-box-align:center;">
-                                        <p style="font-weight: 550; " class="mr-1 my-auto">@Education.School.Name  </p>
-                                        <div class="editIcon my-auto">
-                                            <i class="fa fa-trash-o" style="font-weight: 560; " aria-hidden="true"></i>
+                                    <div class="mt-2 mb-4">
+                                        <div class="my-0 mx-2" style="display:-webkit-box; -webkit-box-align:center;">
+                                            <p style="font-weight: 550; " class="mr-1 my-auto">@Education.School.Name  </p>
                                         </div>
-                                        <div class="editIcon my-auto">
-                                            <i class="fa fa-pencil" aria-hidden="true"></i>
-                                        </div>
+                                        <p class="mt-0 mx-2" style="font-weight: 400;font-size: 15px;color: #535353;">@Education.Degree.Name degree, @Education.AreaOfStudy.Name @Education.From.Year -@Education.To.Year </p>
                                     </div>
-                                    <p class="mt-0 mx-2" style="font-weight: 400;font-size: 15px;color: #535353;">@Education.Degree.Name degree, @Education.AreaOfStudy.Name @Education.From.Year -@Education.To.Year </p>
-                                </div>
                                 }
                             </div>
-
-
 
                         </div>
 
@@ -118,20 +98,11 @@
                                         <h4 class="my-auto" style="font-weight: 570; display: inline;">
                                             @Model.Title
                                         </h4>
-                                        <div class="editIcon  mx-1">
-                                            <i class="fa fa-pencil" aria-hidden="true"></i>
-                                        </div>
                                     </div>
                                     <div class="col-3 text-right" style="display:-webkit-box; -webkit-box-align:center;">
                                         <h5 style="font-weight: 570;">
                                             $@Model.HourlyRate/hr
                                         </h5>
-                                        <div class="editIcon ">
-                                            <i class="fa fa-pencil" aria-hidden="true"></i>
-                                        </div>
-                                        <div class="editIcon ">
-                                            <i class="fa fa-clipboard" aria-hidden="true"></i>
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="row m-0 p-1 mt-3">
@@ -140,11 +111,6 @@
                                             @Model.Overview
 
                                         </p>
-                                    </div>
-                                    <div class="col-2">
-                                        <div class="editIcon ">
-                                            <i class="fa fa-pencil" aria-hidden="true"></i>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -169,25 +135,23 @@
                                     <h5 class="mb-0" style=" font-weight: 490;">
                                         Skills
                                     </h5>
-                                    <div class="editIcon ">
-                                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                                    </div>
                                 </div>
                                 <div class="row m-0 p-2">
                                     <div class="col-11 text-left">
-                                        @foreach (var freelancerskill in Model.Skills) {
-                                        @foreach (var skill in ViewBag.Skills)
+                                        @foreach (var freelancerskill in Model.Skills)
                                         {
-                                            if (skill.SkillId == freelancerskill.SkillId)
-                    {
-                                        <div class="Freelancer-skills py-1 px-2 m-1">@skill.Name</div>
-                    }
-                                            
-                                           
-                                        }
+                                            @foreach (var skill in ViewBag.Skills)
+                                            {
+                                                if (skill.SkillId == freelancerskill.SkillId)
+                                                {
+                                                    <div class="Freelancer-skills py-1 px-2 m-1">@skill.Name</div>
+                                                }
+
+
+                                            }
                                         }
 
-                                      
+
                                     </div>
 
                                 </div>
@@ -201,36 +165,6 @@
                 </div>
 
             </div>
-            <div class="col-12  col-lg-10 card mx-auto my-2">
-                <div class="card-header py-2 px-0 m-0 bg-white ">
-                    <div class="row mx-1 my-2 p-0">
-                        <div class="col-10 px-2 py-3 text-left">
-                            <h4>Certifications</h4>
-
-                        </div>
-                        <div class="col-2 px-2 py-3 text-right">
-                            <div class="editIcon ">
-                                <i class="fa fa-plus" aria-hidden="true"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body py-3 ">
-                    <div class="row">
-                        <div class=" text-center m-auto p-auto">
-                            <div class="text-center m-auto">
-                                <img src="~/Images/certification.png" />
-                                <p class="mb-1">Add certifications to highlight your best skills</p>
-                                <a class="mt-0" style="display:block; color:#14a800; ">
-                                    Add Certifications
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
             <div class="col-12  col-lg-10 card mx-auto mt-2 mb-4">
                 <div class="card-header py-2 px-0 m-0 bg-white ">
                     <div class="row mx-1 my-2 p-0">
@@ -238,35 +172,22 @@
                             <h4>Employment history</h4>
 
                         </div>
-                        <div class="col-2 px-2 py-3 text-right">
-                            <div class="editIcon ">
-                                <i class="fa fa-plus" aria-hidden="true"></i>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 @foreach (var Expert in ViewBag.Experience)
                 {
-                <div class="card-body py-3 ">
-                    <div class="row">
-                        <div class="col-10 text-left px-2 py-3">   
-                            <h6 class="mb-1">@Expert.JobTitle.Name | @Expert.Company.Name</h6>
-                            <p class="mt-1" style=" color: #656565;">
-                                @CultureInfo.CreateSpecificCulture("en-US").DateTimeFormat.GetAbbreviatedMonthName(Expert.From.Month) @Expert.From.Year - @Expert.To.Year
+                    <div class="card-body py-3 ">
+                        <div class="row">
+                            <div class="col-10 text-left px-2 py-3">
+                                <h6 class="mb-1">@Expert.JobTitle.Name | @Expert.Company.Name</h6>
+                                <p class="mt-1" style=" color: #656565;">
+                                    @CultureInfo.CreateSpecificCulture("en-US").DateTimeFormat.GetAbbreviatedMonthName(Expert.From.Month) @Expert.From.Year - @Expert.To.Year
 
-                            </p>
-                           
-                        </div>
-                        <div class="col-2 text-right px-2 py-3">
-                            <div class="editIcon ">
-                                <i class="fa fa-pencil" aria-hidden="true"></i>
-                            </div>
-                            <div class="editIcon">
-                                <i class="fa fa-trash-o" style="font-weight: 560; " aria-hidden="true"></i>
+                                </p>
+
                             </div>
                         </div>
                     </div>
-                </div>
                 }
             </div>
 
