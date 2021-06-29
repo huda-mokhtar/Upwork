@@ -39,7 +39,7 @@
                                         <div class="col-10">
                                             <div class="d-flex">
                                                 <img src="/Images/@item.Image" class="project-img" />
-                                                <p class="project-title">@item.Title</p>
+                                                <a asp-action="ProjectDetails" asp-controller="Projects" asp-route-id="@item.ProjectId"> <p class="project-title">@item.Title</p> </a>
                                             </div>
                                         </div>
                                         <div class="col-2">
@@ -85,7 +85,7 @@
                                         <div class="col-10">
                                             <div class="d-flex">
                                                 <img src="~/Images/@item.Image" class="project-img" />
-                                                <p class="project-title">@item.Title</p>
+                                                <a asp-action="ProjectDetails" asp-controller="Projects" asp-route-id="@item.ProjectId"> <p class="project-title">@item.Title</p> </a>
                                             </div>
 
                                         </div>

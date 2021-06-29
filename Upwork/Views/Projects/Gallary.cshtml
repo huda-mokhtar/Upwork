@@ -67,6 +67,7 @@
                 <form class="py-3" asp-action="Gallary" method="post" enctype="multipart/form-data">
                     <div class="container">
                         <div class="form-group my-2">
+                            <input id="id" name="id" value="@ViewBag.id " hidden/>
                             <label> <b>Showcase your best work </b></label>
                             <p>Upload images (JPEG or PNG) that are under 10 MB and have a 4:3 aspect ratio</p>
 
@@ -94,7 +95,7 @@
                             <div class="d-flex justify-content-between">
                                 <div >
                                     <div class="devBtnLight m-0 px-4 py-2 text-center">
-                                        <h6 class="m-0">@Html.ActionLink("Back", "CreatePrice", "Projects")</h6>
+                                        <h6 class="m-0">@Html.ActionLink("Back", "CreatePrice", "Projects", new { id = ViewBag.id })</h6>
                                     </div>
                                 </div>
                                 <div >

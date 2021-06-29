@@ -66,6 +66,7 @@
                     <div class="container py-3">
                         <div class="row justify-content-between my-2">
                             <div class="col-7 ">
+                                <input id="ProjectId" name="ProjectId" value="@ViewBag.id " hidden />
                                 <h6><b>What do you need to start?</b></h6>
                                 <p>Specify what you need from your client to start this project.</p>
                             </div>
@@ -86,7 +87,7 @@
                             <div class="d-flex justify-content-between">
                                 <div>
                                     <div class="devBtnLight m-0 px-4 py-2 text-center">
-                                        <h6 class="m-0">@Html.ActionLink("Back", "Description", "Projects")</h6>
+                                        <h6 class="m-0">@Html.ActionLink("Back", "Description", "Projects", new { id = ViewBag.id })</h6>
                                     </div>
                                 </div>
                                 <div>

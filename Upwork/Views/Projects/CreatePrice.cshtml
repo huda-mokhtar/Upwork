@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "project catalog";
+   
 }
 
 <!--style sheet-->
@@ -70,6 +71,7 @@
                     <div class="container">
                         <div class="row justify-content-between">
                             <div class="col-md-6">
+                                <input id="ProjectId" name="ProjectId" value="@ViewBag.id " hidden />
                                 <h6><b>Create pricing tiers</b></h6>
                                 <p class="desc">Customize your project with 1 or 3 pricing tiers</p>
                             </div>
@@ -124,7 +126,7 @@
                             <div class="d-flex justify-content-between">
                                 <div>
                                     <div class="devBtnLight m-0 px-4 py-2 text-center">
-                                        <h6 class="m-0">@Html.ActionLink("Back", "Create", "Projects")</h6>
+                                        <h6 class="m-0">@Html.ActionLink("Back", "Create", "Projects",new { id = ViewBag.id })</h6>
                                     </div>
                                 </div>
                                 <div >

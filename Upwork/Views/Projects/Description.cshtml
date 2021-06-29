@@ -1,7 +1,6 @@
 ﻿@model Upwork.Models.Project
 @{
     ViewData["Title"] = "Create project ";
-    int  i = 0;
 }
 @section Style {
     <link href="~/css/CreateProject.css" rel="stylesheet" />
@@ -63,6 +62,7 @@
                 </div>
                 <form class="py-3" asp-action="Description" method="post">
                     <div class="py-3 container">
+                        <input id="ProjectId" name="ProjectId" value="@ViewBag.id " hidden />
                         <h4><b>Project summary</b></h4>
                         <p>Briefly explain what sets you and your project apart.</p>
                         <textarea rows="4" asp-for="Description" class="form-control" required placeholder="EXAMPLE: You will get a polished logo design that will bring your company to the next level. With over 5 years of experience in freelance and agency environments, I care deeply about helping startups tell their story through design. The work I deliver is 100% original and high quality">
@@ -133,7 +133,7 @@
                             <div class="d-flex justify-content-between">
                                 <div >
                                     <div class="devBtnLight m-0 px-4 py-2 text-center">
-                                        <h6 class="m-0">@Html.ActionLink("Back", "Gallary", "Projects")</h6>
+                                        <h6 class="m-0">@Html.ActionLink("Back", "Gallary", "Projects", new { id = ViewBag.id })</h6>
                                     </div>
                                 </div>
                                 <div >
