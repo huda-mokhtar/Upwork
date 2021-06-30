@@ -28,7 +28,7 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <form>
                         <div class="input-group my-2 ">
-                            <span class="input-group-text" id="basic-addon1" ><i class="fas fa-search"></i></span>
+                            <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
                             <input type="search" class="form-control input-group-field" placeholder="search">
                         </div>
                     </form>
@@ -38,7 +38,7 @@
                                 <span class="nav-item-label">Find work</span>
 
                             </a>
-                            
+
                             <ul data-cy="dropdown-menu" class="dropdown-menu mw-240" aria-labelledby="dropdownMenuLink">
                                 <li>
                                     <a target="_self" data-cy="menu-item-trigger" asp-action="Index" asp-controller="Freelancers" class="dropdown-item">
@@ -61,16 +61,6 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/workdiary/freelancer/" class="dropdown-item">
-                                        My Stats
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/workdiary/freelancer/" class="dropdown-item">
-                                        Upwork Readiness Test
-                                    </a>
-                                </li>
-                                <li>
                                     <a target="_self" data-cy="menu-item-trigger" href="/projects" class="dropdown-item">
                                         My Project Dashboard
                                     </a>
@@ -89,50 +79,8 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/f/contracts/" class="dropdown-item">
+                                    <a target="_self" data-cy="menu-item-trigger" asp-action="Contracts" asp-controller="freelancers" class="dropdown-item">
                                         All Contracts
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/workdiary/freelancer/" class="dropdown-item">
-                                        Work Diary
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown p-lg-2 my-lg-2">
-                            <a target="_self" href="/ab/reports/in-progress" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" class="dropdown-toggle nav-link text-light">
-                                <span class="nav-item-label">Reports</span>
-                            </a>
-                            <ul class="dropdown-menu " aria-labelledby="dropdownMenuLink">
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/reports/in-progress" class="dropdown-item">
-                                        Overview
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/reports/freelancer" class="dropdown-item">
-                                        My Reports
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/payments/reports/earnings" class="dropdown-item">
-                                        Billings &amp; Earnings
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/nx/plans/connects/history" class="dropdown-item">
-                                        Connects History
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/payments/reports/earnings-history" class="dropdown-item">
-                                        Transaction History
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/payments/reports/certificate-of-earnings.pdf" class="dropdown-item">
-                                        Certificate of Earnings
                                     </a>
                                 </li>
                             </ul>
@@ -196,7 +144,7 @@
                                 </li>
                                 <li>
                                     <a target="_self" data-cy="menu-item-trigger" href="/ab/f/contracts/" class="dropdown-item">
-                                        <img src="~/Images/16938730_371690419878868_4123771690068118215_n.jpg" class="img-fluid rounded-circle" />
+                                        <img src="~/Images/ProfilePhotos/" class="img-fluid rounded-circle" />
                                         User Name
                                     </a>
                                 </li>
@@ -222,7 +170,7 @@
         <!--end  navbar-->
     </header>
     <!--Content-->
-    <div class="center mt-0" >
+    <div class="center mt-0">
         @RenderBody()
     </div>
     <!--end Content-->

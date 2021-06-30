@@ -40,12 +40,12 @@ namespace Upwork.Controllers
             {
                 return BadRequest();
             }
-            var Jobs = await _context.Jobs.Where(a => a.subCategoryId == freelancer.SubCategoryId && a.IsDraft == false).Include(a=>a.jobsSkills).Include(a => a.freelancer_Jobs).ToListAsync();
+            //var Jobs = await _context.Jobs.Where(a => a.subCategoryId == freelancer.SubCategoryId && a.IsDraft == false).Include(a=>a.jobsSkills).Include(a => a.freelancer_Jobs).ToListAsync();
             var Dislikejobs =  _context.Freelancer_Jobs.Where(a => a.Isdislike == true &&a.FreelancerId==CurrentUser.Id).Select(a => a.Jobs).ToList();
             var jobskills = _context.JobsSkills.Select(s => s.skill);
             ViewData["Skills"] = jobskills.ToList();
             ViewData["Freelancer"] = freelancer;
-            return View(Jobs.Except(Dislikejobs));
+            return View(/*Jobs.Except(Dislikejobs)*/);
         }
 
         // GET: Freelancers/Profile/5
