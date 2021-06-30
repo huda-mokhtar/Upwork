@@ -88,7 +88,7 @@
         </div>
         <!--end left aside-->
         <!--content-->
-        @*<div class="col-12 col-md-10 col-lg-7 text-center m-0 p-0">
+        <div class="col-12 col-md-10 col-lg-7 text-center m-0 p-0">
 
             <div class="card mr-4 ml-3 mb-5">
                 <div class="card-header bg-white">
@@ -123,28 +123,28 @@
                                     </div>
                                     <div class="col-3 text-right">
                                         <a>
-                                        @foreach (var Jobs in item.freelancer_Jobs)
-                                        {
-                                            if (Jobs.IsSaved == true &&Jobs.FreelancerId == ViewBag.Freelancer.FreelancerId)
+                                            @foreach (var Jobs in item.freelancer_Jobs)
                                             {
-                                                <div onclick="saveJob(@item.Id,this)" class="circlee-like">
-                                                    <i class="fa fa-heart 2x" style="color:rgb(83, 83, 83) ;"></i>
-                                                </div>
-                                            }
-                                            else if (Jobs.IsSaved == false && Jobs.FreelancerId == ViewBag.Freelancer.FreelancerId)
-                                            {
-                                                <div onclick="saveJob(@item.Id,this)" class="circlee-like">
-                                                     <i class="fa fa-heart-o 2x" style="color:rgb(83, 83, 83) ;"></i>
-                                                </div>
-                                            }
+                                                if (Jobs.IsSaved == true && Jobs.FreelancerId == ViewBag.Freelancer.FreelancerId)
+                                                {
+                                                    <div onclick="saveJob(@item.Id,this)" class="circlee-like">
+                                                        <i class="fa fa-heart 2x" style="color:rgb(83, 83, 83) ;"></i>
+                                                    </div>
+                                                }
+                                                else if (Jobs.IsSaved == false && Jobs.FreelancerId == ViewBag.Freelancer.FreelancerId)
+                                                {
+                                                    <div onclick="saveJob(@item.Id,this)" class="circlee-like">
+                                                        <i class="fa fa-heart-o 2x" style="color:rgb(83, 83, 83) ;"></i>
+                                                    </div>
+                                                }
 
-                                        }
-                                        @if (item.freelancer_Jobs.FirstOrDefault(a => a.JobsId == item.Id) == null)
-                                        {
-                                            <div onclick="saveJob(@item.Id,this)" class="circlee-like">
-                                                <i class="fa fa-heart-o 2x" style="color:rgb(83, 83, 83) ;"></i>
-                                            </div>
-                                        }
+                                            }
+                                            @if (item.freelancer_Jobs.FirstOrDefault(a => a.JobsId == item.Id) == null)
+                                            {
+                                                <div onclick="saveJob(@item.Id,this)" class="circlee-like">
+                                                    <i class="fa fa-heart-o 2x" style="color:rgb(83, 83, 83) ;"></i>
+                                                </div>
+                                            }
                                         </a>
                                         <div class="circlee-dislike container-freelancer">
                                             <a onclick="DislikeJob(@item.Id,this)"> <i class="fa fa-thumbs-o-down 2x" style="color:rgb(83, 83, 83) ;"></i></a>
@@ -154,11 +154,7 @@
                                 </div>
                             </div>
 
-                            <div>
-                                <a asp-action="SubmitProposal" asp-controller="Freelancers" asp-route-id="@item.Id" class="devBtnGreen text-center p-2 text-light ml-2">
-                                    Submit Proposal
-                                </a>
-                            </div>
+                            
 
 
                             <div class="my-3">
@@ -167,7 +163,7 @@
                                         @if (item.TypeOfBudget == true)
                                         {<span>Fixed Price- Est.Budget:@item.BudgetFrom</span>}
                                     else
-                                    { <span>Hourly:@item.BudgetFrom $ : @item.BudgetTo $</span>}  - @item.LevelOfExperience  - Posted @item.CreateDate.ToString();
+                                    { <span>Hourly:@item.BudgetFrom $ : @item.BudgetTo $</span>}  - @item.LevelOfExperience  - Posted @item.CreateDate;
                                 </div>
                             </div>
                             <div class="row mx-2 my-1">
@@ -225,8 +221,8 @@
                                                 <label for="rate-2" onclick="rate(@item.Id , 2)" class="fa fa-star mx-0 px-0"></label>
                                                 <input type="radio" name="Rate" id="rate-1" />
                                                 <label for="rate-1" onclick="rate(@item.Id , 1)" class="fa fa-star mx-0 px-0"></label>
-                                               
-                                               
+
+
                                             </div>
                                         </div>
                                         <div class="col-3 m-0 p-0">
@@ -251,13 +247,22 @@
                     </div>
                 }
                 }
+                else
+                {
+                    <div class="row m-0 p-0 mt-3">
+                        <div class="col-9 m-auto p-2">
+                            <img src="~/Images/noJobs.PNG" class="img-fluid" />
+                            <h5 class="text-center" style="color: #656565;">No Job Matched</h5>
+                        </div>
+                    </div>
+                }
             </div>
 
 
 
 
 
-        </div>*@
+        </div>
         <!--end content-->
         <!--Right aside-->
         <div class="d-none d-lg-block col-lg-3">
@@ -269,7 +274,7 @@
             </div>
             <div class="row toProfile mt-3" style="display:-webkit-box; -webkit-box-align:center; ">
                 <i class="fa fa-eye mx-2" aria-hidden="true"></i>
-                <a asp-action="profile" asp-controller="freelancers" asp-route-id="a123">View Profile</a>
+                <a asp-action="profile" asp-controller="freelancers" asp-route-id="@ViewBag.Freelancer.FreelancerId">View Profile</a>
             </div>
             <div class="my-4 mx-0">
                 <div class="mx-0">

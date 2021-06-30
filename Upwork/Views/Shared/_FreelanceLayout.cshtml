@@ -1,4 +1,5 @@
 ﻿@inject SignInManager<ApplicationUser> SignIn
+@inject UserManager<ApplicationUser> UserManager
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,7 +57,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a target="_self" data-cy="menu-item-trigger" asp-action="profile" asp-controller="freelancers" asp-route-id="a123" class="dropdown-item">
+                                    <a target="_self" data-cy="menu-item-trigger" asp-action="profile" asp-controller="freelancers" asp-route-id="@UserManager.GetUserId(User)" class="dropdown-item">
                                         Profile
                                     </a>
                                 </li>
