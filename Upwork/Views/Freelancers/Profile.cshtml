@@ -14,9 +14,46 @@
                         <div class="col-8">
                             <div class="row text-left" style="display:-webkit-box; -webkit-box-align:center; ">
                                 <div class=" ml-2 mr-2 p-0">
-                                    <div class="editPhoto mb-0 ml-0">
+                                    <div class="editPhoto mb-0 ml-0" data-toggle="modal" data-target="#editPhoto">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                     </div>
+                                    <div class="modal" id="editPhoto">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header P-2">
+                                                    <h4 class="modal-title">Edit Photo</h4>
+                                                </div>
+                                                <div class="modal-body m-0">
+                                                    <div class="row m-1 p-0">
+                                                        <div class="col-7">
+                                                            <div class="text-center" style="border: 2px dashed #14a800; border-radius: 50%;width: 250px; height: 250px;cursor: pointer;">
+                                                                <div class="my-5 mx-auto ">
+                                                                    <p class="mt-5">Attach Photo Here</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-5 mt-5">
+                                                            <h6 class="mt-5">
+                                                                Show clients the best version of yourself!
+                                                            </h6>
+                                                        </div>
+
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <div class="text-right">
+                                                        <input type="button" class="btn text-success bg-white mr-2"
+                                                               style="border-color:lightgrey; width: fit-content;border-radius: 30px; font-weight: 500; " data-dismiss="modal" data-target="#modalone" value="Cancel" />
+                                                        <input type="button" class="btn text-light mr-2" style="border-color:lightgrey; width: fit-content;font-weight: 500; background-color:#14a800 ;border-radius: 30px;" value="Attach Photo" />
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <img src="~/Images/ProfilePhotos/@Model.Image" class="Freelancer-photo my-auto" />
                                 </div>
                                 <div class="ml-2">
