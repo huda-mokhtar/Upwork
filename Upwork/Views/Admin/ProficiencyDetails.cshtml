@@ -1,0 +1,25 @@
+﻿@model Language_Proficiency
+@{
+    ViewData["Title"] = "Proficiency Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="col-div-6 offset-3">
+    <br /><br />
+    <div>
+        <div class="box-8">
+            <div class="content-box">
+                <p>Details</p>
+                <br />
+                <p style="font-size:20px; color: white;"> Proficiency Name: </p>
+                <p style="font-size:20px; margin-left: 100px; color:#f7403b;"> @Model.Name </p>
+                <p style="font-size:20px; color: white;"> Description: </p>
+                <p class="mb-2" style="font-size:20px; margin-left: 100px; color:#f7403b;"> @Model.Description </p>
+                <a asp-action="EditProficiency" asp-controller="Admin" asp-route-id="@Model.ProficiencyId" class="btn btn-success col-2 offset-4"> Edit </a>
+                <a asp-action="Proficiencies" asp-controller="Admin" class="btn btn-info col-2"> Back </a>
+            </div>
+        </div>
+    </div>
+</div>
+

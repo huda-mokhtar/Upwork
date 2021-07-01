@@ -1,0 +1,41 @@
+﻿@model List<Freelancer>
+@{
+    ViewData["Title"] = "Freelancers";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="clearfix"></div>
+<div class="col-div-12">
+    <div>
+        <div class="content-box">
+
+            <p> Freelancers </p>
+            <br />
+            <table>
+                <tr>
+                    <th> Name </th>
+                    <th> Experience Level </th>
+                    <th> Email </th>
+                    <th> Phone </th>
+                    <th> Details </th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td> @item.User.FirstName @item.User.LastName </td>
+                        <td> @item.ExperienceLevel </td>
+                        <td> @item.User.Email </td>
+                        <td> +@item.PhoneCountry.Key@item.PhoneNumber </td>
+                        <td>
+                            <a asp-action="FreelancerDetails" asp-route-id="@item.FreelancerId" asp-controller="Admin" style="cursor:pointer">
+                                <span style="font-size:20px" class="fa fa-info-circle text-info"></span>
+                            </a>
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+</div>
+

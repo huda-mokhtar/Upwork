@@ -1,0 +1,26 @@
+﻿@model RoleViewModel
+@{
+    ViewData["Title"] = "Create Role";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="col-div-6 offset-3 pt-4">
+    <br /><br />
+    <div class="pt-4 pb-4">
+        <div class="box-8">
+            <div class="content-box">
+                <p> Create Role </p>
+                <br />
+                <form asp-action="CreateRole" asp-controller="Admin">
+                    <div>
+                        <input asp-for="Name" type="text" placeholder="Enter Role name here..." class="form-control" />
+                        <span asp-validation-for="Name" style="font-size:22px" class="mt-2 text-danger row ml-5"></span>
+                    </div>
+                    <button type="submit" class="btn btn-success col-2 offset-4"> Create </button>
+                    <a asp-action="Roles" asp-controller="Admin" class="btn btn-info col-2"> Back </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

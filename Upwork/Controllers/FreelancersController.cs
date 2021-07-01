@@ -258,7 +258,13 @@ namespace Upwork.Controllers
             return View(Job);
         }
 
-       
+        public IActionResult Settings()
+        {
+            return View();
+        }
+
+
+
 
     }
 }

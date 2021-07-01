@@ -1,0 +1,46 @@
+﻿@model List<Country>
+@{
+    ViewData["Title"] = "Countries";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="clearfix"></div>
+<div class="col-div-12">
+    <div>
+        <div class="content-box">
+
+            <p style="font-size:30px"> Countries </p>
+            <br />
+            <a class="btn btn-outline-warning" asp-action="CreateCountry" asp-controller="Admin"> Create new Country </a>
+            <table>
+                <tr>
+                    <th> Name </th>
+                    <th> Key </th>
+                    <th> Operations </th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td> @item.Name </td>
+                        <td> +@item.Key </td>
+                        <td>
+                            <a asp-action="CountryDetails" asp-controller="Admin" asp-route-id="@item.CountryId" style="cursor:pointer">
+                                <span style="font-size:20px" class="fa fa-info-circle text-info"></span>
+                            </a>
+                            <a asp-action="EditCountry" asp-controller="Admin" asp-route-id="@item.CountryId" class="ml-2" style="cursor:pointer">
+                                <span style="font-size:20px" class="fa fa-edit text-secondary"></span>
+                            </a>
+                            @*
+                                <a asp-action="DeleteCategory" asp-route-id="@item.CategoryId" asp-controller="Admin" class="ml-2" style="cursor:pointer">
+                                    <span style="font-size:20px" class="fa fa-trash text-danger"></span>
+                                </a>  *@
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>
+
+
+

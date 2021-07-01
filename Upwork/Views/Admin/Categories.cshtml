@@ -1,0 +1,42 @@
+﻿@model List<Category>
+@{
+    ViewData["Title"] = "Categories";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="clearfix"></div>
+<div class="col-div-12">
+    <div>
+        <div class="content-box">
+
+            <p style="font-size:30px"> Categories </p>
+            <br /> 
+            <a class="btn btn-outline-warning" asp-action="CreateCategory" asp-controller="Admin"> Create new Category </a>
+            <table>
+                <tr>
+                    <th> Name </th>
+                    <th> Operations </th>
+                </tr>
+                @foreach (var item in Model)
+                {
+            <tr>
+                <td> @item.Name </td>
+                <td>
+                    <a asp-action="CategoryDetails" asp-route-id="@item.CategoryId" asp-controller="Admin" style="cursor:pointer">
+                        <span style="font-size:20px" class="fa fa-info-circle text-info"></span>
+                    </a>
+                    <a asp-action="EditCategory" asp-route-id="@item.CategoryId" asp-controller="Admin" class="ml-2" style="cursor:pointer">
+                        <span style="font-size:20px" class="fa fa-edit text-secondary"></span>
+                    </a>
+                    @*
+        <a asp-action="DeleteCategory" asp-route-id="@item.CategoryId" asp-controller="Admin" class="ml-2" style="cursor:pointer">
+            <span style="font-size:20px" class="fa fa-trash text-danger"></span>
+        </a>  *@
+                </td>
+            </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>
+

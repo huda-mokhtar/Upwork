@@ -1,0 +1,43 @@
+﻿@model List<Language_Proficiency>
+@{
+    ViewData["Title"] = "Proficiencies";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="clearfix"></div>
+<div class="col-div-12">
+    <div>
+        <div class="content-box">
+
+            <p style="font-size:30px"> Language Proficiencies </p>
+            <br />
+            <a class="btn btn-outline-warning" asp-action="CreateProficiency" asp-controller="Admin"> Create new Proficiency </a>
+            <table>
+                <tr>
+                    <th> Name </th>
+                    <th> Description </th>
+                    <th> Operations </th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td> @item.Name </td>
+                        <td> @item.Description </td>
+                        <td>
+                            <a asp-action="ProficiencyDetails" asp-route-id="@item.ProficiencyId" asp-controller="Admin" style="cursor:pointer">
+                                <span style="font-size:20px" class="fa fa-info-circle text-info"></span>
+                            </a>
+                            <a asp-action="EditProficiency" asp-route-id="@item.ProficiencyId" asp-controller="Admin" class="ml-2" style="cursor:pointer">
+                                <span style="font-size:20px" class="fa fa-edit text-secondary"></span>
+                            </a>
+                            @*
+                                <a asp-action="DeleteCategory" asp-route-id="@item.CategoryId" asp-controller="Admin" class="ml-2" style="cursor:pointer">
+                                    <span style="font-size:20px" class="fa fa-trash text-danger"></span>
+                                </a>  *@
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>

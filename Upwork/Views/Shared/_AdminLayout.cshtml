@@ -1,0 +1,102 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/Admin/Dashboard.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    @RenderSection("Styles", required: false)
+
+</head>
+<body>
+    <div id="mySidenav" class="sidenav">
+        <a id="Upwork" style="cursor:pointer" asp-action="Index" asp-controller="Home">
+            <p style=" color: white; font-size: 30px; font-family: Georgia, serif;" class="logo"><span style=" color: #6FDA44; font-size: 40px; font-family: 'Brush Script MT', cursive;">Up</span>work</p>
+        </a>
+        <a asp-action="Index" asp-controller="Admin" class="icon-a"><i class="fa fa-dashboard icons"></i> &nbsp;&nbsp;Dashboard</a>
+        <a asp-action="Freelancers" asp-controller="Admin" class="icon-a"><i class="fa fa-users icons"></i> &nbsp;&nbsp;Freelancers</a>
+        <a asp-action="Clients" asp-controller="Admin" class="icon-a"><i class="fa fa-users icons"></i> &nbsp;&nbsp;Clients</a>
+        <a asp-action="Projects" asp-controller="Admin" class="icon-a"><i class="fa fa-list icons"></i> &nbsp;&nbsp;Projects</a>
+        <a asp-action="Jobs" asp-controller="Admin" class="icon-a"><i class="fa fa-shopping-bag icons"></i> &nbsp;&nbsp;Jobs</a>
+        <a asp-action="Categories" asp-controller="Admin" class="icon-a"><i class="fa fa fa-list-alt icons"></i> &nbsp;&nbsp;Categories</a>
+        <a asp-action="SubCategories" class="icon-a"><i class="fa fa-tasks icons"></i> &nbsp;&nbsp;SubCategories</a>
+        <a asp-action="Countries" asp-controller="Admin" class="icon-a"><i class="fa fa-home icons"></i> &nbsp;&nbsp;Countries</a>
+        <a asp-action="Skills" asp-controller="Admin" class="icon-a"><i class="fa fa-pencil-square-o icons"></i> &nbsp;&nbsp;Skills</a>
+        <a asp-action="Languages" asp-controller="Admin" class="icon-a"><i class="fa fa-language icons"></i> &nbsp;&nbsp;Languages</a>
+        <a asp-action="Proficiencies" asp-controller="Admin" class="icon-a"><i class="fa fa-microphone icons"></i> &nbsp;&nbsp;Language Proficiencies</a>
+        <a asp-action="Roles" asp-controller="Admin" class="icon-a"><i class="fa fa-address-card icons"></i> &nbsp;&nbsp;Roles</a>
+    </div>
+    <div id="main">
+        <div class="head">
+            <div class="col-div-6">
+                <span style="font-size:30px;cursor:pointer; color: white;" class="nav">&#9776; Dashboard</span>
+                <span style="font-size:30px;cursor:pointer; color: white;" class="nav2">&#9776; Dashboard</span>
+            </div>
+
+            <div class="col-div-6">
+                <div class="profile">
+                    <img src="~/Images/user.png" class="pro-img" />
+                    <p> @ViewBag.AdminName <a asp-action="Logout" asp-controller="Account" style="cursor:pointer;text-decoration-line:none" class="text-muted"> Logout </a> </p>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+        <br />
+        @RenderBody()
+    </div>
+
+    @*
+        <div class="col-div-3">
+            <div class="box">
+                <p>78<br /><span>Tasks</span></p>
+                <i class="fa fa-tasks box-icon"></i>
+            </div>
+        </div> *@
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script>
+        $(".nav").click(function () {
+            $("#mySidenav").css('width', '70px');
+            $("#main").css('margin-left', '70px');
+            $(".logo").css('visibility', 'hidden');
+            $(".logo span").css('visibility', 'visible');
+            $(".logo span").css('margin-left', '-10px');
+            $(".icon-a").css('visibility', 'hidden');
+            $(".icons").css('visibility', 'visible');
+            $(".icons").css('margin-left', '-8px');
+            $(".nav").css('display', 'none');
+            $(".nav2").css('display', 'block');
+            $("#Upwork").hide();
+        });
+
+        $(".nav2").click(function () {
+            $("#mySidenav").css('width', '300px');
+            $("#main").css('margin-left', '300px');
+            $(".logo").css('visibility', 'visible');
+            $(".icon-a").css('visibility', 'visible');
+            $(".icons").css('visibility', 'visible');
+            $(".nav").css('display', 'block');
+            $(".nav2").css('display', 'none');
+            $("#Upwork").show();
+
+        });
+
+        $(".sidenav").css('height', $(document).height()); 
+     
+
+    </script>
+
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>
