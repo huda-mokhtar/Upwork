@@ -1,0 +1,30 @@
+﻿@model Country
+@{
+    ViewData["Title"] = "Edit Country";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="col-div-6 offset-3 pt-4">
+    <br /><br />
+    <div class="pt-4 pb-4">
+        <div class="box-8">
+            <div class="content-box">
+                <p> Edit Country </p>
+                <br />
+                <form asp-action="EditCountry" asp-controller="Admin">
+                    <div>
+                        <input type="text" hidden asp-for="CountryId"/>
+                        <input asp-for="Name" type="text" placeholder="Enter Country name here..." class="form-control" />
+                        <span asp-validation-for="Name" style="font-size:22px" class="mt-2 text-danger row ml-5"></span>
+                    </div>
+                    <div>
+                        <input asp-for="Key" type="number" placeholder="Enter Country Key here..." class="form-control" />
+                        <span asp-validation-for="Key" style="font-size:22px" class="mt-2 text-danger row ml-5"></span>
+                    </div>
+                    <button type="submit" class="btn btn-success col-2 offset-4"> Edit </button>
+                    <a asp-action="Countries" asp-controller="Admin" class="btn btn-info col-2"> Back </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+﻿@model Upwork.Models.Category
+
+@{
+    ViewData["Title"] = "Category Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="col-div-6 offset-3">
+    <br /><br />
+    <div>
+        <div class="box-8">
+            <div class="content-box">
+                <p>Details</p>
+                <br />
+                <p style="font-size:20px; color: white;"> Category Name: </p>
+                <p style="font-size:20px; margin-left: 100px; color:#f7403b;"> @Model.Name </p>
+                <p style="font-size:20px; margin-top: 5px; color: white;">
+                    Sub Categories:
+                    @if (Model.SubCategories.Count == 0)
+                    {
+                    <p style="font-size:20px; margin-left: 100px; color:#f7403b;"> There's no Sub Categories </p>
+                    }
+                else
+                {
+                    <ul style="font-size:20px; margin-left: 100px; margin-top: 0%; color:#f7403b;">
+                        @foreach (var item in Model.SubCategories)
+                        {
+                            <li> @item.Name </li>
+                        }
+                    </ul>
+                }
+
+                    </p>
+                    <a asp-action="EditCategory" asp-controller="Admin" asp-route-id="@Model.CategoryId" class="btn btn-success col-2 offset-4"> Edit </a>
+                    <a asp-action="Categories" asp-controller="Admin" class="btn btn-info col-2"> Back </a>
+                </div>
+        </div>
+    </div>
+</div>

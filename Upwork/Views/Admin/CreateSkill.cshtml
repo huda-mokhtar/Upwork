@@ -1,0 +1,36 @@
+﻿@model SkillViewModel
+@{
+    ViewData["Title"] = "Create Skill";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="col-div-6 offset-3 pt-4">
+    <br /><br />
+    <div class="pt-4 pb-4">
+        <div class="box-8">
+            <div class="content-box">
+                <p> Create Skill </p>
+                <br />
+                <form asp-action="CreateSkill" asp-controller="Admin">
+                    <div>
+                        <input asp-for="Name" type="text" placeholder="Enter Skill name here..." class="form-control" />
+                        <span asp-validation-for="Name" style="font-size:22px" class="mt-2 text-danger row ml-5"></span>
+                    </div>
+                    <div>
+                        <select class="custom-select" asp-for="SubCategoryId" asp-items="ViewBag.SubCategoryId" aria-label="Default select example">
+                            <option selected disabled hidden>
+                                Select a Subcategory
+                            </option>
+                        </select>
+                        <span asp-validation-for="SubCategoryId" style="font-size:22px" class="mt-2 text-danger row ml-5">  </span>
+                    </div>
+                    <button type="submit" class="btn btn-success col-2 offset-4"> Create </button>
+                    <a asp-action="Skills" asp-controller="Admin" class="btn btn-info col-2"> Back </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
