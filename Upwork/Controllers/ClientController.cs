@@ -548,9 +548,19 @@ namespace Upwork.Controllers
             }
 
         }
-        public IActionResult JobDetails(int id)
+
+        [Authorize(Roles = "Client")]
+        public async Task<IActionResult> JobDetails(int id)
         {
-            var job = _context.Jobs.Include(a => a.subCategory).FirstOrDefault(a => a.Id == id);
+            var CurrentUser = await userManager.GetUserAsync(User);
+            var job = _context.Jobs.Include(a => a.subCategory).FirstOrDefault(a => a.Id == id && a.ClientId == CurrentUser.Id);
+            if(job == null)
+            {
+                return NotFound();
+            }
+            var ProPosals = _context.Freelancer_Jobs.Where(a => a.JobsId == id && a.IsProposal == true).Include(a => a.Freelancer).ToList();
+            var Hired = _context.Freelancer_Jobs.Where(a => a.JobsId == id && a.IsHire == true).Include(a => a.Freelancer).ToList();
+
             List<JobsSkills> SkillsList = new List<JobsSkills>();
             SkillsList.AddRange(_context.JobsSkills.Where(a => a.JobsId == id));
             List<Skill> Skills = new List<Skill>();
@@ -566,12 +576,14 @@ namespace Upwork.Controllers
                     }
                 }
                 ViewData["jobSkills"] = selectedSkills;
-                //return View(job);
-
+                
             }
 
 
-            ViewData["ProPosals"] = _context.Freelancer_Jobs.Where(a => a.JobsId == id && a.IsProposal == true).Include(a => a.Freelancer);
+            ViewData["ProPosals"] = ProPosals;
+            ViewData["ProPosalsCount"] = ProPosals.Count();
+            ViewData["Hired"] = Hired;
+            ViewData["HiredCount"] = Hired.Count();
             ViewData["User"] = _context.Freelancers.Include(a => a.Freelancer_Jobs).Include(a => a.User).Include(a => a.City).Include(a => a.Skills).Include(a => a.Languages);
             ViewData["FreelancerSkills"] = _context.Freelancer_Skill.Include(a => a.Skill);
 

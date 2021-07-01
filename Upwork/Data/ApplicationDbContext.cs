@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using Upwork.Models;
 using Upwork.Models.DbModels;
+using Upwork.Models.MessageModels;
 
 namespace Upwork.Data
 {
@@ -61,6 +62,7 @@ namespace Upwork.Data
 
         public virtual DbSet<ReviewJobQuestion> ReviewJobQuestions { get; set; }
         public virtual DbSet<JobQuestions> JobQuestions { get; set; }
+        public virtual DbSet<Message> Messages { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -83,6 +85,11 @@ namespace Upwork.Data
                 .HasOne(bc => bc.skill)
                 .WithMany(c => c.jobsSkills)
                 .HasForeignKey(bc => bc.skillId);
+            base.OnModelCreating(builder);
+            builder.Entity<Message>().
+                HasOne<ApplicationUser>(a => a.Sender).
+                WithMany(d => d.Messages).
+                HasForeignKey(d => d.UserId);
 
 
         }

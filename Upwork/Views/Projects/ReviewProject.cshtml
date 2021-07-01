@@ -69,6 +69,7 @@
                     <div class="container">
                         <div class="form-group my-2 border-bottom py-4">
                             <label class="my-1">
+                                <input id="ProjectId" name="ProjectId" value="@ViewBag.id " hidden />
                                 <b> Maximum number of simultaneous projects </b>
                             </label>
                             <div class="description-list my-1">
@@ -115,7 +116,7 @@
                             <div class="d-flex justify-content-between">
                                 <div>
                                     <div class="devBtnLight m-0 px-4 py-2 text-center">
-                                        <h6 class="m-0">@Html.ActionLink("Back", "Requierment", "Projects")</h6>
+                                        <h6 class="m-0">@Html.ActionLink("Back", "Requierment", "Projects", new { id = ViewBag.id })</h6>
                                     </div>
                                 </div>
                                 <div>
