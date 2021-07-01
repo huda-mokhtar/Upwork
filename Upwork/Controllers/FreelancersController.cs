@@ -101,6 +101,17 @@ namespace Upwork.Controllers
             ViewData["SavesJobsCount"] = SavesJobs.Count();
             return View(Job.Union(JobList));
         }
+        
+        
+        public async Task<IActionResult> SavedJobs()
+        {
+            var CurrentUser = await _UserManager.GetUserAsync(User);
+            var SavesJobs = _context.Freelancer_Jobs.Include(a => a.Jobs).Where(a => a.FreelancerId == CurrentUser.Id && a.IsSaved == true && a.Isdislike == false).Select(a => a.Jobs).ToList();
+            ViewData["Skills"] = _context.JobsSkills.Select(s => s.skill).ToList();
+            return View(SavesJobs);
+        }
+
+
         //Get: Freelancer/SaveJob
         public async Task<IActionResult> SaveJob(int id)
         {
