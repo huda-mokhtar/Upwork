@@ -193,7 +193,6 @@
                                                                         <label for="school" class="h6">school</label>
                                                                         <input type="text" class="form-control" id="school" />
                                                                     </div>
-
                                                                     <div class="form-group  my-2">
                                                                         <label for="city" class="h6">Dates Attended (Optional)</label>
                                                                         <div>
@@ -208,7 +207,6 @@
                                                                             </select>
                                                                         </div>
                                                                     </div>
-
                                                                     <div class="form-group  my-2">
                                                                         <label for="Degree" class="h6">Degree (Optional)</label>
                                                                         <select class="form-control h-100 float-right py-2" id="Degree" style=" border-radius: 30px;">
@@ -221,17 +219,10 @@
                                                                         <label for="area" class="h6">Area Of Study(Optional)</label>
                                                                         <input type="text" class="form-control" id="area" />
                                                                     </div>
-
-
-
-
                                                                     <div class="form-group my-2">
                                                                         <label for="description" class="h6">Description (Optional)</label>
                                                                         <textarea class="form-control" id="description" style="height: 80px;"></textarea>
                                                                     </div>
-
-
-
                                                                 </form>
                                                             </div>
                                                         </div>
@@ -258,8 +249,72 @@
                                         <div class="editIcon my-auto">
                                             <i class="fa fa-trash-o" style="font-weight: 560; " aria-hidden="true"></i>
                                         </div>
-                                        <div class="editIcon my-auto">
+                                        <div class="editIcon my-auto" data-toggle="modal" data-target="#editEducation">
                                             <i class="fa fa-pencil" aria-hidden="true"></i>
+                                        </div>
+                                        <div class="modal" id="editEducation">
+                                            <div class="modal-dialog modal-dialog-centered modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header P-2">
+                                                        <h4 class="modal-title">Edit Education</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body m-0">
+                                                        <div class="container">
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <form>
+                                                                        <div class="form-group  my-2">
+                                                                            <label for="school" class="h6">school</label>
+                                                                            <input type="text" class="form-control" id="school" />
+                                                                        </div>
+                                                                        <div class="form-group  my-2">
+                                                                            <label for="city" class="h6">Dates Attended (Optional)</label>
+                                                                            <div>
+                                                                                <select class="form-control h-100 py-2" id="AttendedFrom" style="width: 44%; display: inline; border-radius: 30px;">
+                                                                                    <option>From</option>
+                                                                                    <option></option>
+                                                                                </select>
+                                                                                <select class="form-control h-100 float-right py-2" id="AttendedTo" style="width: 44%; display: inline; border-radius: 30px;"
+                                                                                        required>
+                                                                                    <option>To</option>
+                                                                                    <option></option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group  my-2">
+                                                                            <label for="Degree" class="h6">Degree (Optional)</label>
+                                                                            <select class="form-control h-100 float-right py-2" id="Degree" style=" border-radius: 30px;">
+                                                                                <option></option>
+                                                                                <option></option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="form-group  my-2">
+                                                                            <label for="area" class="h6">Area Of Study(Optional)</label>
+                                                                            <input type="text" class="form-control" id="area" />
+                                                                        </div>
+                                                                        <div class="form-group my-2">
+                                                                            <label for="description" class="h6">Description (Optional)</label>
+                                                                            <textarea class="form-control" id="description" style="height: 80px;"></textarea>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <div class="text-right">
+                                                            <input type="button" class="btn text-success bg-white mr-2"
+                                                                   style="border-color:lightgrey; width: fit-content;border-radius: 30px; font-weight: 500; " data-dismiss="modal" data-target="#editEducation" value="Cancel" />
+                                                            <input type="button" class="btn text-light mr-2" style="border-color:lightgrey; width: fit-content;font-weight: 500; background-color:#14a800 ;border-radius: 30px;" value="Save" />
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <p class="mt-0 mx-2" style="font-weight: 400;font-size: 15px;color: #535353;">@Education.Degree.Name degree, @Education.AreaOfStudy.Name @Education.From.Year -@Education.To.Year </p>
@@ -404,9 +459,35 @@
                                     <h5 class="mb-0" style=" font-weight: 490;">
                                         Skills
                                     </h5>
-                                    <div class="editIcon ">
+                                    <div class="editIcon" ata-toggle="modal" data-target="#editSkills">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                     </div>
+                                    <div class="modal" id="editSkills">
+                                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header P-2">
+                                                    <h4 class="modal-title">Edit Skiils</h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body m-0">
+                                                    <div class="row m-1 p-0 border">
+
+
+                                                    </div>
+                                                    <div class="text-right mt-3">
+                                                        <input type="button" class="btn text-success bg-white mr-2 px-3"
+                                                               style="border-color:lightgrey; width: fit-content;border-radius: 30px; font-weight: 500; " data-dismiss="modal" data-target="#editSkills" value="Cancel" />
+                                                        <input type="button" class="btn text-light mr-2 px-3" style="border-color:lightgrey; width: fit-content;font-weight: 500; background-color:#14a800 ;border-radius: 30px;" value="Save" />
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>>
                                 </div>
                                 <div class="row m-0 p-2">
                                     <div class="col-11 text-left">
