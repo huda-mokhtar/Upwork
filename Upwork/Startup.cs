@@ -13,8 +13,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Upwork.Data;
+using Upwork.Hubs;
 using Upwork.Models;
 using Upwork.services;
+using Upwork.services.MessageServices;
 
 namespace Upwork
 {
@@ -82,7 +84,8 @@ namespace Upwork
                 options.AppSecret = "83eeea8f94faafbd9ca0b44f945e808d";
             });
 
-
+            services.AddScoped<IChat, Chat>();
+            services.AddSignalR();
             services.AddAuthorization();
 
             services.AddControllersWithViews();
@@ -118,6 +121,7 @@ namespace Upwork
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
+                endpoints.MapHub<ChatHub>("/chatHub");
             });
         }
     }
