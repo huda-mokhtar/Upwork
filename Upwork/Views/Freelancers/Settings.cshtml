@@ -1,0 +1,229 @@
+﻿@model Upwork.Models.Freelancer
+@{
+    ViewData["Title"] = "Freelancer Profile ";
+}
+@section Style {
+    <link href="~/css/ClientProfile.css" rel="stylesheet" />
+}
+<div class="container mt-0">
+    <div class="mb-4 mt-0">
+        <div class="row m-auto">
+            <div class="col-8 m-auto">
+
+                <h2 class="my-3" style="color: #1d4354; font:  bold 28px Rza;">
+                    <i class="fa fa-user mr-2" style="font-size: smaller;" aria-hidden="true"></i> My Info
+                </h2>
+                <div class="card mt-4 mb-5">
+                    <div class="card-header bg-white py-4">
+                        <div class="row">
+                            <div class="col-9 text-left">
+                                <h4 class="my-auto mx-2">
+                                    Account
+                                </h4>
+                            </div>
+                            <div class="col-3 text-right">
+                                <div class="editIcon m-auto" id="editInfoIcon">
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body" id="info">
+                        <div class="row mx-2">
+                            <div>
+                                <h6 class="mb-0">
+                                    User ID
+                                </h6>
+                                <p class="mt-2">
+                                    Wafaa25
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row mx-2">
+                            <div>
+                                <h6 class="mb-0">
+                                    Name
+                                </h6>
+                                <p class="mt-2">
+                                    Wafaa Wadea
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row  mx-2">
+                            <div class="mt-3">
+                                <h6 class="mb-0">
+                                    Email
+                                </h6>
+                                <p class="mt-2">
+                                    s***3@gmail.com
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="card-body d-none" id="editInfoForm">
+                        <form>
+                            <div class="container">
+                                <div class="form-group">
+                                    <label for="FirstName mt-2" class="h6">First Name</label>
+                                    <input type="text" class="form-control" id="FirstName" value="Wafaa" />
+                                </div>
+                                <div class="form-group mt-2">
+                                    <label for="LastName" class="h6">Last Name</label>
+                                    <input type="text" class="form-control" id="LastName" value="wadea" />
+                                </div>
+                                <div class="form-group mt-2">
+                                    <label for="Email" class="h6">Email</label>
+                                    <input type="text" class="form-control" id="Email" value="wafaaelsaeed2@gg.com" />
+                                </div>
+                                <div class="mt-4 ml-5">
+                                    <input type="button" class="btn text-light mr-2 px-3" style="border-color:lightgrey; width: fit-content;font-weight: 500; background-color:#14a800 ;border-radius: 30px;" value="Update" />
+
+                                    <input type="button" class="btn text-success bg-white mr-2 px-3" id="cancelEditInfo"
+                                           style="border-color:lightgrey; width: fit-content;border-radius: 30px; font-weight: 500; " value="Cancel" />
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
+                <h2 class="my-3" style="color: #1d4354; font:  bold 28px Rza;">
+                    <i class="fa fa-lock  mr-2" style="font-size: smaller;" aria-hidden="true"></i> Password & Security
+                </h2>
+                <div class="card mt-4 mb-5">
+                    <div class="card-header bg-white py-4">
+                        <div class="row">
+                            <div class="col-9 text-left">
+                                <h4 class="my-auto mx-2">
+                                    Password
+                                </h4>
+                            </div>
+                            <div class="col-3 text-right">
+                                <div class="editIcon m-auto" data-toggle="modal" data-target="#modalone">
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <div class="modal" id="modalone">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header P-2">
+                                            <h4 class="modal-title">Change Password</h4>
+                                        </div>
+                                        <div class="modal-body m-2">
+                                            <form>
+                                                <div class="form-group m-2 my-4">
+                                                    <label for="OldPassword" class="h6">Old Password</label>
+                                                    <input type="password" class="form-control" id="OldPassword"
+                                                           required />
+                                                </div>
+                                                <div class="form-group m-2 my-4">
+                                                    <label for="NewPassword" class="h6">New Password</label>
+                                                    <input type="password" class="form-control" id="NewPassword"
+                                                           required />
+                                                    <div class="text-right" style="font-size: 14px; color: #656565;">
+                                                        <span>
+                                                            <i class="fa fa-times" aria-hidden="true"
+                                                               style="font-weight: 350;"></i> Numbers <i class="fa fa-times" aria-hidden="true"
+                                                                                                         style="font-weight: 350;"></i> Symbols
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group m-2 my-4">
+                                                    <label for="ConfirmPassword" class="h6">Confirm New Password</label>
+                                                    <input type="password" class="form-control" id="ConfirmPassword"
+                                                           required />
+                                                </div>
+
+                                                <div class="m-2 mt-5">
+                                                    <label class="checkbox"
+                                                           style="display:-webkit-box; -webkit-box-align:center; ">
+                                                        <input type="checkbox" checked />
+                                                        <div class="ml-3">
+                                                            All devices will be required to sign in with
+                                                            new password
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                                <div class="text-right">
+                                                    <input type="button" class="btn text-success bg-white mr-2"
+                                                           style="border-color:lightgrey; width: 80px; "
+                                                           data-dismiss="modal" data-target="#modalone" value="Cancel" />
+                                                    <input type="button" class="btn text-light mr-2"
+                                                           style="border-color:lightgrey; width: 80px; background-color:#14a800 ;"
+                                                           value="Save" />
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mx-2">
+                            <div>
+                                <h6 class="mb-0">
+                                    <i class="fa fa-check-square text-success mr-1" aria-hidden="true"></i> Password has
+                                    been set
+                                </h6>
+                                <p class="mt-2 mx-2" style="color: #656565;">
+                                    Choose a strong, unique password that’s at least 8 characters long.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-4 mb-5">
+                    <div class="card-body m-2">
+                        <div class="text-left">
+                            <p style="display: inline-block;">
+                                This is a
+                            <p class="ml-1" style="font-weight: 500; display: inline-block ;">Freelancer </p> account
+                            </p>
+                        </div>
+                        <div class="row text-left"
+                             style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
+
+                            <a class="btn  text-light  py-2 px-3 mr-5 devBtnGreen"
+                               style=" width:auto ; height: auto; display: block;">
+                                <h6 class="m-0 p-0"> Create New Account </h6>
+                            </a>
+
+                            <a href="" style="display: block; color: #14a800;">
+                                <h6 class="m-0 p-0 text-Success"> Close Account </h6>
+                            </a>
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <script>
+        $("#editInfoIcon").click(function () {
+            $("#info").addClass("d-none");
+            $("#editInfoForm").removeClass("d-none");
+            $(this).addClass("d-none")
+        });
+        $("#cancelEditInfo").click(function () {
+            $("#editInfoForm").addClass("d-none");
+            $("#info").removeClass("d-none");
+            $("#editInfoIcon").removeClass("d-none")
+        });
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}
