@@ -1,0 +1,74 @@
+﻿@model AddEducationViewModel
+    <div class="modal" id="addEducation">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header P-2">
+                    <h4 class="modal-title">Add Education</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form asp-action="AddEducation" asp-controller="Freelancers">
+                    <div class="modal-body m-0">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                        <div class="form-group  my-2">
+                                            <label for="school" class="h6">school</label>
+                                            <input asp-for="School" type="text" class="form-control" id="school" />
+                                        </div>
+                                        <div class="form-group  my-2">
+                                            <label for="city" class="h6">Dates Attended</label>
+                                            <div>
+                                                <select asp-for="From" class="form-control h-100 py-2" id="AttendedFrom" style="width: 44%; display: inline; border-radius: 30px;">
+                                                    <option selected disabled hidden>
+                                                        From
+                                                    </option>
+                                                    @for (int i = 2028; i >= 1950; i--)
+                                                    {
+                                                        <option value="@i"> @i </option>
+                                                    }
+                                                </select>
+                                                <select asp-for="To" class="form-control h-100 float-right py-2" id="AttendedTo" style="width: 44%; display: inline; border-radius: 30px;"
+                                                        required>
+                                                    <option selected disabled hidden>
+                                                        To (or expected graduation year)
+                                                    </option>
+                                                    @for (int i = 2028; i >= 1950; i--)
+                                                    {
+                                                        <option value="@i"> @i </option>
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group  my-2">
+                                            <label for="Degree" class="h6">Degree</label>
+                                            <input asp-for="Degree" type="text" class="form-control" id="school" />
+
+                                        </div>
+
+                                        <div class="form-group  my-2">
+                                            <label for="area" class="h6">Area Of Study</label>
+                                            <input asp-for="AreaOfStudy" type="text" class="form-control" id="area" />
+                                        </div>
+                                        <div class="form-group my-2">
+                                            <label for="description" class="h6">Description (Optional)</label>
+                                            <textarea asp-for="Description" class="form-control" id="description" style="height: 80px;"></textarea>
+                                        </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="text-right">
+                            <input type="button" class="btn text-success bg-white mr-2"
+                                   style="border-color:lightgrey; width: fit-content;border-radius: 30px; font-weight: 500; " data-dismiss="modal" data-target="#addEducation" value="Cancel" />
+                            <input data-save="modal" type="button" class="btn text-light mr-2" style="border-color:lightgrey; width: fit-content;font-weight: 500; background-color:#14a800 ;border-radius: 30px;" value="Save" />
+                        </div>
+                    </div>
+                </form>
+              
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,34 @@
+﻿@model EditTitleViewModel
+<div class="modal" id="editTitle">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header P-2">
+                <h4 class="modal-title">Edit your title</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form asp-action="EditTitle" asp-controller="Freelancers">
+                <div class="modal-body m-0">
+                    <div class="row m-1 p-0">
+                        <h6 class="m-0 p-0 mb-2">
+                            @Model.Title
+                        </h6>
+                        <p class="mt-0 mb-3 p-0" style="font-weight: 400;font-size: 15px;">
+                            Enter a single sentence description of your professional skills/experience (e.g. Expert Web Designer with Ajax experience)
+                        </p>
+                        <input asp-for="Title" type="text" class="form-control" id="youTitle" />
+                    </div>
+                    <div class="text-right mt-3">
+                        <input type="button" class="btn text-success bg-white mr-2 px-3"
+                               style="border-color:lightgrey; width: fit-content;border-radius: 30px; font-weight: 500; " data-dismiss="modal" data-target="#editTitle" value="Cancel" />
+                        <input data-save="modal" type="button" class="btn text-light mr-2 px-3" style="border-color:lightgrey; width: fit-content;font-weight: 500; background-color:#14a800 ;border-radius: 30px;" value="Save" />
+                    </div>
+                </div>
+            </form>
+          
+
+
+        </div>
+    </div>
+</div>

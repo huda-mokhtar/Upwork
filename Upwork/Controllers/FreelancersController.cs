@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Upwork.Data;
 using Upwork.Models;
 using Upwork.Models.DbModels;
+using Upwork.Models.ViewModels.Register;
 
 namespace Upwork.Controllers
 {
@@ -22,12 +23,14 @@ namespace Upwork.Controllers
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _UserManager;
         private readonly IWebHostEnvironment hosting;
+        private SignInManager<ApplicationUser> signInManager;
 
-        public FreelancersController(ApplicationDbContext context , UserManager<ApplicationUser> usermanager, IWebHostEnvironment _hosting)
+        public FreelancersController(ApplicationDbContext context , UserManager<ApplicationUser> usermanager, IWebHostEnvironment _hosting, SignInManager<ApplicationUser> _signInManager)
         {
             _context = context;
             _UserManager = usermanager;
             hosting = _hosting;
+            signInManager = _signInManager;
         }
 
         [Authorize(Roles = "Freelancer")]
@@ -247,11 +250,332 @@ namespace Upwork.Controllers
             return View(Job);
         }
 
-        public IActionResult Settings()
+        public async Task<IActionResult> Settings()
         {
-            return View();
+            var user = await _UserManager.GetUserAsync(User);           
+            SettingsViewModel model = new SettingsViewModel() { Email = user.Email, FirstName = user.FirstName, LastName = user.LastName , Username = user.UserName};
+            ViewBag.HasPassword =  await _UserManager.HasPasswordAsync(user);
+            return View(model);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Settings(SettingsViewModel model)
+        {
+            var user = await _UserManager.GetUserAsync(User);
+            if (ModelState.IsValid)
+            {               
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                var token = await _UserManager.GenerateChangeEmailTokenAsync(user, model.Email);
+                await _UserManager.ChangeEmailAsync(user, model.Email, token);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Settings");
+            }
+            ViewBag.HasPassword = await _UserManager.HasPasswordAsync(user);
+            return View(model);
+        }
+
+       public IActionResult ChangePassword()
+       {
+            return PartialView("ChangePasswordModal");
+       }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _UserManager.GetUserAsync(User);
+                var result = await _UserManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+                if (result.Succeeded)
+                {
+                    if (model.RequiredToSignin)
+                    {
+                        await signInManager.SignOutAsync();
+                        return RedirectToAction("Login", "Account");
+                    }
+                    return RedirectToAction("Settings");
+                }
+            }
+            return PartialView("ChangePasswordModal",model);
+        }
+
+        public IActionResult ChangeProfilePhoto()
+        {
+            return PartialView("ChangePhotoModal");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeProfilePhoto(ProfilePhotoViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (model.File != null)
+                {
+                    var u = await _UserManager.GetUserAsync(User);
+                    var Freelancer = _context.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+                    string Uploads = Path.Combine(hosting.WebRootPath, "ProfilePhotos");
+                    string FileName = Freelancer.FreelancerId + "." + model.File.FileName.Split('.')[model.File.FileName.Split('.').Length - 1];
+                    string FullPath = Path.Combine(Uploads, FileName);
+                    if (Freelancer.Image != null)
+                    {
+                        System.IO.File.Delete(FullPath);
+                    }
+                    model.File.CopyTo(new FileStream(FullPath, FileMode.Create));
+                    Freelancer.Image = FileName;
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Profile");
+                }
+            }
+            return PartialView("ChangePhotoModal");
+        }
+
+
+        public async Task<IActionResult> EditLanguages()
+        {
+            var u = await _UserManager.GetUserAsync(User);
+            var Freelancer = _context.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+            var EnglishId = _context.Languages.FirstOrDefault(a => a.Name == "English").LanguageId;
+            LanguagesViewModel model = new LanguagesViewModel();
+            if (_context.Freelancer_Language.FirstOrDefault(a => a.FreelancerId == Freelancer.FreelancerId && a.LanguageId == EnglishId) != null)
+            {
+                model.ProficiencyId = _context.Freelancer_Language.FirstOrDefault(a => a.FreelancerId == Freelancer.FreelancerId && a.LanguageId == EnglishId).ProficiencyId;
+            }
+            if (_context.Freelancer_Language.FirstOrDefault(a => a.FreelancerId == Freelancer.FreelancerId && a.LanguageId != EnglishId) != null)
+            {
+                var SecondLanguage = _context.Freelancer_Language.FirstOrDefault(a => a.FreelancerId == Freelancer.FreelancerId && a.LanguageId != EnglishId);
+                model.Language1Id = SecondLanguage.LanguageId;
+                model.Proficiency1Id = SecondLanguage.ProficiencyId;
+            }
+            ViewBag.ProficiencyId = new SelectList(_context.Language_Proficiency, "ProficiencyId", "Name");
+            ViewBag.LanguageId = new SelectList(_context.Languages.Where(a => a.LanguageId != EnglishId), "LanguageId", "Name");
+            ViewBag.SecondLanguage = _context.Languages.FirstOrDefault(a => a.LanguageId == model.Language1Id).Name;
+            return PartialView("EditLanguages",model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditLanguages(LanguagesViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var u = await _UserManager.GetUserAsync(User);
+                var Freelancer = _context.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+                var EnglishId = _context.Languages.FirstOrDefault(a => a.Name == "English").LanguageId;
+                _context.Freelancer_Language.FirstOrDefault(a => a.FreelancerId == Freelancer.FreelancerId && a.LanguageId == EnglishId).ProficiencyId = model.ProficiencyId.Value;
+                var SecondLanguage = _context.Freelancer_Language.FirstOrDefault(a => a.FreelancerId == Freelancer.FreelancerId && a.LanguageId != EnglishId);
+                SecondLanguage.ProficiencyId = model.Proficiency1Id.Value;
+                _context.SaveChanges();
+                return RedirectToAction("Profile");
+            }
+            return PartialView("EditLanguages", model);
+        }
+
+        public async Task<IActionResult> EditTitle()
+        {
+            var u = await _UserManager.GetUserAsync(User);
+            var Freelancer = _context.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+            EditTitleViewModel model = new EditTitleViewModel() { Title = Freelancer.Title };
+            return PartialView("EditTitleModal",model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditTitle(EditTitleViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var u = await _UserManager.GetUserAsync(User);
+                var Freelancer = _context.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+                Freelancer.Title = model.Title;
+                _context.SaveChanges();
+                return RedirectToAction("Profile");
+            }          
+            return PartialView("EditTitleModal", model);
+        }
+
+
+        public async Task<IActionResult> EditOverview()
+        {
+            var u = await _UserManager.GetUserAsync(User);
+            var Freelancer = _context.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+            EditOverviewViewModel model = new EditOverviewViewModel() { Overview = Freelancer.Overview };
+            return PartialView("EditOverviewModal", model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditOverview(EditOverviewViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var u = await _UserManager.GetUserAsync(User);
+                var Freelancer = _context.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+                Freelancer.Overview = model.Overview;
+                _context.SaveChanges();
+                return RedirectToAction("Profile");
+            }
+            return PartialView("EditOverviewModal", model);
+        }
+
+        public IActionResult AddEducation()
+        {
+            return PartialView("AddEducationModal");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddEducation(AddEducationViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var u = await _UserManager.GetUserAsync(User);
+                var Freelancer = _context.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+                if (_context.Schools.FirstOrDefault(a => a.Name == model.School) == null)
+                {
+                    _context.Schools.Add(new School() { Name = model.School });
+                }
+                if (_context.AreasOfStudy.FirstOrDefault(a => a.Name == model.AreaOfStudy) == null)
+                {
+                    _context.AreasOfStudy.Add(new AreaOfStudy() { Name = model.AreaOfStudy });
+                }
+                if (_context.Degrees.FirstOrDefault(a => a.Name == model.Degree) == null)
+                {
+                    _context.Degrees.Add(new Degree() { Name = model.Degree });
+                }
+                _context.SaveChanges();
+                var SchoolId = _context.Schools.FirstOrDefault(a => a.Name == model.School).SchoolId;
+                var AreaId = _context.AreasOfStudy.FirstOrDefault(a => a.Name == model.AreaOfStudy).AreaId;
+                var DegreeId = _context.Degrees.FirstOrDefault(a => a.Name == model.Degree).DegreeId;
+                _context.Freelancer_Education.Add(new Freelancer_Education() { FreelancerId = Freelancer.FreelancerId, AreaId = AreaId, SchoolId = SchoolId, DegreeId = DegreeId, From = new DateTime(model.From.Value, 1, 1), To = new DateTime(model.To.Value, 1, 1), Description = model.Description });
+                _context.SaveChanges();
+                return RedirectToAction("Profile");
+            }
+            return PartialView("AddEducationModal",model);
+        }
+
+        public async Task<IActionResult> DeleteEducation(int AreaId, int SchoolId, int DegreeId, string FreelancerId)
+        {            
+            var Education = _context.Freelancer_Education.FirstOrDefault(a => a.FreelancerId == FreelancerId && a.AreaId == AreaId && a.DegreeId == DegreeId && a.SchoolId == SchoolId);
+            _context.Freelancers.FirstOrDefault(a => a.FreelancerId == FreelancerId).Educations.Remove(Education);
+            _context.Freelancer_Education.Remove(Education);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Profile");
+        }
+
+        public async Task<IActionResult> EditEducation(int AreaId, int SchoolId, int DegreeId, string FreelancerId)
+        {        
+            AddEducationViewModel model = new AddEducationViewModel();
+            var education = await _context.Freelancer_Education.Include(a => a.School).Include(a => a.AreaOfStudy).Include(a => a.Degree).FirstOrDefaultAsync(a => a.FreelancerId == FreelancerId && a.AreaId == AreaId && a.SchoolId == SchoolId && a.DegreeId == DegreeId);
+            if (education != null)
+            {
+                model.School = education.School.Name;
+                model.AreaOfStudy = education.AreaOfStudy.Name;
+                model.Degree = education.Degree.Name;
+                model.From = education.From.Year;
+                model.To = education.To.Year;
+                model.Description = education.Description;
+                model.FreerlancerId = education.FreelancerId;
+                model.AreaId = education.AreaId;
+                model.DegreeId = education.DegreeId;
+                model.SchoolId = education.SchoolId;
+            }
+            return PartialView("EditEducationModal", model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditEducation(AddEducationViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var u = await _UserManager.GetUserAsync(User);
+                var Freelancer = _context.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+                if (_context.Schools.FirstOrDefault(a => a.Name == model.School) == null)
+                {
+                    _context.Schools.Add(new School() { Name = model.School });
+                }
+                if (_context.AreasOfStudy.FirstOrDefault(a => a.Name == model.AreaOfStudy) == null)
+                {
+                    _context.AreasOfStudy.Add(new AreaOfStudy() { Name = model.AreaOfStudy });
+                }
+                if (_context.Degrees.FirstOrDefault(a => a.Name == model.Degree) == null)
+                {
+                    _context.Degrees.Add(new Degree() { Name = model.Degree });
+                }
+                _context.SaveChanges();
+                var SchoolId = _context.Schools.FirstOrDefault(a => a.Name == model.School).SchoolId;
+                var AreaId = _context.AreasOfStudy.FirstOrDefault(a => a.Name == model.AreaOfStudy).AreaId;
+                var DegreeId = _context.Degrees.FirstOrDefault(a => a.Name == model.Degree).DegreeId;
+                var education = _context.Freelancer_Education.FirstOrDefault(a => a.FreelancerId == model.FreerlancerId && a.DegreeId == model.DegreeId && a.SchoolId == model.SchoolId && a.AreaId == model.AreaId);               
+                _context.Freelancers.FirstOrDefault(a => a.FreelancerId == Freelancer.FreelancerId).Educations.Remove(education);
+                _context.Freelancer_Education.Remove(education);
+                await _context.SaveChangesAsync();
+                _context.Freelancer_Education.Add(new Freelancer_Education() { FreelancerId = Freelancer.FreelancerId, AreaId = AreaId, SchoolId = SchoolId, DegreeId = DegreeId, From = new DateTime(model.From.Value, 1, 1), To = new DateTime(model.To.Value, 1, 1), Description = model.Description });
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Profile");
+            }
+            return PartialView("EditEducationModal", model);
+        }
+
+        public IActionResult AddEmployement()
+        {
+            ViewBag.CountryId = new SelectList(_context.Countries, "CountryId", "Name");
+            return PartialView("AddEmployementMdal");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddEmployement(AddEmployementViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var u = await _UserManager.GetUserAsync(User);
+                var Freelancer = _context.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+                if (_context.Companies.FirstOrDefault(a => a.Name == model.Company) == null)
+                {
+                    _context.Companies.Add(new Company() { Name = model.Company });
+                }
+                if (_context.JobTitle.FirstOrDefault(a => a.Name == model.Title) == null)
+                {
+                    _context.JobTitle.Add(new JobTitle() { Name = model.Title });
+                }            
+                _context.SaveChanges();
+                var CompanyId = _context.Companies.FirstOrDefault(a => a.Name == model.Company).CompanyId;
+                var JobTitleId = _context.JobTitle.FirstOrDefault(a => a.Name == model.Title).JobTitleId;
+                _context.Freelancer_Experience.Add(new Freelancer_Experience() { FreelancerId = Freelancer.FreelancerId, CompanyId = CompanyId, Location = model.Location, CountryId = model.CountryId.Value, JobTitleId = JobTitleId, From = new DateTime(model.FromYear, model.FromMonth, 1), To = new DateTime(model.ToYear, model.ToMonth, 1), Description = model.Description });
+                _context.SaveChanges();
+                return RedirectToAction("Profile");
+            }
+            return PartialView("AddEmployementMdal");
+        }
+
+        public async Task<IActionResult> DeleteEmployement(string FreelancerId, int CompanyId, int CountryId, int JobTitleId)
+        {        
+            var Employement = _context.Freelancer_Experience.FirstOrDefault(a => a.FreelancerId == FreelancerId && a.CompanyId == CompanyId && a.CountryId == CountryId && a.JobTitleId == JobTitleId);
+            _context.Freelancers.FirstOrDefault(a => a.FreelancerId == FreelancerId).Experiences.Remove(Employement);
+            _context.Companies.FirstOrDefault(a => a.CompanyId == CompanyId).FreelancerExperiences.Remove(Employement);
+            _context.Countries.FirstOrDefault(a => a.CountryId == CountryId).FreelancerExperiences.Remove(Employement);
+            _context.JobTitle.FirstOrDefault(a => a.JobTitleId == JobTitleId).FreelancerExperiences.Remove(Employement);
+            _context.Freelancer_Experience.Remove(Employement);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Profile");
+        }
+
+        public async Task<IActionResult> EditEmployement(string FreelancerId, int CompanyId, int CountryId, int JobTitleId)
+        {
+            var Employement = await _context.Freelancer_Experience.Include(a=>a.Company).Include(a=>a.JobTitle).FirstOrDefaultAsync(a => a.FreelancerId == FreelancerId && a.CompanyId == CompanyId && a.CountryId == CountryId && a.JobTitleId == JobTitleId);
+            AddEmployementViewModel model = new AddEmployementViewModel();
+            if (Employement != null)
+            {
+                model.Company = Employement.Company.Name;
+                model.CountryId = Employement.CountryId;
+                model.Description = Employement.Description;
+                model.Location = Employement.Location;
+                model.Title = Employement.JobTitle.Name;
+                model.FromMonth = Employement.From.Month;
+                model.FromYear = Employement.From.Year;
+                model.ToMonth = Employement.To.Month;
+                model.ToYear = Employement.To.Year;
+            }
+            ViewBag.CountryId = new SelectList(_context.Countries, "CountryId", "Name");
+            return PartialView("EditEmployementModal", model);
+
+        }
 
 
 

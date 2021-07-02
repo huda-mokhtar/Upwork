@@ -1,0 +1,46 @@
+﻿@model LanguagesViewModel
+<div class="modal" id="editLanguages">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header P-2">
+                <h4 class="modal-title">Edit languages</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form asp-action="EditLanguages" asp-controller="Freelancers">
+                <div class="modal-body m-0">
+                    <div class="row m-1 p-0">
+                        <div class="col-7 border-bottom">
+                            <h6>
+                                English
+                            </h6>
+                            <select asp-for="ProficiencyId" asp-items="ViewBag.ProficiencyId" class="form-control mb-2">              
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row m-1 p-0">
+                        <div class="col-7 mb-4">
+                            <h6>
+                                @ViewBag.SecondLanguage
+                            </h6>
+                            <select asp-for="Proficiency1Id" asp-items="ViewBag.ProficiencyId" class="form-control">
+                                
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="text-right">
+                        <input type="button" class="btn text-success bg-white mr-2"
+                               style="border-color:lightgrey; width: fit-content;border-radius: 30px; font-weight: 500; " data-dismiss="modal" data-target="#editLanguages" value="Cancel" />
+                        <input type="button" data-save="modal" class="btn text-light mr-2" style="border-color:lightgrey; width: fit-content;font-weight: 500; background-color:#14a800 ;border-radius: 30px;" value="Save" />
+                    </div>
+                </div>
+            </form>
+          
+            @**@
+
+        </div>
+    </div>
+</div>
