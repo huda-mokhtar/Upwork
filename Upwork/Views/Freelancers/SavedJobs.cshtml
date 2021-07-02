@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Upwork.Models.DbModels.Jobs>
+﻿@model IEnumerable<Upwork.Models.DbModels.Freelancer_Job>
 
 @{
     ViewData["Title"] = "Saved Jobs";
@@ -30,11 +30,11 @@
                                 <div class=" my-2 mx-2">
                                     <div class="row" style="display:-webkit-box; -webkit-box-align:center; ">
                                         <div class="col-9 text-left m-0 ">
-                                            <a asp-action="JobDetails" asp-controller="Freelancers" asp-route-Id="@item.Id">@item.Title </a>
+                                            <a asp-action="JobDetails" asp-controller="Freelancers" asp-route-Id="@item.JobsId">@item.Jobs.Title </a>
                                         </div>
                                         <div class="col-3 text-center">
                                             <a>
-                                                <div onclick="unSaveJob(@item.Id,this)" class="circlee-like">
+                                                <div onclick="unSaveJob(@item.Jobs.Id,this)" class="circlee-like">
                                                     <i class="fa fa-heart 2x" style="color:rgb(83, 83, 83) ;"></i>
                                                 </div>
                                             </a>
@@ -50,33 +50,30 @@
                                 <div class="my-3">
                                     <div class="row mx-2">
                                         <div class="lightFont">
-                                            @if (item.TypeOfBudget == true)
-                                            {<span>Fixed Price- Est.Budget:@item.BudgetFrom</span>}
+                                            @if (item.Jobs.TypeOfBudget == true)
+                                            {<span>Fixed Price- Est.Budget:@item.Jobs.BudgetFrom</span>}
                                         else
-                                        { <span>Hourly:@item.BudgetFrom $ : @item.BudgetTo $</span>}  - @item.LevelOfExperience  - Posted @item.CreateDate
+                                        { <span>Hourly:@item.Jobs.BudgetFrom $ : @item.Jobs.BudgetTo $</span>}  - @item.Jobs.LevelOfExperience  - Posted @item.Jobs.CreateDate
                                     </div>
                                 </div>
                                 <div class="row mx-2 my-1">
                                     <div class="jobDescription p-0 m-0 text-left">
-                                        @item.JobDescription
+                                        @item.Jobs.JobDescription
                                     </div>
                                 </div>
                                 <div class="row mx-2 my-3">
                                     <div class="skills">
                                         <div style="display:inline-flex;">
 
-                                            @*@foreach (var skill in item.jobsSkills)
-                                                {
-                                                    @foreach (var jobskill in ViewBag.Skills)
+                                            @foreach (var Skill in ViewBag.Skills)
+                                            {
+                                                    @if (Skill.JobsId == item.JobsId)
                                                     {
-                                                        @if (jobskill.SkillId == skill.skillId)
-                                                        {
-                                                            <div class="jobSkills px-2 py-1 mr-2">@jobskill.Name</div>
-                                                        }
 
-                                                    }
-                                                }*@
 
+                                                            <div class="jobSkills px-2 py-1 mr-2">@Skill.skill.Name</div>
+                                                     }
+                                             }
                                         </div>
                                     </div>
 
@@ -84,7 +81,7 @@
 
                                 <div class="row mx-2 my-2">
                                     <div class="lightFont">
-                                        Proposals : <span style="display:inline-block ;font-weight: 500;">Less than 5</span>
+                                        Proposals : <span style="display:inline-block ;font-weight: 500;">@Model.Where(a=> a.IsProposal == true && a.JobsId == item.JobsId).Count()</span>
                                     </div>
                                 </div>
 

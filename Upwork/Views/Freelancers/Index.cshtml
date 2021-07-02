@@ -46,28 +46,7 @@
                                 </div>
                             </label>
                         </div>
-                        <div class="col-12 radioBox mb-1">
-                            <label for="bestMatches" class="col-12 p-0 m-0 mb-0">
-                                <div class="mb-0">
-                                    <div class="text-left mb-0">
-                                        <input type="radio" id="bestMatches" name="filterJobs" />
-                                        <span class="checkround"></span>
-                                        <p class="ml-4" style="font-weight: 630px;">Best Matches</p>
-                                    </div>
-                                </div>
-                            </label>
-                        </div>
-                        <div class="col-12 radioBox mb-1">
-                            <label for="recommended" class="col-12 p-0 m-0 mb-0">
-                                <div class="mb-0">
-                                    <div class="text-left mb-0">
-                                        <input type="radio" id="recommended" name="filterJobs" />
-                                        <span class="checkround"></span>
-                                        <p class="ml-4" style="font-weight: 630px;">Recommended</p>
-                                    </div>
-                                </div>
-                            </label>
-                        </div>
+                        
 
                     </div>
                 </div>
@@ -182,7 +161,7 @@
 
                             <div class="row mx-2 my-2">
                                 <div class="lightFont">
-                                    Proposals : <span style="display:inline-block ;font-weight: 500;">Less than 5</span>
+                                    Proposals : <span style="display:inline-block ;font-weight: 500;">@item.freelancer_Jobs.Where(a => a.JobsId == item.Id && a.IsProposal == true).Count()</span>
                                 </div>
                             </div>
 
@@ -264,18 +243,7 @@
                 <i class="fa fa-eye mx-2" aria-hidden="true"></i>
                 <a asp-action="profile" asp-controller="freelancers" asp-route-id="@ViewBag.Freelancer.FreelancerId">View Profile</a>
             </div>
-            <div class="my-4 mx-0">
-                <div class="mx-0">
-                    <p style="font-weight: 600;" class="mb-1">Visibility</p>
-                </div>
-                <div class="row mx-0" style="display:-webkit-box; -webkit-box-align:center;">
-                    <i class="fa fa-globe mr-2" aria-hidden="true"></i>
-                    <p class="my-auto">Public</p>
-                    <div class="editIcon">
-                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                    </div>
-                </div>
-            </div>
+            
             <div class="my-4 mx-0">
                 <div class="mx-0 my-1">
                     <p style="font-weight: 600;" class="mb-1">Hours</p>
@@ -295,14 +263,7 @@
 
                 </div>
             </div>
-            <div class="my-4 mx-0">
-                <div class="mx-0">
-                    <p style="font-weight: 600;" class="mb-1">Profile completion</p>
-                </div>
-                <div class="progress" style="height: 10px;">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>
-                </div>
-            </div>
+            
             <div class="row toProfile mt-1 mx-0" style="display:-webkit-box; -webkit-box-align:center; ">
                 <i class="fa fa-plus-circle mr-2" aria-hidden="true"></i>
                 <a href="">Add a linked social account</a>
@@ -323,7 +284,7 @@
                     <p style="font-weight: 600;" class="mb-1">Proposals</p>
                 </div>
                 <div class="row toProfile mx-0" style="display:-webkit-box; -webkit-box-align:center; ">
-                    <a href="">70 avaliable connects</a>
+                    <a asp-controller="Freelancers" asp-action="AllProposal">@ViewBag.Proposals submitted proposal</a>
                 </div>
             </div>
 
