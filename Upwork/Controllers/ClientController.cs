@@ -558,8 +558,6 @@ namespace Upwork.Controllers
             {
                 return NotFound();
             }
-            var ProPosals = _context.Freelancer_Jobs.Where(a => a.JobsId == id && a.IsProposal == true).Include(a => a.Freelancer).ToList();
-            var Hired = _context.Freelancer_Jobs.Where(a => a.JobsId == id && a.IsHire == true).Include(a => a.Freelancer).ToList();
 
             List<JobsSkills> SkillsList = new List<JobsSkills>();
             SkillsList.AddRange(_context.JobsSkills.Where(a => a.JobsId == id));
@@ -579,15 +577,23 @@ namespace Upwork.Controllers
                 
             }
 
-
-            ViewData["ProPosals"] = ProPosals;
-            ViewData["ProPosalsCount"] = ProPosals.Count();
-            ViewData["Hired"] = Hired;
-            ViewData["HiredCount"] = Hired.Count();
             ViewData["User"] = _context.Freelancers.Include(a => a.Freelancer_Jobs).Include(a => a.User).Include(a => a.City).Include(a => a.Skills).Include(a => a.Languages);
             ViewData["FreelancerSkills"] = _context.Freelancer_Skill.Include(a => a.Skill);
 
             return View(job);
+        }
+
+        public async Task<IActionResult> GetProposal(int id)
+        {
+            var ProPosals = _context.Freelancer_Jobs.Where(a => a.JobsId == id && a.IsProposal == true).Include(a => a.Freelancer).ToList();
+            ViewData["User"] = _context.Freelancers.Include(a => a.Freelancer_Jobs).Include(a => a.User).Include(a => a.City).Include(a => a.Skills).Include(a => a.Languages);
+            return PartialView(ProPosals);
+        }
+        public async Task<IActionResult> GetHired(int id)
+        {
+            var Hired = _context.Freelancer_Jobs.Where(a => a.JobsId == id && a.IsHire == true).Include(a => a.Freelancer).ToList();
+            ViewData["User"] = _context.Freelancers.Include(a => a.Freelancer_Jobs).Include(a => a.User).Include(a => a.City).Include(a => a.Skills).Include(a => a.Languages);
+            return PartialView(Hired);
         }
 
         [HttpPost]
