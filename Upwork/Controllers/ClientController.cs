@@ -17,6 +17,7 @@ using Upwork.Models.ViewModels;
 
 namespace Upwork.Controllers
 {
+    [Authorize(Roles = "Client")]
     public class ClientController : Controller
     {
         private readonly ApplicationDbContext _context;
