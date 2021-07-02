@@ -717,5 +717,22 @@ namespace Upwork.Controllers
             return View();
         }
 
+        public async Task<IActionResult> FreelancerProfile(string Id)
+        {
+            var freelancer = await _context.Freelancers.Include(a => a.Educations).Include(a => a.SubCategory).Include(a => a.Category).Include(a => a.Freelancer_Jobs).Include(a => a.User).Include(a => a.City).Include(a => a.Skills).Include(a => a.Languages).FirstOrDefaultAsync(a => a.FreelancerId == Id);
+
+            if (freelancer == null)
+            {
+                return NotFound();
+            }
+
+            ViewData["countries"] = _context.Countries.ToList();
+            ViewData["Languages"] = _context.Freelancer_Language.Where(a => a.FreelancerId == freelancer.FreelancerId).Include(a => a.Language).Include(a => a.Proficiency).ToList();
+            ViewData["Skills"] = _context.Skills.ToList();
+            ViewData["Education"] = _context.Freelancer_Education.Where(a => a.FreelancerId == freelancer.FreelancerId).Include(a => a.AreaOfStudy).Include(a => a.Degree).Include(a => a.School).ToList();
+            ViewData["Experience"] = _context.Freelancer_Experience.Where(a => a.FreelancerId == freelancer.FreelancerId).Include(a => a.Company).Include(a => a.Country).Include(a => a.JobTitle).ToList();
+
+            return View(freelancer);
+        }
     }
     }
