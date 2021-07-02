@@ -25,6 +25,7 @@ namespace Upwork.Models
         [Display(Name = "Country")]
         [ForeignKey("Country")]
         public int? CountryId { get; set; }
+        public string Image { get; set; }
 
         public virtual Country Country { get; set; }
 

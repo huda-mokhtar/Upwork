@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Upwork.Models.DbModels.Freelancer_Job>
+@if (Model.Count() == 0)
+{
+    <div class="row m-0 p-0 mt-3">
+        <div class="col-9 m-auto p-2">
+            <img src="~/Images/hired0.png" />
+        </div>
+    </div>
+}
+else
+{
+    @foreach (var hire in Model)
+    {
+        <div class="porposed  mb-0">
+            <div class="row my-3 p-0 m-0">
+                <div class="col-2 m-0 p-0">
+                    <img src="~/Images/@hire.Freelancer.Image" class="Freelancer-photo my-auto" />
+                </div>
+                <div class="col-8 text-left">
+                    <a class="mb-0 reuseLink" href="#" style="font-size: 15;">
+                        @foreach (var u in ViewBag.User)
+                        {
+
+                            if (u.FreelancerId == hire.FreelancerId)
+                            {<span>@u.User.UserName</span>}
+                    }
+                    </a>
+                    <p class="mb-0" style="font-size: 16px;font-weight: 650;">
+                        @hire.Freelancer.Title
+                    </p>
+                    <p class="mb-0" style="font-size: 15;color: rgb(102, 102, 102);font-weight: 600;">
+                        @hire.Freelancer.City.Name
+                    </p>
+                    <p class="mb-0" style="font-size: 15; color: rgb(102, 102, 102);font-weight: 600;">
+                        $@hire.Freelancer.HourlyRate / hr
+                    </p>
+
+                </div>
+                <div class="col-2 p-0 text-right">
+                    <div class="lightDev text-center py-1 px-2 m-2" style="cursor: unset;">
+                        <i class="fa fa-check-circle mr-1" style="color: #14a800; display: inline-block;" aria-hidden="true"></i> Hired
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
