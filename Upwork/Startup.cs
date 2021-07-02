@@ -50,8 +50,8 @@ namespace Upwork
             services.ConfigureApplicationCookie(options =>
             {
                 options.Cookie.HttpOnly = true;
-                options.AccessDeniedPath = "/Account/Signup";               
-                options.LoginPath = "/Account/Signup";               
+                options.AccessDeniedPath = "/Account/Login";               
+                options.LoginPath = "/Account/Login";               
                 options.SlidingExpiration = true;
                 options.ExpireTimeSpan = TimeSpan.FromDays(30);
             });

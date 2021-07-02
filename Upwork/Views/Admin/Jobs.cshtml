@@ -1,0 +1,45 @@
+﻿@model List<Jobs>
+@{
+    ViewData["Title"] = "Jobs";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="clearfix"></div>
+<div class="col-div-12">
+    <div>
+        <div class="content-box">
+
+            <p style="font-size:30px"> Jobs </p>
+            <br />
+            <table>
+                <tr>
+                    <th> Title </th>
+                    <th> SubCategory </th>
+                    <th> Client </th>
+                    <th> Language Proficiency </th>
+                    <th> Experience Level </th>
+                    <th> Details </th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td> @item.Title </td>
+                        <td> @item.subCategory.Name </td>
+                        <td> @item.Client.User.FirstName @item.Client.User.LastName </td>
+                        <td> @item.Language_Proficiency.Name </td>
+                        <td> @item.LevelOfExperience </td>
+                        <td>
+                            <a asp-action="JobDetails" asp-route-id="@item.Id" asp-controller="Admin" style="cursor:pointer">
+                                <span style="font-size:20px" class="fa fa-info-circle text-info"></span>
+                            </a>                          
+                            @*
+                                <a asp-action="DeleteCategory" asp-route-id="@item.CategoryId" asp-controller="Admin" class="ml-2" style="cursor:pointer">
+                                    <span style="font-size:20px" class="fa fa-trash text-danger"></span>
+                                </a>  *@
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>
