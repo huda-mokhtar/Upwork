@@ -587,8 +587,41 @@ namespace Upwork.Controllers
             return PartialView("EditEmployementModal", model);
 
         }
+        /*
+        [HttpPost]
+        public async Task<IActionResult> EditEmployement(AddEmployementViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var u = await _UserManager.GetUserAsync(User);
+                var Freelancer = _context.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+                if (_context.Companies.FirstOrDefault(a => a.Name == model.Company) == null)
+                {
+                    _context.Companies.Add(new Company() { Name = model.Company });
+                }
+                if (_context.JobTitle.FirstOrDefault(a => a.Name == model.Title) == null)
+                {
+                    _context.JobTitle.Add(new JobTitle() { Name = model.Title });
+                }
+                _context.SaveChanges();
+                var CompanyId = _context.Companies.FirstOrDefault(a => a.Name == model.Company).CompanyId;
+                var JobTitleId = _context.JobTitle.FirstOrDefault(a => a.Name == model.Title).JobTitleId;
+                var Employement = _context.Freelancer_Experience.FirstOrDefault(a => a.FreelancerId == FreelancerId && a.CompanyId == CompanyId && a.CountryId == CountryId && a.JobTitleId == JobTitleId);
+                _context.Freelancers.FirstOrDefault(a => a.FreelancerId == FreelancerId).Experiences.Remove(Employement);
+                _context.Companies.FirstOrDefault(a => a.CompanyId == CompanyId).FreelancerExperiences.Remove(Employement);
+                _context.Countries.FirstOrDefault(a => a.CountryId == CountryId).FreelancerExperiences.Remove(Employement);
+                _context.JobTitle.FirstOrDefault(a => a.JobTitleId == JobTitleId).FreelancerExperiences.Remove(Employement);
+                _context.Freelancer_Experience.Remove(Employement);
+                await _context.SaveChangesAsync();
 
-
+                _context.Freelancer_Experience.Add(new Freelancer_Experience() { FreelancerId = Freelancer.FreelancerId, CompanyId = CompanyId, Location = model.Location, CountryId = model.CountryId.Value, JobTitleId = JobTitleId, From = new DateTime(model.FromYear, model.FromMonth, 1), To = new DateTime(model.ToYear, model.ToMonth, 1), Description = model.Description });
+                _context.SaveChanges();
+                return RedirectToAction("Profile");
+            }
+            ViewBag.CountryId = new SelectList(_context.Countries, "CountryId", "Name");
+            return PartialView("EditEmployementModal", model);
+        }
+        */
 
     }
 }
