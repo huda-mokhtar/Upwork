@@ -201,13 +201,13 @@
 
                                           <div class="col-3 m-0 p-0 text-left" style="background-color: #f9f9f9;">
                                               <div class="py-5  mx-3 text-center">
-                                                  @if (ViewBag.FreelancerJob.IsProposal != true && ViewBag.FreelancerJob.IsHire != true)
-                                                  {
+                                                  @*@if (ViewBag.FreelancerJob.IsProposal != true && ViewBag.FreelancerJob.IsHire != true)
+                                                  {*@
 
                                                       <a asp-action="SubmitProposal" asp-controller="Freelancers" asp-route-id="@Model.Id" class="devBtnGreen text-center p-2 text-light d-block proposal">
                                                           Submit Proposal
                                                       </a>
-                                                  }
+                                                  @*}*@
                                                   @if (ViewBag.FreelancerJob.IsSaved)
                                                   {
 

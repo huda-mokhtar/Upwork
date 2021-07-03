@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "All Job Posts";
+    ViewData["UserName"] = ViewBag.username;
     Layout = "_ClientLayout";
 }
 @section Style{
@@ -26,7 +27,7 @@
             <div class="col-7 text-right my-5">
                 <div class="col-7 text-center text-light px-3 py-2 devBtnGreen"
                      style="display: inline-block; width: auto; height:auto;">
-                    <h6 class="m-0 p-0"> Post a New Job </h6>
+                    <a asp-action="PostJob" class="m-0 p-0"> Post a New Job </a>
                 </div>
 
             </div>
@@ -43,7 +44,7 @@
                                 <div class="input-group">
                                     <input type="text" class="form-control" placeholder="Search job postings">
                                     <div class="input-group-append">
-                                        <button class="btn btn-success" type="button">
+                                        <button class="btn btn-success" type="button" id="searchButton">
                                             <i class="fa fa-search"></i>
                                         </button>
                                     </div>
@@ -134,17 +135,49 @@
                                             <p style="font-size: 15px;">Closed - @job.JobClosedDate</p>
                                         }
                                     </div>
-                                    <div class="col-2 mr-1">
-                                        <p class="mb-0" style="color: black; font-size: 16px;">0</p>
-                                        <p>Proposals</p>
-                                    </div>
+                                    @if (job.freelancer_Jobs.Where(a => a.IsProposal == true).Count() > 0)
+                                    {
+
+
+                                        <div class="col-2 mr-1">
+                                            <p class="mb-0" style="color: black; font-size: 16px;">@job.freelancer_Jobs.Where(a => a.IsProposal == true).Count()</p>
+                                            <p>Proposals</p>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-2 mr-1">
+                                            <p class="mb-0" style="color: black; font-size: 16px;">0</p>
+                                            <p>Proposals</p>
+                                        </div>
+                                    }
+                                    @if (job.freelancer_Jobs.Where(a => a.IsHire == true).Count() > 0)
+                                    {
+
+
+                                        <div class="col-2 mr-1">
+                                            <p class="mb-0" style="color: black; font-size: 16px;">@job.freelancer_Jobs.Where(a => a.IsHire == true).Count()</p>
+                                            <p>Hired</p>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-2 ">
+                                            <p class="mb-0" style="color: black; font-size: 16px;">0</p>
+                                            <p>Hired</p>
+                                        </div>
+                                    }
+                                    @*<div class="col-2 mr-1">
+            <p class="mb-0" style="color: black; font-size: 16px;">0</p>
+            <p>Proposals</p>
+        </div>
+        <div class="col-2 ">
+            <p class="mb-0" style="color: black; font-size: 16px;">2</p>
+            <p>Hired</p>
+        </div>*@
                                     <div class="col-2 ">
-                                        <p class="mb-0 " style="color: black; font-size: 16px;">0</p>
-                                        <p>Messaged</p>
-                                    </div>
-                                    <div class="col-2 ">
-                                        <p class="mb-0" style="color: black; font-size: 16px;">2</p>
-                                        <p>Hired</p>
+                                        @*<p class="mb-0 " style="color: black; font-size: 16px;">0</p>
+            <p>Messaged</p>*@
                                     </div>
 
                                 </div>
