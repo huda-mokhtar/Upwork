@@ -61,11 +61,11 @@
                         </div>
                     </div>
                     <div>
-                        @if (Model.Where(a => a.IsDraft == false && a.IsCanceled == false).Count() > 0)
+                        @if (Model.Where(a => a.IsDraft == false && a.IsCanceled==false).Count() > 0)
                         {
-                            if (Model.Where(a => a.IsDraft == false && a.IsCanceled == false).Count() > 6)
+                            if (Model.Where(a => a.IsDraft == false).Count() > 6)
                             {
-                                foreach (var posted in Model.Where(a => a.IsDraft == false && a.IsCanceled == false).Reverse().Take(6))
+                                foreach (var posted in Model.Where(a => a.IsDraft == false).Reverse().Take(6))
                                 {
                                     <div class="myDrafts">
                                         <div class="row m-0 p-0 mb-1"
@@ -129,7 +129,7 @@
                             }
                             else
                             {
-                                foreach (var posted in Model.Where(a => a.IsDraft == false && a.IsCanceled == false).Reverse())
+                                foreach (var posted in Model.Where(a => a.IsDraft == false).Reverse())
                                 {
                                     <div class="myDrafts">
                                         <div class="row m-0 p-0 mb-1"
