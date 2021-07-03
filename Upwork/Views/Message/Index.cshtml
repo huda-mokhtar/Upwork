@@ -2,6 +2,14 @@
 @{
     ViewData["Title"] = "Home Page";
     var UserName = User.Identity.Name;
+    if (User.IsInRole("Freelancer"))
+    {
+        Layout = "_FreelanceLayout";
+    }
+    else
+    {
+        Layout = "_ClientLayout";
+    }
 }
 
 <head>
@@ -10,7 +18,7 @@
 <div class="row mb-4" >
     <div class="col-12">
         <div class="row my-3 mx-4 p-1 border mb-5" style="border-radius: 5px; background-color: #fff">
-            <div class="col-3 border-right m-0  p-0">
+            <div class="col-3 border-right m-0 p-0">
                 <div class="mt-5 border mx-2" style="background-color: #fff; border-radius: 7px;">
                     @if (ViewBag.ListPeopel == null)
                     {
@@ -153,7 +161,7 @@
                                 }
 
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-12 mt-3">
                                 <form asp-action="Create" data-ajax-begin="clearInputField" data-ajax-complete=""
                                       data-ajax-failure="alert('Fail')" data-ajax-success="sendMessage"
                                       data-ajax="true" data-ajax-method="POST">

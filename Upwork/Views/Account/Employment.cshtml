@@ -32,9 +32,14 @@
                                         <p style="padding:0;margin:0"> @item.Description  </p>
                                     </div>
                                     <div class="col-2">
-                                        <a>
+                                        @*
+        <a data-toggle="ajax-modal" data-url="@Url.Action("EditEmployement","Account",new {FreelancerId=item.FreelancerId , CompanyId=item.CompanyId , CountryId=item.CountryId ,JobTitleId=item.JobTitleId })" data-target="#editEmployement">
+            <span style="font-size: 0.8rem; color: #656565; border: 1px solid #ccc; border-radius: 50%; padding: 0.6rem; " class="fa fa-pen"></span>
+        </a>
+                                        *@
+                                        <button style="all:unset;cursor:pointer" type="button" data-toggle="ajax-modal" data-target="#editEmployement" data-url="@Url.Action("EditEmployement","Account",new {FreelancerId=item.FreelancerId , CompanyId=item.CompanyId , CountryId=item.CountryId ,JobTitleId=item.JobTitleId })">
                                             <span style="font-size: 0.8rem; color: #656565; border: 1px solid #ccc; border-radius: 50%; padding: 0.6rem; " class="fa fa-pen"></span>
-                                        </a>
+                                        </button>
                                         <a asp-action="DeleteEmployement" asp-controller="Account" asp-route-FreelancerId="@item.FreelancerId" asp-route-CompanyId="@item.CompanyId" asp-route-CountryId="@item.CountryId" asp-route-JobTitleId="@item.JobTitleId">
                                             <span style="font-size: 0.8rem; color: #656565; border: 1px solid #ccc; border-radius: 50%; padding: 0.6rem; " class="fa fa-trash-alt"></span>
                                         </a>

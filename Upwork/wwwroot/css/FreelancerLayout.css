@@ -2,15 +2,11 @@
     padding: 0;
     margin: 0;
     list-style: none;
-    box-sizing: border-box
+    box-sizing: border-box;
 }
 
 a {
     text-decoration: none;
-}
-
-.navbar {
-    color: #fff;
 }
 
 .text-green {
@@ -28,60 +24,82 @@ a {
 .bg-white{
     background-color:#fff;
 }
-
-.navbar a:hover, .navbar i:hover {
-    color: #6fda44;
-    text-decoration: none;
-}
-
 .center {
     background-color: #f1f2f4;
     margin-bottom:0.3rem;
 }
+#freelancer-layot #up {
+    color: #6FDA44;
+    font-size: 40px;
+    font-family: 'Brush Script MT', cursive;
+}
 
-.navbar button {
+#freelancer-layot #work {
+    color: white;
+    font-size: 30px;
+    font-family: Georgia, serif;
+}
+
+#freelancer-layot .navbar {
+    color: #fff;
+}
+#freelancer-layot .navbar-nav , #freelancer-layot .dropdown-item{
+    font-size:0.9rem;
+    font-weight:500;
+}
+
+#freelancer-layot .navbar a:hover {
+    color: #6fda44 !important;
+    text-decoration: none;
+}
+
+
+
+#freelancer-layot .navbar button {
     border: none;
     background-color: transparent;
     color: white;
 }
 
-.dropdown-toggle::after {
-     display: none;
+#freelancer-layot .dropdown-toggle::after {
+    display: none;
 }
 
-.navbar .profile-img {
+#freelancer-layot .navbar .profile-img {
     width: 3rem;
     height: 3rem;
     border-radius: 50%;
 }
 
-.navbar .dropdown a.active {
+#freelancer-layot .navbar .dropdown a.active {
     background-color: #6fda44;
     color: #fff;
 }
 
-.navbar .dropdown-item img {
+#freelancer-layot .navbar .dropdown-item img {
     width: 2rem;
     height: 2rem;
 }
 
-.navbar .profile-menue .status {
+#freelancer-layot .navbar .profile-menue .status {
     border: 1px solid #a0a0a0;
     border-radius: 0.4rem;
 }
 
-.navbar .profile-menue .profile-status {
+#freelancer-layot .navbar .profile-menue .profile-status {
     padding: 0.3rem 2rem;
 }
 
-    .navbar .profile-menue .profile-status:hover {
-        background-color: #47691b;
-        color: #fff;
-    }
+#freelancer-layot .navbar .profile-menue .profile-status:hover {
+    background-color: #47691b;
+    color: #fff;
+}
 
-.input-group {
-    border: 0;
-    border-radius: 0.3rem;
+#freelancer-layot .input-group {
+    border: 1px solid transparent;
+    border-radius: 2rem;
+    background-color: #2b5468;
+    padding:0.2rem 0.7rem;
 }
 
     .input-group i {
@@ -89,25 +107,32 @@ a {
         font-size: 0.7rem;
     }
 
-.input-group-text {
+#freelancer-layot .input-group-text {
     background-color: transparent;
     border: 0;
     color:#fff;
 }
 
-.input-group-field {
+#freelancer-layot .input-group-field {
     border: 0;
     background-color: transparent;
     color:#fff;
 }
-.input-group-field:focus {
+#freelancer-layot .input-group-field:focus {
     outline: 0;
     box-shadow: 0 0 0 0 none;
     border:0;
-    background-color: #143240;
+    background-color: transparent;
     color:#fff;
 }
-
+#freelancer-layot .form-control:focus {
+    border:none;
+    outline: 0;
+    box-shadow: 0 0 0 0 none;
+}
+#freelancer-layot .dropdown-item:focus {
+    background-color:transparent;
+}
 
 @media screen and (max-width: 580px) {
     .navbar form .input-group {
@@ -167,10 +192,3 @@ footer i {
     margin: .4rem;
 }
 /******* end footer*********/
-.form-control:focus {
-    color: #495057;
-    background-color: #fff;
-    border-color: #3ce026d8;
-    outline: 0;
-    box-shadow: 0 0 0 0.1rem #81e774;
-}

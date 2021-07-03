@@ -69,7 +69,7 @@ namespace Upwork.Controllers
                     return Content(confirmationLink);
                     /*
                     // Send Emails using SendGrid
-                    var apikey = "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";
+                    var apikey = "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";
                     var client = new SendGridClient(apikey);
                     var from = new EmailAddress("itiupwork@gmail.com","Upwork");
                     var to = new EmailAddress(user.Email);
@@ -890,14 +890,11 @@ namespace Upwork.Controllers
                 var AreaId = db.AreasOfStudy.FirstOrDefault(a => a.Name == model.AreaOfStudy).AreaId;
                 var DegreeId = db.Degrees.FirstOrDefault(a => a.Name == model.Degree).DegreeId;
                 var education = db.Freelancer_Education.FirstOrDefault(a => a.FreelancerId == model.FreerlancerId && a.DegreeId == model.DegreeId && a.SchoolId == model.SchoolId && a.AreaId == model.AreaId);
-                db.Schools.FirstOrDefault(a => a.SchoolId == model.SchoolId).FreelancerEducations.Remove(education);
-                education.AreaId = AreaId;
-                education.DegreeId = DegreeId;
-                education.SchoolId = SchoolId;
-                education.From = new DateTime(model.From.Value, 1, 1);
-                education.To = new DateTime(model.To.Value, 1, 1);
-                education.Description = model.Description;
-                db.SaveChanges();
+                db.Freelancers.FirstOrDefault(a => a.FreelancerId == Freelancer.FreelancerId).Educations.Remove(education);
+                db.Freelancer_Education.Remove(education);
+                await db.SaveChangesAsync();
+                db.Freelancer_Education.Add(new Freelancer_Education() { FreelancerId = Freelancer.FreelancerId, AreaId = AreaId, SchoolId = SchoolId, DegreeId = DegreeId, From = new DateTime(model.From.Value, 1, 1), To = new DateTime(model.To.Value, 1, 1), Description = model.Description });
+                await db.SaveChangesAsync();
                 return RedirectToAction("Education", "Account");
             }
             return PartialView("AddEducationModal");
@@ -1002,6 +999,68 @@ namespace Upwork.Controllers
             db.Freelancer_Experience.Remove(Employement);
             db.SaveChanges();
             return RedirectToAction("Employment");
+        }
+
+        [Authorize]
+        public async Task<IActionResult> EditEmployement(string FreelancerId, int CompanyId, int CountryId, int JobTitleId)
+        {
+            if (await NotAuthorized())
+            {
+                return RedirectToAction("Data");
+            }
+            var Employement = await db.Freelancer_Experience.Include(a => a.Company).Include(a => a.JobTitle).FirstOrDefaultAsync(a => a.FreelancerId == FreelancerId && a.CompanyId == CompanyId && a.CountryId == CountryId && a.JobTitleId == JobTitleId);
+            AddEmployementViewModel model = new AddEmployementViewModel();
+            if (Employement != null)
+            {
+                model.Company = Employement.Company.Name;
+                model.CountryId = Employement.CountryId;
+                model.Description = Employement.Description;
+                model.Location = Employement.Location;
+                model.Title = Employement.JobTitle.Name;
+                model.FromMonth = Employement.From.Month;
+                model.FromYear = Employement.From.Year;
+                model.ToMonth = Employement.To.Month;
+                model.ToYear = Employement.To.Year;
+                model.OldCountryId = Employement.CountryId;
+                model.CompanyId = Employement.CompanyId;
+                model.JobTitleId = Employement.JobTitleId;
+            }
+            ViewBag.CountryId = new SelectList(db.Countries, "CountryId", "Name");
+            return PartialView("EditEmployementPartialModal", model);
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditEmployement(AddEmployementViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var u = await userManager.GetUserAsync(User);
+                var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+                if (db.Companies.FirstOrDefault(a => a.Name == model.Company) == null)
+                {
+                    db.Companies.Add(new Company() { Name = model.Company });
+                }
+                if (db.JobTitle.FirstOrDefault(a => a.Name == model.Title) == null)
+                {
+                    db.JobTitle.Add(new JobTitle() { Name = model.Title });
+                }
+                db.SaveChanges();
+                var CompanyId = db.Companies.FirstOrDefault(a => a.Name == model.Company).CompanyId;
+                var JobTitleId = db.JobTitle.FirstOrDefault(a => a.Name == model.Title).JobTitleId;
+                var Employement = db.Freelancer_Experience.FirstOrDefault(a => a.FreelancerId == Freelancer.FreelancerId && a.CompanyId == model.CompanyId && a.CountryId == model.OldCountryId && a.JobTitleId == model.JobTitleId);
+                db.Freelancers.FirstOrDefault(a => a.FreelancerId == Freelancer.FreelancerId).Experiences.Remove(Employement);
+                db.Companies.FirstOrDefault(a => a.CompanyId == model.CompanyId).FreelancerExperiences.Remove(Employement);
+                db.Countries.FirstOrDefault(a => a.CountryId == model.OldCountryId).FreelancerExperiences.Remove(Employement);
+                db.JobTitle.FirstOrDefault(a => a.JobTitleId == model.JobTitleId).FreelancerExperiences.Remove(Employement);
+                db.Freelancer_Experience.Remove(Employement);
+                await db.SaveChangesAsync();
+                db.Freelancer_Experience.Add(new Freelancer_Experience() { FreelancerId = Freelancer.FreelancerId, CompanyId = CompanyId, Location = model.Location, CountryId = model.CountryId.Value, JobTitleId = JobTitleId, From = new DateTime(model.FromYear, model.FromMonth, 1), To = new DateTime(model.ToYear, model.ToMonth, 1), Description = model.Description });
+                db.SaveChanges();
+                return RedirectToAction("Employment");
+            }
+            ViewBag.CountryId = new SelectList(db.Countries, "CountryId", "Name");
+            return PartialView("EditEmployementPartialModal", model);
         }
 
         //Languages
@@ -1189,6 +1248,8 @@ namespace Upwork.Controllers
                     string FullPath = Path.Combine(Uploads, FileName);
                     if (Freelancer.Image != null)
                     {
+                        Freelancer.Image = null;
+                        u.Image = null;
                         System.IO.File.Delete(FullPath);
                     }
                     model.File.CopyTo(new FileStream(FullPath, FileMode.Create));

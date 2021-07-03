@@ -1,0 +1,74 @@
+﻿@model ChangePhotoViewModel
+@{
+    ViewData["Title"] = "Change Photo";
+    Layout = "~/Views/Shared/_FreelanceLayout.cshtml";
+}
+
+<div id="editPhoto" class="offset-3 col-6 text-center">
+    <div class="modal-dialog-centered pt-4">
+        <div class="modal-content">
+            <div class="modal-header P-2">
+                <h4 class="modal-title">Edit Photo</h4>
+            </div>
+            <form asp-action="ChangePhoto" asp-controller="Freelancers" enctype="multipart/form-data">
+                <div class="m-0">
+                    <div class="row m-1 p-0 mt-5">
+                        <div class="col-7">
+                            <div data-container="UploadDiv" id="UploadDiv" class="text-center" style="border: 2px dashed #14a800; border-radius: 50%;width: 250px; height: 250px;cursor: pointer">
+                                <div class="my-5 mx-auto ">
+                                    <p class="mt-5">Attach Photo Here</p>
+                                </div>
+                            </div>
+                            <input type="file" asp-for="File" name="File" id="Myphoto" hidden />
+                        </div>
+                        <div class="col-5 mt-5">
+                            <h6 class="mt-5">
+                                Show clients the best version of yourself!
+                            </h6>
+                        </div>
+                        <span asp-validation-for="File" class="text-danger ml-5 mt-2"> </span>
+                    </div>
+                </div>
+                <div>
+                    <div class="text-right mt-4 mb-4">
+                        <a asp-action="Profile" asp-controller="Freelancers" class="btn text-success bg-white mr-2" style="border-color:lightgrey; width: fit-content;border-radius: 30px; font-weight: 500; ">
+                            Cancel
+                        </a>
+                        @*
+                            <input class="btn text-success bg-white mr-2"
+                                   style="border-color:lightgrey; width: fit-content;border-radius: 30px; font-weight: 500; " data-dismiss="modal" data-target="#editPhoto" value="Cancel" />
+                        *@
+                        <input type="submit" class="btn text-light mr-2" style="border-color:lightgrey; width: fit-content;font-weight: 500; background-color:#14a800 ;border-radius: 30px;" value="Attach Photo" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script>
+        var readURL = function (input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $("#UploadDiv").css("border", "none");
+                    $('#UploadDiv').html('<img  id="ProfilePhoto" style="width: 250px; height: 250px; border-radius: 50% "/>');
+                    $('#ProfilePhoto').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#Myphoto").on('change', function () {
+            readURL(this);
+        });
+
+        $("#UploadDiv").on('click', function () {
+            $("#Myphoto").click();
+        });
+    </script>
+}

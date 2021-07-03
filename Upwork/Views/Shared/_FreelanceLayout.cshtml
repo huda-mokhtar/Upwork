@@ -15,17 +15,17 @@
     <link href="~/lib/font-awesome/css/fontawesome.css" rel="stylesheet" />
     <link href="~/lib/font-awesome/css/v4-shims.css" rel="stylesheet" />
     <link href="~/css/FreelancerLayout.css" rel="stylesheet" />
-    <link href="~/css/ClientHome.css" rel="stylesheet" />
-    <link href="~/css/PostAJob.css" rel="stylesheet" />
+    @*<link href="~/css/ClientHome.css" rel="stylesheet" />
+    <link href="~/css/PostAJob.css" rel="stylesheet" />*@
 
     @await RenderSectionAsync("Style", required: false)
 </head>
 <body>
-    <header>
+    <header id="freelancer-layot">
         <!--navbar-->
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm  navbar-dark  bg-dark-cyan ">
             <div class="container">
-                <a class="navbar-brand"><span class="text-green">Up</span>work</a>
+                <a class="navbar-brand"><span id="up" class="text-green">Up</span ><span id="work" >work</span></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -37,7 +37,7 @@
                             <input type="search" class="form-control input-group-field" placeholder="search">
                         </div>
                     </form>
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul class="navbar-nav mr-lg-3">
                         <li class="nav-item dropdown p-lg-2 my-lg-2" data-cy="menu">
                             <a target="_self" asp-action="Index" asp-controller="Freelancers" role="button" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" class="dropdown-toggle nav-link text-light">
                                 <span class="nav-item-label">Find work</span>
@@ -95,40 +95,7 @@
                             </a>
 
                         </li>
-                        <li class="nav-item dropdown p-lg-2 my-lg-2">
-                            <a role="button" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" class="dropdown-toggle text-light nav-link">
-                                <span data-bs-toggle="tooltip" data-bs-placement="top" title="Help">
-                                    <i class="fas fa-question"></i>
-                                </span>
-                            </a>
-                            <ul data-cy="dropdown-menu" class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/f/home/" class="dropdown-item">
-                                        Help and support
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/f/contracts/" class="dropdown-item">
-                                        Community and forums
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/workdiary/freelancer/" class="dropdown-item">
-                                        Disputes
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item p-lg-2 my-lg-2">
-                            <a href="#" target="_self" class="nav-link text-light">
-                                <i class="far fa-bell"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item p-lg-2 my-lg-2">
-                            <a href="#" target="_self" data-bs-toggle="tooltip" data-bs-placement="top" title="Direct Contact" class="text-light nav-link">
-                                <i class="far fa-paper-plane"></i>
-                            </a>
-                        </li>
+
                         <li class="nav-item dropdown p-lg-2 my-lg-2">
                             <img src="~/ProfilePhotos/@CurrentUser.Image" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" class="dropdown-toggle img-fluid profile-img" />
                             <ul data-cy="dropdown-menu" class="dropdown-menu dropdown-menu-right profile-menue" aria-labelledby="dropdownMenuLink">
