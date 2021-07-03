@@ -285,7 +285,7 @@
                                             @if (SignIn.IsSignedIn(User) && User.IsInRole("Freelancer") && UserManager.GetUserId(User) == Model.FreelancerId)
                                             {
                                                 <div class="editIcon my-auto">
-                                                    <a asp-action="DeleteEducation" asp-controller="Freelancers" asp-route-AreaId="@Education.AreaId" asp-route-SchoolId="@Education.SchoolId" asp-route-DegreeId="@Education.DegreeId" asp-route-FreelancerId="@Education.FreelancerId" class="fa fa-trash-o" style="font-weight: 560; " aria-hidden="true"></a>
+                                                    <a asp-action="DeleteEducation" asp-controller="Freelancers" asp-route-AreaId="@Education.AreaId" asp-route-SchoolId="@Education.SchoolId" asp-route-DegreeId="@Education.DegreeId" asp-route-FreelancerId="@Education.FreelancerId" class="fa fa-trash-o" style="font-weight: 560; color: #656565; " aria-hidden="true"></a>
                                                 </div>
                                                 <div class="editIcon my-auto" data-toggle="modal" data-url="@Url.Action("EditEducation", "Freelancers", new { AreaId = Education.AreaId, SchoolId = Education.SchoolId, DegreeId = Education.DegreeId, FreelancerId = Education.FreelancerId })" data-target="#editEducation">
                                                     <i class="fa fa-pencil" aria-hidden="true"></i>
@@ -787,7 +787,7 @@
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                     </div>
                                     <div class="editIcon">
-                                        <a asp-action="DeleteEmployement" asp-controller="Freelancers" asp-route-FreelancerId="@Expert.FreelancerId" asp-route-CompanyId="@Expert.CompanyId" asp-route-CountryId="@Expert.CountryId" asp-route-JobTitleId="@Expert.JobTitleId" class="fa fa-trash-o" style="font-weight: 560; " aria-hidden="true"></a>
+                                        <a asp-action="DeleteEmployement" asp-controller="Freelancers" asp-route-FreelancerId="@Expert.FreelancerId" asp-route-CompanyId="@Expert.CompanyId" asp-route-CountryId="@Expert.CountryId" asp-route-JobTitleId="@Expert.JobTitleId" class="fa fa-trash-o" style="font-weight: 560; color: #656565; " aria-hidden="true"></a>
                                     </div>
                                 </div>
                             }
