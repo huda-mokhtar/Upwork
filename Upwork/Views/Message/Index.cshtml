@@ -2,6 +2,14 @@
 @{
     ViewData["Title"] = "Home Page";
     var UserName = User.Identity.Name;
+    if (User.IsInRole("Freelancer"))
+    {
+        Layout = "_FreelanceLayout";
+    }
+    else
+    {
+        Layout = "_ClientLayout";
+    }
 }
 
 <head>

@@ -34,12 +34,16 @@ namespace Upwork.Controllers
                 var Reciver = _context.Users.FirstOrDefault(a => a.Id == Id);
                 List<string> UsersResiverId = new List<string>();
                 List<ApplicationUser> Users = new List<ApplicationUser>();
-                var ListPeopel = _context.Messages.Where(a => a.UserId == CurrentUser.Id);
+                var ListPeopel = _context.Messages.Where(a => a.UserId == CurrentUser.Id ||a.ReceiverId==CurrentUser.Id);
                 foreach (var item in ListPeopel)
                 {
-                    if (!UsersResiverId.Contains(item.ReceiverId))
+                    if (!UsersResiverId.Contains(item.ReceiverId) && item.ReceiverId != CurrentUser.Id)
                     {
                         UsersResiverId.Add(item.ReceiverId);
+                    }
+                    if (!UsersResiverId.Contains(item.UserId)&&item.UserId!=CurrentUser.Id)
+                    {
+                        UsersResiverId.Add(item.UserId);
                     }
                 }
                 foreach (var i in UsersResiverId)
