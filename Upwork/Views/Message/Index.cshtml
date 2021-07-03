@@ -135,18 +135,18 @@
                                         if (UserName == message.UserName)
                                         {
                                             containerClass = "container darker";
-                                            timePsition = "time-right text-light";
-                                            textAlingn = "text-right text-white";
-                                            contcolor = "#14a800";
-                                            offset = "col-md-6 offset-md-6";
+                                            timePsition = "time-right";
+                                            textAlingn = "text-left pt-2  text-white";
+                                            contcolor = "";
+                                            offset = "col-md-5  offset-md-7";
                                         }
                                         else
                                         {
                                             containerClass = "container";
-                                            timePsition = "text-left";
-                                            textAlingn = "text-left";
+                                            timePsition = "time-Reciver";
+                                            textAlingn = "text-left pt-2";
                                             contcolor = "bg-light";
-                                            offset = "col-md-6";
+                                            offset = "col-md-5";
                                         }
                                         <div class="row">
                                             <div class="@offset">
@@ -166,7 +166,7 @@
                                       data-ajax-failure="alert('Fail')" data-ajax-success="sendMessage"
                                       data-ajax="true" data-ajax-method="POST">
                                     <div asp-validation-summary="ModelOnly" class="bg-danger"></div>
-                                    <div class="form-group">
+                                    <div class="form-group ">
                                         <input name="Text" class="form-control" id="messageText" />
                                     </div>
                                     <div class="form-group mx-auto">

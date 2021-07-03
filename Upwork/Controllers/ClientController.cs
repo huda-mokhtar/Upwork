@@ -707,8 +707,10 @@ namespace Upwork.Controllers
 
         public IActionResult ProjectDetails(int id)
         {
+           
             var Project = _context.Projects.Include(a => a.Skills).Include(a => a.SubCategory).
                 Include(a => a.Freelancer).Include(a => a.Freelancer.Experiences).Include(a => a.Freelancer.User).Include(a => a.Freelancer.City).FirstOrDefault(a => a.ProjectId == id);
+            ViewData["Experience"] = _context.Freelancer_Experience.Where(a => a.FreelancerId == Project.FreelancerId).Include(a => a.Company).Include(a => a.Country).Include(a => a.JobTitle).ToList();
             return View(Project);
         }
 
