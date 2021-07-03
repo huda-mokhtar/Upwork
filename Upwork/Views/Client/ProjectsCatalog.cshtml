@@ -73,7 +73,7 @@
                         </div>
                     </div>
                 <div class="content p-3">
-                    <h4 style="height:5rem" class="mt-1 text-left"><a href="#" class="text-success title">@project.Title</a></h4>
+                    <h4 style="height:5rem" class="mt-1 text-left"><a asp-action="ProjectDetails" asp-route-id="@project.ProjectId" class="text-success title">@project.Title</a></h4>
                     <small class="text-muted p float-right"> @CultureInfo.CreateSpecificCulture("en-US").DateTimeFormat.GetAbbreviatedMonthName(project.Date.Value.Month) @project.Date.Value.Year</small>
                     <small><p class="text-dark text-left" style="font-weight: 500; font-size: 14px;">@project.SubCategory.Name</p></small>
                     <div class="pt-2 mt-2 border-top d-flex">

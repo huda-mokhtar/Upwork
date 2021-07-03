@@ -11,18 +11,12 @@
         <div class="row m-1 p-0">
             <div class="col-6 mt-5 text-left">
             </div>
-            <div class="col-6 mt-5 text-right">
-                <div class="mr-3">
-                    <a href="#" style="color: #14a800; font-weight: 500;font-size: 19px;">
-                        <i class="fa fa-heart-o 2x mr-1"></i>Save
-                    </a>
-                </div>
-            </div>
+      
         </div>
         <div class="row m-1 p-0">
             <div class="col-8 mt-2">
                 <div class="row m-0">
-                    <h3 class="mx-0 mt-0 p-0" style="color: #1d4354; font:  bold 28px Rza;">
+                    <h3 class="mx-0 mt-0 p-0" style=" font:  bold 28px Rza;">
                         @Model.Title
                     </h3>
                 </div>
@@ -31,13 +25,10 @@
                         <img src="~/Images/@Model.Freelancer.Image" class="imgContainer mr-1" />
                         <a href="#" style="color: #14a800; font-weight: 500;font-size: 16px;">@Model.Freelancer.User.FirstName 
                         @Model.Freelancer.User.LastName</a>
-
                     </div>
-
-
                     <div class="col-4 toProfile text-right mr-0"
                          style="display:-webkit-box; -webkit-box-align:center; ">
-                        <a href="" style="color: #14a800; font-weight: 500;font-size: 16px;">
+                        <a asp-action="profile" asp-controller="home" asp-route-id="@Model.Freelancer.FreelancerId" style="color: #14a800; font-weight: 500;font-size: 16px;">
                             <i class="fa fa-eye mx-2 "
                                aria-hidden="true"></i>
                             View Profile
@@ -50,16 +41,16 @@
                     </div>
                 </div>
                 <div class="row m-0 mt-5 mb-3 border-bottom text-left">
-                    <h4 class="mb-4">
+                    <h6 class="mb-4">
                         @Model.Description
-                    </h4>
-                    <ul class="text-left" style="font-weight: 380;">
+                    </h6>
+                    <ol class="text-left" style="font-weight: 380;">
                         <li class="mb-3" style="list-style-type:disc">
-                            <b>Requierments:</b> @Model.Requierments
+                            Requierments: @Model.Requierments
                         </li>
                         <li class="mb-3" style="list-style-type:disc">
-                            <b>Subcatogray:</b> @Model.SubCategory.Name<br />
-                            <b>Skills:</b> <ul class="text-left" style="font-weight: 380;">
+                            Subcatogray: @Model.SubCategory.Name<br />
+                            Skills: <ul class="text-left" style="font-weight: 380;">
                                 @foreach (var item in Model.Skills)
                                 {
                                     <li>@item.Skill</li>
@@ -67,19 +58,19 @@
                             </ul>
                         </li>
                         <li class="mb-3" style="list-style-type:disc">
-                            <b> Question</b>: @Model.QuestionContent<br />
-                            <b>Answer</b>: @Model.QuestionAnswer
+                            Q1: @Model.QuestionContent<br />
+                            A:@Model.QuestionAnswer
                         </li>
                         <li class="mb-3" style="list-style-type:disc">
-                            <b>StepName:</b> @Model.StepName<br />
-                            <b>StepDescription:</b> @Model.StepDescription
+                            @Model.StepName<br />
+                            @Model.StepDescription
                         </li>
                         <li class="mb-3" style="list-style-type:disc">
-                            <b>SimultaneousProjects:</b> @Model.SimultaneousProjects
+                            SimultaneousProjects: @Model.SimultaneousProjects
                         </li>
-                    </ul>
+                    </ol>
                 </div>
-                <div class="row my-3 mx-0 p-0 ">
+                <div class=" my-3 mx-0 p-0 ">
                     <div class="col-11 mb-2 mx-0 text-left">
                         <h3>
                             About @Model.Freelancer.User.FirstName  @Model.Freelancer.User.LastName
@@ -100,14 +91,22 @@
                             </p>
                         </div>
                     </div>
-                    <div class="row m-0 p-0 my-3">
-                        <p class="freelancerDetails text-left">
-                            @foreach (var item in Model.Freelancer.Experiences)
-                            {
-                                <p>@item.Description, @item.JobTitle, @item.Country, @item.Company</p>
+                    <div class="mt-2 p-0 my-3">
+                        @foreach (var Expert in ViewBag.Experience)
+                        {
+                            <div class="card-body  ">
+                                <div class="row ml-3">
+                                    <div class="">
+                                        <h6 class="mb-1">@Expert.JobTitle.Name | @Expert.Company.Name</h6>
+                                        <p class="mt-1" style=" color: #656565;">
+                                            @CultureInfo.CreateSpecificCulture("en-US").DateTimeFormat.GetAbbreviatedMonthName(Expert.From.Month) @Expert.From.Year - @Expert.To.Year
 
-                            }
-                        </p>
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
                     </div>
 
                 </div>
