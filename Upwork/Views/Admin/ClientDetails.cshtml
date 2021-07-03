@@ -1,0 +1,95 @@
+﻿@model Client
+@{
+    ViewData["Title"] = "Client Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="col-div-8 pb-4 offset-2">
+
+    <div class="card">
+        <div class="row mt-3">
+            <h5 class="offset-3 text-white"> Name: </h5>
+            <h5 class="ml-4" style="color:#f7403b"> @Model.User.FirstName @Model.User.LastName </h5>
+        </div>
+        <div class="row">
+            <div class="col-1">
+            </div>
+            <div class="col-10">
+                <hr style="color:lightgray;background-color:lightgray" />
+            </div>
+            <div class="col-1">
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <h5 class="offset-3 text-white"> Email: </h5>
+            <h5 class="ml-4" style="color:#f7403b"> @Model.User.Email </h5>
+        </div>
+        <div class="row">
+            <div class="col-1">
+            </div>
+            <div class="col-10">
+                <hr style="color:lightgray;background-color:lightgray" />
+            </div>
+            <div class="col-1">
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <h5 class="offset-3 text-white"> Country: </h5>
+            <h5 class="ml-4" style="color:#f7403b"> @Model.User.Country.Name </h5>
+        </div>
+        <div class="row">
+            <div class="col-1">
+            </div>
+            <div class="col-10">
+                <hr style="color:lightgray;background-color:lightgray" />
+            </div>
+            <div class="col-1">
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <h5 class="offset-3 text-white"> Number of Jobs: </h5>
+            <h5 class="ml-4" style="color:#f7403b"> @Model.Jobs.Count() </h5>
+        </div>
+        <div class="row">
+            <div class="col-1">
+            </div>
+            <div class="col-10">
+                <hr style="color:lightgray;background-color:lightgray" />
+            </div>
+            <div class="col-1">
+            </div>
+        </div>
+
+
+        <div class="row mt-3">
+            <h5 class="offset-3 text-white"> Number of Projects: </h5>
+            <h5 class="ml-4" style="color:#f7403b"> @Model.client_Projects.Count() </h5>
+        </div>
+
+        <div class="pb-2 pt-2">
+            <a asp-action="Clients" asp-controller="Admin" class="btn btn-info col-2"> Back </a>
+        </div>
+    </div>
+</div>
+
+@section Styles{
+    <style>
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            margin: auto;
+            text-align: center;
+            font-family: arial;
+            background-color: #272c4a;
+            padding: 10px;
+        }
+
+        .content {
+            text-align: left;
+        }
+    </style>
+}

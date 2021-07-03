@@ -13,8 +13,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Upwork.Data;
+using Upwork.Hubs;
 using Upwork.Models;
 using Upwork.services;
+using Upwork.services.MessageServices;
 
 namespace Upwork
 {
@@ -48,8 +50,8 @@ namespace Upwork
             services.ConfigureApplicationCookie(options =>
             {
                 options.Cookie.HttpOnly = true;
-                options.AccessDeniedPath = "/Account/Signup";               
-                options.LoginPath = "/Account/Signup";               
+                options.AccessDeniedPath = "/Account/Login";               
+                options.LoginPath = "/Account/Login";               
                 options.SlidingExpiration = true;
                 options.ExpireTimeSpan = TimeSpan.FromDays(30);
             });
@@ -76,9 +78,14 @@ namespace Upwork
             {
                 options.ClientId = "315025860685-s8qmfdi9tsa6m8r080norgckon3qe85v.apps.googleusercontent.com";
                 options.ClientSecret = "d7aakXRMh0w1VBZ9EyEbWAAr";
+            }).AddFacebook(options =>
+            {
+                options.AppId = "423037182020001";
+                options.AppSecret = "83eeea8f94faafbd9ca0b44f945e808d";
             });
 
-
+            services.AddScoped<IChat, Chat>();
+            services.AddSignalR();
             services.AddAuthorization();
 
             services.AddControllersWithViews();
@@ -114,6 +121,7 @@ namespace Upwork
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
+                endpoints.MapHub<ChatHub>("/chatHub");
             });
         }
     }

@@ -1,0 +1,204 @@
+﻿@model Freelancer
+@{
+    ViewData["Title"] = "Freelancer Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="col-div-8 pb-4 offset-2">
+
+    <div class="card">
+        <div class=" text-center">
+            <div>
+                <img src="~/ProfilePhotos/@Model.Image" style="width: 150px;border-radius: 50%; height: 150px;">
+            </div>
+            <h1 style="color:gray"> @Model.User.UserName </h1>
+        </div>
+        <div class="row mt-3">
+            <h5 class="offset-3 text-white"> Name: </h5>
+            <h5 class="ml-4" style="color:#f7403b"> @Model.User.FirstName @Model.User.LastName </h5>
+        </div>
+        <div class="row">
+            <div class="col-1">
+            </div>
+            <div class="col-10">
+                <hr style="color:lightgray;background-color:lightgray" />
+            </div>
+            <div class="col-1">
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <h5 class="offset-3 text-white"> Title: </h5>
+            <h5 class="ml-4" style="color:#f7403b"> @Model.Title </h5>
+        </div>
+        <div class="row">
+            <div class="col-1">
+            </div>
+            <div class="col-10">
+                <hr style="color:lightgray;background-color:lightgray" />
+            </div>
+            <div class="col-1">
+            </div>
+        </div>
+
+
+        <div class="row mt-3">
+            <h5 class="offset-3 text-white"> Email: </h5>
+            <h5 class="ml-4" style="color:#f7403b"> @Model.User.Email </h5>
+        </div>
+        <div class="row">
+            <div class="col-1">
+            </div>
+            <div class="col-10">
+                <hr style="color:lightgray;background-color:lightgray" />
+            </div>
+            <div class="col-1">
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <h5 class="offset-3 text-white"> Phone: </h5>
+            <h5 class="ml-4" style="color:#f7403b"> +@Model.PhoneCountry.Key@Model.PhoneNumber </h5>
+        </div>
+        <div class="row">
+            <div class="col-1">
+            </div>
+            <div class="col-10">
+                <hr style="color:lightgray;background-color:lightgray" />
+            </div>
+            <div class="col-1">
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <h5 class="offset-3 text-white"> Country: </h5>
+            <h5 class="ml-4" style="color:#f7403b"> @Model.User.Country.Name </h5>
+        </div>
+        <div class="row">
+            <div class="col-1">
+            </div>
+            <div class="col-10">
+                <hr style="color:lightgray;background-color:lightgray" />
+            </div>
+            <div class="col-1">
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <h5 class="offset-3 text-white"> Experience Level: </h5>
+            <h5 class="ml-4" style="color:#f7403b"> @Model.ExperienceLevel </h5>
+        </div>
+        <div class="row">
+            <div class="col-1">
+            </div>
+            <div class="col-10">
+                <hr style="color:lightgray;background-color:lightgray" />
+            </div>
+            <div class="col-1">
+            </div>
+        </div>
+
+
+        <div class="row mt-3">
+            <h5 class="offset-3 text-white"> Number of Jobs hired: </h5>
+            <h5 class="ml-4" style="color:#f7403b"> @Model.Freelancer_Jobs.Where(a => a.IsHire == true).Count() </h5>
+        </div>
+        <div class="row">
+            <div class="col-1">
+            </div>
+            <div class="col-10">
+                <hr style="color:lightgray;background-color:lightgray" />
+            </div>
+            <div class="col-1">
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <h5 class="offset-3 text-white"> Number of Projects: </h5>
+            <h5 class="ml-4" style="color:#f7403b"> @Model.Projects.Count() </h5>
+        </div>
+        <div class="row">
+            <div class="col-1">
+            </div>
+            <div class="col-10">
+                <hr style="color:lightgray;background-color:lightgray" />
+            </div>
+            <div class="col-1">
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <h5 class="offset-3 text-white"> Category: </h5>
+            <h5 class="ml-4" style="color:#f7403b"> @Model.Category.Name </h5>
+        </div>
+        <div class="row">
+            <div class="col-1">
+            </div>
+            <div class="col-10">
+                <hr style="color:lightgray;background-color:lightgray" />
+            </div>
+            <div class="col-1">
+            </div>
+        </div>
+
+
+        <div class="row mt-3">
+            <h5 class="offset-3 text-white"> SubCategory: </h5>
+            <h5 class="ml-4" style="color:#f7403b"> @Model.SubCategory.Name </h5>
+        </div>
+        <div class="row">
+            <div class="col-1">
+            </div>
+            <div class="col-10">
+                <hr style="color:lightgray;background-color:lightgray" />
+            </div>
+            <div class="col-1">
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <h5 class="offset-3 text-white"> Hourly Rate: </h5>
+            <h5 class="ml-4" style="color:#f7403b"> @Model.HourlyRate $ </h5>
+        </div>
+        <div class="row">
+            <div class="col-1">
+            </div>
+            <div class="col-10">
+                <hr style="color:lightgray;background-color:lightgray" />
+            </div>
+            <div class="col-1">
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <h5 class="offset-3 text-white"> Skills: </h5>
+        </div>
+        <ul class="text-left offset-3" style="font-size:20px; margin-top: 0%; color:#f7403b;">
+            @foreach (var item in ViewBag.Skills)
+            {
+                <li> @item.Skill.Name </li>
+            }
+        </ul>
+        <div class="pb-2">
+            <a asp-action="Freelancers" asp-controller="Admin" class="btn btn-info col-2"> Back </a>
+        </div>
+    </div>
+</div>
+
+@section Styles{ 
+<style>
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        max-width: 600px;
+        margin: auto;
+        text-align: center;
+        font-family: arial;
+        background-color: #272c4a;
+        padding: 10px;
+    }
+    .content {
+        text-align: left;
+    }
+</style>
+}

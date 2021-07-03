@@ -1,0 +1,135 @@
+﻿@model HourlyRateViewModel
+<div class="modal" id="editHourlyRate">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header P-2">
+                <h4 class="modal-title">Change hourly rate</h4>
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form asp-action="EditHourlyRate" asp-controller="Freelancers">
+                <div class="modal-body m-0">
+                    <div class="row m-1 p-0">
+                        <div class="col-12 mb-4 text-left">
+                            <p class="mt-0 mb-4 p-0"
+                               style="font-weight: 400;font-size: 13px;">
+                                Please note that your new hourly rate will only apply to
+                                new contracts. The Upwork Service Fee is 20% when you
+                                begin a contract with a new client. Once you bill over
+                                $500 with your client, the fee will be 10%.
+                            </p>
+
+                            <p style="font-weight: 400; font-size: 14;color: #495057;">
+                                Your profile rate:<span id="ProfileRate">
+                                    $5.00/hr
+                                </span>
+                            </p>
+                        </div>
+                        <div class="col-10 pb-2 border-bottom text-left">
+                            <div class="row m-0 p-0">
+                                <div class="col-6 text-left my-auto">
+                                    <p class="mb-0 pb-0"
+                                       style="font-weight: 500; font-size: 14;">
+                                        Hourly Rate
+                                    </p>
+                                    <p class="mt-0 pt-0"
+                                       style="font-weight: 400; font-size: 13;">
+                                        Total amount the client will see
+                                    </p>
+                                </div>
+                                <div class="col-6 my-auto">
+                                    <div class="ml-5 my-auto">
+                                        <div class="d-inline">
+                                            <div class="form-group has-search d-inline">
+                                                <span class="form-control-feedback text-dark"><strong>$</strong></span>
+                                                <input type="text"
+                                                       class="form-control-dolars d-inline pt-2 pr-3 pb-2 pl-5 text-right"                  
+                                                       id="Total" min="0"
+                                                       required asp-for="HourlyRate">
+                                            </div>
+                                        </div>
+                                        <span class="d-inline"
+                                              aria-hidden="true">/hour</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-10 pb-2 border-bottom text-left pt-2">
+                            <div class="row m-0 p-0">
+                                <div class="col-6 text-left my-auto">
+                                    <p class="my-auto"
+                                       style="font-weight: 500; font-size: 14;">
+                                        20% Upwork Service Fee
+                                    </p>
+
+                                </div>
+                                <div class="col-6 my-auto">
+                                    <div class="ml-5 my-auto">
+                                        <div class="d-inline">
+                                            <div class="form-group has-search d-inline">
+                                                <span class="form-control-feedback text-dark"><strong>$</strong></span>
+                                                <input type="text"
+                                                       class="form-control-dolars d-inline pt-2 pr-3 pb-2 pl-5 text-right"
+                                                       name="BudgetFrom"
+                                                       id="Fee" disabled
+                                                       required >
+                                            </div>
+                                        </div>
+                                        <span class="d-inline"
+                                              aria-hidden="true">/hour</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-10 pb-4 border-bottom text-left pt-2">
+                            <div class="row m-0 p-0">
+                                <div class="col-6 text-left my-auto">
+                                    <p class="mb-0 pb-0"
+                                       style="font-weight: 500; font-size: 14;">
+                                        You'll Receive
+                                    </p>
+                                    <p class="mt-0 pt-0"
+                                       style="font-weight: 400; font-size: 13;">
+                                        The estimated amount you'll receive after service fees
+                                    </p>
+
+                                </div>
+                                <div class="col-6 my-auto">
+                                    <div class="ml-5 my-auto">
+                                        <div class="d-inline">
+                                            <div class="form-group has-search d-inline">
+                                                <span class="form-control-feedback text-dark"><strong>$</strong></span>
+                                                <input type="text"
+                                                       class="form-control-dolars d-inline pt-2 pr-3 pb-2 pl-5 text-right"
+                                                       name="BudgetFrom"
+                                                       id="receive" min="0"
+                                                       required>
+                                            </div>
+                                        </div>
+                                        <span class="d-inline"
+                                              aria-hidden="true">/hour</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="text-right mt-3">
+                        <input type="button" class="btn text-success bg-white mr-2 px-3"
+                               style="border-color:lightgrey; width: fit-content;border-radius: 30px; font-weight: 500; "
+                               data-dismiss="modal" data-target="#editHourlyRate"
+                               value="Cancel" />
+                        <input type="button" data-save="modal" class="btn text-light mr-2 px-3"
+                               style="border-color:lightgrey; width: fit-content;font-weight: 500; background-color:#14a800 ;border-radius: 30px;"
+                               value="Save" />
+                    </div>
+                </div>
+            </form>
+   
+        </div>
+    </div>
+</div>

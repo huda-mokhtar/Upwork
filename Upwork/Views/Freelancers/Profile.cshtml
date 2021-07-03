@@ -14,67 +14,168 @@
                         <div class="col-8">
                             <div class="row text-left" style="display:-webkit-box; -webkit-box-align:center; ">
                                 <div class=" ml-2 mr-2 p-0">
-                                    <div class="editPhoto mb-0 ml-0">
+                                    <div class="editPhoto mb-0 ml-0" data-url="@Url.Action("ChangeProfilePhoto")" data-toggle="modal" data-target="#editPhoto">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                     </div>
-                                    <img src="~/Images/ProfilePhotos/@Model.Image" class="Freelancer-photo my-auto" />
+                                    <div id="ModalPlaceHolder">
+                                    </div>
+                                    @* Photo *@
+                                    @*
+                                <div class="modal" id="editPhoto">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header P-2">
+                                                <h4 class="modal-title">Edit Photo</h4>
+                                            </div>
+                                            <div class="modal-body m-0">
+                                                <div class="row m-1 p-0">
+                                                    <div class="col-7">
+                                                        <div id="UploadDiv" class="text-center" style="border: 2px dashed #14a800; border-radius: 50%;width: 250px; height: 250px;cursor: pointer">
+                                                            <div class="my-5 mx-auto ">
+                                                                <p class="mt-5">Attach Photo Here</p>
+                                                            </div>
+                                                        </div>
+                                                        <input type="file" id="Myphoto" hidden />
+                                                    </div>
+                                                    <div class="col-5 mt-5">
+                                                        <h6 class="mt-5">
+                                                            Show clients the best version of yourself!
+                                                        </h6>
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <div class="text-right">
+                                                    <input type="button" class="btn text-success bg-white mr-2"
+                                                           style="border-color:lightgrey; width: fit-content;border-radius: 30px; font-weight: 500; " data-dismiss="modal" data-target="#editPhoto" value="Cancel" />
+                                                    <input type="button" class="btn text-light mr-2" style="border-color:lightgrey; width: fit-content;font-weight: 500; background-color:#14a800 ;border-radius: 30px;" value="Attach Photo" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                    *@
+                                    <img src="~/ProfilePhotos/@Model.Image" class="Freelancer-photo my-auto" />
                                 </div>
                                 <div class="ml-2">
-                                    <h2>@Model.User.UserName</h2>
+                                    <h2>@Model.User.FirstName @Model.User.LastName</h2>
                                     <i class="fa fa-map-marker  Address-time" aria-hidden="true"
                                        style="color: #656565;"></i>
                                     <p class="Address-time my-auto" style="display: inline-block;">
-                                        @Model.City.Name , @foreach(var country in ViewBag.countries) { if (country.CountryId == Model.PhoneCountryId)
-                                            {<span> @country.Name </span>} }
+                                        @Model.City.Name , @foreach (var country in ViewBag.countries)
+                                        {
+                                            if (country.CountryId == Model.PhoneCountryId)
+                                            {<span> @country.Name </span>}
+                                    }
                                     </p>
-                                    <p class="Address-time my-auto" style="display: inline-block;">
-                                        – 4:56 am local time
-                                    </p>
+                                    @*
+        <p class="Address-time my-auto" style="display: inline-block;">
+            – 4:56 am local time
+        </p>  *@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-4 text-left my-auto">
-                            <a class="btn devBtnGreen  px-4 py-2 text-light">
+                            <a class="btn devBtnGreen  px-4 py-2 text-light" asp-action="Settings">
                                 <h6 class="my-auto">
                                     Profile Settings
                                 </h6>
                             </a>
                         </div>
+
                     </div>
                 </div>
                 <div class="card-body m-0 p-0">
                     <div class="row m-0">
                         <div class="col-4 text-left">
+                            @*
+        <div class="my-4">
+            <div class="mx-2 my-1" style="display:-webkit-box; -webkit-box-align:center;">
+                <h5 style="font-weight: 490;">Hours</h5>
 
-                            <div class="my-4">
-                                <div class="mx-2 my-1" style="display:-webkit-box; -webkit-box-align:center;">
-                                    <h5 style="font-weight: 490;">Hours</h5>
-                                    <div class="editIcon">
-                                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                                <div class="mt-2 mb-5 mx-2">
-                                    <p class="mb-0" style="font-weight: 550;">Available</p>
-                                    <p>More than 30 hrs/week</p>
-                                </div>
-                            </div>
-
+            </div>
+            <div class="mt-2 mb-5 mx-2">
+                <p class="mb-0" style="font-weight: 550;">Available</p>
+                <p>More than 30 hrs/week</p>
+            </div>
+        </div>
+                            *@
                             <div class="my-4 ">
                                 <div class="mx-2" style="display:-webkit-box; -webkit-box-align:center;">
                                     <h5 style="font-weight: 490;">Languages</h5>
-                                    <div class="editIcon">
-                                        <i class="fa fa-plus" aria-hidden="true"></i>
-                                    </div>
-                                    <div class="editIcon ">
+
+                                    <div class="editIcon" data-url="@Url.Action("EditLanguages")" data-toggle="modal" data-target="#editLanguages">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                     </div>
+                                    @* edit Languages *@
+                                    @*
+                <div class="modal" id="editLanguages">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header P-2">
+                                <h4 class="modal-title">Edit languages</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body m-0">
+                                <div class="row m-1 p-0">
+                                    <div class="col-7 border-bottom">
+                                        <h6>
+                                            English
+                                        </h6>
+                                        <select class="form-control mb-2">
+                                            <option>
+                                                Native
+                                            </option>
+                                            <option>
+                                                Fluent
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row m-1 p-0">
+                                    <div class="col-7 mb-4">
+                                        <h6>
+                                            Arabic
+                                        </h6>
+                                        <select class="form-control">
+                                            <option>
+                                                Native
+                                            </option>
+                                            <option>
+                                                Fluent
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="modal-footer">
+                                <div class="text-right">
+                                    <input type="button" class="btn text-success bg-white mr-2"
+                                           style="border-color:lightgrey; width: fit-content;border-radius: 30px; font-weight: 500; " data-dismiss="modal" data-target="#editLanguages" value="Cancel" />
+                                    <input type="button" class="btn text-light mr-2" style="border-color:lightgrey; width: fit-content;font-weight: 500; background-color:#14a800 ;border-radius: 30px;" value="Save" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                                    *@
 
                                 </div>
                                 @foreach (var Language in ViewBag.Languages)
                                 {
 
                                     <div class="mt-2 mb-0 mx-2" style="display:-webkit-box; -webkit-box-align:center;">
-                                        
+
                                         <p style="font-weight: 550;" class="mb-0">@Language.Language.Name :</p>
                                         <p class=" ml-1 mb-0" style="color: #656565;">@Language.Proficiency.Name </p>
                                     </div>
@@ -85,24 +186,159 @@
                             <div class="my-4">
                                 <div class="mx-2 my-1" style="display:-webkit-box; -webkit-box-align:center;">
                                     <h5 style="font-weight: 490;">Education</h5>
-                                    <div class="editIcon">
+                                    <div data-url="@Url.Action("AddEducation")" class="editIcon" data-toggle="modal" data-target="#addEducation">
                                         <i class="fa fa-plus" aria-hidden="true"></i>
                                     </div>
+                                    @* Add Education *@
+                                    @*
+                <div class="modal" id="addEducation">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header P-2">
+                                <h4 class="modal-title">Add Education</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body m-0">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <form>
+                                                <div class="form-group  my-2">
+                                                    <label for="school" class="h6">school</label>
+                                                    <input type="text" class="form-control" id="school" />
+                                                </div>
+                                                <div class="form-group  my-2">
+                                                    <label for="city" class="h6">Dates Attended (Optional)</label>
+                                                    <div>
+                                                        <select class="form-control h-100 py-2" id="AttendedFrom" style="width: 44%; display: inline; border-radius: 30px;">
+                                                            <option>From</option>
+                                                            <option></option>
+                                                        </select>
+                                                        <select class="form-control h-100 float-right py-2" id="AttendedTo" style="width: 44%; display: inline; border-radius: 30px;"
+                                                                required>
+                                                            <option>To</option>
+                                                            <option></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group  my-2">
+                                                    <label for="Degree" class="h6">Degree (Optional)</label>
+                                                    <select class="form-control h-100 float-right py-2" id="Degree" style=" border-radius: 30px;">
+                                                        <option></option>
+                                                        <option></option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group  my-2">
+                                                    <label for="area" class="h6">Area Of Study(Optional)</label>
+                                                    <input type="text" class="form-control" id="area" />
+                                                </div>
+                                                <div class="form-group my-2">
+                                                    <label for="description" class="h6">Description (Optional)</label>
+                                                    <textarea class="form-control" id="description" style="height: 80px;"></textarea>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="text-right">
+                                    <input type="button" class="btn text-success bg-white mr-2"
+                                           style="border-color:lightgrey; width: fit-content;border-radius: 30px; font-weight: 500; " data-dismiss="modal" data-target="#addEducation" value="Cancel" />
+                                    <input type="button" class="btn text-light mr-2" style="border-color:lightgrey; width: fit-content;font-weight: 500; background-color:#14a800 ;border-radius: 30px;" value="Save" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                                    *@
                                 </div>
                                 @foreach (var Education in ViewBag.Education)
                                 {
-                                <div class="mt-2 mb-4">
-                                    <div class="my-0 mx-2" style="display:-webkit-box; -webkit-box-align:center;">
-                                        <p style="font-weight: 550; " class="mr-1 my-auto">@Education.School.Name  </p>
-                                        <div class="editIcon my-auto">
-                                            <i class="fa fa-trash-o" style="font-weight: 560; " aria-hidden="true"></i>
-                                        </div>
-                                        <div class="editIcon my-auto">
-                                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    <div class="mt-2 mb-4">
+                                        <div class="my-0 mx-2" style="display:-webkit-box; -webkit-box-align:center;">
+                                            <p style="font-weight: 550; " class="mr-1 my-auto">@Education.School.Name  </p>
+                                            <div class="editIcon my-auto">
+                                                <a asp-action="DeleteEducation" asp-controller="Freelancers" asp-route-AreaId="@Education.AreaId" asp-route-SchoolId="@Education.SchoolId" asp-route-DegreeId="@Education.DegreeId" asp-route-FreelancerId="@Education.FreelancerId" class="fa fa-trash-o" style="font-weight: 560; " aria-hidden="true"></a>
+                                            </div>
+                                            <div class="editIcon my-auto" data-toggle="modal" data-url="@Url.Action("EditEducation","Freelancers",new {AreaId=Education.AreaId , SchoolId=Education.SchoolId , DegreeId=Education.DegreeId ,FreelancerId=Education.FreelancerId })" data-target="#editEducation">
+                                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                                            </div>
+                                            @* Edit education *@
+                                            @*
+                        <div class="modal" id="editEducation">
+                            <div class="modal-dialog modal-dialog-centered modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header P-2">
+                                        <h4 class="modal-title">Edit Education</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body m-0">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <form>
+                                                        <div class="form-group  my-2">
+                                                            <label for="school" class="h6">school</label>
+                                                            <input type="text" class="form-control" id="school" />
+                                                        </div>
+                                                        <div class="form-group  my-2">
+                                                            <label for="city" class="h6">Dates Attended (Optional)</label>
+                                                            <div>
+                                                                <select class="form-control h-100 py-2" id="AttendedFrom" style="width: 44%; display: inline; border-radius: 30px;">
+                                                                    <option>From</option>
+                                                                    <option></option>
+                                                                </select>
+                                                                <select class="form-control h-100 float-right py-2" id="AttendedTo" style="width: 44%; display: inline; border-radius: 30px;"
+                                                                        required>
+                                                                    <option>To</option>
+                                                                    <option></option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group  my-2">
+                                                            <label for="Degree" class="h6">Degree (Optional)</label>
+                                                            <select class="form-control h-100 float-right py-2" id="Degree" style=" border-radius: 30px;">
+                                                                <option></option>
+                                                                <option></option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group  my-2">
+                                                            <label for="area" class="h6">Area Of Study(Optional)</label>
+                                                            <input type="text" class="form-control" id="area" />
+                                                        </div>
+                                                        <div class="form-group my-2">
+                                                            <label for="description" class="h6">Description (Optional)</label>
+                                                            <textarea class="form-control" id="description" style="height: 80px;"></textarea>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
-                                    <p class="mt-0 mx-2" style="font-weight: 400;font-size: 15px;color: #535353;">@Education.Degree.Name degree, @Education.AreaOfStudy.Name @Education.From.Year -@Education.To.Year </p>
+                                    <div class="modal-footer">
+                                        <div class="text-right">
+                                            <input type="button" class="btn text-success bg-white mr-2"
+                                                   style="border-color:lightgrey; width: fit-content;border-radius: 30px; font-weight: 500; " data-dismiss="modal" data-target="#editEducation" value="Cancel" />
+                                            <input data-save="modal" type="button" class="btn text-light mr-2" style="border-color:lightgrey; width: fit-content;font-weight: 500; background-color:#14a800 ;border-radius: 30px;" value="Save" />
+                                        </div>
+                                    </div>
+
                                 </div>
+                            </div>
+                        </div>
+                                            *@
+                                        </div>
+                                        <p class="mt-0 mx-2" style="font-weight: 400;font-size: 15px;color: #535353;">@Education.Degree.Name degree, @Education.AreaOfStudy.Name @Education.From.Year -@Education.To.Year </p>
+                                    </div>
                                 }
                             </div>
 
@@ -118,20 +354,192 @@
                                         <h4 class="my-auto" style="font-weight: 570; display: inline;">
                                             @Model.Title
                                         </h4>
-                                        <div class="editIcon  mx-1">
+                                        <div data-url="@Url.Action("EditTitle")" class="editIcon mx-1" data-toggle="modal" data-target="#editTitle">
                                             <i class="fa fa-pencil" aria-hidden="true"></i>
                                         </div>
+                                        @* Title *@
+                                        @*
+                                    <div class="modal" id="editTitle">
+                                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header P-2">
+                                                    <h4 class="modal-title">Edit your title</h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body m-0">
+                                                    <div class="row m-1 p-0">
+                                                        <h6 class="m-0 p-0 mb-2">
+                                                            your title
+                                                        </h6>
+                                                        <p class="mt-0 mb-3 p-0" style="font-weight: 400;font-size: 15px;">
+                                                            Enter a single sentence description of your professional skills/experience (e.g. Expert Web Designer with Ajax experience)
+                                                        </p>
+                                                        <input type="text" class="form-control" id="youTitle" value="your current title" />
+                                                    </div>
+                                                    <div class="text-right mt-3">
+                                                        <input type="button" class="btn text-success bg-white mr-2 px-3"
+                                                               style="border-color:lightgrey; width: fit-content;border-radius: 30px; font-weight: 500; " data-dismiss="modal" data-target="#editTitle" value="Cancel" />
+                                                        <input type="button" class="btn text-light mr-2 px-3" style="border-color:lightgrey; width: fit-content;font-weight: 500; background-color:#14a800 ;border-radius: 30px;" value="Save" />
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                        *@
                                     </div>
                                     <div class="col-3 text-right" style="display:-webkit-box; -webkit-box-align:center;">
                                         <h5 style="font-weight: 570;">
                                             $@Model.HourlyRate/hr
                                         </h5>
-                                        <div class="editIcon ">
+
+                                        <div id="HourlyPopup" class="editIcon" data-url="@Url.Action("EditHourlyRate")" data-toggle="modal" data-target="#editHourlyRate">
                                             <i class="fa fa-pencil" aria-hidden="true"></i>
                                         </div>
-                                        <div class="editIcon ">
-                                            <i class="fa fa-clipboard" aria-hidden="true"></i>
+                                        @* Edit Hourly rate *@
+                                        @*  
+                                        <div class="modal" id="editHourlyRate">
+                                            <div class="modal-dialog modal-dialog-centered modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header P-2">
+                                                        <h4 class="modal-title">Change hourly rate</h4>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body m-0">
+                                                        <div class="row m-1 p-0">
+                                                            <div class="col-12 mb-4 text-left">
+                                                                <p class="mt-0 mb-4 p-0"
+                                                                   style="font-weight: 400;font-size: 13px;">
+                                                                    Please note that your new hourly rate will only apply to
+                                                                    new contracts. The Upwork Service Fee is 20% when you
+                                                                    begin a contract with a new client. Once you bill over
+                                                                    $500 with your client, the fee will be 10%.
+                                                                </p>
+
+                                                                <p style="font-weight: 400; font-size: 14;color: #495057;">
+                                                                    Your profile rate:<span id="ProfileRate">
+                                                                        $5.00/hr
+                                                                    </span>
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-10 pb-2 border-bottom text-left">
+                                                                <div class="row m-0 p-0">
+                                                                    <div class="col-6 text-left my-auto">
+                                                                        <p class="mb-0 pb-0"
+                                                                           style="font-weight: 500; font-size: 14;">
+                                                                            Hourly Rate
+                                                                        </p>
+                                                                        <p class="mt-0 pt-0"
+                                                                           style="font-weight: 400; font-size: 13;">
+                                                                            Total amount the client will see
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="col-6 my-auto">
+                                                                        <div class="ml-5 my-auto">
+                                                                            <div class="d-inline">
+                                                                                <div class="form-group has-search d-inline">
+                                                                                    <span class="form-control-feedback text-dark"><strong>$</strong></span>
+                                                                                    <input type="text"
+                                                                                           class="form-control-dolars d-inline pt-2 pr-3 pb-2 pl-5 text-right"
+                                                                                           name="BudgetFrom"
+                                                                                           id="BudgetFromHourly" min="0"
+                                                                                           required value="5.00" disabled>
+                                                                                </div>
+                                                                            </div>
+                                                                            <span class="d-inline"
+                                                                                  aria-hidden="true">/hour</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="col-10 pb-2 border-bottom text-left pt-2">
+                                                                <div class="row m-0 p-0">
+                                                                    <div class="col-6 text-left my-auto">
+                                                                        <p class="my-auto"
+                                                                           style="font-weight: 500; font-size: 14;">
+                                                                            20% Upwork Service Fee
+                                                                        </p>
+
+                                                                    </div>
+                                                                    <div class="col-6 my-auto">
+                                                                        <div class="ml-5 my-auto">
+                                                                            <div class="d-inline">
+                                                                                <div class="form-group has-search d-inline">
+                                                                                    <span class="form-control-feedback text-dark"><strong>$</strong></span>
+                                                                                    <input type="text"
+                                                                                           class="form-control-dolars d-inline pt-2 pr-3 pb-2 pl-5 text-right"
+                                                                                           name="BudgetFrom"
+                                                                                           id="BudgetFromHourly" min="0"
+                                                                                           required value="-1.00">
+                                                                                </div>
+                                                                            </div>
+                                                                            <span class="d-inline"
+                                                                                  aria-hidden="true">/hour</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-10 pb-4 border-bottom text-left pt-2">
+                                                                <div class="row m-0 p-0">
+                                                                    <div class="col-6 text-left my-auto">
+                                                                        <p class="mb-0 pb-0"
+                                                                           style="font-weight: 500; font-size: 14;">
+                                                                            You'll Receive
+                                                                        </p>
+                                                                        <p class="mt-0 pt-0"
+                                                                           style="font-weight: 400; font-size: 13;">
+                                                                            The estimated amount you'll receive after service fees
+                                                                        </p>
+
+                                                                    </div>
+                                                                    <div class="col-6 my-auto">
+                                                                        <div class="ml-5 my-auto">
+                                                                            <div class="d-inline">
+                                                                                <div class="form-group has-search d-inline">
+                                                                                    <span class="form-control-feedback text-dark"><strong>$</strong></span>
+                                                                                    <input type="text"
+                                                                                           class="form-control-dolars d-inline pt-2 pr-3 pb-2 pl-5 text-right"
+                                                                                           name="BudgetFrom"
+                                                                                           id="BudgetFromHourly" min="0"
+                                                                                           required value="4.00">
+                                                                                </div>
+                                                                            </div>
+                                                                            <span class="d-inline"
+                                                                                  aria-hidden="true">/hour</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+                                                        </div>
+                                                        <div class="text-right mt-3">
+                                                            <input type="button" class="btn text-success bg-white mr-2 px-3"
+                                                                   style="border-color:lightgrey; width: fit-content;border-radius: 30px; font-weight: 500; "
+                                                                   data-dismiss="modal" data-target="#editHourlyRate"
+                                                                   value="Cancel" />
+                                                            <input type="button" class="btn text-light mr-2 px-3"
+                                                                   style="border-color:lightgrey; width: fit-content;font-weight: 500; background-color:#14a800 ;border-radius: 30px;"
+                                                                   value="Save" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
+                                        *@
+                                        @*
+        <div class="editIcon ">
+            <i class="fa fa-clipboard" aria-hidden="true"></i>
+        </div>
+                                        *@
                                     </div>
                                 </div>
                                 <div class="row m-0 p-1 mt-3">
@@ -142,10 +550,56 @@
                                         </p>
                                     </div>
                                     <div class="col-2">
-                                        <div class="editIcon ">
+                                        <div data-url="@Url.Action("EditOverview")" class="editIcon" data-toggle="modal" data-target="#editOverview">
                                             <i class="fa fa-pencil" aria-hidden="true"></i>
                                         </div>
                                     </div>
+                                    @* Overview *@
+                                    @*
+                                <div class="modal" id="editOverview">
+                                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header P-2">
+                                                <h4 class="modal-title">Overview</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body m-0">
+                                                <div class="row m-1 p-0">
+
+                                                    <p class="mt-0 mb-3 p-0" style="font-weight: 400;font-size: 15px;">
+                                                        Use this space to show clients you have the skills and experience they're looking for.
+                                                    </p>
+                                                    <ul style="font-weight: 370;font-size: 14px;">
+                                                        <li>
+                                                            Describe your strengths and skills
+                                                        </li>
+                                                        <li>
+                                                            Highlight projects, accomplishments and education
+                                                        </li>
+                                                        <li>
+                                                            Keep it short and make sure it's error-free
+                                                        </li>
+
+                                                    </ul>
+                                                    <textarea class="form-control p-2 mx-1" id="youDescription" style="height: 200px;">
+                                                    Looking for an opportunity in a reputed company that offers a professional working environment and enables me as afresh graduate to grow while meeting the corporations goals. I would like to work as a member of a professional team , which provides me with an excellent opportunity to prove myself
+                                               </textarea>
+                                                </div>
+                                                <div class="text-right mt-3">
+                                                    <input type="button" class="btn text-success bg-white mr-2 px-3"
+                                                           style="border-color:lightgrey; width: fit-content;border-radius: 30px; font-weight: 500; " data-dismiss="modal" data-target="#editOverview" value="Cancel" />
+                                                    <input type="button" data-save="modal" class="btn text-light mr-2 px-3" style="border-color:lightgrey; width: fit-content;font-weight: 500; background-color:#14a800 ;border-radius: 30px;" value="Save" />
+                                                </div>
+
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                    *@
                                 </div>
                             </div>
 
@@ -169,25 +623,55 @@
                                     <h5 class="mb-0" style=" font-weight: 490;">
                                         Skills
                                     </h5>
-                                    <div class="editIcon ">
+                                    <div class="editIcon" data-url="@Url.Action("EditSkills")" data-toggle="modal" data-target="#editSkills">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                     </div>
+                                    @* Edit skills *@
+                                    @* 
+                                    <div class="modal" id="editSkills">
+                                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header P-2">
+                                                    <h4 class="modal-title">Edit Skiils</h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body m-0">
+                                                    <div class="row m-1 p-0 border">
+
+
+                                                    </div>
+                                                    <div class="text-right mt-3">
+                                                        <input type="button" class="btn text-success bg-white mr-2 px-3"
+                                                               style="border-color:lightgrey; width: fit-content;border-radius: 30px; font-weight: 500; " data-dismiss="modal" data-target="#editSkills" value="Cancel" />
+                                                        <input type="button" class="btn text-light mr-2 px-3" style="border-color:lightgrey; width: fit-content;font-weight: 500; background-color:#14a800 ;border-radius: 30px;" value="Save" />
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    *@
                                 </div>
                                 <div class="row m-0 p-2">
                                     <div class="col-11 text-left">
-                                        @foreach (var freelancerskill in Model.Skills) {
-                                        @foreach (var skill in ViewBag.Skills)
+                                        @foreach (var freelancerskill in Model.Skills)
                                         {
-                                            if (skill.SkillId == freelancerskill.SkillId)
-                    {
-                                        <div class="Freelancer-skills py-1 px-2 m-1">@skill.Name</div>
-                    }
-                                            
-                                           
-                                        }
+                                            @foreach (var skill in ViewBag.Skills)
+                                            {
+                                                if (skill.SkillId == freelancerskill.SkillId)
+                                                {
+                                                    <div class="Freelancer-skills py-1 px-2 m-1">@skill.Name</div>
+                                                }
+
+
+                                            }
                                         }
 
-                                      
+
                                     </div>
 
                                 </div>
@@ -201,6 +685,9 @@
                 </div>
 
             </div>
+            @* Certifications *@
+            @*  
+
             <div class="col-12  col-lg-10 card mx-auto my-2">
                 <div class="card-header py-2 px-0 m-0 bg-white ">
                     <div class="row mx-1 my-2 p-0">
@@ -229,7 +716,7 @@
                     </div>
                 </div>
             </div>
-
+            *@
 
             <div class="col-12  col-lg-10 card mx-auto mt-2 mb-4">
                 <div class="card-header py-2 px-0 m-0 bg-white ">
@@ -239,7 +726,7 @@
 
                         </div>
                         <div class="col-2 px-2 py-3 text-right">
-                            <div class="editIcon ">
+                            <div data-url="@Url.Action("AddEmployement")" data-toggle="modal" data-target="#AddEmployement" class="editIcon ">
                                 <i class="fa fa-plus" aria-hidden="true"></i>
                             </div>
                         </div>
@@ -247,26 +734,26 @@
                 </div>
                 @foreach (var Expert in ViewBag.Experience)
                 {
-                <div class="card-body py-3 ">
-                    <div class="row">
-                        <div class="col-10 text-left px-2 py-3">   
-                            <h6 class="mb-1">@Expert.JobTitle.Name | @Expert.Company.Name</h6>
-                            <p class="mt-1" style=" color: #656565;">
-                                @CultureInfo.CreateSpecificCulture("en-US").DateTimeFormat.GetAbbreviatedMonthName(Expert.From.Month) @Expert.From.Year - @Expert.To.Year
-
-                            </p>
-                           
-                        </div>
-                        <div class="col-2 text-right px-2 py-3">
-                            <div class="editIcon ">
-                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                    <div class="card-body py-3 ">
+                        <div class="row">
+                            <div class="col-10 text-left px-2 py-3">
+                                <h6 class="mb-1">@Expert.JobTitle.Name | @Expert.Company.Name</h6>
+                                <p class="mt-1" style=" color: #656565;margin-bottom:0;padding-bottom:0">
+                                    @CultureInfo.CreateSpecificCulture("en-US").DateTimeFormat.GetAbbreviatedMonthName(Expert.From.Month) @Expert.From.Year - @Expert.To.Year
+                                </p>
+                                <span> @Expert.Description </span>
+                       
                             </div>
-                            <div class="editIcon">
-                                <i class="fa fa-trash-o" style="font-weight: 560; " aria-hidden="true"></i>
+                            <div class="col-2 text-right px-2 py-3">
+                                <div class="editIcon" data-toggle="modal" data-url="@Url.Action("EditEmployement","Freelancers",new {FreelancerId=Expert.FreelancerId , CompanyId=Expert.CompanyId , CountryId=Expert.CountryId ,JobTitleId=Expert.JobTitleId })" data-target="#editEmployement">
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                </div>
+                                <div class="editIcon">
+                                    <a asp-action="DeleteEmployement" asp-controller="Freelancers" asp-route-FreelancerId="@Expert.FreelancerId" asp-route-CompanyId="@Expert.CompanyId" asp-route-CountryId="@Expert.CountryId" asp-route-JobTitleId="@Expert.JobTitleId" class="fa fa-trash-o" style="font-weight: 560; " aria-hidden="true"></a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 }
             </div>
 
@@ -275,4 +762,98 @@
     </div>
 
 </div>
+
+@section Scripts{ 
+<script>
+   
+    var placeHolderElement = $("#ModalPlaceHolder");
+    
+    var readURL = function (input) {        
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $("#UploadDiv").css("border", "none");
+                $('#UploadDiv').html('<img  id="ProfilePhoto" style="width: 250px; height: 250px; border-radius: 50% "/>');
+                $('#ProfilePhoto').attr('src', e.target.result);
+            }         
+            reader.readAsDataURL(input.files[0]);          
+        }      
+    }
+   
+   
+    $('body').click(function (e) {
+        var Elem = e.target;
+        if (Elem.id == 'UploadDiv') {
+            $("#Myphoto").click();           
+        }
+    })
+    
+    $('body').change(function (e) {
+        var Elem = e.target;
+        if (Elem.id == 'Myphoto') {
+            readURL(document.getElementById("Myphoto"));
+        }
+    });
+
+    /*
+    $("#Myphoto").on('change', function () {
+        readURL(this);
+    });
+
+    $("#UploadDiv").on('click', function () {
+        $("#Myphoto").click();
+    });
+*/
+
+    placeHolderElement.on('change', 'input[type=checkbox]', function () {
+        if ($(this).prop('checked')) {
+            $(this).parent().addClass("bg-info");
+        }
+        else {
+            $(this).parent().removeClass("bg-info");          
+        };
+    });
+
+    placeHolderElement.on('keyup', '#Total', function () {
+        $("#receive").val(($("#Total").val() * 80 / 100).toFixed(2));
+        $("#Fee").val("-" + ($("#Total").val() * 20 / 100).toFixed(2));
+    });
+
+    placeHolderElement.on('keyup', '#receive', function () {
+        $("#Fee").html("-" + ($("#receive").val() / 4).toFixed(2));
+        $("#Total").val(($("#receive").val() * 100 / 80).toFixed(2));
+    });
+
+
+
+    $('div[data-toggle="modal"]').click(function (x) {
+        var url = $(this).data('url');
+        $.get(url).done(function (data) {
+            placeHolderElement.html(data);
+            placeHolderElement.find('.modal').modal('show');
+            if ($("#Total").val() != null) {
+                $("#Fee").val("-" + ($("#Total").val() * 20 / 100).toFixed(2));
+                $("#receive").val(($("#Total").val() * 80 / 100).toFixed(2));
+            }
+        })
+    });
+
+
+    placeHolderElement.on('click', '[data-save="modal"]', function (x) {
+        var form = $(this).parents('.modal').find('form');
+        var actionUrl = form.attr('action');
+        var sendData = form.serialize();
+        $.post(actionUrl, sendData).done(function (data) {
+
+            placeHolderElement.find('.modal').modal('hide');
+            window.location.reload();
+        }).fail(function () {
+            alert("error");
+        });
+    });
+
+  
+
+</script>
+}
 

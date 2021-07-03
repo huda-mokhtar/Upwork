@@ -67,6 +67,7 @@
                     <div class="container">
                         <div class="form-group my-2">
                             <label>Tell the client what you will deliver and how it benefits them</label>
+                            <input id="ProjectId" name="ProjectId" value="@ViewBag.id " hidden />
                             <input asp-for="Title" class="form-control" placeholder="You will get " />
                             <span asp-validation-for="Title" class="text-danger my-2"></span>
                             <div class="container examples my-2">

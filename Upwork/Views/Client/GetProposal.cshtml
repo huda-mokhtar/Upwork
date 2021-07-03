@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Upwork.Models.DbModels.Freelancer_Job>
+@if (ViewBag.ProPosalsCount == 0)
+{
+    <div class="row m-0 p-0 mt-3">
+        <div class="col-9 m-auto p-2">
+            <img src="~/Images/proposals.png" />
+        </div>
+    </div>
+}
+else
+{
+    @foreach (var proposal in Model)
+    {
+        <div class="porposed mt-4 mb-0">
+            <div class="row m-0 p-0">
+                <div class="col-2 m-0 p-0">
+                    <img src="~/Images/@proposal.Freelancer.Image" class="Freelancer-photo my-auto" />
+                </div>
+                <div class="col-7 text-left">
+                    <a class="mb-0 reuseLink" asp-action="Profile" asp-controller="Freelancers" asp-route-id="@proposal.FreelancerId" style="font-size: 15;">
+                        @foreach (var u in ViewBag.User)
+                        {
+
+                            if (u.FreelancerId == proposal.FreelancerId)
+                            {<span>@u.User.UserName</span>}
+                    }
+                    </a>
+                    <p class="mb-0" style="font-size: 16px;font-weight: 650;">
+                        @proposal.Freelancer.Title
+                    </p>
+                    <p class="mb-0" style="font-size: 15;color: rgb(102, 102, 102);font-weight: 600;">
+                        @proposal.Freelancer.City.Name
+                    </p>
+                    <p class="mb-0" style="font-size: 15; color: rgb(102, 102, 102);font-weight: 600;">
+                        $@proposal.Freelancer.HourlyRate / Hour
+                    </p>
+                    
+                </div>
+                <div class="col-3 p-0 text-right">
+                    <form method="post" enctype="multipart/form-data" action="~/Client/Hire" id="hireForm">
+                        <input hidden name="FreelancerId" id="freelancerId" value="@proposal.Freelancer.FreelancerId" />
+                        <input hidden name="JobsId" id="jobId" value="@proposal.JobsId" />
+                        <div class=" p-1 text-center mb-2">
+                            <input type="file" class="form-control" placeholder="CSV" id="contract" name="Contract" accept="application/pdf" required>
+                        </div>
+                        <div class=" lightDev text-center py-1 px-2 m-2" onclick="hire(this)">
+                            Hire
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    }
+}

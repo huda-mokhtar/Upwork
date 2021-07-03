@@ -51,11 +51,11 @@
         </div>
     </div>
     <a asp-action="GoogleLogin" asp-controller="Account">
-        <div class="row bg-primary col-12 mb-3 mt-3 ml-1" style="border-radius:23px;font-weight:500;padding:1px;width:550px">
+        <div class="row bg-white col-12 mb-3 mt-3 ml-1" style="border-radius:23px;font-weight:500;padding:1px;width:550px">
             <div>
                 <img style="border-radius:50%;width:50px;height:50px;background-color:white" src="~/Images/google.png" />
             </div>
-            <div class="offset-2 col-6 pt-3 text-white">
+            <div class="offset-2 col-6 pt-3 text-black-50">
                 Continue with Google
             </div>
         </div>
@@ -64,16 +64,32 @@
     {
         <span class="text-danger offset-1 pt-2 pb-2"> @ViewBag.GoogleMessage </span>
     }
-    <a>
-        <div class="container-fluid align-content-center text-center border-dark mb-3">
-            <div class="row pb-3">
-                <div id="AppleDiv" style="all:unset;border:1px solid black;padding: 10px 190px;text-align: center;text-decoration: none;display: inline-block;margin: 4px 2px;cursor: pointer;border-radius: 20px;background-color:#F1F2F4;color:black;font-weight:500">
-                    <span class="fa fa-apple-alt"></span>
-                    Continue with Apple
-                </div>
+    <a asp-action="FacebookLogin" asp-controller="Account">
+        <div class="row facebookdiv col-12 mb-3 mt-3 ml-1" style="border-radius:23px;font-weight:500;padding:1px;width:550px">
+            <div>
+                <img style="border-radius:50%;width:50px;height:50px;background-color:white" src="~/Images/Facebook.png" />
+            </div>
+            <div class="offset-2 col-6 pt-3 text-white">
+                Continue with Facebook
             </div>
         </div>
     </a>
+    @if (ViewBag.FacebookMessage != null)
+    {
+        <span class="text-danger"> @ViewBag.FacebookMessage </span>
+    }
+    @*
+        <a>
+            <div class="container-fluid align-content-center text-center border-dark mb-3">
+                <div class="row pb-3">
+                    <div id="AppleDiv" style="all:unset;border:1px solid black;padding: 10px 190px;text-align: center;text-decoration: none;display: inline-block;margin: 4px 2px;cursor: pointer;border-radius: 20px;background-color:#F1F2F4;color:black;font-weight:500">
+                        <span class="fa fa-apple-alt"></span>
+                        Continue with Apple
+                    </div>
+                </div>
+            </div>
+        </a>
+    *@
 </div>
 <div class="container text-center" style="padding:20px;border:1px solid lightgray;width:600px">
     <div class="row mt-3">

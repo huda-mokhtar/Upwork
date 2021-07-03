@@ -19,6 +19,7 @@ namespace Upwork.Models
         [Required(ErrorMessage = "SubCategory name is required!")]
         public string Name { get; set; }
 
+        [Required(ErrorMessage = "Category is required!")]
         [ForeignKey("Category")]
         public int CategoryId { get; set; }
 

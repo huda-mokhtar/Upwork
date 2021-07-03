@@ -179,6 +179,9 @@ namespace Upwork.Data.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
@@ -757,6 +760,37 @@ namespace Upwork.Data.Migrations
                     b.ToTable("Language_Proficiency");
                 });
 
+            modelBuilder.Entity("Upwork.Models.MessageModels.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ReceiverId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasMaxLength(4096)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("When")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Messages");
+                });
+
             modelBuilder.Entity("Upwork.Models.Project", b =>
                 {
                     b.Property<int>("ProjectId")
@@ -1270,6 +1304,15 @@ namespace Upwork.Data.Migrations
                     b.Navigation("Skill");
                 });
 
+            modelBuilder.Entity("Upwork.Models.MessageModels.Message", b =>
+                {
+                    b.HasOne("Upwork.Models.ApplicationUser", "Sender")
+                        .WithMany("Messages")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Sender");
+                });
+
             modelBuilder.Entity("Upwork.Models.Project", b =>
                 {
                     b.HasOne("Upwork.Models.Freelancer", "Freelancer")
@@ -1324,6 +1367,11 @@ namespace Upwork.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("Upwork.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("Messages");
                 });
 
             modelBuilder.Entity("Upwork.Models.AreaOfStudy", b =>

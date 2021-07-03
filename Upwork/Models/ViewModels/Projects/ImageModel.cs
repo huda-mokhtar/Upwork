@@ -8,6 +8,7 @@ namespace Upwork.Models.ViewModels.Projects
 {
     public class ImageModel
     {
+        public int id { get; set; }
         public IFormFile Image { get; set; }
         public string imageName { get; set; }
     }

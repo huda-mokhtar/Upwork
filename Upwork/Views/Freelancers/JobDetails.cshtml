@@ -1,0 +1,256 @@
+﻿@model Upwork.Models.DbModels.Jobs
+
+@{
+    ViewData["Title"] = "Job Details ";
+}
+@section Style {
+    <link href="~/css/JobDetails.css" rel="stylesheet" />
+}
+
+
+
+
+<div class="text-center">
+    <div class="container">
+
+
+        <div class="row m-0">
+            @if (Model.IsCanceled == true)
+            {
+                <div class="col-md-11 mx-auto mt-5 mb-2">
+                    <h6 class="text-left text-muted">This post is closed and is no longer accepting proposals.</h6>
+                </div>
+            }
+            <div class="col-md-11 mx-auto mt-5 mb-2">
+                <h4 class="text-left">@Model.Title</h4>
+            </div>
+            <div class="col-md-11 mx-auto my-4">
+
+                <!-- Tabs with icons on Card -->
+                <div class="card card-nav-tabs">
+                    
+                              <div class="tab-content text-center m-0 p-0">
+                                  <div class="tab-pane active m-0 p-0" id="jobDetails">
+                                      <div class="row m-0 py-2 pl-2 pr-0">
+                                          <div class="col-9 Jobdetails text-left">
+                                              <div class="jobTitle py-4">
+                                                  <h5 style="font-weight: 500;"> Job Details </h5>
+                                                  <p class="mt-4 mb-0" style="font-weight: 500; font-size: 16px;">
+                                                      @Model.subCategory.Name
+                                                  </p>
+                                                  <p class="mb-3" style="color:#3c4858;font-weight:400; font-size: 16px;">
+                                                      Posted @Model.CreateDate
+                                                  </p>
+                                                  <i class="fa fa-map-marker mr-1" aria-hidden="true" style="color:blue; font-weight:400; font-size: 16px; display: inline-block;"></i>
+                                                  <p class=" my-auto" style="color:#3c4858;font-weight:400; font-size: 16px; display: inline-block;">
+                                                      Worldwide
+                                                  </p>
+                                              </div>
+                                              <div class="jobDescription py-3">
+                                                  <p class="my-auto" style="font-weight: 480; font-size: 16px;">
+                                                      @Model.JobDescription
+                                                  </p>
+                                              </div>
+                                              <div class="jobDescription py-3">
+                                                  <div class="row m-0">
+                                                      <div class="col-4 m-0 p-0">
+                                                          <div class="row m-0">
+                                                              <div class="col-1 m-0">
+                                                                  <i class="fa fa-clock-o " aria-hidden="true"></i>
+                                                              </div>
+                                                              <div class="col-10">
+                                                                  <p class="mb-0" style="font-weight: 480; font-size: 16px;">
+                                                                      @if (Model.Type == "ShortTime")
+                                                                      {
+                                                                          <span>Less than 30 hrs/week</span>
+                                                                      }
+                                                                      else if (Model.Type == "LongTime")
+                                                                      {
+                                                                          <span>More than 30 hrs/week</span>
+                                                                      }
+
+                                                                  </p>
+                                                                  <p style="color:rgb(131, 131, 131);font-weight: 490; font-size: 14px;">
+                                                                      Hourly
+                                                                  </p>
+                                                              </div>
+                                                          </div>
+
+                                                      </div>
+                                                      <div class="col-4 m-0 p-0">
+                                                          <div class="row m-0">
+                                                              <div class="col-1 ">
+                                                                  <i class="fa fa-calendar-check-o " aria-hidden="true"></i>
+                                                              </div>
+                                                              <div class="col-10">
+                                                                  <p class="mb-0" style="font-weight: 480; font-size: 16px;">
+                                                                      @if (Model.Duration == 2)
+                                                                      {
+                                                                          <span>1 to 3 months</span>
+                                                                      }
+                                                                      else if (Model.Duration == 5)
+                                                                      {
+                                                                          <span>3 to 6 months</span>
+                                                                      }
+                                                                      else if (Model.Duration == 6)
+                                                                      {
+                                                                          <span>More than 6 months</span>
+                                                                      }
+
+                                                                  </p>
+                                                                  <p style="color:rgb(131, 131, 131);font-weight: 490; font-size: 14px;">
+                                                                      Project Length
+                                                                  </p>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                      <div class="col-4 m-0 p-0">
+                                                          <div class="row m-0">
+                                                              <div class="col-1 m-0">
+                                                                  <i class="fa fa-hourglass-end"></i>
+                                                              </div>
+                                                              <div class="col-10">
+                                                                  <p class="mb-0" style="font-weight: 480; font-size: 16px;">
+                                                                      @if (Model.TypeOfBudget == false)
+                                                                      {
+                                                                          <span>$@Model.BudgetFrom.00-$@Model.BudgetTo.00</span>
+                                                                      }
+                                                                      else if (Model.TypeOfBudget == true)
+                                                                      {
+                                                                          <span>$@Model.BudgetFrom.00</span>
+                                                                      }
+                                                                  </p>
+                                                                  <p class="mt-0" style="color:rgb(131, 131, 131);font-weight: 490; font-size: 14px;">
+                                                                      @if (Model.TypeOfBudget == false)
+                                                                      {
+                                                                          <span>Hourly</span>
+                                                                      }
+                                                                      else if (Model.TypeOfBudget == true)
+                                                                      {
+                                                                          <span>Fixed-price</span>
+                                                                      }
+
+                                                                  </p>
+                                                              </div>
+                                                          </div>
+
+                                                      </div>
+                                                      <div class="col-5 ml-0 pl-0">
+                                                          <div class="row m-0">
+                                                              <div class="col-1 ">
+                                                                  <i class="fa fa-usd" aria-hidden="true"></i>
+                                                              </div>
+                                                              <div class="col-10">
+                                                                  <p class="mb-0" style="font-weight: 480; font-size: 16px;">
+                                                                      @if (Model.LevelOfExperience == "Entry level")
+                                                                      {
+                                                                          <span>Entry level</span>
+                                                                      }
+                                                                      else if (Model.LevelOfExperience == "Intermediate level")
+                                                                      {
+                                                                          <span>Intermediate level</span>
+                                                                      }
+                                                                      else if (Model.LevelOfExperience == "Expert level")
+                                                                      {
+                                                                          <span>Entry level</span>
+                                                                      }
+                                                                  </p>
+                                                                  <p style="color:rgb(131, 131, 131);font-weight: 490; font-size: 14px;">
+                                                                      @if (Model.LevelOfExperience == "Entry level")
+                                                                      {
+                                                                          <span>Looking for someone relatively new to this field</span>
+                                                                      }
+                                                                      else if (Model.LevelOfExperience == "Intermediate level")
+                                                                      {
+                                                                          <span>Looking for substantial experience in this field</span>
+                                                                      }
+                                                                      else if (Model.LevelOfExperience == "Expert level")
+                                                                      {
+                                                                          <span>Looking for comprehensive and deep expertise in this field</span>
+                                                                      }
+                                                                  </p>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="jobDescription py-3">
+                                                  <h6 class="my-auto" style=" display: inline-block;">
+                                                      Project Type:
+                                                  </h6>
+                                                  <div style="display: inline-block;">
+                                                      <p style="color:rgb(77, 77, 77);font-weight: 490; font-size: 15px;">
+                                                          One-time project
+                                                      </p>
+                                                  </div>
+                                              </div>
+                                              <div class=" py-3">
+                                                  <h6 class="my-2">
+                                                      Skills and expertise
+                                                  </h6>
+                                                  <div class="my-3">
+                                                      @foreach (var s in ViewBag.Skills)
+                                                      {
+                                                          <div class="Job-skills py-1 px-2 m-1">@s.Name</div>
+                                                      }
+                                                
+
+                                                  </div>
+                                              </div>
+                                          </div>
+
+                                          <div class="col-3 m-0 p-0 text-left" style="background-color: #f9f9f9;">
+                                              <div class="py-5  mx-3 text-center">
+                                                  @if (ViewBag.FreelancerJob.IsProposal != true && ViewBag.FreelancerJob.IsHire != true)
+                                                  {
+
+                                                      <a asp-action="SubmitProposal" asp-controller="Freelancers" asp-route-id="@Model.Id" class="devBtnGreen text-center p-2 text-light d-block proposal">
+                                                          Submit Proposal
+                                                      </a>
+                                                  }
+                                                  @if (ViewBag.FreelancerJob.IsSaved)
+                                                  {
+
+                                                      <div class=" lightDev text-center p-2 my-3">
+                                                          <i class="fa fa-heart 2x"></i>
+                                                          Save Job
+                                                      </div>
+
+                                                  }
+                                                  else
+                                                  {
+                                                      <div class=" lightDev text-center p-2 my-3" >
+                                                          <i class="fa fa-heart-o 2x"></i>
+                                                          Saved
+                                                      </div>
+                                                  }
+
+                                              </div>
+
+                                           
+                                      </div>
+
+
+
+                                  </div>
+
+                              </div>
+                    </div>
+                </div>
+                <!-- End Tabs with icons on Card -->
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+@section Scripts {
+
+
+}

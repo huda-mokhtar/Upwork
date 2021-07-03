@@ -1,4 +1,9 @@
 ﻿@inject SignInManager<ApplicationUser> SignIn
+@inject UserManager<ApplicationUser> UserManager
+@{ 
+    var CurrentUser = await UserManager.GetUserAsync(User);
+   
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +33,7 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <form>
                         <div class="input-group my-2 ">
-                            <span class="input-group-text" id="basic-addon1" ><i class="fas fa-search"></i></span>
+                            <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
                             <input type="search" class="form-control input-group-field" placeholder="search">
                         </div>
                     </form>
@@ -38,7 +43,7 @@
                                 <span class="nav-item-label">Find work</span>
 
                             </a>
-                            
+
                             <ul data-cy="dropdown-menu" class="dropdown-menu mw-240" aria-labelledby="dropdownMenuLink">
                                 <li>
                                     <a target="_self" data-cy="menu-item-trigger" asp-action="Index" asp-controller="Freelancers" class="dropdown-item">
@@ -46,7 +51,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/f/contracts/" class="dropdown-item">
+                                    <a target="_self" data-cy="menu-item-trigger" asp-action="SavedJobs" asp-controller="Freelancers" class="dropdown-item">
                                         Saved Jobs
                                     </a>
                                 </li>
@@ -56,22 +61,12 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a target="_self" data-cy="menu-item-trigger" asp-action="profile" asp-controller="freelancers" asp-route-id="a123" class="dropdown-item">
+                                    <a target="_self" data-cy="menu-item-trigger" asp-action="profile" asp-controller="freelancers" asp-route-id="@UserManager.GetUserId(User)" class="dropdown-item">
                                         Profile
                                     </a>
                                 </li>
                                 <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/workdiary/freelancer/" class="dropdown-item">
-                                        My Stats
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/workdiary/freelancer/" class="dropdown-item">
-                                        Upwork Readiness Test
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/projects" class="dropdown-item">
+                                    <a target="_self" data-cy="menu-item-trigger" asp-action="Index" asp-controller="Projects" class="dropdown-item">
                                         My Project Dashboard
                                     </a>
                                 </li>
@@ -83,62 +78,16 @@
 
                             </a>
                             <ul data-cy="dropdown-menu" class="dropdown-menu mw-240" aria-labelledby="dropdownMenuLink">
+                               
                                 <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/f/home/" class="dropdown-item">
-                                        My Jobs
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/f/contracts/" class="dropdown-item">
+                                    <a target="_self" data-cy="menu-item-trigger" asp-action="Contracts" asp-controller="freelancers" class="dropdown-item">
                                         All Contracts
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/workdiary/freelancer/" class="dropdown-item">
-                                        Work Diary
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown p-lg-2 my-lg-2">
-                            <a target="_self" href="/ab/reports/in-progress" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" class="dropdown-toggle nav-link text-light">
-                                <span class="nav-item-label">Reports</span>
-                            </a>
-                            <ul class="dropdown-menu " aria-labelledby="dropdownMenuLink">
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/reports/in-progress" class="dropdown-item">
-                                        Overview
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/reports/freelancer" class="dropdown-item">
-                                        My Reports
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/payments/reports/earnings" class="dropdown-item">
-                                        Billings &amp; Earnings
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/nx/plans/connects/history" class="dropdown-item">
-                                        Connects History
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/payments/reports/earnings-history" class="dropdown-item">
-                                        Transaction History
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/payments/reports/certificate-of-earnings.pdf" class="dropdown-item">
-                                        Certificate of Earnings
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="nav-item p-lg-2 my-lg-2">
-                            <a target="_self" data-cy="menu-item-trigger" href="/messages/" class="nav-menu-item nav-link text-light">
+                            <a target="_self" data-cy="menu-item-trigger" asp-action="Index" asp-controller="Message" class="nav-menu-item nav-link text-light">
                                 <span class="nav-item-label">
                                     Messages
                                     <span style="display:inline-block;width:20px;"></span>
@@ -181,33 +130,22 @@
                             </a>
                         </li>
                         <li class="nav-item dropdown p-lg-2 my-lg-2">
-                            <img src="~/Images/16938730_371690419878868_4123771690068118215_n.jpg" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" class="dropdown-toggle img-fluid profile-img" />
+                            <img src="~/ProfilePhotos/@CurrentUser.Image" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" class="dropdown-toggle img-fluid profile-img" />
                             <ul data-cy="dropdown-menu" class="dropdown-menu dropdown-menu-right profile-menue" aria-labelledby="dropdownMenuLink">
-                                <li class="dropdown-item ">
-                                    <div class="status">
-                                        <a target="_self" data-cy="menu-item-trigger" href="/ab/f/home/" class="btn active  profile-status">
-                                            inline
-                                        </a>
-                                        <a target="_self" data-cy="menu-item-trigger" href="/ab/f/home/" class="btn profile-status">
-                                            invisable
-                                        </a>
-                                    </div>
-
-                                </li>
                                 <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/f/contracts/" class="dropdown-item">
-                                        <img src="~/Images/16938730_371690419878868_4123771690068118215_n.jpg" class="img-fluid rounded-circle" />
-                                        User Name
+                                    <a target="_self" data-cy="menu-item-trigger" asp-action="profile" asp-controller="freelancers" class="dropdown-item">
+                                        <img src="~/ProfilePhotos/@CurrentUser.Image" class="img-fluid rounded-circle" />
+                                        @CurrentUser.FirstName
                                     </a>
                                 </li>
                                 <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/workdiary/freelancer/" class="dropdown-item">
+                                    <a target="_self" data-cy="menu-item-trigger" asp-action="Settings" asp-controller="Freelancers" class="dropdown-item">
                                         <i class="fas fa-cog"></i>
                                         Setting
                                     </a>
                                 </li>
                                 <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/workdiary/freelancer/" class="dropdown-item">
+                                    <a target="_self" data-cy="menu-item-trigger" asp-action="Logout" asp-controller="Account" class="dropdown-item">
                                         <i class="fas fa-sign-out-alt"></i>
                                         Logout
                                     </a>
@@ -222,7 +160,7 @@
         <!--end  navbar-->
     </header>
     <!--Content-->
-    <div class="center mt-0" >
+    <div class="center mt-0">
         @RenderBody()
     </div>
     <!--end Content-->

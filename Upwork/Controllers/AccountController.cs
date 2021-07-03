@@ -180,7 +180,7 @@ namespace Upwork.Controllers
                 }
                 else if (await userManager.IsInRoleAsync(user, "Admin"))
                 {
-                    return Content("Admin home page...");
+                    return RedirectToAction("Index", "Admin");
                 }
                 else if (db.Freelancers.FirstOrDefault(a => a.FreelancerId == user.Id) != null)
                 {
@@ -217,6 +217,82 @@ namespace Upwork.Controllers
                 ViewBag.GoogleMessage = "Error loading external login information!";
                 return View("SignUp");
             }   
+        }
+        //Signup with Facebook
+        public IActionResult FacebookSignup()
+        {
+            var redircetUrl = Url.Action("FacebookSignupCallback", "Account");
+            var Properties = signInManager.ConfigureExternalAuthenticationProperties("Facebook", redircetUrl);
+            return new ChallengeResult("Facebook", Properties);
+        }
+
+        public async Task<IActionResult> FacebookSignupCallback(string remoteError = null)
+        {
+            if (remoteError != null)
+            {
+                ViewBag.FacebookMessage = "Error from Facebook provider!";
+                return View("SignUp");
+            }
+            var info = await signInManager.GetExternalLoginInfoAsync();
+            if (info == null)
+            {
+                ViewBag.FacebookMessage = "Error loading external login information!";
+                return View("SignUp");
+            }
+
+            var signInResult = await signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: true, bypassTwoFactor: true);
+            var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+            var user = await userManager.FindByEmailAsync(email);
+
+            if (signInResult.Succeeded)
+            {
+                if (await userManager.IsInRoleAsync(user, "Freelancer"))
+                {
+                    return RedirectToAction("Index", "Freelancers");
+                }
+                else if (await userManager.IsInRoleAsync(user, "Client"))
+                {
+                    return RedirectToAction("Index", "Client");
+                }
+                else if (await userManager.IsInRoleAsync(user, "Admin"))
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+                else if (db.Freelancers.FirstOrDefault(a => a.FreelancerId == user.Id) != null)
+                {
+                    return RedirectToAction("Phone");
+                }
+                else
+                {
+                    return RedirectToAction("DataExternal");
+                }
+            }
+            else
+            {
+                if (email != null)
+                {
+                    if (user == null)
+                    {
+                        user = new ApplicationUser
+                        {
+                            Email = info.Principal.FindFirstValue(ClaimTypes.Email),
+                            UserName = info.Principal.FindFirstValue(ClaimTypes.Email),
+                            FirstName = info.Principal.FindFirstValue(ClaimTypes.GivenName),
+                            LastName = info.Principal.FindFirstValue(ClaimTypes.Surname),
+                            EmailConfirmed = true
+                        };
+
+                        await userManager.CreateAsync(user);
+
+                    }
+                    await userManager.AddLoginAsync(user, info);
+                    await signInManager.SignInAsync(user, isPersistent: true);
+                    return RedirectToAction("DataExternal");
+                }
+
+                ViewBag.FacebookMessage = "Error loading external login information!";
+                return View("SignUp");
+            }
         }
 
         // Login Google
@@ -257,7 +333,7 @@ namespace Upwork.Controllers
                 }
                 else if (await userManager.IsInRoleAsync(user, "Admin"))
                 {
-                    return Content("Admin home page...");
+                    return RedirectToAction("Index", "Admin");
                 }
                 else if (db.Freelancers.FirstOrDefault(a => a.FreelancerId == user.Id) != null)
                 {
@@ -273,6 +349,62 @@ namespace Upwork.Controllers
                 ViewBag.GoogleMessage = "Invalid login attempt!";
                 return View("Login");
             }         
+        }
+
+        // Login with Facebook
+        public IActionResult FacebookLogin()
+        {
+            var redircetUrl = Url.Action("FacebookLoginCallback", "Account");
+            var Properties = signInManager.ConfigureExternalAuthenticationProperties("Facebook", redircetUrl);
+            return new ChallengeResult("Facebook", Properties);
+        }
+
+        public async Task<IActionResult> FacebookLoginCallback(string remoteError = null)
+        {
+            if (remoteError != null)
+            {
+                ViewBag.FacebookMessage = "Error from Facebook provider!";
+                return View("Login");
+            }
+            var info = await signInManager.GetExternalLoginInfoAsync();
+            if (info == null)
+            {
+                ViewBag.FacebookMessage = "Error loading external login information!";
+                return View("Login");
+            }
+
+            var signInResult = await signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: true, bypassTwoFactor: true);
+
+            if (signInResult.Succeeded)
+            {
+                var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+                var user = await userManager.FindByEmailAsync(email);
+                if (await userManager.IsInRoleAsync(user, "Freelancer"))
+                {
+                    return RedirectToAction("Index", "Freelancers");
+                }
+                else if (await userManager.IsInRoleAsync(user, "Client"))
+                {
+                    return RedirectToAction("Index", "Client");
+                }
+                else if (await userManager.IsInRoleAsync(user, "Admin"))
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+                else if (db.Freelancers.FirstOrDefault(a => a.FreelancerId == user.Id) != null)
+                {
+                    return RedirectToAction("Phone");
+                }
+                else
+                {
+                    return RedirectToAction("DataExternal");
+                }
+            }
+            else
+            {
+                ViewBag.FacebookMessage = "Invalid login attempt!";
+                return View("Login");
+            }
         }
 
         // Extrnal User data 
@@ -323,6 +455,7 @@ namespace Upwork.Controllers
                     await userManager.AddToRoleAsync(u, "Client");
                     db.Clients.Add(new Models.DbModels.Client() { ClientId = u.Id });
                     db.SaveChanges();
+                    await signInManager.SignInAsync(u,true);
                     return RedirectToAction("Index", "Client");
                     // redirect to client home page
                     //  return Content("Client home here...");
@@ -389,6 +522,7 @@ namespace Upwork.Controllers
                     await userManager.AddToRoleAsync(u, "Client");
                     db.Clients.Add(new Models.DbModels.Client() { ClientId = u.Id });
                     db.SaveChanges();
+                    await signInManager.SignInAsync(u, true);
                     return RedirectToAction("Index", "Client");
                     // redirect to client home page
                   //  return Content("Client home here...");
@@ -683,9 +817,18 @@ namespace Upwork.Controllers
             {
                 var u = await userManager.GetUserAsync(User);
                 var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
-                db.Schools.Add(new School() { Name=model.School});
-                db.AreasOfStudy.Add(new AreaOfStudy() { Name = model.AreaOfStudy });
-                db.Degrees.Add(new Degree() { Name= model.Degree});
+                if (db.Schools.FirstOrDefault(a=>a.Name == model.School) == null)
+                {
+                    db.Schools.Add(new School() { Name = model.School });
+                }
+                if (db.AreasOfStudy.FirstOrDefault(a=>a.Name == model.AreaOfStudy) == null)
+                {
+                    db.AreasOfStudy.Add(new AreaOfStudy() { Name = model.AreaOfStudy });
+                }
+                if (db.Degrees.FirstOrDefault(a=>a.Name == model.Degree) == null)
+                {
+                    db.Degrees.Add(new Degree() { Name = model.Degree });
+                }
                 db.SaveChanges();
                 var SchoolId = db.Schools.FirstOrDefault(a => a.Name == model.School).SchoolId;
                 var AreaId = db.AreasOfStudy.FirstOrDefault(a => a.Name == model.AreaOfStudy).AreaId;
@@ -826,8 +969,14 @@ namespace Upwork.Controllers
             {
                 var u = await userManager.GetUserAsync(User);
                 var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
-                db.Companies.Add(new Company() { Name = model.Company });
-                db.JobTitle.Add(new JobTitle() { Name = model.Title });    
+                if (db.Companies.FirstOrDefault(a=>a.Name == model.Company) == null)
+                {
+                    db.Companies.Add(new Company() { Name = model.Company });
+                }
+                if (db.JobTitle.FirstOrDefault(a=>a.Name == model.Title) == null)
+                {
+                    db.JobTitle.Add(new JobTitle() { Name = model.Title });
+                }
                 db.SaveChanges();
                 var CompanyId = db.Companies.FirstOrDefault(a => a.Name == model.Company).CompanyId;
                 var JobTitleId = db.JobTitle.FirstOrDefault(a => a.Name == model.Title).JobTitleId;
@@ -1045,6 +1194,7 @@ namespace Upwork.Controllers
                     model.File.CopyTo(new FileStream(FullPath, FileMode.Create));
                 }
                 Freelancer.Image = FileName;
+                u.Image = FileName;
                 db.SaveChanges();
                 return RedirectToAction("Location");
             }
@@ -1092,9 +1242,12 @@ namespace Upwork.Controllers
             {
                 var u = await userManager.GetUserAsync(User);
                 var Freelancer = db.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
-                db.Cities.Add(new City() { Name = model.City, CountryId = model.CountryId.Value });
-                db.SaveChanges();
-                var CityId = db.Cities.FirstOrDefault(a => a.Name == model.City).CityId;
+                if (db.Cities.FirstOrDefault(a=>a.Name == model.City && a.CountryId == model.CountryId.Value) == null)
+                {
+                    db.Cities.Add(new City() { Name = model.City, CountryId = model.CountryId.Value });
+                    db.SaveChanges();
+                }             
+                var CityId = db.Cities.FirstOrDefault(a => a.Name == model.City && a.CountryId == model.CountryId.Value).CityId;
                 Freelancer.CityId = CityId;
                 Freelancer.Street = model.Street;
                 Freelancer.ZIP = model.ZIP;
@@ -1146,6 +1299,7 @@ namespace Upwork.Controllers
                 Freelancer.PhoneNumber = model.Phone.ToString();
                 await userManager.AddToRoleAsync(u, "Freelancer");
                 db.SaveChanges();
+                await signInManager.SignInAsync(u, true);
                 return RedirectToAction("Index", "Freelancers");
                // return Content("Freelancer home page...");
             }
@@ -1182,7 +1336,7 @@ namespace Upwork.Controllers
                         }
                         else if (await userManager.IsInRoleAsync(user, "Admin"))
                         {
-                            return Content("Admin home page...");
+                            return RedirectToAction("Index", "Admin");
                         }
                         else if (db.Freelancers.FirstOrDefault(a=>a.FreelancerId == user.Id) !=null)
                         {

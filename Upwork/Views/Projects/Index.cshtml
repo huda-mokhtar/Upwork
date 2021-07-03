@@ -28,8 +28,8 @@
                     </li>
 
                 </ul>
-              
-                <div class="tab-content" id="myTabContent">  
+
+                <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                         @foreach (var item in Model)
                         {
@@ -37,9 +37,9 @@
                                 <div class="container">
                                     <div class="row align-items-center">
                                         <div class="col-10">
-                                            <div class="d-flex">
+                                            <div class="d-flex GreenAncor">
                                                 <img src="/Images/@item.Image" class="project-img" />
-                                                <p class="project-title">@item.Title</p>
+                                                <a asp-action="ProjectDetails" asp-controller="Projects" asp-route-id="@item.ProjectId"> <p class="project-title">@item.Title</p> </a>
                                             </div>
                                         </div>
                                         <div class="col-2">
@@ -61,13 +61,16 @@
                             <div class="modal" id="tt-@item.ProjectId">
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
-                                        <div class="modal-body row justify-content-between">
-                                            <div class="col col-6">
-                                                Are you Sure ?
-                                            </div>
-                                            <div class="col col-2">
-                                                <a  data-dismiss="modal"><i class="fa fa-close"></i></a>
-                                                <a href="/Projects/Delete/@item.ProjectId"><i class="fa fa-check" ></i></a>
+                                        <div class="modal-body mx-2 my-3">
+                                            <p style="color: #656565;font-size: 17px;font-weight: 500;"> Are You Sure ?</p>
+                                            <div class="text-right mt-3">
+                                                <input type="button" class="btn text-danger bg-white mr-2 px-3"
+                                                       style="border-color:lightgrey; width: fit-content;border-radius: 30px; font-weight: 500; "
+                                                       data-dismiss="modal" data-target="#editSkills" value="Cancel" />
+                                                <div class="btn text-light mr-2 px-3 btn-danger WhiteAncor"
+                                                     style="border-color:lightgrey; width: fit-content;font-weight: 500; border-radius: 30px;">
+                                                    <a href="/Projects/Delete/@item.ProjectId"> Delete</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -85,7 +88,7 @@
                                         <div class="col-10">
                                             <div class="d-flex">
                                                 <img src="~/Images/@item.Image" class="project-img" />
-                                                <p class="project-title">@item.Title</p>
+                                                <a asp-action="ProjectDetails" asp-controller="Projects" asp-route-id="@item.ProjectId"> <p class="project-title">@item.Title</p> </a>
                                             </div>
 
                                         </div>
@@ -108,13 +111,16 @@
                             <div class="modal" id="tt-@item.ProjectId">
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
-                                        <div class="modal-body row justify-content-between">
-                                            <div class="col col-6">
-                                                Are you Sure ?
-                                            </div>
-                                            <div class="col col-2">
-                                                <a data-dismiss="modal"><i class="fa fa-close"></i></a>
-                                                <a href="/Projects/Delete/@item.ProjectId"><i class="fa fa-check"></i></a>
+                                        <div class="modal-body mx-2 my-3">
+                                            <p style="color: #656565;font-size: 17px;font-weight: 500;"> Are You Sure ?</p>
+                                            <div class="text-right mt-3">
+                                                <input type="button" class="btn text-danger bg-white mr-2 px-3"
+                                                       style="border-color:lightgrey; width: fit-content;border-radius: 30px; font-weight: 500; "
+                                                       data-dismiss="modal" data-target="#editSkills" value="Cancel" />
+                                                <div  class="btn text-light mr-2 px-3 btn-danger WhiteAncor"
+                                                       style="border-color:lightgrey; width: fit-content;font-weight: 500; border-radius: 30px;">
+                                                   <a href="/Projects/Delete/@item.ProjectId" > Delete</a>
+                                                    </div>
                                             </div>
                                         </div>
                                     </div>
@@ -122,148 +128,154 @@
                             </div>
                         }
                     </div>
-                    
-                </div>
-                
-            </div>
-            <div class="wrapper">
-                <!--Head-->
-                <div class="row border-bottom pb-4 pt-2">
-                    <div class="container">
-                        <h4>How Project Catalog works</h4>
-                    </div>
-                </div>
-                <!--end head-->
-                <div class="row">
-                    <div class="col-md-3 col-12 my-4 ">
-                        <div class="card">
-                            <img src="~/Images/projectcatalog1.PNG" class="card-img-top" />
-                            <div class="card-body">
-                                <h5 class="card-title text-center">1. Get an order</h5>
-                                <p class="card-text text-center">You can start communicating via Upwork Messages.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-12 my-4 ">
-                        <div class="card">
-                            <img src="~/Images/projectcatalog2.PNG" class="card-img-top" />
-                            <div class="card-body">
-                                <h5 class="card-title text-center">1. Get an order</h5>
-                                <p class="card-text text-center">You can start communicating via Upwork Messages.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-12 my-4 ">
-                        <div class="card">
-                            <img src="~/Images/projectcatalog3.PNG" class="card-img-top" />
-                            <div class="card-body">
-                                <h5 class="card-title text-center">1. Get an order</h5>
-                                <p class="card-text text-center">You can start communicating via Upwork Messages.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-12 my-4 ">
-                        <div class="card">
-                            <img src="~/Images/projectcatalog4.PNG" class="card-img-top" />
-                            <div class="card-body">
-                                <h5 class="card-title text-center">1. Get an order</h5>
-                                <p class="card-text text-center">You can start communicating via Upwork Messages.</p>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
 
             </div>
-            <div class="wrapper">
-                <!--Head-->
-                <div class="row border-bottom  pt-2">
-                    <div class="container">
-                        <h4>FAQs</h4>
+
+
+        </div>
+    </div>
+    <div class="wrapper">
+        <!--Head-->
+        <div class="row border-bottom pb-4 pt-2">
+            <div class="container">
+                <h4>How Project Catalog works</h4>
+            </div>
+        </div>
+        <!--end head-->
+        <div class="row">
+            <div class="col-md-3 col-12 my-4 ">
+                <div class="card">
+                    <img src="~/Images/projectcatalog1.PNG" class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title text-center">1. Get an order</h5>
+                        <p class="card-text text-center">You can start communicating via Upwork Messages.</p>
                     </div>
                 </div>
-                <div class="row border-bottom pb-0 pt-2">
-                    <div class="container" data-toggle="collapse" href="#collapseOne" style="cursor: pointer;" id="accordion1">
-                        <div class="row m-0 p-0">
-                            <div class="col-9 mr-1 text-left">
-                                <p class="seconedHeaders mb-2">
-                                    What is Project Catalog?
-                                </p>
-                            </div>
-                            <div class="col-2 m-0 text-right">
-                                <a class="card-link rotateLink1" data-toggle="collapse" style="color:black;"
-                                   href="#collapseOne"><i class="fa fa-angle-down rotateAngle1"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="collapseOne" class="collapse m-0 p-0 mb-3 " data-parent="#accordion1">
-                        <div class="container">
-                            <div>
-                                <p>We developed this offering in response to feedback from our community. Freelancers told us that they want to work on projects that closely align within their work and rate expectations, while clients have told us they want an easier way to get started with freelancers. With Project Catalog, you can set expectations about cost, timeline, and deliverables and simplify how clients locate the skills they need for their project. In general, the idea is that freelancers pre-define everything upfront and interested clients can buy it, cutting down on the back and forth that often needs to occur before a project begins.</p>
-                            </div>
-                        </div>
+            </div>
+            <div class="col-md-3 col-12 my-4 ">
+                <div class="card">
+                    <img src="~/Images/projectcatalog2.PNG" class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title text-center">1. Get an order</h5>
+                        <p class="card-text text-center">You can start communicating via Upwork Messages.</p>
                     </div>
                 </div>
-                <div class="row border-bottom pb-0 pt-2">
-                    <div class="container" data-toggle="collapse" href="#collapseTwo" style="cursor: pointer;" id="accordion2">
-                        <div class="row m-0 p-0">
-                            <div class="col-9 mr-1 text-left">
-                                <p class="seconedHeaders mb-2">Screening questions (optional)</p>
-                                <p class="mb-2" style="font-size: 14px; color: #656565;">Narrow down your candidates</p>
-                            </div>
-                            <div class="col-2 m-0 text-right">
-                                <a class="card-link rotateLink2" data-toggle="collapse" style="color:black;"
-                                   href="#collapseTwo"><i class="fa fa-angle-down rotateAngle2"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="collapseTwo" class="collapse m-0 p-0 mb-3 " data-parent="#accordion2">
-                        <div class="container">
-                            <div>
-                                <p>English level</p>
-                            </div>
-                        </div>
+            </div>
+            <div class="col-md-3 col-12 my-4 ">
+                <div class="card">
+                    <img src="~/Images/projectcatalog3.PNG" class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title text-center">1. Get an order</h5>
+                        <p class="card-text text-center">You can start communicating via Upwork Messages.</p>
                     </div>
                 </div>
-                <div class="row border-bottom pb-0 pt-2">
-                    <div class="container" data-toggle="collapse" href="#collapseThree" style="cursor: pointer;" id="accordion3">
-                        <div class="row m-0 p-0">
-                            <div class="col-9 mr-1 text-left">
-                                <p class="seconedHeaders mb-2">Screening questions (optional)</p>
-                                <p class="mb-2" style="font-size: 14px; color: #656565;">Narrow down your candidates</p>
-                            </div>
-                            <div class="col-2 m-0 text-right">
-                                <a class="card-link rotateLink3" data-toggle="collapse" style="color:black;"
-                                   href="#collapseThree"><i class="fa fa-angle-down rotateAngle3"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="collapseThree" class="collapse m-0 p-0 mb-3 " data-parent="#accordion3">
-                        <div class="container">
-                            <div>
-                                <p>English level</p>
-                            </div>
-                        </div>
+            </div>
+            <div class="col-md-3 col-12 my-4 ">
+                <div class="card">
+                    <img src="~/Images/projectcatalog4.PNG" class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title text-center">1. Get an order</h5>
+                        <p class="card-text text-center">You can start communicating via Upwork Messages.</p>
                     </div>
                 </div>
-                <div class="row border-bottom pb-0 pt-2">
-                    <div class="container" data-toggle="collapse" href="#collapseFour" style="cursor: pointer;" id="accordion4">
-                        <div class="row m-0 p-0">
-                            <div class="col-9 mr-1 text-left">
-                                <p class="seconedHeaders mb-2">Screening questions (optional)</p>
-                                <p class="mb-2" style="font-size: 14px; color: #656565;">Narrow down your candidates</p>
-                            </div>
-                            <div class="col-2 m-0 text-right">
-                                <a class="card-link rotateLink4" data-toggle="collapse" style="color:black;"
-                                   href="#collapseFour"><i class="fa fa-angle-down rotateAngle4"></i></a>
-                            </div>
-                        </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="wrapper">
+        <!--Head-->
+        <div class="row border-bottom  pt-2">
+            <div class="container">
+                <h4>FAQs</h4>
+            </div>
+        </div>
+        <div class="row border-bottom pb-0 pt-2">
+            <div class="container" data-toggle="collapse" href="#collapseOne" style="cursor: pointer;" id="accordion1">
+                <div class="row m-0 p-0">
+                    <div class="col-9 mr-1 text-left">
+                        <p class="seconedHeaders mb-2">
+                            What is Project Catalog?
+                        </p>
                     </div>
-                    <div id="collapseFour" class="collapse m-0 p-0 mb-3 " data-parent="#accordion4">
-                        <div class="container">
-                            <div>
-                                <p>English level</p>
-                            </div>
-                        </div>
+                    <div class="col-2 m-0 text-right">
+                        <a class="card-link rotateLink1" data-toggle="collapse" style="color:black;"
+                           href="#collapseOne"><i class="fa fa-angle-down rotateAngle1"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div id="collapseOne" class="collapse m-0 p-0 mb-3 " data-parent="#accordion1">
+                <div class="container">
+                    <div>
+                        <p>We developed this offering in response to feedback from our community. Freelancers told us that they want to work on projects that closely align within their work and rate expectations, while clients have told us they want an easier way to get started with freelancers. With Project Catalog, you can set expectations about cost, timeline, and deliverables and simplify how clients locate the skills they need for their project. In general, the idea is that freelancers pre-define everything upfront and interested clients can buy it, cutting down on the back and forth that often needs to occur before a project begins.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row border-bottom pb-0 pt-2">
+            <div class="container" data-toggle="collapse" href="#collapseTwo" style="cursor: pointer;" id="accordion2">
+                <div class="row m-0 p-0">
+                    <div class="col-9 mr-1 text-left">
+                        <p class="seconedHeaders mb-2">
+                            What is the review process for these projects?
+                        </p>
+                    </div>
+                    <div class="col-2 m-0 text-right">
+                        <a class="card-link rotateLink2" data-toggle="collapse" style="color:black;"
+                           href="#collapseTwo"><i class="fa fa-angle-down rotateAngle2"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div id="collapseTwo" class="collapse m-0 p-0 mb-3 " data-parent="#accordion2">
+                <div class="container">
+                    <div>
+                        <p>When you create a project we will first review it before making it visible to clients. Our review includes making sure your project is complete, looks professional, and doesn’t violate our Terms of Service. Note: During our early phases of this offering, please allow up to five business days for your project to be reviewed.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row border-bottom pb-0 pt-2">
+            <div class="container" data-toggle="collapse" href="#collapseThree" style="cursor: pointer;" id="accordion3">
+                <div class="row m-0 p-0">
+                    <div class="col-9 mr-1 text-left">
+                        <p class="seconedHeaders mb-2">
+                            If I edit a project will it need to be reviewed again?
+                        </p>
+                    </div>
+                    <div class="col-2 m-0 text-right">
+                        <a class="card-link rotateLink3" data-toggle="collapse" style="color:black;"
+                           href="#collapseThree"><i class="fa fa-angle-down rotateAngle3"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div id="collapseThree" class="collapse m-0 p-0 mb-3 " data-parent="#accordion3">
+                <div class="container">
+                    <div>
+                        <p>Thanks for your question. No, if you edit your live project during the Early Access Program period your project will not need to be reviewed again. However, our curation team will do periodic reviews of live projects and may reach out if any issues are discovered. To learn more about Project Catalog</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row border-bottom pb-0 pt-2">
+            <div class="container" data-toggle="collapse" href="#collapseFour" style="cursor: pointer;" id="accordion4">
+                <div class="row m-0 p-0">
+                    <div class="col-9 mr-1 text-left">
+                        <p class="seconedHeaders mb-2">
+                            Do I need to spend Connects with this new offering?
+                        </p>
+                    </div>
+                    <div class="col-2 m-0 text-right">
+                        <a class="card-link rotateLink4" data-toggle="collapse" style="color:black;"
+                           href="#collapseFour"><i class="fa fa-angle-down rotateAngle4"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div id="collapseFour" class="collapse m-0 p-0 mb-3 " data-parent="#accordion4">
+                <div class="container">
+                    <div>
+                        <p>No. Since clients will be reaching out to you about your offered projects, no Connects will be needed.</p>
                     </div>
                 </div>
             </div>

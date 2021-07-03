@@ -1,0 +1,142 @@
+﻿@model Jobs
+@{
+    ViewData["Title"] = "Job Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="col-div-8 pb-4 offset-2">
+
+    <div class="card">
+        <div class="row mt-3">
+            <h5 class="offset-3 text-white"> Title: </h5>
+            <h5 class="ml-4" style="color:#f7403b"> @Model.Title </h5>
+        </div>
+        <div class="row">
+            <div class="col-1">
+            </div>
+            <div class="col-10">
+                <hr style="color:lightgray;background-color:lightgray" />
+            </div>
+            <div class="col-1">
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <h5 class="offset-3 text-white"> Client: </h5>
+            <h5 class="ml-4" style="color:#f7403b"> @Model.Client.User.FirstName @Model.Client.User.LastName </h5>
+        </div>
+        <div class="row">
+            <div class="col-1">
+            </div>
+            <div class="col-10">
+                <hr style="color:lightgray;background-color:lightgray" />
+            </div>
+            <div class="col-1">
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <h5 class="offset-3 text-white"> Type: </h5>
+            <h5 class="ml-4" style="color:#f7403b"> @Model.Type </h5>
+        </div>
+        <div class="row">
+            <div class="col-1">
+            </div>
+            <div class="col-10">
+                <hr style="color:lightgray;background-color:lightgray" />
+            </div>
+            <div class="col-1">
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <h5 class="offset-3 text-white"> Scope: </h5>
+            <h5 class="ml-4" style="color:#f7403b"> @Model.Scope </h5>
+        </div>
+        <div class="row">
+            <div class="col-1">
+            </div>
+            <div class="col-10">
+                <hr style="color:lightgray;background-color:lightgray" />
+            </div>
+            <div class="col-1">
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <h5 class="offset-3 text-white"> SubCategory: </h5>
+            <h5 class="ml-4" style="color:#f7403b"> @Model.subCategory.Name </h5>
+        </div>
+        <div class="row">
+            <div class="col-1">
+            </div>
+            <div class="col-10">
+                <hr style="color:lightgray;background-color:lightgray" />
+            </div>
+            <div class="col-1">
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <h5 class="offset-3 text-white"> Experience Level: </h5>
+            <h5 class="ml-4" style="color:#f7403b"> @Model.LevelOfExperience </h5>
+        </div>
+        <div class="row">
+            <div class="col-1">
+            </div>
+            <div class="col-10">
+                <hr style="color:lightgray;background-color:lightgray" />
+            </div>
+            <div class="col-1">
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <h5 class="offset-3 text-white"> Language Proficiency: </h5>
+            <h5 class="ml-4" style="color:#f7403b"> @Model.Language_Proficiency.Name </h5>
+        </div>
+        <div class="row">
+            <div class="col-1">
+            </div>
+            <div class="col-10">
+                <hr style="color:lightgray;background-color:lightgray" />
+            </div>
+            <div class="col-1">
+            </div>
+        </div>
+
+
+        <div class="row mt-3">
+            <h5 class="offset-3 text-white"> Skills required: </h5>
+        </div>
+        <ul class="text-left offset-3" style="font-size:20px; margin-top: 0%; color:#f7403b;">
+            @foreach (var item in ViewBag.Skills)
+            {
+                <li> @item.skill.Name </li>
+            }
+        </ul>
+
+
+        <div class="pb-2 pt-2">
+            <a asp-action="Jobs" asp-controller="Admin" class="btn btn-info col-2"> Back </a>
+        </div>
+    </div>
+</div>
+
+@section Styles{
+    <style>
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            margin: auto;
+            text-align: center;
+            font-family: arial;
+            background-color: #272c4a;
+            padding: 10px;
+        }
+
+        .content {
+            text-align: left;
+        }
+    </style>
+}

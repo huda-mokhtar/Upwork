@@ -7,7 +7,6 @@
     <link href="~/css/JobDetails.css" rel="stylesheet" />
 }
 
-
 <div class="text-center">
     <div class="container">
 
@@ -39,15 +38,15 @@
                                         </a>
                                     </li>
                                     <li class="nav-item mx-4">
-                                        <a class="nav-link px-5" href="#jobProposal" data-toggle="tab">
+                                        <a class="nav-link px-5"  data-toggle="tab" href="@Url.Action("GetProposal","Client",new {id=Model.Id})" data-target="#jobProposal" id="getProposals">
 
-                                            Review Proposals (2)
+                                            Review Proposals
                                         </a>
                                     </li>
                                     <li class="nav-item mx-4">
-                                        <a class="nav-link px-5" href="#hires" data-toggle="tab">
+                                        <a class="nav-link px-5" href="@Url.Action("GetHired","Client",new {id=Model.Id})" data-toggle="tab" data-target="#hires" id="getHires">
 
-                                            Hired (0)
+                                            Hired 
                                         </a>
 
                                     </li>
@@ -220,10 +219,10 @@
                                                     <div class="Job-skills py-1 px-2 m-1">@s.Name</div>
                                                 }
                                                 @*<div class="Job-skills py-1 px-2 m-1">PHP</div>
-                                            <div class="Job-skills py-1 px-2 m-1">JavaScript</div>
-                                            <div class="Job-skills py-1 px-2 m-1 ">CSS3</div>
-                                            <div class="Job-skills py-1 px-2 m-1 ">JQuery</div>
-                                            <div class="Job-skills py-1 px-2 m-1 ">MVC</div>*@
+                                                    <div class="Job-skills py-1 px-2 m-1">JavaScript</div>
+                                                    <div class="Job-skills py-1 px-2 m-1 ">CSS3</div>
+                                                    <div class="Job-skills py-1 px-2 m-1 ">JQuery</div>
+                                                    <div class="Job-skills py-1 px-2 m-1 ">MVC</div>*@
 
                                             </div>
                                         </div>
@@ -244,99 +243,10 @@
 
                             </div>
                             <div class="tab-pane" id="jobProposal">
-
-                                <div class="row m-0 p-0 mt-3">
-                                    <div class="col-9 m-auto p-2">
-                                        <img src="~/Images/proposals.png" />
-                                    </div>
-                                </div>
-
-                                @foreach (var proposal in ViewBag.ProPosals)
-                                {
-                                    <div class="porposed mt-4 mb-0">
-                                        <div class="row m-0 p-0">
-                                            <div class="col-2 m-0 p-0">
-                                                <img src="~/Images/@proposal.Freelancer.Image" class="Freelancer-photo my-auto" />
-                                            </div>
-                                            <div class="col-7 text-left">
-                                                <a class="mb-0 reuseLink" href="#" style="font-size: 15;">
-                                                    @foreach (var u in ViewBag.User)
-                                                    {
-
-                                                        if (u.FreelancerId == proposal.FreelancerId)
-                                                        {<span>@u.User.UserName</span>}
-                                                }
-                                                </a>
-                                                <p class="mb-0" style="font-size: 16px;font-weight: 650;">
-                                                    @proposal.Freelancer.Title
-                                                </p>
-                                                <p class="mb-0" style="font-size: 15;color: rgb(102, 102, 102);font-weight: 600;">
-                                                    @proposal.Freelancer.City.Name
-                                                </p>
-                                                <p class="mb-0" style="font-size: 15; color: rgb(102, 102, 102);font-weight: 600;">
-                                                    $@proposal.Freelancer.HourlyRate / Hour
-                                                </p>
-                                                <p class="mt-3" style="font-size: 16px; color: black; font-weight: 400;">
-                                                    Has <span style="font-weight: 500;">3 relevant skills</span>  to your job
-                                                </p>
-                                                <div class="m-0 p-0">
-
-
-
-                                                    <div class="Job-skills py-1 px-2 m-1">JavaScript</div>
-                                                    <div class="Job-skills py-1 px-2 m-1 ">CSS3</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-3 p-0 text-right">
-                                                <form method="post" enctype="multipart/form-data" action="~/Client/Hire" id="hireForm">
-                                                    <input hidden name="FreelancerId" id="freelancerId" value="@proposal.Freelancer.FreelancerId" />
-                                                    <input hidden name="JobsId" id="jobId" value="@Model.Id" />
-                                                    <div class=" p-1 text-center mb-2">
-                                                        <input type="file" class="form-control" placeholder="CSV" id="contract" name="Contract" accept="application/pdf" required>
-                                                    </div>
-                                                    <div class=" lightDev text-center py-1 px-2 m-2" onclick="hire(this)">
-                                                        Hire
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                }
+                               
                             </div>
                             <div class="tab-pane" id="hires">
-                                <div class="row m-0 p-0 mt-3">
-                                    <div class="col-9 m-auto p-2">
-                                        <img src="~/Images/hired0.png" />
-                                    </div>
-                                </div>
-                                <div class="porposed  mb-0">
-                                    <div class="row my-3 p-0 m-0">
-                                        <div class="col-2 m-0 p-0">
-                                            <img src="~/Images/Wafaa1.jpg" class="Freelancer-photo my-auto" />
-                                        </div>
-                                        <div class="col-8 text-left">
-                                            <a class="mb-0 reuseLink" href="#" style="font-size: 15;">
-                                                Wafaa Elsaeed
-                                            </a>
-                                            <p class="mb-0" style="font-size: 16px;font-weight: 650;">
-                                                Front-End Developer
-                                            </p>
-                                            <p class="mb-0" style="font-size: 15;color: rgb(102, 102, 102);font-weight: 600;">
-                                                Egypt
-                                            </p>
-                                            <p class="mb-0" style="font-size: 15; color: rgb(102, 102, 102);font-weight: 600;">
-                                                $25.00 / hr
-                                            </p>
-
-                                        </div>
-                                        <div class="col-2 p-0 text-right">
-                                            <div class="lightDev text-center py-1 px-2 m-2" style="cursor: unset;">
-                                                <i class="fa fa-check-circle mr-1" style="color: #14a800; display: inline-block;" aria-hidden="true"></i> Hired
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                              
                             </div>
                         </div>
                     </div>
@@ -348,7 +258,6 @@
         </div>
     </div>
 </div>
-
 
 @section Scripts{
     <script>
@@ -380,5 +289,20 @@
 
 
             }
+
+
+        $('[data-toggle="tab"]').click(function (e) {
+            var $this = $(this),
+                loadurl = $this.attr('href'),
+                targ = $this.attr('data-target');
+            console.log(loadurl, targ);
+
+            $.get(loadurl, function (data) {
+                $(targ).html(data);
+            });
+
+            $this.tab('show');
+            return false;
+        });
     </script>
 }
