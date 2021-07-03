@@ -72,9 +72,10 @@
                                             {<span> @country.Name </span>}
                                     }
                                     </p>
-                                    <p class="Address-time my-auto" style="display: inline-block;">
-                                        – 4:56 am local time
-                                    </p>
+                                    @*
+        <p class="Address-time my-auto" style="display: inline-block;">
+            – 4:56 am local time
+        </p>  *@
                                 </div>
                             </div>
                         </div>
@@ -92,18 +93,18 @@
                 <div class="card-body m-0 p-0">
                     <div class="row m-0">
                         <div class="col-4 text-left">
+                            @*
+        <div class="my-4">
+            <div class="mx-2 my-1" style="display:-webkit-box; -webkit-box-align:center;">
+                <h5 style="font-weight: 490;">Hours</h5>
 
-                            <div class="my-4">
-                                <div class="mx-2 my-1" style="display:-webkit-box; -webkit-box-align:center;">
-                                    <h5 style="font-weight: 490;">Hours</h5>
-
-                                </div>
-                                <div class="mt-2 mb-5 mx-2">
-                                    <p class="mb-0" style="font-weight: 550;">Available</p>
-                                    <p>More than 30 hrs/week</p>
-                                </div>
-                            </div>
-
+            </div>
+            <div class="mt-2 mb-5 mx-2">
+                <p class="mb-0" style="font-weight: 550;">Available</p>
+                <p>More than 30 hrs/week</p>
+            </div>
+        </div>
+                            *@
                             <div class="my-4 ">
                                 <div class="mx-2" style="display:-webkit-box; -webkit-box-align:center;">
                                     <h5 style="font-weight: 490;">Languages</h5>
@@ -113,60 +114,60 @@
                                     </div>
                                     @* edit Languages *@
                                     @*
-                                <div class="modal" id="editLanguages">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
-                                            <div class="modal-header P-2">
-                                                <h4 class="modal-title">Edit languages</h4>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body m-0">
-                                                <div class="row m-1 p-0">
-                                                    <div class="col-7 border-bottom">
-                                                        <h6>
-                                                            English
-                                                        </h6>
-                                                        <select class="form-control mb-2">
-                                                            <option>
-                                                                Native
-                                                            </option>
-                                                            <option>
-                                                                Fluent
-                                                            </option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="row m-1 p-0">
-                                                    <div class="col-7 mb-4">
-                                                        <h6>
-                                                            Arabic
-                                                        </h6>
-                                                        <select class="form-control">
-                                                            <option>
-                                                                Native
-                                                            </option>
-                                                            <option>
-                                                                Fluent
-                                                            </option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-
-                                            </div>
-                                            <div class="modal-footer">
-                                                <div class="text-right">
-                                                    <input type="button" class="btn text-success bg-white mr-2"
-                                                           style="border-color:lightgrey; width: fit-content;border-radius: 30px; font-weight: 500; " data-dismiss="modal" data-target="#editLanguages" value="Cancel" />
-                                                    <input type="button" class="btn text-light mr-2" style="border-color:lightgrey; width: fit-content;font-weight: 500; background-color:#14a800 ;border-radius: 30px;" value="Save" />
-                                                </div>
-                                            </div>
-
-                                        </div>
+                <div class="modal" id="editLanguages">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header P-2">
+                                <h4 class="modal-title">Edit languages</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body m-0">
+                                <div class="row m-1 p-0">
+                                    <div class="col-7 border-bottom">
+                                        <h6>
+                                            English
+                                        </h6>
+                                        <select class="form-control mb-2">
+                                            <option>
+                                                Native
+                                            </option>
+                                            <option>
+                                                Fluent
+                                            </option>
+                                        </select>
                                     </div>
                                 </div>
+                                <div class="row m-1 p-0">
+                                    <div class="col-7 mb-4">
+                                        <h6>
+                                            Arabic
+                                        </h6>
+                                        <select class="form-control">
+                                            <option>
+                                                Native
+                                            </option>
+                                            <option>
+                                                Fluent
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="modal-footer">
+                                <div class="text-right">
+                                    <input type="button" class="btn text-success bg-white mr-2"
+                                           style="border-color:lightgrey; width: fit-content;border-radius: 30px; font-weight: 500; " data-dismiss="modal" data-target="#editLanguages" value="Cancel" />
+                                    <input type="button" class="btn text-light mr-2" style="border-color:lightgrey; width: fit-content;font-weight: 500; background-color:#14a800 ;border-radius: 30px;" value="Save" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
                                     *@
 
                                 </div>
@@ -190,71 +191,71 @@
                                     </div>
                                     @* Add Education *@
                                     @*
-                                <div class="modal" id="addEducation">
-                                    <div class="modal-dialog modal-dialog-centered modal-lg">
-                                        <div class="modal-content">
-                                            <div class="modal-header P-2">
-                                                <h4 class="modal-title">Add Education</h4>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body m-0">
-                                                <div class="container">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <form>
-                                                                <div class="form-group  my-2">
-                                                                    <label for="school" class="h6">school</label>
-                                                                    <input type="text" class="form-control" id="school" />
-                                                                </div>
-                                                                <div class="form-group  my-2">
-                                                                    <label for="city" class="h6">Dates Attended (Optional)</label>
-                                                                    <div>
-                                                                        <select class="form-control h-100 py-2" id="AttendedFrom" style="width: 44%; display: inline; border-radius: 30px;">
-                                                                            <option>From</option>
-                                                                            <option></option>
-                                                                        </select>
-                                                                        <select class="form-control h-100 float-right py-2" id="AttendedTo" style="width: 44%; display: inline; border-radius: 30px;"
-                                                                                required>
-                                                                            <option>To</option>
-                                                                            <option></option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group  my-2">
-                                                                    <label for="Degree" class="h6">Degree (Optional)</label>
-                                                                    <select class="form-control h-100 float-right py-2" id="Degree" style=" border-radius: 30px;">
-                                                                        <option></option>
-                                                                        <option></option>
-                                                                    </select>
-                                                                </div>
-
-                                                                <div class="form-group  my-2">
-                                                                    <label for="area" class="h6">Area Of Study(Optional)</label>
-                                                                    <input type="text" class="form-control" id="area" />
-                                                                </div>
-                                                                <div class="form-group my-2">
-                                                                    <label for="description" class="h6">Description (Optional)</label>
-                                                                    <textarea class="form-control" id="description" style="height: 80px;"></textarea>
-                                                                </div>
-                                                            </form>
-                                                        </div>
+                <div class="modal" id="addEducation">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header P-2">
+                                <h4 class="modal-title">Add Education</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body m-0">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <form>
+                                                <div class="form-group  my-2">
+                                                    <label for="school" class="h6">school</label>
+                                                    <input type="text" class="form-control" id="school" />
+                                                </div>
+                                                <div class="form-group  my-2">
+                                                    <label for="city" class="h6">Dates Attended (Optional)</label>
+                                                    <div>
+                                                        <select class="form-control h-100 py-2" id="AttendedFrom" style="width: 44%; display: inline; border-radius: 30px;">
+                                                            <option>From</option>
+                                                            <option></option>
+                                                        </select>
+                                                        <select class="form-control h-100 float-right py-2" id="AttendedTo" style="width: 44%; display: inline; border-radius: 30px;"
+                                                                required>
+                                                            <option>To</option>
+                                                            <option></option>
+                                                        </select>
                                                     </div>
-
                                                 </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <div class="text-right">
-                                                    <input type="button" class="btn text-success bg-white mr-2"
-                                                           style="border-color:lightgrey; width: fit-content;border-radius: 30px; font-weight: 500; " data-dismiss="modal" data-target="#addEducation" value="Cancel" />
-                                                    <input type="button" class="btn text-light mr-2" style="border-color:lightgrey; width: fit-content;font-weight: 500; background-color:#14a800 ;border-radius: 30px;" value="Save" />
+                                                <div class="form-group  my-2">
+                                                    <label for="Degree" class="h6">Degree (Optional)</label>
+                                                    <select class="form-control h-100 float-right py-2" id="Degree" style=" border-radius: 30px;">
+                                                        <option></option>
+                                                        <option></option>
+                                                    </select>
                                                 </div>
-                                            </div>
 
+                                                <div class="form-group  my-2">
+                                                    <label for="area" class="h6">Area Of Study(Optional)</label>
+                                                    <input type="text" class="form-control" id="area" />
+                                                </div>
+                                                <div class="form-group my-2">
+                                                    <label for="description" class="h6">Description (Optional)</label>
+                                                    <textarea class="form-control" id="description" style="height: 80px;"></textarea>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
+
                                 </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="text-right">
+                                    <input type="button" class="btn text-success bg-white mr-2"
+                                           style="border-color:lightgrey; width: fit-content;border-radius: 30px; font-weight: 500; " data-dismiss="modal" data-target="#addEducation" value="Cancel" />
+                                    <input type="button" class="btn text-light mr-2" style="border-color:lightgrey; width: fit-content;font-weight: 500; background-color:#14a800 ;border-radius: 30px;" value="Save" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
                                     *@
                                 </div>
                                 @foreach (var Education in ViewBag.Education)
@@ -270,70 +271,70 @@
                                             </div>
                                             @* Edit education *@
                                             @*
-                                        <div class="modal" id="editEducation">
-                                            <div class="modal-dialog modal-dialog-centered modal-lg">
-                                                <div class="modal-content">
-                                                    <div class="modal-header P-2">
-                                                        <h4 class="modal-title">Edit Education</h4>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body m-0">
-                                                        <div class="container">
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <form>
-                                                                        <div class="form-group  my-2">
-                                                                            <label for="school" class="h6">school</label>
-                                                                            <input type="text" class="form-control" id="school" />
-                                                                        </div>
-                                                                        <div class="form-group  my-2">
-                                                                            <label for="city" class="h6">Dates Attended (Optional)</label>
-                                                                            <div>
-                                                                                <select class="form-control h-100 py-2" id="AttendedFrom" style="width: 44%; display: inline; border-radius: 30px;">
-                                                                                    <option>From</option>
-                                                                                    <option></option>
-                                                                                </select>
-                                                                                <select class="form-control h-100 float-right py-2" id="AttendedTo" style="width: 44%; display: inline; border-radius: 30px;"
-                                                                                        required>
-                                                                                    <option>To</option>
-                                                                                    <option></option>
-                                                                                </select>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="form-group  my-2">
-                                                                            <label for="Degree" class="h6">Degree (Optional)</label>
-                                                                            <select class="form-control h-100 float-right py-2" id="Degree" style=" border-radius: 30px;">
-                                                                                <option></option>
-                                                                                <option></option>
-                                                                            </select>
-                                                                        </div>
-                                                                        <div class="form-group  my-2">
-                                                                            <label for="area" class="h6">Area Of Study(Optional)</label>
-                                                                            <input type="text" class="form-control" id="area" />
-                                                                        </div>
-                                                                        <div class="form-group my-2">
-                                                                            <label for="description" class="h6">Description (Optional)</label>
-                                                                            <textarea class="form-control" id="description" style="height: 80px;"></textarea>
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
+                        <div class="modal" id="editEducation">
+                            <div class="modal-dialog modal-dialog-centered modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header P-2">
+                                        <h4 class="modal-title">Edit Education</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body m-0">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <form>
+                                                        <div class="form-group  my-2">
+                                                            <label for="school" class="h6">school</label>
+                                                            <input type="text" class="form-control" id="school" />
+                                                        </div>
+                                                        <div class="form-group  my-2">
+                                                            <label for="city" class="h6">Dates Attended (Optional)</label>
+                                                            <div>
+                                                                <select class="form-control h-100 py-2" id="AttendedFrom" style="width: 44%; display: inline; border-radius: 30px;">
+                                                                    <option>From</option>
+                                                                    <option></option>
+                                                                </select>
+                                                                <select class="form-control h-100 float-right py-2" id="AttendedTo" style="width: 44%; display: inline; border-radius: 30px;"
+                                                                        required>
+                                                                    <option>To</option>
+                                                                    <option></option>
+                                                                </select>
                                                             </div>
-
                                                         </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <div class="text-right">
-                                                            <input type="button" class="btn text-success bg-white mr-2"
-                                                                   style="border-color:lightgrey; width: fit-content;border-radius: 30px; font-weight: 500; " data-dismiss="modal" data-target="#editEducation" value="Cancel" />
-                                                            <input data-save="modal" type="button" class="btn text-light mr-2" style="border-color:lightgrey; width: fit-content;font-weight: 500; background-color:#14a800 ;border-radius: 30px;" value="Save" />
+                                                        <div class="form-group  my-2">
+                                                            <label for="Degree" class="h6">Degree (Optional)</label>
+                                                            <select class="form-control h-100 float-right py-2" id="Degree" style=" border-radius: 30px;">
+                                                                <option></option>
+                                                                <option></option>
+                                                            </select>
                                                         </div>
-                                                    </div>
-
+                                                        <div class="form-group  my-2">
+                                                            <label for="area" class="h6">Area Of Study(Optional)</label>
+                                                            <input type="text" class="form-control" id="area" />
+                                                        </div>
+                                                        <div class="form-group my-2">
+                                                            <label for="description" class="h6">Description (Optional)</label>
+                                                            <textarea class="form-control" id="description" style="height: 80px;"></textarea>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
+
                                         </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <div class="text-right">
+                                            <input type="button" class="btn text-success bg-white mr-2"
+                                                   style="border-color:lightgrey; width: fit-content;border-radius: 30px; font-weight: 500; " data-dismiss="modal" data-target="#editEducation" value="Cancel" />
+                                            <input data-save="modal" type="button" class="btn text-light mr-2" style="border-color:lightgrey; width: fit-content;font-weight: 500; background-color:#14a800 ;border-radius: 30px;" value="Save" />
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
                                             *@
                                         </div>
                                         <p class="mt-0 mx-2" style="font-weight: 400;font-size: 15px;color: #535353;">@Education.Degree.Name degree, @Education.AreaOfStudy.Name @Education.From.Year -@Education.To.Year </p>
@@ -395,9 +396,12 @@
                                         <h5 style="font-weight: 570;">
                                             $@Model.HourlyRate/hr
                                         </h5>
-                                        <div class="editIcon" data-toggle="modal" data-target="#editHourlyRate">
+
+                                        <div id="HourlyPopup" class="editIcon" data-url="@Url.Action("EditHourlyRate")" data-toggle="modal" data-target="#editHourlyRate">
                                             <i class="fa fa-pencil" aria-hidden="true"></i>
                                         </div>
+                                        @* Edit Hourly rate *@
+                                        @*  
                                         <div class="modal" id="editHourlyRate">
                                             <div class="modal-dialog modal-dialog-centered modal-lg">
                                                 <div class="modal-content">
@@ -530,6 +534,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        *@
                                         @*
         <div class="editIcon ">
             <i class="fa fa-clipboard" aria-hidden="true"></i>
@@ -618,9 +623,11 @@
                                     <h5 class="mb-0" style=" font-weight: 490;">
                                         Skills
                                     </h5>
-                                    <div class="editIcon" data-toggle="modal" data-target="#editSkills">
+                                    <div class="editIcon" data-url="@Url.Action("EditSkills")" data-toggle="modal" data-target="#editSkills">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                     </div>
+                                    @* Edit skills *@
+                                    @* 
                                     <div class="modal" id="editSkills">
                                         <div class="modal-dialog modal-dialog-centered modal-lg">
                                             <div class="modal-content">
@@ -646,7 +653,8 @@
 
                                             </div>
                                         </div>
-                                    </div>>
+                                    </div>
+                                    *@
                                 </div>
                                 <div class="row m-0 p-2">
                                     <div class="col-11 text-left">
@@ -763,29 +771,15 @@
     var readURL = function (input) {        
         if (input.files && input.files[0]) {
             var reader = new FileReader();
-           // reader.readAsDataURL(input.files[0]);
             reader.onload = function (e) {
                 $("#UploadDiv").css("border", "none");
                 $('#UploadDiv').html('<img  id="ProfilePhoto" style="width: 250px; height: 250px; border-radius: 50% "/>');
                 $('#ProfilePhoto').attr('src', e.target.result);
-            }
-          //  alert("hii");
-        //    $("#Myphoto").readURL(input.files[0]);
-            reader.readAsDataURL(input.files[0]);
-           // alert("entered");
-          //  $("#Myphoto").prop("files", input.dataTransfer.files);
-          //  $("input[type='file']").prop("files", input.dataTransfer.files);
-          //  alert("yeees");
+            }         
+            reader.readAsDataURL(input.files[0]);          
         }      
     }
-
-    /*
-    var loadFile = function (event) {
-       // var image = document.getElementById('image');
-       // image.src = URL.createObjectURL(event.target.files[0]);
-        //$("#requirePhotoMsg").hide();
-        alert("hi");
-    };*/
+   
    
     $('body').click(function (e) {
         var Elem = e.target;
@@ -811,12 +805,36 @@
     });
 */
 
+    placeHolderElement.on('change', 'input[type=checkbox]', function () {
+        if ($(this).prop('checked')) {
+            $(this).parent().addClass("bg-info");
+        }
+        else {
+            $(this).parent().removeClass("bg-info");          
+        };
+    });
+
+    placeHolderElement.on('keyup', '#Total', function () {
+        $("#receive").val(($("#Total").val() * 80 / 100).toFixed(2));
+        $("#Fee").val("-" + ($("#Total").val() * 20 / 100).toFixed(2));
+    });
+
+    placeHolderElement.on('keyup', '#receive', function () {
+        $("#Fee").html("-" + ($("#receive").val() / 4).toFixed(2));
+        $("#Total").val(($("#receive").val() * 100 / 80).toFixed(2));
+    });
+
+
+
     $('div[data-toggle="modal"]').click(function (x) {
         var url = $(this).data('url');
         $.get(url).done(function (data) {
             placeHolderElement.html(data);
             placeHolderElement.find('.modal').modal('show');
-
+            if ($("#Total").val() != null) {
+                $("#Fee").val("-" + ($("#Total").val() * 20 / 100).toFixed(2));
+                $("#receive").val(($("#Total").val() * 80 / 100).toFixed(2));
+            }
         })
     });
 
@@ -833,6 +851,8 @@
             alert("error");
         });
     });
+
+  
 
 </script>
 }

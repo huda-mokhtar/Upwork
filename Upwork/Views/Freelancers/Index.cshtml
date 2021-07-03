@@ -46,8 +46,6 @@
                                 </div>
                             </label>
                         </div>
-                        
-
                     </div>
                 </div>
             </form>
@@ -60,9 +58,6 @@
                 <p class="text-success">
                     @ViewBag.Freelancer.Category.Name
                 </p>
-                <div class="editIcon mx-0">
-                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                </div>
             </div>
         </div>
         <!--end left aside-->
@@ -235,22 +230,15 @@
         <div class="d-none d-lg-block col-lg-3">
             <div class="row">
                 <div class="m-0 p-0" style="display:-webkit-box; -webkit-box-align:center; ">
-                    <img src="~/images/ProfilePhotos/@ViewBag.Freelancer.Image" class="imgContainer" alt="Profile Photo" />
-                    <h6>My Profile</h6>
+                    <img src="~/ProfilePhotos/@ViewBag.Freelancer.Image" class="imgContainer" alt="Profile Photo" />
+                    <h6> My Profile</h6>
                 </div>
             </div>
             <div class="row toProfile mt-3" style="display:-webkit-box; -webkit-box-align:center; ">
                 <i class="fa fa-eye mx-2" aria-hidden="true"></i>
                 <a asp-action="profile" asp-controller="freelancers" asp-route-id="@ViewBag.Freelancer.FreelancerId">View Profile</a>
             </div>
-            
-            
-            
-            <div class="row toProfile mt-1 mx-0" style="display:-webkit-box; -webkit-box-align:center; ">
-                <i class="fa fa-plus-circle mr-2" aria-hidden="true"></i>
-                <a href="">Add a linked social account</a>
-            </div>
-
+           
             <div class="my-4 mx-0">
                 <div class="mx-0 my-0">
                     <p style="font-weight: 600;" class="mb-1">Your Project Catalog</p>

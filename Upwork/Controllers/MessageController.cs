@@ -28,31 +28,55 @@ namespace Upwork.Controllers
 
         public async Task<IActionResult> Index(string Id)
         {
+            var CurrentUser = await _userManager.GetUserAsync(User);
             if (Id != null)
             {
-                var CurrentUser = await _userManager.GetUserAsync(User);
                 var Reciver = _context.Users.FirstOrDefault(a => a.Id == Id);
                 List<string> UsersResiverId = new List<string>();
                 List<ApplicationUser> Users = new List<ApplicationUser>();
-                var ListPeopel = _context.Messages.Where(a => a.UserId == CurrentUser.Id);
+                var ListPeopel = _context.Messages.Where(a => a.UserId == CurrentUser.Id ||a.ReceiverId==CurrentUser.Id);
                 foreach (var item in ListPeopel)
                 {
-                    if (!UsersResiverId.Contains(item.ReceiverId))
+                    if (!UsersResiverId.Contains(item.ReceiverId) && item.ReceiverId != CurrentUser.Id)
                     {
                         UsersResiverId.Add(item.ReceiverId);
+                    }
+                    if (!UsersResiverId.Contains(item.UserId)&&item.UserId!=CurrentUser.Id)
+                    {
+                        UsersResiverId.Add(item.UserId);
                     }
                 }
                 foreach (var i in UsersResiverId)
                 {
                     Users.Add(_context.Users.FirstOrDefault(a => a.Id == i));
                 }
-                ViewBag.ListPeopel = Users;
+                if (Users.Count > 0)
+                {
+                    ViewBag.ListPeopel = Users;
+                }
                 ViewBag.CurrentUserName = CurrentUser.FirstName;
                 ViewBag.Reciver = Reciver;
                 var Messages = _IChat.GetMessageses(CurrentUser.Id, Id);
                 return View(Messages);
             }
-            return StatusCode(500);
+            var AllMessages = _context.Messages.Where(a => a.UserId == CurrentUser.Id || a.ReceiverId == CurrentUser.Id);
+            if (AllMessages != null)
+            {
+                var firstchat = _context.Messages.FirstOrDefault(a => a.UserId == CurrentUser.Id) ;
+                if (firstchat !=null)
+                {
+                    return RedirectToAction("Index", "Message", new { Id = firstchat.ReceiverId });
+                }
+                else 
+                {
+                    firstchat = _context.Messages.FirstOrDefault(a => a.ReceiverId == CurrentUser.Id);
+                    if (firstchat != null)
+                    {
+                        return RedirectToAction("Index", "Message", new { Id = firstchat.UserId });
+                    }
+                }
+            }
+            return View();
         }
 
         [HttpPost]
