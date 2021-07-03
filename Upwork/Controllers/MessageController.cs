@@ -62,7 +62,7 @@ namespace Upwork.Controllers
                 }
                 return RedirectToAction("Index", "Message",new {Id= fristchatId });
             }
-            return StatusCode(500);
+            return View();
         }
 
         [HttpPost]
