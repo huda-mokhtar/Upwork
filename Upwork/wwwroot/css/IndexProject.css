@@ -1,8 +1,23 @@
 ﻿a:hover{
     text-decoration:none;
 } 
-.center{
-    padding:1rem 0 ;
+a{
+    color:black;
+}
+.WhiteAncor a{
+    color:white;
+}
+.WhiteAncor a:hover {
+    color: white;
+}
+.GreenAncor a {
+    color: #14a800;
+}
+.GreenAncor a:hover {
+    color: #14a800;
+}
+.center {
+    padding: 1rem 0;
 }
 .wrapper{
     background-color: #fff;

@@ -46,7 +46,10 @@ namespace Upwork.Controllers
                 {
                     Users.Add(_context.Users.FirstOrDefault(a => a.Id == i));
                 }
-                ViewBag.ListPeopel = Users;
+                if (Users.Count > 0)
+                {
+                    ViewBag.ListPeopel = Users;
+                }
                 ViewBag.CurrentUserName = CurrentUser.FirstName;
                 ViewBag.Reciver = Reciver;
                 var Messages = _IChat.GetMessageses(CurrentUser.Id, Id);
@@ -55,12 +58,19 @@ namespace Upwork.Controllers
             var AllMessages = _context.Messages.Where(a => a.UserId == CurrentUser.Id || a.ReceiverId == CurrentUser.Id);
             if (AllMessages != null)
             {
-                var fristchatId = AllMessages.FirstOrDefault(a => a.UserId == CurrentUser.Id).ReceiverId;
-                if (fristchatId ==null)
+                var firstchat = _context.Messages.FirstOrDefault(a => a.UserId == CurrentUser.Id) ;
+                if (firstchat !=null)
                 {
-                    fristchatId= AllMessages.FirstOrDefault(a => a.ReceiverId == CurrentUser.Id).UserId;
+                    return RedirectToAction("Index", "Message", new { Id = firstchat.ReceiverId });
                 }
-                return RedirectToAction("Index", "Message",new {Id= fristchatId });
+                else 
+                {
+                    firstchat = _context.Messages.FirstOrDefault(a => a.ReceiverId == CurrentUser.Id);
+                    if (firstchat != null)
+                    {
+                        return RedirectToAction("Index", "Message", new { Id = firstchat.UserId });
+                    }
+                }
             }
             return View();
         }
