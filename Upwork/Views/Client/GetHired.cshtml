@@ -17,7 +17,7 @@ else
                     <img src="~/Images/@hire.Freelancer.Image" class="Freelancer-photo my-auto" />
                 </div>
                 <div class="col-8 text-left">
-                    <a class="mb-0 reuseLink" asp-action="FreelancerProfile" asp-controller="client" asp-route-id="@hire.FreelancerId" style="font-size: 15;">
+                    <a class="mb-0 reuseLink" asp-action="Profile" asp-controller="Freelancers" asp-route-id="@hire.FreelancerId" style="font-size: 15;">
                         @foreach (var u in ViewBag.User)
                         {
 
