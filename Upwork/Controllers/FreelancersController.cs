@@ -729,7 +729,8 @@ namespace Upwork.Controllers
                     }
                 }
                 _context.SaveChanges();
-                return RedirectToAction("Profile");
+                return Content("yes");
+              //  return RedirectToAction("Profile");
             }
             return PartialView("EditSkillsModal", Suggestedskill);
         }
