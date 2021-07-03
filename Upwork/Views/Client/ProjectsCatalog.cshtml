@@ -79,7 +79,7 @@
                     <div class="pt-2 mt-2 border-top d-flex">
                         <img src="~/Images/@project.Freelancer.Image" width="36px" class="img-fluid avatar avatar-ex-sm rounded-pill mr-3 shadow" alt="">
                         <div class="author mt-2">
-                            <h6 class="mb-0"><a href="#" class="text-dark name">@project.Freelancer.User.FirstName</a></h6>
+                            <h6 class="mb-0"><a asp-action="Profile" asp-controller="Freelancers" asp-route-id="@project.FreelancerId" class="text-dark name">@project.Freelancer.User.FirstName</a></h6>
                         </div>
                     </div>
                 </div>
