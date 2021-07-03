@@ -17,6 +17,7 @@ using Upwork.Models.ViewModels;
 
 namespace Upwork.Controllers
 {
+    [Authorize(Roles = "Client")]
     public class ClientController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -34,7 +35,7 @@ namespace Upwork.Controllers
             roleManager = _roleManager;
             _hostenviroment = hostingEnvironment;
         }
-        [Authorize(Roles = "Client")]
+        
         public async Task<IActionResult> Index()
         {
             var u = await userManager.GetUserAsync(User);
@@ -522,7 +523,7 @@ namespace Upwork.Controllers
             }
             return RedirectToAction(nameof(Profile));
         }
-        public IActionResult AllJobPosts(string drafted = null)
+        public async Task<IActionResult> AllJobPosts(string drafted = null)
         {
             if (drafted != null)
             {
@@ -542,7 +543,9 @@ namespace Upwork.Controllers
             }
             else
             {
-                List<Jobs> allJobs = new List<Jobs>(_context.Jobs);
+                var u = await userManager.GetUserAsync(User);
+                Client client = _context.Clients.FirstOrDefault(a => a.ClientId == u.Id);
+                List<Jobs> allJobs = new List<Jobs>(_context.Jobs.Where(j => j.ClientId == client.ClientId));
                 allJobs.Reverse();
                 return View(allJobs);
             }
