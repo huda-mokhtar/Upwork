@@ -28,9 +28,9 @@ namespace Upwork.Controllers
 
         public async Task<IActionResult> Index(string Id)
         {
+            var CurrentUser = await _userManager.GetUserAsync(User);
             if (Id != null)
             {
-                var CurrentUser = await _userManager.GetUserAsync(User);
                 var Reciver = _context.Users.FirstOrDefault(a => a.Id == Id);
                 List<string> UsersResiverId = new List<string>();
                 List<ApplicationUser> Users = new List<ApplicationUser>();
@@ -51,6 +51,16 @@ namespace Upwork.Controllers
                 ViewBag.Reciver = Reciver;
                 var Messages = _IChat.GetMessageses(CurrentUser.Id, Id);
                 return View(Messages);
+            }
+            var AllMessages = _context.Messages.Where(a => a.UserId == CurrentUser.Id || a.ReceiverId == CurrentUser.Id);
+            if (AllMessages != null)
+            {
+                var fristchatId = AllMessages.FirstOrDefault(a => a.UserId == CurrentUser.Id).ReceiverId;
+                if (fristchatId ==null)
+                {
+                    fristchatId= AllMessages.FirstOrDefault(a => a.ReceiverId == CurrentUser.Id).UserId;
+                }
+                return RedirectToAction("Index", "Message",new {Id= fristchatId });
             }
             return StatusCode(500);
         }
