@@ -395,7 +395,7 @@ namespace Upwork.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ReviewJobPosting(Jobs job, Dictionary<string, bool> jobQuestions)
+        public async Task<IActionResult> ReviewJobPosting(Jobs job)
         {
             //if (ModelState.IsValid)
             //{
@@ -412,15 +412,6 @@ namespace Upwork.Controllers
                         Job.IsDraft = job.IsDraft;
                         Job.DraftSavedDate = DateTime.Now;
                         await _context.SaveChangesAsync();
-                        foreach (KeyValuePair<string, bool> item in jobQuestions)
-                        {
-                            if (item.Value == true)
-                            {
-                                JobQuestions questions = new JobQuestions() { JobsId = Job.Id, ReviewJobQuestionId = int.Parse(item.Key) };
-                                _context.JobQuestions.Add(questions);
-                                await _context.SaveChangesAsync();
-                            }
-                        }
                     if (Job.IsDraft == false)
                     {
                         Job.CreateDate = DateTime.Now;
