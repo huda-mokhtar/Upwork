@@ -186,7 +186,7 @@ namespace Upwork.Controllers
             }
             else
             {
-                if (FreelancerJobs.IsProposal == false)
+                if (FreelancerJobs.IsProposal != true)
                 {
                     FreelancerJobs.IsProposal = true;
                     _context.SaveChanges();
@@ -252,12 +252,13 @@ namespace Upwork.Controllers
             var freelancer = await _context.Freelancers.FirstOrDefaultAsync(a => a.FreelancerId == CurrentUser.Id);
 
             var Job = _context.Jobs.Include(a => a.Client).Include(a => a.jobsSkills).Include(a => a.subCategory).Include(a => a.freelancer_Jobs).Include(a =>a.Client).FirstOrDefault(a => a.Id == Id && a.IsDraft == false && a.IsCanceled == false);
-            if(Job == null)
+            if (Job == null)
             {
                 return NotFound();
             }
             ViewData["Skills"] = _context.JobsSkills.Where(a => a.JobsId == Id).Select(a => a.skill);
-            ViewData["FreelancerJob"] = _context.Freelancer_Jobs.FirstOrDefault(a => a.JobsId == Id &&  a.FreelancerId == freelancer.FreelancerId);
+            ViewData["Client"] = _context.Users.Include(a => a.Country).FirstOrDefault(a => a.Id == Job.ClientId);
+            ViewData["ClientJobs"] = _context.Jobs.Where(a => a.ClientId == Job.ClientId).Count();
             return View(Job);
         }
 
