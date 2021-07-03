@@ -1,4 +1,4 @@
-﻿
+﻿@model List<Freelancer>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -38,44 +38,32 @@
     <div>
         <div class="content-box">
 
-            <p> Top Freelancers </p>
+            <p> Freelancers </p>
             <br />
             <table>
                 <tr>
-                    <th>Company</th>
-                    <th>Contact</th>
-                    <th>Country</th>
+                    <th>Name</th>
+                    <th>Experience Level</th>
+                    <th>
+                        Number of Jobs hired
+                    </th>
+                    <th> Email </th>
+                    <th> Phone </th>
+                    <th> Country </th>
                 </tr>
-                <tr>
-                    <td>Alfreds Futterkiste</td>
-                    <td>Maria Anders</td>
-                    <td>Germany</td>
-                </tr>
-                <tr>
-                    <td>Centro comercial Moctezuma</td>
-                    <td>Francisco Chang</td>
-                    <td>Mexico</td>
-                </tr>
-                <tr>
-                    <td>Ernst Handel</td>
-                    <td>Roland Mendel</td>
-                    <td>Austria</td>
-                </tr>
-                <tr>
-                    <td>Island Trading</td>
-                    <td>Helen Bennett</td>
-                    <td>UK</td>
-                </tr>
-                <tr>
-                    <td>Island Trading</td>
-                    <td>Helen Bennett</td>
-                    <td>UK</td>
-                </tr>
-                <tr>
-                    <td>Island Trading</td>
-                    <td>Helen Bennett</td>
-                    <td>UK</td>
-                </tr>
+               @foreach (var item in Model)
+               {
+                   <tr>
+                       <td> @item.User.FirstName @item.User.LastName </td>
+                       <td> @item.ExperienceLevel </td>
+                       <td> @item.Freelancer_Jobs.Where(a=>a.IsHire == true).Count() </td>
+                       <td> @item.User.Email </td>
+                       <td> +@item.PhoneCountry.Key@item.PhoneNumber </td>
+                       <td> @item.User.Country.Name </td>
+                   </tr>
+               }
+
+
             </table>
         </div>
     </div>
