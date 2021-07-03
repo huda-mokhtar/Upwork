@@ -17,11 +17,34 @@
                 </a>
             </p>
         </div>
+        <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleModal">
+            Launch demo modal
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body mx-2 my-3">
+                        <p style="color: #656565;font-size: 17px;font-weight: 500;"> Are You Sure ?</p>
+                        <div class="text-right mt-3">
+                            <input type="button" class="btn text-danger bg-white mr-2 px-3"
+                                   style="border-color:lightgrey; width: fit-content;border-radius: 30px; font-weight: 500; "
+                                   data-dismiss="modal" data-target="#editSkills" value="Cancel" />
+                            <input type="button" class="btn text-light mr-2 px-3 btn-danger"
+                                   style="border-color:lightgrey; width: fit-content;font-weight: 500;  ;border-radius: 30px;"
+                                   value="Delete" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
     <div class="col-9 m-0 p-0">
         <div class="container text-center">
             <div class="mx-auto mt-3">
-                <img src="envlop.png">
+                <img src="~/Images/envlop.png">
                 <p class="mb-0 mt-4" style="color: #656565;font-size: 15px;font-weight: 450;">
                     Once you connect with a client, your messages will be displayed here.
                 </p>
@@ -33,7 +56,7 @@
                 </p>
                 <div class="row">
                     <div class="col-4 mt-3 text-center">
-                        <img src="msg.png" />
+                        <img src="~/Images/msg.png" />
                         <p class="mt-3 mb-1" style="color: #656565;font-size: 18px;font-weight: 550;">
                             Real-Time Chat
                         </p>
@@ -42,7 +65,7 @@
                         </p>
                     </div>
                     <div class="col-4 my-3 text-center">
-                        <img src="contact.png" />
+                        <img src="~/Images/contact.png" />
                         <p class="mt-3 mb-0 pb-0" style="color: #656565;font-size: 18px;font-weight: 550;">
                             Organized
                         </p>
@@ -52,7 +75,7 @@
                         </p>
                     </div>
                     <div class="col-4 mt-3 text-center">
-                        <img src="user.png" />
+                        <img src="~/Images/user2.png" />
                         <p class="mt-3 mb-1" style="color: #656565;font-size: 18px;font-weight: 550;">
                             Online Status
                         </p>

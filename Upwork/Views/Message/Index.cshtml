@@ -2,112 +2,187 @@
 @{
     ViewData["Title"] = "Home Page";
     var UserName = User.Identity.Name;
+    if (User.IsInRole("Freelancer"))
+    {
+        Layout = "_FreelanceLayout";
+    }
+    else
+    {
+        Layout = "_ClientLayout";
+    }
 }
 
 <head>
     <link rel="stylesheet" href="~/css/Message.css" />
 </head>
-<div class="container">
-    <div class="row">
-        <div class="col-3">
-        <div id="plist" class="people-list">
-            <ul class="list-unstyled chat-list mt-2 mb-0">
-                @foreach (var item in ViewBag.ListPeopel)
-                {
-
-
-                <li class="clearfix">
-                    <a asp-action="Index" asp-controller="Message" asp-route-Id="@item.Id">
-                        @if (item.Image != null)
-                        {
-                            <img src="~/ProfilePhotos/@item.Image" alt="avatar">
-                        }
-                        else
-                        {
-                            <img src="~/ProfilePhotos/default.jpg" alt="avatar">
-                        }
-                        <div class="about">
-                            <div class="name">@item.FirstName @item.LastName</div>
-                            <div class="status"> <i class="fa fa-circle offline"></i> </div>
+<div class="row mb-4" >
+    <div class="col-12">
+        <div class="row my-3 mx-4 p-1 border mb-5" style="border-radius: 5px; background-color: #fff">
+            <div class="col-3 border-right m-0 p-0">
+                <div class="mt-5 border mx-2" style="background-color: #fff; border-radius: 7px;">
+                    @if (ViewBag.ListPeopel == null)
+                    {
+                        <p class="mt-3 ml-3 mb-5" style="font-size: 15px;">
+                            No rooms were found.
+                        </p>
+                        <p class="mt-5 ml-3 mb-3" style="font-size: 15px;">
+                            You can also <a href="" style="color: #14a800;">
+                                View all rooms & people.
+                            </a>
+                        </p>
+                    }
+                    else
+                    {
+                        <div id="plist" class="people-list">
+                            <ul class="list-unstyled chat-list mt-2 mb-0">
+                                @foreach (var item in ViewBag.ListPeopel)
+                                {
+                                    <li class="clearfix border-bottom">
+                                        <a asp-action="Index" asp-controller="Message" asp-route-Id="@item.Id">
+                                            @if (item.Image != null)
+                                            {
+                                                <img src="~/ProfilePhotos/@item.Image" alt="avatar">
+                                            }
+                                            else
+                                            {
+                                                <img src="~/ProfilePhotos/default.jpg" alt="avatar">
+                                            }
+                                            <div class="about">
+                                                <div class="name">@item.FirstName @item.LastName</div>
+                                                <div class="status"> <i class="fa fa-circle offline"></i> </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
                         </div>
-                    </a>
-                </li>
-                }
-            </ul>
-        </div>
-         </div>
-            <div class="jumbotron bg-light col-9">
-                <div class="row">
-                    <div class="col-lg-12 chat-about">
-                        <a href="javascript:void(0);" data-toggle="modal" data-target="#view_info">
-                            @if (ViewBag.Reciver.Image != null)
-                            {
-                                <img id="img" src="~/ProfilePhotos/@ViewBag.Reciver.Image" alt="avatar">
-                            }
-                            else
-                            {
-                                <img id="img" src="~/ProfilePhotos/default.jpg" alt="avatar">
-                            }
-                        </a>
-                        <div>
-                            <h6 class="m-b-0">@ViewBag.Reciver.FirstName @ViewBag.Reciver.LastName</h6>
-                        </div>
-                    </div>
+                    }
                 </div>
-                <div class="row ">
-                    <div class="col-md-12 " id="chat">
-                        @if (Model != null)
-                        {
-                            @foreach (var message in Model.OrderBy(m => m.When))
-                            {
-                                String containerClass, timePsition, textAlingn, contcolor, offset;
-                                if (UserName == message.UserName)
-                                {
-                                    containerClass = "container darker";
-                                    timePsition = "time-right text-light";
-                                    textAlingn = "text-right text-white";
-                                    contcolor = "#14a800";
-                                    offset = "col-md-6 offset-md-6";
-                                }
-                                else
-                                {
-                                    containerClass = "container";
-                                    timePsition = "text-left";
-                                    textAlingn = "text-left";
-                                    contcolor = "bg-light";
-                                    offset = "col-md-6";
-                                }
-                                <div class="row">
-                                    <div class="@offset">
-                                        <div class="@containerClass @contcolor">
-                                            <p class="@textAlingn">@message.Text</p>
-                                            <span class="@timePsition">@message.When</span>
-                                        </div>
-                                    </div>
+            </div>
+            <div class="col-9 m-0  p-0">
+                <div class="container text-center">
+                    @if (Model == null)
+                    {
+                        <div class="mx-auto mt-3">
+                            <img src="~/Images/envlop.png">
+                            <p class="mb-0 mt-4" style="color: #656565;font-size: 15px;font-weight: 450;">
+                                Once you connect with a client, your messages will be displayed here.
+                            </p>
+                            <p class="mt-0" style="color: #656565;font-size: 15px;font-weight: 450;">
+                                To get started,<a asp-action="Index" asp-controller="Freelancers" style="color: #14a800;"> search for jobs </a>and submit job proposals.
+                            </p>
+                            <p class="mt-4" style="color: #656565;font-size: 19px;font-weight: 550;">
+                                Use Upwork Messages to stay connected:
+                            </p>
+                            <div class="row">
+                                <div class="col-4 mt-3 text-center">
+                                    <img src="~/Images/msg.png" />
+                                    <p class="mt-3 mb-1" style="color: #656565;font-size: 18px;font-weight: 550;">
+                                        Real-Time Chat
+                                    </p>
+                                    <p style="color: #656565;font-size: 16px;font-weight: 400;">
+                                        Sync on tasks instantly
+                                    </p>
                                 </div>
-
-                            }
-                        }
-
-                    </div>
-                    <div class="col-md-12">
-                        <form asp-action="Create" data-ajax-begin="clearInputField" data-ajax-complete=""
-                              data-ajax-failure="alert('Fail')" data-ajax-success="sendMessage"
-                              data-ajax="true" data-ajax-method="POST">
-                            <div asp-validation-summary="ModelOnly" class="bg-danger"></div>
-                            <div class="form-group">
-                                <input name="Text" class="form-control" id="messageText" />
+                                <div class="col-4 my-3 text-center">
+                                    <img src="~/Images/contact.png" />
+                                    <p class="mt-3 mb-0 pb-0" style="color: #656565;font-size: 18px;font-weight: 550;">
+                                        Organized
+                                    </p>
+                                    <p class="mt-0 mb-1 pt-0" style="color: #656565;font-size: 18px;font-weight: 550;">Conversations</p>
+                                    <p style="color: #656565;font-size: 16px;font-weight: 400;">
+                                        Messages arranged by project
+                                    </p>
+                                </div>
+                                <div class="col-4 mt-3 text-center">
+                                    <img src="~/Images/user2.png" />
+                                    <p class="mt-3 mb-1" style="color: #656565;font-size: 18px;font-weight: 550;">
+                                        Online Status
+                                    </p>
+                                    <p style="color: #656565;font-size: 16px;font-weight: 400;">
+                                        See my client’s availability
+                                    </p>
+                                </div>
                             </div>
-                            <div class="form-group offset-5">
-                                <input type="submit" value="Send" class="send col-3 " id="submitButton" />
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="row  border-bottom">
+                            <div>
+                                <a href="javascript:void(0);" data-toggle="modal" data-target="#view_info">
+                                    @if (ViewBag.Reciver.Image != null)
+                                    {
+                                        <img id="img" src="~/ProfilePhotos/@ViewBag.Reciver.Image" alt="avatar">
+                                    }
+                                    else
+                                    {
+                                        <img id="img" src="~/ProfilePhotos/default.jpg" alt="avatar">
+                                    }
+                                </a>
+                                <div>
+                                    <h6 class="m-b-0">@ViewBag.Reciver.FirstName @ViewBag.Reciver.LastName</h6>
+                                </div>
                             </div>
-                            <input id="UserName" hidden value="@UserName" />
-                            <input id="ReceiverId" name="ReceiverId" value="@ViewBag.Reciver.Id" hidden />
-                        </form>
-                    </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-md-12 " id="chat">
+                                @if (Model != null)
+                                {
+                                    @foreach (var message in Model.OrderBy(m => m.When))
+                                    {
+                                        String containerClass, timePsition, textAlingn, contcolor, offset;
+                                        if (UserName == message.UserName)
+                                        {
+                                            containerClass = "container darker";
+                                            timePsition = "time-right text-light";
+                                            textAlingn = "text-right text-white";
+                                            contcolor = "#14a800";
+                                            offset = "col-md-6 offset-md-6";
+                                        }
+                                        else
+                                        {
+                                            containerClass = "container";
+                                            timePsition = "text-left";
+                                            textAlingn = "text-left";
+                                            contcolor = "bg-light";
+                                            offset = "col-md-6";
+                                        }
+                                        <div class="row">
+                                            <div class="@offset">
+                                                <div class="@containerClass @contcolor">
+                                                    <p class="@textAlingn">@message.Text</p>
+                                                    <span class="@timePsition">@message.When</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    }
+                                }
+
+                            </div>
+                            <div class="col-md-12 mt-3">
+                                <form asp-action="Create" data-ajax-begin="clearInputField" data-ajax-complete=""
+                                      data-ajax-failure="alert('Fail')" data-ajax-success="sendMessage"
+                                      data-ajax="true" data-ajax-method="POST">
+                                    <div asp-validation-summary="ModelOnly" class="bg-danger"></div>
+                                    <div class="form-group">
+                                        <input name="Text" class="form-control" id="messageText" />
+                                    </div>
+                                    <div class="form-group mx-auto">
+                                        <input type="submit" value="Send" class="send col-3 " id="submitButton" />
+                                    </div>
+                                    <input id="UserName" hidden value="@UserName" />
+                                    <input id="ReceiverId" name="ReceiverId" value="@ViewBag.Reciver.Id" hidden />
+                                </form>
+                            </div>
+                        </div>
+
+                    }
                 </div>
             </div>
         </div>
+    </div>
 </div>
     @if (User.Identity.IsAuthenticated)
     {

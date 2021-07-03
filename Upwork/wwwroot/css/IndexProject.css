@@ -1,8 +1,23 @@
 ﻿a:hover{
     text-decoration:none;
 } 
-.center{
-    padding:1rem 0 ;
+a{
+    color:black;
+}
+.WhiteAncor a{
+    color:white;
+}
+.WhiteAncor a:hover {
+    color: white;
+}
+.GreenAncor a {
+    color: #14a800;
+}
+.GreenAncor a:hover {
+    color: #14a800;
+}
+.center {
+    padding: 1rem 0;
 }
 .wrapper{
     background-color: #fff;
@@ -25,31 +40,31 @@
 }
 
 
-#Project-list .nav-tabs {
+.project-tabs .nav-tabs {
     border-bottom: 1px solid #e0e0e0;
     padding: 0.2rem;
 }
-#Project-list .nav-item{
-    margin-left:0.7rem;
-    margin-right:0.7rem;
+.project-tabs .nav-item {
+    margin-left: 0.7rem;
+    margin-right: 0.7rem;
 }
-#Project-list .nav-link{
-    background-color:transparent;
-    font-weight:500;
-    color:#000;
+.project-tabs .nav-link {
+    background-color: transparent;
+    font-weight: 500;
+    color: #000;
 }
-#Project-list .nav-link:hover{
-    border:none;
-    color:rgba(0, 128, 0, 0.925);
+.project-tabs .nav-link:hover {
+    border: none;
+    color: rgba(0, 128, 0, 0.925);
 }
-#Project-list .nav-tabs .nav-link.active {
+.project-tabs .nav-tabs .nav-link.active {
     color: #14a800;
-    font-weight:600;
-    border:none;
+    font-weight: 600;
+    border: none;
 }
-#Project-list .tab-content {
-   padding-top:1rem;
-   padding-bottom:1rem;
+.project-tabs .tab-content {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }
 
 .project{
