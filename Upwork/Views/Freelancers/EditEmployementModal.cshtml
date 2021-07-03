@@ -10,6 +10,9 @@
         <form id="AddEmployementForm" asp-action="EditEmployement" asp-controller="Freelancers">
             <div class="modal-body">
                 <div class="mb-4">
+                    <input type="text" asp-for="OldCountryId" hidden />
+                    <input type="text" asp-for="CompanyId" hidden />
+                    <input type="text" asp-for="JobTitleId" hidden />
                     <h6 class="text-left" style="padding:0;margin:0"> Company </h6>
                     <input asp-for="Company" type="text" class="form-control mt-2" />
                     <span asp-validation-for="Company"></span>

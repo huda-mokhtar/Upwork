@@ -26,5 +26,13 @@ namespace Upwork.Models.ViewModels.Register
         public int ToYear { get; set; }
 
         public string Description { get; set; }
+
+        public int? CompanyId { get; set; }
+
+        public int? JobTitleId { get; set; }
+
+        public int? OldCountryId { get; set; }
+
+
     }
 }

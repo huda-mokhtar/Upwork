@@ -582,12 +582,15 @@ namespace Upwork.Controllers
                 model.FromYear = Employement.From.Year;
                 model.ToMonth = Employement.To.Month;
                 model.ToYear = Employement.To.Year;
+                model.OldCountryId = Employement.CountryId;
+                model.CompanyId = Employement.CompanyId;
+                model.JobTitleId = Employement.JobTitleId;
             }
             ViewBag.CountryId = new SelectList(_context.Countries, "CountryId", "Name");
             return PartialView("EditEmployementModal", model);
 
         }
-        /*
+        
         [HttpPost]
         public async Task<IActionResult> EditEmployement(AddEmployementViewModel model)
         {
@@ -606,14 +609,13 @@ namespace Upwork.Controllers
                 _context.SaveChanges();
                 var CompanyId = _context.Companies.FirstOrDefault(a => a.Name == model.Company).CompanyId;
                 var JobTitleId = _context.JobTitle.FirstOrDefault(a => a.Name == model.Title).JobTitleId;
-                var Employement = _context.Freelancer_Experience.FirstOrDefault(a => a.FreelancerId == FreelancerId && a.CompanyId == CompanyId && a.CountryId == CountryId && a.JobTitleId == JobTitleId);
-                _context.Freelancers.FirstOrDefault(a => a.FreelancerId == FreelancerId).Experiences.Remove(Employement);
-                _context.Companies.FirstOrDefault(a => a.CompanyId == CompanyId).FreelancerExperiences.Remove(Employement);
-                _context.Countries.FirstOrDefault(a => a.CountryId == CountryId).FreelancerExperiences.Remove(Employement);
-                _context.JobTitle.FirstOrDefault(a => a.JobTitleId == JobTitleId).FreelancerExperiences.Remove(Employement);
+                var Employement = _context.Freelancer_Experience.FirstOrDefault(a => a.FreelancerId == Freelancer.FreelancerId && a.CompanyId == model.CompanyId && a.CountryId == model.OldCountryId && a.JobTitleId == model.JobTitleId);
+                _context.Freelancers.FirstOrDefault(a => a.FreelancerId == Freelancer.FreelancerId).Experiences.Remove(Employement);
+                _context.Companies.FirstOrDefault(a => a.CompanyId == model.CompanyId).FreelancerExperiences.Remove(Employement);
+                _context.Countries.FirstOrDefault(a => a.CountryId == model.OldCountryId).FreelancerExperiences.Remove(Employement);
+                _context.JobTitle.FirstOrDefault(a => a.JobTitleId == model.JobTitleId).FreelancerExperiences.Remove(Employement);
                 _context.Freelancer_Experience.Remove(Employement);
                 await _context.SaveChangesAsync();
-
                 _context.Freelancer_Experience.Add(new Freelancer_Experience() { FreelancerId = Freelancer.FreelancerId, CompanyId = CompanyId, Location = model.Location, CountryId = model.CountryId.Value, JobTitleId = JobTitleId, From = new DateTime(model.FromYear, model.FromMonth, 1), To = new DateTime(model.ToYear, model.ToMonth, 1), Description = model.Description });
                 _context.SaveChanges();
                 return RedirectToAction("Profile");
@@ -621,7 +623,76 @@ namespace Upwork.Controllers
             ViewBag.CountryId = new SelectList(_context.Countries, "CountryId", "Name");
             return PartialView("EditEmployementModal", model);
         }
-        */
+        
+
+        public async Task<IActionResult> EditHourlyRate()
+        {
+            var u = await _UserManager.GetUserAsync(User);
+            var Freelancer = _context.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+            HourlyRateViewModel model = new HourlyRateViewModel() { HourlyRate = Freelancer.HourlyRate };
+            return PartialView("EditHourlyRateModal",model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditHourlyRate(HourlyRateViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var u = await _UserManager.GetUserAsync(User);
+                var Freelancer = _context.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+                Freelancer.HourlyRate = model.HourlyRate;
+                _context.SaveChanges();
+                return RedirectToAction("Profile");
+            }         
+            return PartialView("EditHourlyRateModal", model);
+        }
+
+
+        public async Task<IActionResult> EditSkills()
+        {          
+            var u = await _UserManager.GetUserAsync(User);
+            var Freelancer = _context.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);            
+            Dictionary<Skill, bool> model = new Dictionary<Skill, bool>();
+            List<Skill> Top15Skills = _context.Skills.Take(15).ToList();
+            foreach (var item in Top15Skills)
+            {
+                if (_context.Freelancer_Skill.FirstOrDefault(a => a.SkillId == item.SkillId && a.FreelancerId == Freelancer.FreelancerId) != null)
+                {
+                    model.Add(item, true);
+                }
+                else
+                {
+                    model.Add(item, false);
+                }
+            }
+            return PartialView("EditSkillsModal", model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditSkills(Dictionary<int, bool> Suggestedskill)
+        {
+            if (ModelState.IsValid)
+            {
+                var u = await _UserManager.GetUserAsync(User);
+                var Freelancer = _context.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+                var FreelancerSkills = _context.Freelancer_Skill.Where(a => a.FreelancerId == Freelancer.FreelancerId).ToList();
+                foreach (var item in FreelancerSkills)
+                {
+                    _context.Freelancer_Skill.Remove(item);
+                }
+                _context.SaveChanges();
+                foreach (var item in Suggestedskill)
+                {
+                    if (item.Value == true)
+                    {
+                        await _context.Freelancer_Skill.AddAsync(new Freelancer_Skill() { FreelancerId = Freelancer.FreelancerId, SkillId = item.Key });
+                    }
+                }
+                _context.SaveChanges();
+                return RedirectToAction("Profile");
+            }
+            return PartialView("EditSkillsModal", Suggestedskill);
+        }
 
     }
 }

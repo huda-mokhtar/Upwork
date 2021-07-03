@@ -1194,6 +1194,7 @@ namespace Upwork.Controllers
                     model.File.CopyTo(new FileStream(FullPath, FileMode.Create));
                 }
                 Freelancer.Image = FileName;
+                u.Image = FileName;
                 db.SaveChanges();
                 return RedirectToAction("Location");
             }
