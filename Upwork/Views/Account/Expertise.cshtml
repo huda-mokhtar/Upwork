@@ -141,10 +141,10 @@
 
         // alert(n);
 
-        $(document).on('click', '.RemoveTag', function () {
+   //     $(document).on('click', '.RemoveTag', function () {
             //  $(this).parent().remove();
-            $(this).parent().parent().parent().remove();
-        });
+     //       $(this).parent().parent().parent().remove();
+      //  });
              
         $('#ExpertiseForm').on('keypress', function (e) {
             var keyCode = e.keyCode || e.which;
@@ -153,6 +153,8 @@
                 return false;
             }
         });
+
+        /*
         
         $(".SuggestedTag").click(function () {
             $("#NoSkillsErrorMsg").hide();
@@ -185,6 +187,54 @@
                 $("#ManySkillsErrorMsg").show();                
             }
         });
+
         
+        */
+
+        $('#ExpertiseForm').on('submit', function (e) {
+            if (n == 0) {
+                e.preventDefault();
+                $("#NoSkillsErrorMsg").show();
+            }
+            if (n > 10) {
+                e.preventDefault();
+                $("#ManySkillsErrorMsg").show();
+            }
+        });
+
+        $('input[type=checkbox]').change(function () {
+            if ($(this).prop('checked')) {
+                $(this).parent().addClass("bg-info");
+                n++;
+            }
+            else {
+                $(this).parent().removeClass("bg-info");
+                n--;
+            };
+            if (n == 0) {
+                $("#NoSkillsErrorMsg").show();
+            }
+            if (n > 10) {
+                $("#ManySkillsErrorMsg").show();
+            }
+            if (n <= 10) {
+                $("#ManySkillsErrorMsg").hide();
+            }
+            if (n > 0) {
+                $("#NoSkillsErrorMsg").hide();
+            }
+
+        });
+
+        /*
+        window.on('change', 'input[type=checkbox]', function () {
+            if ($(this).prop('checked')) {
+                $(this).parent().addClass("bg-info");
+            }
+            else {
+                $(this).parent().removeClass("bg-info");
+            };
+        });
+        */
     </script>
 }
