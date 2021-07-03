@@ -350,3 +350,10 @@ input:checked + .slider:before {
     border-radius: 1rem;
 }
 /*****end Requierment********/
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #3ce026d8;
+    outline: 0;
+    box-shadow: 0 0 0 0.1rem #81e774;
+}

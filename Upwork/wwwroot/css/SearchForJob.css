@@ -11,37 +11,37 @@
     padding: 1.3rem 0.7rem;
 }
 
-.nav-tabs {
+#jobSearch .nav-tabs {
     border-bottom: 1px solid #e0e0e0;
     padding: 0.2rem;
-    padding-bottom:0;
+    padding-bottom: 0;
 }
 
-.nav-item {
+#jobSearch .nav-item {
     margin-left: 0.7rem;
     margin-right: 0.7rem;
 }
 
-.nav-link {
+#jobSearch .nav-link {
     background-color: transparent;
     font-weight: 500;
     color: #000;
 }
 
-.nav-link:hover {
+#jobSearch .nav-link:hover {
         border: none;
         color: rgba(0, 128, 0, 0.925);
         transition:none;
     }
 
-.nav-tabs .nav-link.active {
+#jobSearch .nav-tabs .nav-link.active {
     color: #14a800;
     font-weight: 600;
     border: none;
     border-bottom:4px solid rgba(0, 128, 0, 0.925);
 }
 
-.tab-content {
+#jobSearch .tab-content {
     padding-top: 1rem;
     padding-bottom: 1rem;
 }

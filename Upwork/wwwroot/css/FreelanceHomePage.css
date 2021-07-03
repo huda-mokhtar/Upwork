@@ -200,10 +200,14 @@ input[type='radio']:checked:after {
 
 .jobSkills {
     color: #224e63;
+    display: inline-block;
     background-color: #e9e9e9;
     border-radius: 35px;
     border: 1px solid #e9e9e9;
     font-size: smaller;
+    width: fit-content;
+    height: fit-content;
+    padding: 0px 10px;
 }
 
     .jobSkills:hover {
