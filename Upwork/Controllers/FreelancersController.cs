@@ -312,6 +312,7 @@ namespace Upwork.Controllers
             return PartialView("ChangePasswordModal",model);
         }
 
+        /*
         public IActionResult ChangeProfilePhoto()
         {
             return PartialView("ChangePhotoModal");
@@ -341,6 +342,42 @@ namespace Upwork.Controllers
             }
             return PartialView("ChangePhotoModal");
         }
+        */
+ 
+        public IActionResult ChangePhoto()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePhoto(ChangePhotoViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (model.File != null)
+                {
+                    var u = await _UserManager.GetUserAsync(User);
+                    var Freelancer = _context.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
+                    string Uploads = Path.Combine(hosting.WebRootPath, "ProfilePhotos");
+                    string FileName = Freelancer.FreelancerId + "." + model.File.FileName.Split('.')[model.File.FileName.Split('.').Length - 1];
+                    string FullPath = Path.Combine(Uploads, FileName);
+                    if (Freelancer.Image != null)
+                    {
+                        Freelancer.Image = null;
+                        u.Image = null;
+                        System.IO.File.Delete(FullPath);
+                    }
+                    model.File.CopyTo(new FileStream(FullPath, FileMode.Create));
+                    Freelancer.Image = FileName;
+                    u.Image = FileName;
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Profile");
+                }
+            }
+            return View(model);
+        }
+
+        //
 
 
         public async Task<IActionResult> EditLanguages()

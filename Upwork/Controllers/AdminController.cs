@@ -49,8 +49,8 @@ namespace Upwork.Controllers
             ViewBag.Freelancers = db.Freelancers.Count();
             ViewBag.Clients = db.Clients.Count();
             ViewBag.Projects = db.Projects.Count();
-            ViewBag.Jobs = db.Jobs.Count();    
-            return View();
+            ViewBag.Jobs = db.Jobs.Count();              
+            return View(db.Freelancers.Include(a=>a.User).Include(a=>a.PhoneCountry).Include(a=>a.Freelancer_Jobs).ToList());
         }
 
         //Freelancers
