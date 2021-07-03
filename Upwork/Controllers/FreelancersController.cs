@@ -55,6 +55,7 @@ namespace Upwork.Controllers
 
 
         [AllowAnonymous]
+        [Authorize(Roles = "Client , Freelancer")]
         // GET: Freelancers/Profile/5
         public async Task<IActionResult> Profile(string id)
         {

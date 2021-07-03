@@ -712,9 +712,19 @@ namespace Upwork.Controllers
             return View(Project);
         }
 
-        public IActionResult AllContracts()
+        public async Task<IActionResult> AllContractsAsync()
         {
-            return View();
+            var u = await userManager.GetUserAsync(User);
+            Client client = _context.Clients.Include(a => a.User).ThenInclude(c => c.Country).Where(a => a.ClientId == u.Id).FirstOrDefault();
+            var clientContract = new List<Freelancer_Job>();
+            foreach(var job in _context.Freelancer_Jobs.Include(a => a.Jobs))
+            {
+                if(job.Jobs.ClientId == client.ClientId && job.IsHire == true)
+                {
+                    clientContract.Add(job);
+                }
+            }
+            return View(clientContract);
         }
 
     }
