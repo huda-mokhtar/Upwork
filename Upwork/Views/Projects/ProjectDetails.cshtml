@@ -11,7 +11,7 @@
         <div class="row m-1  mt-5 p-0 ">
             <div class="col-8 mt-2">
                 <div class="row m-0">
-                    <h3 class="mx-0 mt-0 p-0" style="color: #1d4354; font:  bold 28px Rza;">
+                    <h3 class="mx-0 mt-0 p-0" style=" color: #14a800;font:  bold 28px Rza;">
                       @Model.Title
                     </h3>
                 </div>
@@ -21,16 +21,16 @@
                     </div>
                 </div>
                 <div class="row m-0 mt-5 mb-3 border-bottom text-left">
-                    <h4 class="mb-4">
+                    <h6  class="mb-4">
                         @Model.Description
-                    </h4>
-                    <ul class="text-left" style="font-weight: 380;">
+                    </h6>
+                    <ol class="text-left" style="font-weight: 380;">
                         <li class="mb-3" style="list-style-type:disc">
-                            <b>Requierments:</b> @Model.Requierments
+                            Requierments: @Model.Requierments
                         </li>
                         <li class="mb-3" style="list-style-type:disc">
-                            <b>Subcatogray:</b> @Model.SubCategory.Name<br />
-                            <b>Skills:</b> <ul class="text-left" style="font-weight: 380;">
+                            Subcatogray: @Model.SubCategory.Name<br />
+                            Skills: <ul class="text-left" style="font-weight: 380;">
                                 @foreach (var item in Model.Skills)
                                 {
                                     <li>@item.Skill</li>
@@ -38,17 +38,17 @@
                             </ul>
                         </li>
                         <li class="mb-3" style="list-style-type:disc">
-                            <b> Question</b>: @Model.QuestionContent<br />
-                            <b>Answer</b>: @Model.QuestionAnswer
+                            Q1: @Model.QuestionContent<br />
+                             A:@Model.QuestionAnswer
                         </li>
                         <li class="mb-3" style="list-style-type:disc">
-                            <b>StepName:</b> @Model.StepName<br />
-                            <b>StepDescription:</b> @Model.StepDescription
+                            @Model.StepName<br />
+                             @Model.StepDescription
                         </li>
                         <li class="mb-3" style="list-style-type:disc">
-                            <b>SimultaneousProjects:</b> @Model.SimultaneousProjects
+                            SimultaneousProjects: @Model.SimultaneousProjects
                         </li>
-                    </ul>
+                    </ol>
                 </div>
             </div>
             <div class="col-4 mt-3" style="position:relative">
@@ -58,7 +58,6 @@
                             Select service tier
                         </h5>
                     </div>
-
 
                     <div class="col-12 m-0 p-0 my-2">
                         <form method="post" class="row" action="send.php">

@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@inject SignInManager<ApplicationUser> SignIn
+@inject UserManager<ApplicationUser> UserManager
+@{
+    var CurrentUser = await UserManager.GetUserAsync(User);
+
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -45,15 +51,19 @@
                                     </a>
                                 </li>
                                 <li>
+<<<<<<< HEAD
                                     <a target="_self" data-cy="menu-item-trigger" asp-controller="Client" asp-action="AllContracts" class="dropdown-item">
+=======
+                                    <a target="_self" data-cy="menu-item-trigger" asp-action="AllContracts" class="dropdown-item">
+>>>>>>> 137ecd049545eee7d119d73eb0f711e0153fa197
                                         All Contracts
                                     </a>
                                 </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/workdiary/freelancer/" class="dropdown-item">
-                                        Bring Your Own Talent
-                                    </a>
-                                </li>
+                                @*<li>
+                                        <a target="_self" data-cy="menu-item-trigger" href="/ab/workdiary/freelancer/" class="dropdown-item">
+                                            Bring Your Own Talent
+                                        </a>
+                                    </li>*@
                                 <li>
                                     <a target="_self" data-cy="menu-item-trigger" asp-action="PostJob" class="dropdown-item">
                                         Post a Job
@@ -67,11 +77,11 @@
 
                             </a>
                             <ul data-cy="dropdown-menu" class="dropdown-menu mw-240" aria-labelledby="dropdownMenuLink">
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/f/home/" class="dropdown-item">
-                                        Talent
-                                    </a>
-                                </li>
+                                @*<li>
+                                        <a target="_self" data-cy="menu-item-trigger" href="/ab/f/home/" class="dropdown-item">
+                                            Talent
+                                        </a>
+                                    </li>*@
                                 <li>
                                     <a target="_self" data-cy="menu-item-trigger" href="/ab/f/contracts/" class="dropdown-item">
                                         My Hires
@@ -84,43 +94,43 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item dropdown p-lg-2 my-lg-2">
-                            <a target="_self" href="/ab/reports/in-progress" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" class="dropdown-toggle nav-link text-light">
-                                <span class="nav-item-label">Reports</span>
-                            </a>
-                            <ul class="dropdown-menu " aria-labelledby="dropdownMenuLink">
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/reports/in-progress" class="dropdown-item">
-                                        Overview
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/reports/freelancer" class="dropdown-item">
-                                        My Reports
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/payments/reports/earnings" class="dropdown-item">
-                                        Billings &amp; Earnings
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/nx/plans/connects/history" class="dropdown-item">
-                                        Connects History
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/payments/reports/earnings-history" class="dropdown-item">
-                                        Transaction History
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/payments/reports/certificate-of-earnings.pdf" class="dropdown-item">
-                                        Certificate of Earnings
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                        @*<li class="nav-item dropdown p-lg-2 my-lg-2">
+                                <a target="_self" href="/ab/reports/in-progress" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" class="dropdown-toggle nav-link text-light">
+                                    <span class="nav-item-label">Reports</span>
+                                </a>
+                                <ul class="dropdown-menu " aria-labelledby="dropdownMenuLink">
+                                    <li>
+                                        <a target="_self" data-cy="menu-item-trigger" href="/ab/reports/in-progress" class="dropdown-item">
+                                            Overview
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a target="_self" data-cy="menu-item-trigger" href="/ab/reports/freelancer" class="dropdown-item">
+                                            My Reports
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a target="_self" data-cy="menu-item-trigger" href="/ab/payments/reports/earnings" class="dropdown-item">
+                                            Billings &amp; Earnings
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a target="_self" data-cy="menu-item-trigger" href="/nx/plans/connects/history" class="dropdown-item">
+                                            Connects History
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a target="_self" data-cy="menu-item-trigger" href="/ab/payments/reports/earnings-history" class="dropdown-item">
+                                            Transaction History
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a target="_self" data-cy="menu-item-trigger" href="/ab/payments/reports/certificate-of-earnings.pdf" class="dropdown-item">
+                                            Certificate of Earnings
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>*@
                         <li class="nav-item p-lg-2 my-lg-2">
                             <a target="_self" data-cy="menu-item-trigger" href="/messages/" class="nav-menu-item nav-link text-light">
                                 <span class="nav-item-label">
@@ -130,47 +140,47 @@
                             </a>
 
                         </li>
+                        @*<li class="nav-item dropdown p-lg-2 my-lg-2">
+                                <a role="button" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" class="dropdown-toggle text-light nav-link">
+                                    <span data-bs-toggle="tooltip" data-bs-placement="top" title="Help">
+                                        <i class="fas fa-question"></i>
+                                    </span>
+                                </a>
+                                <ul data-cy="dropdown-menu" class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                                    <li>
+                                        <a target="_self" data-cy="menu-item-trigger" href="/ab/f/home/" class="dropdown-item">
+                                            Help and support
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a target="_self" data-cy="menu-item-trigger" href="/ab/f/contracts/" class="dropdown-item">
+                                            Community and forums
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a target="_self" data-cy="menu-item-trigger" href="/ab/workdiary/freelancer/" class="dropdown-item">
+                                            Disputes
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item p-lg-2 my-lg-2">
+                                <a href="#" target="_self" class="nav-link text-light">
+                                    <i class="far fa-bell"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item p-lg-2 my-lg-2">
+                                <a href="#" target="_self" data-bs-toggle="tooltip" data-bs-placement="top" title="Invite a Coworker" class="text-light nav-link">
+                                    <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                </a>
+                            </li>*@
                         <li class="nav-item dropdown p-lg-2 my-lg-2">
-                            <a role="button" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" class="dropdown-toggle text-light nav-link">
-                                <span data-bs-toggle="tooltip" data-bs-placement="top" title="Help">
-                                    <i class="fas fa-question"></i>
-                                </span>
-                            </a>
-                            <ul data-cy="dropdown-menu" class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/f/home/" class="dropdown-item">
-                                        Help and support
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/f/contracts/" class="dropdown-item">
-                                        Community and forums
-                                    </a>
-                                </li>
-                                <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/workdiary/freelancer/" class="dropdown-item">
-                                        Disputes
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item p-lg-2 my-lg-2">
-                            <a href="#" target="_self" class="nav-link text-light">
-                                <i class="far fa-bell"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item p-lg-2 my-lg-2">
-                            <a href="#" target="_self" data-bs-toggle="tooltip" data-bs-placement="top" title="Invite a Coworker" class="text-light nav-link">
-                                <i class="fa fa-user-plus" aria-hidden="true"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown p-lg-2 my-lg-2">
-                            <img src="~/Images/16938730_371690419878868_4123771690068118215_n.jpg" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" class="dropdown-toggle img-fluid profile-img" />
+                            <img src="~/Images/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" class="dropdown-toggle img-fluid profile-img" />
                             <ul data-cy="dropdown-menu" class="dropdown-menu dropdown-menu-right profile-menue" aria-labelledby="dropdownMenuLink">
                                 <li>
                                     <a target="_self" data-cy="menu-item-trigger" href="/ab/f/contracts/" class="dropdown-item">
-                                        <img src="~/Images/16938730_371690419878868_4123771690068118215_n.jpg" class="img-fluid rounded-circle" />
-                                        User Name
+                                        <img src="~/Images/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" class="img-fluid rounded-circle" />
+                                        @CurrentUser.FirstName
                                     </a>
                                 </li>
                                 <li>

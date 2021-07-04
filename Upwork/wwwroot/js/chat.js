@@ -42,16 +42,16 @@ function sendMessage() {
 function addMessageToChat(message) {
     let isCurrentUserMessage = message.userName === username;
     let containerParent = document.createElement('div');
-    containerParent.className = isCurrentUserMessage ? "col-md-6 offset-md-6" : "col-md-6";
+    containerParent.className = isCurrentUserMessage ? "col-md-5  offset-md-7" : "col-md-5";
     let container = document.createElement('div');
    
     container.className = isCurrentUserMessage ? "container darker" : "container";
    
     let text = document.createElement('p');
     text.innerHTML = message.text;
-
+    text.className = isCurrentUserMessage ? "text-left pt-2  text-white" : "text-left pt-2"
     let when = document.createElement('span');
-    when.className = isCurrentUserMessage ? "time-right" : "time-left";
+    when.className = isCurrentUserMessage ? "time-right" : "time-Reciver";
     var currentdate = new Date();
     when.innerHTML = 
         (currentdate.getMonth() + 1) + "/"

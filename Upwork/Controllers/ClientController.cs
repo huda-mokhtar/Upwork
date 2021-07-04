@@ -35,14 +35,15 @@ namespace Upwork.Controllers
             roleManager = _roleManager;
             _hostenviroment = hostingEnvironment;
         }
-        [Authorize(Roles = "Client")]
         public async Task<IActionResult> Index()
         {
             var u = await userManager.GetUserAsync(User);
+            ViewData["username"] = u.UserName;
             Client client = _context.Clients.FirstOrDefault(a => a.ClientId == u.Id);
+            
             ViewData["ClientName"] = (u.FirstName + " " + u.LastName);
-            List<Jobs> alljobs = new List<Jobs>(_context.Jobs.Where(j=>j.ClientId==client.ClientId));
-                return View(alljobs);
+            List<Jobs> alljobs = new List<Jobs>(_context.Jobs.Include(a=>a.freelancer_Jobs).Where(j=>j.ClientId==client.ClientId));
+            return View(alljobs);
         }
         public IActionResult PostJob(int id)
         {
@@ -58,6 +59,8 @@ namespace Upwork.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> PostJob(Jobs job)
         {
+            var u = await userManager.GetUserAsync(User);
+            ViewData["username"] = u.UserName;
             if (job != null)
             {
                 var jobOld = _context.Jobs.FirstOrDefault(a => a.Id == job.Id);
@@ -76,8 +79,10 @@ namespace Upwork.Controllers
             return View(job);
         }
 
-        public IActionResult PostJobTitle(int id)
+        public async Task<IActionResult> PostJobTitle(int id)
         {
+            var u = await userManager.GetUserAsync(User);
+            ViewData["username"] = u.UserName;
             if (id != 0)
             {
                 var jobOld = _context.Jobs.FirstOrDefault(a => a.Id == id);
@@ -121,6 +126,7 @@ namespace Upwork.Controllers
         public async Task<IActionResult> PostJobTitle(Jobs job)
         {
             var u = await userManager.GetUserAsync(User);
+            ViewData["username"] = u.UserName;
             if (job != null)
             {
                 var Job = _context.Jobs.FirstOrDefault(s => s.Id == job.Id);
@@ -182,8 +188,10 @@ namespace Upwork.Controllers
             }
             return View(job);
         }
-        public IActionResult PostJobSkills(int id)
+        public async Task<IActionResult> PostJobSkills(int id)
         {
+            var u = await userManager.GetUserAsync(User);
+            ViewData["username"] = u.UserName;
             if (id != 0)
             {
                 var jobOld = _context.Jobs.FirstOrDefault(a => a.Id == id);
@@ -257,8 +265,10 @@ namespace Upwork.Controllers
                     return View(job);
                 }
         }
-        public IActionResult PostJobScope(int id)
+        public async Task<IActionResult> PostJobScope(int id)
         {
+            var u = await userManager.GetUserAsync(User);
+            ViewData["username"] = u.UserName;
             if (id != 0)
             {
                 var jobOld = _context.Jobs.FirstOrDefault(a => a.Id == id);
@@ -301,8 +311,10 @@ namespace Upwork.Controllers
             return View(job);
 
         }
-        public IActionResult PostJobBudget(int id)
+        public async Task<IActionResult> PostJobBudget(int id)
         {
+            var u = await userManager.GetUserAsync(User);
+            ViewData["username"] = u.UserName;
             if (id != 0)
             {
                 var jobOld = _context.Jobs.FirstOrDefault(a => a.Id == id);
@@ -353,8 +365,10 @@ namespace Upwork.Controllers
             return View(job);
 
         }
-        public IActionResult ReviewJobPosting(int id)
+        public async Task<IActionResult> ReviewJobPosting(int id)
         {
+            var u = await userManager.GetUserAsync(User);
+            ViewData["username"] = u.UserName;
             if (id != 0)
             {
                 var jobOld = _context.Jobs.FirstOrDefault(a => a.Id == id);
@@ -381,7 +395,7 @@ namespace Upwork.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ReviewJobPosting(Jobs job, Dictionary<string, bool> jobQuestions)
+        public async Task<IActionResult> ReviewJobPosting(Jobs job)
         {
             //if (ModelState.IsValid)
             //{
@@ -398,15 +412,6 @@ namespace Upwork.Controllers
                         Job.IsDraft = job.IsDraft;
                         Job.DraftSavedDate = DateTime.Now;
                         await _context.SaveChangesAsync();
-                        foreach (KeyValuePair<string, bool> item in jobQuestions)
-                        {
-                            if (item.Value == true)
-                            {
-                                JobQuestions questions = new JobQuestions() { JobsId = Job.Id, ReviewJobQuestionId = int.Parse(item.Key) };
-                                _context.JobQuestions.Add(questions);
-                                await _context.SaveChangesAsync();
-                            }
-                        }
                     if (Job.IsDraft == false)
                     {
                         Job.CreateDate = DateTime.Now;
@@ -418,15 +423,8 @@ namespace Upwork.Controllers
                         return RedirectToAction(nameof(Index));
                     }
                 }
-                else
-                {
-                    return RedirectToAction("PostJobBudget");
-                }
             }
-            else
-            {
-                return RedirectToAction("PostJobBudget");
-            }
+            return RedirectToAction("PostJobBudget");
             //}
             //return View(job);
         }
@@ -481,6 +479,7 @@ namespace Upwork.Controllers
         public async Task<IActionResult> Profile()
         {
             var u = await userManager.GetUserAsync(User);
+            ViewData["username"] = u.UserName;
             Client client = _context.Clients.Include(a => a.User).ThenInclude(a => a.Country).Where(a => a.ClientId == u.Id).FirstOrDefault();
             ViewData["Countries"] = new SelectList(_context.Countries, "CountryId", "Name", client.User.CountryId);
             return View(client);
@@ -523,8 +522,10 @@ namespace Upwork.Controllers
             }
             return RedirectToAction(nameof(Profile));
         }
-        public IActionResult AllJobPosts(string drafted = null)
+        public async Task<IActionResult> AllJobPosts(string drafted = null)
         {
+            var u = await userManager.GetUserAsync(User);
+            ViewData["username"] = u.UserName;
             if (drafted != null)
             {
                 if (drafted == "true")
@@ -543,7 +544,7 @@ namespace Upwork.Controllers
             }
             else
             {
-                List<Jobs> allJobs = new List<Jobs>(_context.Jobs);
+                List<Jobs> allJobs = new List<Jobs>(_context.Jobs.Include(a=>a.freelancer_Jobs).Where(a=>a.ClientId==u.Id));
                 allJobs.Reverse();
                 return View(allJobs);
             }
@@ -554,6 +555,7 @@ namespace Upwork.Controllers
         public async Task<IActionResult> JobDetails(int id)
         {
             var CurrentUser = await userManager.GetUserAsync(User);
+            ViewData["username"] = CurrentUser.UserName;
             var job = _context.Jobs.Include(a => a.subCategory).FirstOrDefault(a => a.Id == id && a.ClientId == CurrentUser.Id);
             if(job == null)
             {
@@ -707,8 +709,10 @@ namespace Upwork.Controllers
 
         public IActionResult ProjectDetails(int id)
         {
+           
             var Project = _context.Projects.Include(a => a.Skills).Include(a => a.SubCategory).
                 Include(a => a.Freelancer).Include(a => a.Freelancer.Experiences).Include(a => a.Freelancer.User).Include(a => a.Freelancer.City).FirstOrDefault(a => a.ProjectId == id);
+            ViewData["Experience"] = _context.Freelancer_Experience.Where(a => a.FreelancerId == Project.FreelancerId).Include(a => a.Company).Include(a => a.Country).Include(a => a.JobTitle).ToList();
             return View(Project);
         }
 
@@ -727,6 +731,25 @@ namespace Upwork.Controllers
             ViewData["Users"] = _context.Users;
             return View(clientContract);
         }
+        public async Task<IActionResult> DeleteAccount(string id)
+        {
+            if(id != null)
+            {
+                var client = _context.Clients.FirstOrDefault(a => a.ClientId == id);
+                _context.Remove(client);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("index", "Home");
+            }
+            return View();
+        }
+        //[HttpPost]
+        //public async Task<IActionResult> Rate(Freelancer_Job job)
+        //{
+        //    var freelancerJob = _context.Freelancer_Jobs.FirstOrDefault(a => a.JobsId == job.JobsId && a.FreelancerId == job.FreelancerId);
+        //    freelancerJob.Rate = job.Rate;
+        //    await _context.SaveChangesAsync();
+        //    return View();
+        //}
 
     }
     }

@@ -1,6 +1,7 @@
 ﻿@model Upwork.Models.DbModels.Jobs
 @{
     ViewData["Title"] = "Review Post Job Page";
+    ViewData["UserName"] = ViewBag.username;
     Layout = "_ClientLayout";
 }
 
@@ -59,9 +60,9 @@
                                     <p class="seconedHeaders mb-2">Category</p>
                                     <div style="display:inline-flex;">
                                         <p>@ViewBag.subcategName</p>
-                                        <div class="editIcon">
+                                        @*<div class="editIcon">
                                             <i class="fa fa-pencil" aria-hidden="true"></i>
-                                        </div>
+                                        </div>*@
                                     </div>
                                 </div>
                                 <div class="mb-3">
@@ -81,9 +82,9 @@
                                         }
 
                                         @*<div class="skillsDiv pt-1 pl-2 pb-1 pr-2">Website Development</div>*@
-                                        <div class="editIcon">
+                                        @*<div class="editIcon">
                                             <i class="fa fa-pencil" aria-hidden="true"></i>
-                                        </div>
+                                        </div>*@
                                     </div>
                                 </div>
                                 <div class="mb-3">
@@ -98,9 +99,9 @@
                                             { <span>1 to 3 months</span>}, @Model.LevelOfExperience
                                         </p>
 
-                                        <div class="editIcon">
+                                        @*<div class="editIcon">
                                             <i class="fa fa-pencil" aria-hidden="true"></i>
-                                        </div>
+                                        </div>*@
                                     </div>
                                 </div><div class="mb-3">
                                     <p class="seconedHeaders mb-2">Budget</p>
@@ -111,80 +112,17 @@
                                         else
                                         { <span>$@Model.BudgetFrom.00 - $@Model.BudgetTo.00 /hr</span>}
                                         </p>
-                                        <div class="editIcon">
+                                        @*<div class="editIcon">
                                             <i class="fa fa-pencil" aria-hidden="true"></i>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="myDrafts">
-                        <div class="row p-3"
-                             style="display:-webkit-box; -webkit-box-align:center; ">
-                            <div class="col-12 text-left m-0">
-                                <div class="row m-0 p-0 mb-3" data-toggle="collapse" href="#collapseOne" style="cursor: pointer;">
-                                    <div class="col-9 mr-1 text-left">
-                                        <p class="seconedHeaders mb-2">Screening questions (optional)</p>
-                                        <p class="mb-2" style="font-size: 14px; color: #656565;">Narrow down your candidates</p>
-                                    </div>
-                                    <div class="col-2 m-0 text-right">
-                                        <a class="card-link rotateLink1" data-toggle="collapse"
-                                           href="#collapseOne" style="color: #656565;;"><i class="fa fa-angle-down fa-2x rotateAngle1"></i></a>
-                                    </div>
-                                </div>
-                                <div id="collapseOne" class="collapse" data-parent="#accordion">
-                                    <div class="mr-1 text-left ">
-                                        <p class="thirdHeaders mb-2">Select or add up to 5 questions</p>
-                                        @foreach (var que in ViewBag.Questions)
-                                        {
-                                            <div class="mb-2">
-                                                <label class="checkbox" style="display:-webkit-box; -webkit-box-align:center; ">
-                                                    @Html.CheckBox($@"jobQuestions.{que.QuestionId}")
-                                                    @*<input type="checkbox" asp-for="jobQuestions" />*@
-                                                    <div class="ml-3">@que.Question</div>
-                                                </label>
-                                            </div>
-                                        }
-                                        @*<div class="mb-2">
-                                            <label class="checkbox" style="display:-webkit-box; -webkit-box-align:center; ">
-                                                <input type="checkbox" />
-                                                <div class="ml-3">Describe your recent experience with similar projects</div>
-                                            </label>
-                                        </div>
-                                        <div class="mb-2">
-                                            <label class="checkbox" style="display:-webkit-box; -webkit-box-align:center; ">
-                                                <input type="checkbox" />
-                                                <div class="ml-3">Please list any certifications related to this project</div>
-                                            </label>
-                                        </div>
-                                        <div class="mb-2">
-                                            <label class="checkbox" style="display:-webkit-box; -webkit-box-align:center; ">
-                                                <input type="checkbox" />
-                                                <div class="ml-3">Include a link to your GitHub profile and/or website</div>
-                                            </label>
-                                        </div>
-                                        <div class="mb-2">
-                                            <label class="checkbox" style="display:-webkit-box; -webkit-box-align:center; ">
-                                                <input type="checkbox" />
-                                                <div class="ml-3">What frameworks have you worked with?</div>
-                                            </label>
-                                        </div>
-                                        <div class="mb-2">
-                                            <label class="checkbox" style="display:-webkit-box; -webkit-box-align:center; ">
-                                                <input type="checkbox" />
-                                                <div class="ml-3">Describe your approach to testing and improving QA</div>
-                                            </label>
                                         </div>*@
-
-
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
+
+                    
                     <div class="myDrafts">
                         <div class="row p-3"
                              style="display:-webkit-box; -webkit-box-align:center; ">
@@ -349,7 +287,7 @@
 
 
                                     </div>
-                                    <div class="col text-left offset-1 ">
+                                    @*<div class="col text-left offset-1 ">
                                         <div class="m-0 p-0 mb-4">
                                             <p class="FourthHeaders mb-2 m-0 p-0 ">Hire Date</p>
                                             <div class="radio-group">
@@ -537,14 +475,14 @@
                                             </div>
                                         </div>
 
-                                    </div>
+                                    </div>*@
                                 </div>
 
                             </div>
                         </div>
                     </div>
 
-                    <div class="myDrafts">
+                    <div class="myDrafts d-none">
                         <div class="row p-3"
                              style="display:-webkit-box; -webkit-box-align:center; ">
                             <div class="col-12 text-left m-0">
@@ -606,7 +544,7 @@
                         </div>
                     </div>
 
-                    <div class="myDrafts">
+                    <div class="myDrafts d-none">
                         <div class="row p-3"
                              style="display:-webkit-box; -webkit-box-align:center; ">
                             <div class="col-12 text-left m-0">

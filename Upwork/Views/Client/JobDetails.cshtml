@@ -1,10 +1,16 @@
 ﻿@model Upwork.Models.DbModels.Jobs
 @{
     ViewData["Title"] = "Job Details";
+    ViewData["UserName"] = ViewBag.username;
     Layout = "_ClientLayout";
 }
 @section Style{
     <link href="~/css/JobDetails.css" rel="stylesheet" />
+    <style>
+        .checked {
+            color: #14a800;
+        }
+    </style>
 }
 
 <div class="text-center">
@@ -38,7 +44,7 @@
                                         </a>
                                     </li>
                                     <li class="nav-item mx-4">
-                                        <a class="nav-link px-5"  data-toggle="tab" href="@Url.Action("GetProposal","Client",new {id=Model.Id})" data-target="#jobProposal" id="getProposals">
+                                        <a class="nav-link px-5" data-toggle="tab" href="@Url.Action("GetProposal","Client",new {id=Model.Id})" data-target="#jobProposal" id="getProposals">
 
                                             Review Proposals
                                         </a>
@@ -46,7 +52,7 @@
                                     <li class="nav-item mx-4">
                                         <a class="nav-link px-5" href="@Url.Action("GetHired","Client",new {id=Model.Id})" data-toggle="tab" data-target="#hires" id="getHires">
 
-                                            Hired 
+                                            Hired
                                         </a>
 
                                     </li>
@@ -243,10 +249,10 @@
 
                             </div>
                             <div class="tab-pane" id="jobProposal">
-                               
+
                             </div>
                             <div class="tab-pane" id="hires">
-                              
+
                             </div>
                         </div>
                     </div>
@@ -261,8 +267,12 @@
 
 @section Scripts{
     <script>
+        //var intRate = $("#rateValue").val();
+        //for (var r = 0; r < intRate; r++) {
+        //    $("#rate").children
+        //}
         function hire(btn) {
-           
+
             let FreelancerId = document.getElementById("freelancerId").value;
             let JobsId = document.getElementById("jobId").value;
             let Contract = $("#hireForm").find('input:file[name="Contract"]')[0].files[0];
@@ -285,10 +295,10 @@
                 error: (e) => {
                     console.log(e);
                 }
-                })
+            })
 
 
-            }
+        }
 
 
         $('[data-toggle="tab"]').click(function (e) {
@@ -304,5 +314,58 @@
             $this.tab('show');
             return false;
         });
+        //function Rate(e) {
+        //    var rate = 0;
+        //    for (var i = 0; i < e.parent().children().length; i++) {
+        //        e.parent().children()[i].classList.remove("stop");
+        //        e.parent().children()[i].classList.remove("checked");
+        //    }
+        //    if (e[0].nextElementSibling != null) {
+        //        e[0].nextElementSibling.classList.add("stop");
+        //    }
+
+        //    for (var j = 0; j < e.parent().children().length; j++) {
+
+        //        if (e.parent().children()[j].classList.contains("stop")) {
+        //            var form = document.createElement("form");
+        //            form.action = "/client/Rate";
+        //            form.method = "post";
+        //            form.classList.add("d-none");
+        //            var freeId = $("#FreelancerId").val();
+        //            var jId = $("#jobId").val();
+        //            var freeinput = document.createElement("input");
+        //            freeinput.type = "hidden";
+        //            freeinput.name = "FreelancerId";
+        //            freeinput.value = freeId;
+        //            var jobinput = document.createElement("input");
+        //            jobinput.type = "hidden";
+        //            jobinput.name = "JobsId";
+        //            jobinput.value = jId;
+        //            var rateinput = document.createElement("input");
+        //            rateinput.type = "hidden";
+        //            rateinput.name = "Rate";
+        //            rateinput.value = rate;
+
+        //            form.append(freeinput);
+        //            form.append(jobinput);
+        //            form.append(rateinput);
+
+        //            var submit = document.createElement("button");
+        //            submit.type = "submit";
+        //            submit.id = "rated";
+        //            form.append(submit);
+        //            console.log(form);
+        //            $("#Hired").append(form);
+        //            $("#rated").click();
+        //            break;
+        //        }
+        //        e.parent().children()[j].classList.add("checked");
+        //        rate++;
+        //        //debugger;
+
+        //    }
+        //    //console.log(e.parent().children());
+            
+        //}
     </script>
 }

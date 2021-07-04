@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Profile";
+    ViewData["UserName"] = ViewBag.username;
     Layout = "_ClientLayout";
 }
 
@@ -68,7 +69,7 @@
                 </div>
                 <div class="card-body">
                     <div class=" text-center m-auto p-1">
-                        <img src="~/Images/Wafaa1.jpg" class="Client-photo m-auto" />
+                        <img src="~/Images/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" class="Client-photo m-auto" />
                     </div>
                 </div>
                 <div class="card-footer bg-white">
@@ -192,12 +193,12 @@
                     <div class="row text-left" style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
 
                         <a class="btn  text-light  py-2 px-3 mr-5 devBtnGreen"
-                           style=" width:auto ; height: auto; display: block;">
-                            <h6 class="m-0 p-0"> Create New Account </h6>
+                           style=" width:auto ; height: auto; display: block;" href="/account/signup">
+                            <h6  class="m-0 p-0"> Create New Account </h6>
                         </a>
 
-                        <a href="" style="display: block; color: #14a800;">
-                            <h6 class="m-0 p-0 text-Success"> Close Account </h6>
+                        <a asp-action="DeleteAccount" asp-route-id="@Model.ClientId" style="display: block; color: #14a800;">
+                            <h6  class="m-0 p-0 text-Success"> Close Account </h6>
                         </a>
                         
 
