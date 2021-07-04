@@ -534,13 +534,13 @@ namespace Upwork.Controllers
             {
                 if (drafted == "true")
                 {
-                    List<Jobs> allJobsdrafted = new List<Jobs>(_context.Jobs.Where(a => a.IsDraft == true));
+                    List<Jobs> allJobsdrafted = new List<Jobs>(_context.Jobs.Include(a => a.freelancer_Jobs).Where(a => a.IsDraft == true && a.ClientId == u.Id));
                     allJobsdrafted.Reverse();
                     return View(allJobsdrafted);
                 }
                 else if (drafted == "false")
                 {
-                    List<Jobs> allJobsposted = new List<Jobs>(_context.Jobs.Where(a => a.IsDraft == false));
+                    List<Jobs> allJobsposted = new List<Jobs>(_context.Jobs.Include(a => a.freelancer_Jobs).Where(a => a.IsDraft == false && a.ClientId == u.Id));
                     allJobsposted.Reverse();
                     return View(allJobsposted);
                 }
