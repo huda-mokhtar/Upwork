@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@{
     ViewData["Title"] = "Home Page";
     Layout = null;
 }
@@ -15,7 +17,7 @@
     <link href="~/lib/font-awesome/css/v4-shims.css" rel="stylesheet" />
     <title>Upwork</title>
     <style>
-        
+
         .signup {
             background-color: #14a800;
             color: white;
@@ -109,53 +111,55 @@
             color: #1f57c3;
             border-radius: 30px;
         }
+
         .findOpportunities {
             background-color: rgb(238, 236, 236);
         }
 
-            footer {
-                padding: 0;
-                margin: 0;
-                list-style: none;
-                box-sizing: border-box;
-                background-color: #001e00;
-                color: white;
+        footer {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            box-sizing: border-box;
+            background-color: #001e00;
+            color: white;
+        }
+
+            footer a {
+                text-decoration: none;
             }
 
-        footer a {
-            text-decoration: none;
-        }
+                footer a:hover {
+                    text-decoration: none;
+                }
 
-        footer a:hover {
-            text-decoration: none;
-        }
-        footer a:hover {
-            color: white;
-            border-bottom: 1px white solid;
-        }
+                footer a:hover {
+                    color: white;
+                    border-bottom: 1px white solid;
+                }
 
-        footer p {
-            margin-bottom: 0rem;
-        }
+            footer p {
+                margin-bottom: 0rem;
+            }
 
         .up-footer-items a {
             color: #656565;
         }
 
-        .up-footer-items a:hover {
-            color: #656565;
-        }
+            .up-footer-items a:hover {
+                color: #656565;
+            }
 
         footer i {
             color: white;
             border-radius: 50%;
-            border:1px solid white;
+            border: 1px solid white;
             background-color: #001e00;
             padding: 0.4rem;
             margin: .4rem;
         }
         /******* end footer*********/
-        
+
         .form-control:focus {
             color: #495057;
             background-color: #fff;
@@ -163,6 +167,7 @@
             outline: 0;
             box-shadow: 0 0 0 0.1rem #81e774;
         }
+
         #up {
             color: #14a800;
             font-size: 40px;
@@ -174,8 +179,6 @@
             font-size: 30px;
             font-family: Georgia, serif;
         }
-
-
     </style>
 
 </head>
@@ -185,7 +188,7 @@
     <nav class="row navbar navbar-expand-sm sticky-top navbar-white bg-white m-0 p-0">
         <div class="row w-100 border-top border-bottom mx-0 mt-0 mb-0 px-5 py-2">
             <div class="col-5 ml-3 my-auto mt-2">
-                <h3 class="navbar-brand m-0" >
+                <h3 class="navbar-brand m-0">
                     <span id="up">Up<span id="work">work</span></span>
                 </h3>
             </div>
@@ -194,10 +197,19 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="col-6 my-auto text-right py-auto">
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <a class="my-auto py-auto" style="color: rgb(97, 97, 97);font-weight: 500;" asp-action="Logout" asp-controller="Account">
+                        Logout
+                    </a>
+                }
+                else
+                {
+                    <a class="my-auto py-auto" style="color: rgb(97, 97, 97);font-weight: 500;" asp-action="Login" asp-controller="Account">
+                        Log In
+                    </a>
+                }
 
-                <a class="my-auto py-auto" style="color: rgb(97, 97, 97);font-weight: 500;" href="/account/login">
-                    Log In
-                </a>
                 <a class="btn my-auto p-2 ml-4 px-4 signup" href="/account/signup">
                     Sign Up
                 </a>
@@ -220,7 +232,7 @@
                     Take your career to the next level.
                 </p>
                 <div class="mt-4 p-0 mx-1 mb-5">
-                    <a class="btn my-auto p-2 px-4 signup" href="/account/signup" >
+                    <a class="btn my-auto p-2 px-4 signup" href="/account/signup">
                         Find Talent
                     </a>
                     <a class="btn my-auto p-2 px-4 lightDiv ml-3" href="/account/signup">

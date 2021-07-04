@@ -64,9 +64,10 @@ namespace Upwork.Controllers
                     var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
                     var confirmationLink = Url.Action("ConfirmEmail", "Account",
                                     new { userId = user.Id, token = token }, Request.Scheme);
-                    //
+                    /*
                     await signInManager.SignOutAsync();
                     return Content(confirmationLink);
+                    */
                     /*
                     // Send Emails using SendGrid
                     var apikey = "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";
@@ -78,9 +79,10 @@ namespace Upwork.Controllers
                     var htmlContent = "<strong> Click on the link to confirm your email: " +confirmationLink + " </strong>";
                     var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
                     var response = await client.SendEmailAsync(msg);
+                    */
                     await signInManager.SignOutAsync();
-                    return RedirectToAction("VerifyEmail", new { id = user.Id });                                    
-               */
+                    return RedirectToAction("VerifyEmail", new { id = user.Id , link = confirmationLink});                                    
+       
                     }
                 foreach (var error in result.Errors)
                 {
@@ -91,10 +93,10 @@ namespace Upwork.Controllers
         }
 
         //Verify email 
-        public async Task<IActionResult> VerifyEmail(string id)
+        public async Task<IActionResult> VerifyEmail(string id,string link)
         {
             
-            if (id == null)
+            if (id == null || link == null)
             {
                 return RedirectToAction("SignUp");
             }
@@ -111,6 +113,7 @@ namespace Upwork.Controllers
                 return RedirectToAction("Data");
             }
             ViewBag.Email = user.Email;
+            ViewBag.Link = link;
             return View();
 
         }
