@@ -268,6 +268,7 @@ namespace Upwork.Controllers
             var user = await _UserManager.GetUserAsync(User);           
             SettingsViewModel model = new SettingsViewModel() { Email = user.Email, FirstName = user.FirstName, LastName = user.LastName , Username = user.UserName};
             ViewBag.HasPassword =  await _UserManager.HasPasswordAsync(user);
+            ViewBag.Id = user.Id;
             return View(model);
         }
 
@@ -372,7 +373,7 @@ namespace Upwork.Controllers
                     Freelancer.Image = FileName;
                     u.Image = FileName;
                     await _context.SaveChangesAsync();
-                    return RedirectToAction("Profile");
+                    return RedirectToAction("Profile", new { id = Freelancer.FreelancerId });
                 }
             }
             return View(model);
@@ -415,7 +416,7 @@ namespace Upwork.Controllers
                 var SecondLanguage = _context.Freelancer_Language.FirstOrDefault(a => a.FreelancerId == Freelancer.FreelancerId && a.LanguageId != EnglishId);
                 SecondLanguage.ProficiencyId = model.Proficiency1Id.Value;
                 _context.SaveChanges();
-                return RedirectToAction("Profile");
+                return RedirectToAction("Profile", new { id = Freelancer.FreelancerId });
             }
             return PartialView("EditLanguages", model);
         }
@@ -437,8 +438,8 @@ namespace Upwork.Controllers
                 var Freelancer = _context.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
                 Freelancer.Title = model.Title;
                 _context.SaveChanges();
-                return RedirectToAction("Profile");
-            }          
+                return RedirectToAction("Profile", new { id = Freelancer.FreelancerId });
+            }
             return PartialView("EditTitleModal", model);
         }
 
@@ -460,7 +461,7 @@ namespace Upwork.Controllers
                 var Freelancer = _context.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
                 Freelancer.Overview = model.Overview;
                 _context.SaveChanges();
-                return RedirectToAction("Profile");
+                return RedirectToAction("Profile", new { id = Freelancer.FreelancerId });
             }
             return PartialView("EditOverviewModal", model);
         }
@@ -495,7 +496,7 @@ namespace Upwork.Controllers
                 var DegreeId = _context.Degrees.FirstOrDefault(a => a.Name == model.Degree).DegreeId;
                 _context.Freelancer_Education.Add(new Freelancer_Education() { FreelancerId = Freelancer.FreelancerId, AreaId = AreaId, SchoolId = SchoolId, DegreeId = DegreeId, From = new DateTime(model.From.Value, 1, 1), To = new DateTime(model.To.Value, 1, 1), Description = model.Description });
                 _context.SaveChanges();
-                return RedirectToAction("Profile");
+                return RedirectToAction("Profile", new { id = Freelancer.FreelancerId });
             }
             return PartialView("AddEducationModal",model);
         }
@@ -506,7 +507,7 @@ namespace Upwork.Controllers
             _context.Freelancers.FirstOrDefault(a => a.FreelancerId == FreelancerId).Educations.Remove(Education);
             _context.Freelancer_Education.Remove(Education);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Profile");
+            return RedirectToAction("Profile", new { id = FreelancerId });
         }
 
         public async Task<IActionResult> EditEducation(int AreaId, int SchoolId, int DegreeId, string FreelancerId)
@@ -558,7 +559,7 @@ namespace Upwork.Controllers
                 await _context.SaveChangesAsync();
                 _context.Freelancer_Education.Add(new Freelancer_Education() { FreelancerId = Freelancer.FreelancerId, AreaId = AreaId, SchoolId = SchoolId, DegreeId = DegreeId, From = new DateTime(model.From.Value, 1, 1), To = new DateTime(model.To.Value, 1, 1), Description = model.Description });
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Profile");
+                return RedirectToAction("Profile", new { id = Freelancer.FreelancerId });
             }
             return PartialView("EditEducationModal", model);
         }
@@ -589,7 +590,7 @@ namespace Upwork.Controllers
                 var JobTitleId = _context.JobTitle.FirstOrDefault(a => a.Name == model.Title).JobTitleId;
                 _context.Freelancer_Experience.Add(new Freelancer_Experience() { FreelancerId = Freelancer.FreelancerId, CompanyId = CompanyId, Location = model.Location, CountryId = model.CountryId.Value, JobTitleId = JobTitleId, From = new DateTime(model.FromYear, model.FromMonth, 1), To = new DateTime(model.ToYear, model.ToMonth, 1), Description = model.Description });
                 _context.SaveChanges();
-                return RedirectToAction("Profile");
+                return RedirectToAction("Profile", new { id = Freelancer.FreelancerId });
             }
             return PartialView("AddEmployementMdal");
         }
@@ -603,7 +604,7 @@ namespace Upwork.Controllers
             _context.JobTitle.FirstOrDefault(a => a.JobTitleId == JobTitleId).FreelancerExperiences.Remove(Employement);
             _context.Freelancer_Experience.Remove(Employement);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Profile");
+            return RedirectToAction("Profile", new { id = FreelancerId });
         }
 
         public async Task<IActionResult> EditEmployement(string FreelancerId, int CompanyId, int CountryId, int JobTitleId)
@@ -657,7 +658,7 @@ namespace Upwork.Controllers
                 await _context.SaveChangesAsync();
                 _context.Freelancer_Experience.Add(new Freelancer_Experience() { FreelancerId = Freelancer.FreelancerId, CompanyId = CompanyId, Location = model.Location, CountryId = model.CountryId.Value, JobTitleId = JobTitleId, From = new DateTime(model.FromYear, model.FromMonth, 1), To = new DateTime(model.ToYear, model.ToMonth, 1), Description = model.Description });
                 _context.SaveChanges();
-                return RedirectToAction("Profile");
+                return RedirectToAction("Profile", new { id = Freelancer.FreelancerId });
             }
             ViewBag.CountryId = new SelectList(_context.Countries, "CountryId", "Name");
             return PartialView("EditEmployementModal", model);
@@ -681,8 +682,8 @@ namespace Upwork.Controllers
                 var Freelancer = _context.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);
                 Freelancer.HourlyRate = model.HourlyRate;
                 _context.SaveChanges();
-                return RedirectToAction("Profile");
-            }         
+                return RedirectToAction("Profile", new { id = Freelancer.FreelancerId });
+            }
             return PartialView("EditHourlyRateModal", model);
         }
 
@@ -728,7 +729,7 @@ namespace Upwork.Controllers
                     }
                 }
                 _context.SaveChanges();
-                return RedirectToAction("Profile");
+                return RedirectToAction("Profile",new { id = Freelancer.FreelancerId});
             }
             return PartialView("EditSkillsModal", Suggestedskill);
         }
