@@ -684,7 +684,7 @@ namespace Upwork.Controllers
             }
             await CheckState(); 
             Dictionary<Skill, bool> model = new Dictionary<Skill, bool>();
-            List<Skill> Top15Skills = db.Skills.Take(15).ToList();
+            List<Skill> Top15Skills = db.Skills.Take(20).ToList();
             foreach (var item in Top15Skills)
             {
                 if (db.Freelancer_Skill.FirstOrDefault(a=>a.SkillId == item.SkillId && a.FreelancerId == Freelancer.FreelancerId) != null)
