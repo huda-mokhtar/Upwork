@@ -193,12 +193,12 @@
                     <div class="row text-left" style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
 
                         <a class="btn  text-light  py-2 px-3 mr-5 devBtnGreen"
-                           style=" width:auto ; height: auto; display: block;">
-                            <a href="/account/signup" class="m-0 p-0"> Create New Account </a>
+                           style=" width:auto ; height: auto; display: block;" href="/account/signup">
+                            <h6  class="m-0 p-0"> Create New Account </h6>
                         </a>
 
-                        <a href="" style="display: block; color: #14a800;">
-                            <a asp-action="DeleteAccount" class="m-0 p-0 text-Success"> Close Account </a>
+                        <a asp-action="DeleteAccount" asp-route-id="@Model.ClientId" style="display: block; color: #14a800;">
+                            <h6  class="m-0 p-0 text-Success"> Close Account </h6>
                         </a>
                         
 

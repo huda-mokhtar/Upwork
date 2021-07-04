@@ -720,8 +720,15 @@ namespace Upwork.Controllers
         {
             return View();
         }
-        public IActionResult DeleteAccount()
+        public async Task<IActionResult> DeleteAccount(string id)
         {
+            if(id != null)
+            {
+                var client = _context.Clients.FirstOrDefault(a => a.ClientId == id);
+                _context.Remove(client);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("index", "Home");
+            }
             return View();
         }
         //[HttpPost]

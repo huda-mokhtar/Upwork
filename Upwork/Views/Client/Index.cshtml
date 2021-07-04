@@ -58,7 +58,7 @@
                             <div class="col-7 text-left">
                                 <h4>My Postings</h4>
                             </div>
-                            <div class="col-4 text-right"><a href="#" class="greenLinks">All Postings</a></div>
+                            <div class="col-4 text-right"><a asp-action="AllJobPosts" asp-route-drafted="false" class="greenLinks">All Postings</a></div>
                         </div>
                     </div>
                     <div>
@@ -273,7 +273,7 @@
                         <div class="col-7 text-left ml-1">
                             <h4>My Drafts</h4>
                         </div>
-                        <div class="col-4 text-right"><a href="#" class="greenLinks">All Drafts</a></div>
+                        <div class="col-4 text-right"><a asp-action="AllJobPosts" asp-route-drafted="true" class="greenLinks">All Drafts</a></div>
                     </div>
                 </div>
                 @if (Model.Where(a => a.IsDraft == true).Count() > 6)
