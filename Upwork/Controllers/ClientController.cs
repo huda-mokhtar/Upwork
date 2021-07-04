@@ -742,6 +742,14 @@ namespace Upwork.Controllers
             }
             return View();
         }
+        public async Task<IActionResult> MyHire()
+        {
+            var u = await userManager.GetUserAsync(User);
+            var Hired = _context.Freelancer_Jobs.Include(a=>a.Jobs).Where(a => a.Jobs.ClientId == u.Id && a.IsHire == true).Include(a => a.Freelancer).ToList();
+            ViewData["User"] = _context.Freelancers.Include(a => a.Freelancer_Jobs).Include(a => a.User).Include(a => a.City).Include(a => a.Skills).Include(a => a.Languages);
+
+            return View(Hired);
+        }
         //[HttpPost]
         //public async Task<IActionResult> Rate(Freelancer_Job job)
         //{

@@ -1,0 +1,91 @@
+﻿@model List<Freelancer_Job>
+
+@{
+    ViewData["Title"] = "My Hire";
+    Layout = "_ClientLayout";
+}
+@section Style{
+    <link href="~/css/JobDetails.css" rel="stylesheet" />
+    <link href="~/css/AllJobPosts.css" rel="stylesheet" />
+}
+
+
+<div class="text-center">
+    <div class="container">
+        <div class="row mx-3" style="display:-webkit-box; -webkit-box-align:center;">
+            <div class="col-5 my-5 " style="display:-webkit-box; -webkit-box-align:center;">
+                <div class="container m-0 p-0">
+                    <div class="row  text-left">
+
+                        <a href="#" class="mx-2">My Hire </a>
+                        <h6 style="display: inline-block;"> / Hired Freelancers</h6>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-7 text-right my-5">
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-2 mb-4">
+        <div class="row m-0">
+            <div class="col-12 m-auto">
+                <div class="card mx-3 mb-5 mt-2">
+                    @if (Model.Count() == 0)
+                    {
+                        <div class="row m-0 p-0 mt-3">
+                            <div class="col-9 m-auto p-2">
+                                <img src="~/Images/hired0.png" />
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        @foreach (var hire in Model)
+                        {
+                            <div class="porposed  mb-0" id="Hired">
+                                <div class="row my-3 p-0 m-0">
+                                    <div class="col-2 m-0 p-0">
+                                        <img src="~/Images/@hire.Freelancer.Image" class="Freelancer-photo my-auto" />
+                                    </div>
+                                    <div class="col-8 text-left">
+                                        <a class="mb-0 reuseLink" asp-action="Profile" asp-controller="Freelancers" asp-route-id="@hire.FreelancerId" style="font-size: 15;">
+                                            @foreach (var u in ViewBag.User)
+                                            {
+
+                                                if (u.FreelancerId == hire.FreelancerId)
+                                                {<span>@u.User.UserName</span>}
+                                        }
+                                        </a>
+                                        <p class="mb-0" style="font-size: 16px;font-weight: 650;">
+                                            @hire.Freelancer.Title
+                                        </p>
+                                        <p class="mb-0" style="font-size: 15;color: rgb(102, 102, 102);font-weight: 600;">
+                                            @hire.Freelancer.City.Name
+                                        </p>
+                                        <p class="mb-0" style="font-size: 15; color: rgb(102, 102, 102);font-weight: 600;">
+                                            $@hire.Freelancer.HourlyRate / hr
+                                        </p>
+
+                                    </div>
+                                    <div class="col-2 p-0 text-right">
+                                        <div class="lightDev text-center py-1 px-2 m-2" style="cursor: unset;">
+                                            <i class="fa fa-check-circle mr-1" style="color: #14a800; display: inline-block;" aria-hidden="true"></i> Hired
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
