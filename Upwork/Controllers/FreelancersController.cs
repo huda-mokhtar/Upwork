@@ -693,7 +693,7 @@ namespace Upwork.Controllers
             var u = await _UserManager.GetUserAsync(User);
             var Freelancer = _context.Freelancers.FirstOrDefault(a => a.FreelancerId == u.Id);            
             Dictionary<Skill, bool> model = new Dictionary<Skill, bool>();
-            List<Skill> Top15Skills = _context.Skills.Take(15).ToList();
+            List<Skill> Top15Skills = _context.Skills.Take(20).ToList();
             foreach (var item in Top15Skills)
             {
                 if (_context.Freelancer_Skill.FirstOrDefault(a => a.SkillId == item.SkillId && a.FreelancerId == Freelancer.FreelancerId) != null)
