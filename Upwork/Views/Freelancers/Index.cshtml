@@ -101,7 +101,7 @@
                                                 }
 
                                             }
-                                            @if (item.freelancer_Jobs.FirstOrDefault(a => a.JobsId == item.Id) == null)
+                                            @if (item.freelancer_Jobs.FirstOrDefault(a => a.JobsId == item.Id && a.FreelancerId == ViewBag.Freelancer.FreelancerId) == null)
                                             {
                                                 <div onclick="saveJob(@item.Id,this)" class="circlee-like">
                                                     <i class="fa fa-heart-o 2x" style="color:rgb(83, 83, 83) ;"></i>
@@ -135,19 +135,10 @@
                             </div>
                             <div class="row mx-0 my-3">
                                 <div class="text-left">
-                                   
-
-                                        @foreach (var skill in item.jobsSkills)
-                                        {
-                                            @foreach (var jobskill in ViewBag.Skills)
-                                            {
-                                                @if (jobskill.SkillId == skill.skillId)
-                                                {
-                                                    <div class="jobSkills py-1 px-2 m-1">@jobskill.Name</div>
-                                                }
-
-                                            }
-                                        }
+                                   @foreach(var skill in item.jobsSkills.Where(a => a.JobsId == item.Id).Select(a => a.skill))
+                    {
+                                    <div class="jobSkills py-1 px-2 m-1">@skill.Name</div>
+                    }
 
                                    
                                 </div>
@@ -160,36 +151,11 @@
                                 </div>
                             </div>
 
-                            <div class="row  mx-1 my-3 p-0">
+                            @*<div class="row  mx-1 my-3 p-0">
                                 <div class="col-12 col-md-11 m-0 p-0">
                                     <div class="row m-0" style="display:-webkit-box; -webkit-box-align:center; ">
 
-
-                                        <div class="col-4 col-md-3 m-0 p-0 mr-1" style="display:-webkit-box; -webkit-box-align:center; ">
-                                            <i class="fa fa-check-circle mr-1" style="color: #1f57c3; display: inline-block;" aria-hidden="true"></i>
-                                            <p class="lightFont my-auto">
-                                                Payment verified
-                                            </p>
-                                        </div>
-                                        <div class="col-4 col-md-2 m-0 p-0">
-                                            <div style="color: grey;" class="star-widget">
-                                                <input type="radio" name="Rate" id="rate-5" />
-                                                <label for="rate-5" onclick="rate(@item.Id , 5)" class="fa fa-star mx-0 px-0"></label>
-                                                <input type="radio" name="Rate" id="rate-4" />
-                                                <label for="rate-4" onclick="rate(@item.Id , 4)" class="fa fa-star mx-0 px-0"></label>
-                                                <input type="radio" name="Rate" id="rate-3" />
-                                                <label for="rate-3" onclick="rate(@item.Id , 3)" class="fa fa-star mx-0 px-0"></label>
-                                                <input type="radio" name="Rate" id="rate-2" />
-                                                <label for="rate-2" onclick="rate(@item.Id , 2)" class="fa fa-star mx-0 px-0"></label>
-                                                <input type="radio" name="Rate" id="rate-1" />
-                                                <label for="rate-1" onclick="rate(@item.Id , 1)" class="fa fa-star mx-0 px-0"></label>
-
-
-                                            </div>
-                                        </div>
-                                        <div class="col-3 m-0 p-0">
-                                            <p class="lightFont my-auto">$60k+ spent</p>
-                                        </div>
+                                       
                                         <div class="col-2 m-0 p-0" style="display:-webkit-box; -webkit-box-align:center; ">
 
                                             <i class="fa fa-map-marker mr-1" aria-hidden="true" style="color: black;"></i>
@@ -203,7 +169,7 @@
                                 </div>
 
 
-                            </div>
+                            </div>*@
                         </div>
 
                     </div>
