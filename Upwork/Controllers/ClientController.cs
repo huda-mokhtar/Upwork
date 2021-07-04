@@ -740,7 +740,25 @@ namespace Upwork.Controllers
             if(id != null)
             {
                 var client = _context.Clients.FirstOrDefault(a => a.ClientId == id);
+                var user = _context.Users.FirstOrDefault(a => a.Id == id);
+                foreach(Jobs i in _context.Jobs.Where(a => a.ClientId == id))
+                {
+                    foreach(Freelancer_Job f in _context.Freelancer_Jobs.Where(a=>a.JobsId== i.Id))
+                    {
+                        _context.Remove(f);
+                        //await _context.SaveChangesAsync();
+                    }
+                    foreach(JobsSkills s in _context.JobsSkills.Where(a => a.JobsId == i.Id))
+                    {
+                        _context.Remove(s);
+                        //await _context.SaveChangesAsync();
+                    }
+                    _context.Remove(i);
+                    //await _context.SaveChangesAsync();
+                }
                 _context.Remove(client);
+                //await _context.SaveChangesAsync();
+                _context.Remove(user);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("index", "Home");
             }
