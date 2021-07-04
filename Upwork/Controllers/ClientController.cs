@@ -45,13 +45,17 @@ namespace Upwork.Controllers
             List<Jobs> alljobs = new List<Jobs>(_context.Jobs.Include(a=>a.freelancer_Jobs).Where(j=>j.ClientId==client.ClientId));
             return View(alljobs);
         }
-        public IActionResult PostJob(int id)
+        public async Task<IActionResult> PostJob(int id)
         {
+            var u = await userManager.GetUserAsync(User);
+
             if (id != 0)
             {
                 var Job = _context.Jobs.FirstOrDefault(a => a.Id == id);
                 return View(Job);
             }
+            ViewData["DraftedJobs"]= new SelectList(_context.Jobs.Where(a=>a.IsDraft==true && a.ClientId==u.Id), "Id", "Title");
+            ViewData["postedJobs"]= new SelectList(_context.Jobs.Where(a=>a.IsDraft==false && a.ClientId==u.Id), "Id", "Title");
             return View();
         }
 
@@ -530,13 +534,13 @@ namespace Upwork.Controllers
             {
                 if (drafted == "true")
                 {
-                    List<Jobs> allJobsdrafted = new List<Jobs>(_context.Jobs.Where(a => a.IsDraft == true));
+                    List<Jobs> allJobsdrafted = new List<Jobs>(_context.Jobs.Include(a => a.freelancer_Jobs).Where(a => a.IsDraft == true && a.ClientId == u.Id));
                     allJobsdrafted.Reverse();
                     return View(allJobsdrafted);
                 }
                 else if (drafted == "false")
                 {
-                    List<Jobs> allJobsposted = new List<Jobs>(_context.Jobs.Where(a => a.IsDraft == false));
+                    List<Jobs> allJobsposted = new List<Jobs>(_context.Jobs.Include(a => a.freelancer_Jobs).Where(a => a.IsDraft == false && a.ClientId == u.Id));
                     allJobsposted.Reverse();
                     return View(allJobsposted);
                 }

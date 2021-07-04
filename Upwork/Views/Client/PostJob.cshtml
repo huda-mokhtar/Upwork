@@ -83,6 +83,9 @@
                                                             <input type="radio" id="two" name="Expertise-Level" />
                                                             <span class="checkround"></span>
                                                             <p class="ml-5">Edit an existing draft</p>
+                                                            <div class="d-none" id="draftedJobs">
+                                                                <select onchange="getdraftedJobs(this.value)" class="form-control" asp-items="ViewBag.DraftedJobs" ><option value="">-</option></select>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </label>
@@ -94,6 +97,9 @@
                                                             <input type="radio" id="three" name="Expertise-Level" />
                                                             <span class="checkround"></span>
                                                             <p class="ml-5">Reuse a previous job post</p>
+                                                            <div class="d-none" id="postedJobs">
+                                                                <select onchange="getpostedJobs(this.value)" class="form-control" asp-items="ViewBag.postedJobs" ><option value="">-</option></select>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </label>
@@ -138,7 +144,45 @@
                 $("#gotoSteps").children()[0].classList.add('continueBtnEnable');
             }
         }
-        
+
+        if ($("#one")[0].checked) {
+            console.log("hj");
+            $("#draftedJobs").addClass("d-none");
+            $("#postedJobs").addClass("d-none");
+        }
+        $("#one").click(function () {
+            if ($("#one")[0].checked) {
+                console.log("hj");
+                $("#draftedJobs").addClass("d-none");
+                $("#postedJobs").addClass("d-none");
+            }
+        })
+        $("#two").click(function () {
+            if ($("#two")[0].checked) {
+                $("#draftedJobs").removeClass("d-none");
+                $("#postedJobs").addClass("d-none");
+            }
+        })
+        $("#three").click(function () {
+            if ($("#three")[0].checked) {
+                $("#draftedJobs").addClass("d-none");
+                $("#postedJobs").removeClass("d-none");
+            }
+        })
+        function getdraftedJobs(e) {
+            var draft = document.createElement("a");
+            draft.href = "/client/EditJob/" + e;
+            console.log(draft);
+            draft.click();
+
+        }
+        function getpostedJobs(e) {
+            var post = document.createElement("a");
+            post.href = "/client/PostJobTitle/" + e;
+            console.log(post);
+            post.click();
+
+        }
         $('.radio-group .container .row .radioBox').click(function () {
             console.log($(this))
             //console.log($(this)[0].children[0].children[0].children[0])
