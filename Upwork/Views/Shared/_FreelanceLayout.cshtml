@@ -31,10 +31,10 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <form>
+                    <form method="post" asp-action="SearchForJob" asp-controller="Freelancers">
                         <div class="input-group my-2 ">
                             <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
-                            <input type="search" class="form-control input-group-field" placeholder="search">
+                            <input type="search" id="search" name="search" class="form-control input-group-field" placeholder="search">
                         </div>
                     </form>
                     <ul class="navbar-nav mr-lg-3">
