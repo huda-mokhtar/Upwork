@@ -41,12 +41,12 @@
                             </a>
                             <ul data-cy="dropdown-menu" class="dropdown-menu mw-240" aria-labelledby="dropdownMenuLink">
                                 <li>
-                                    <a target="_self" data-cy="menu-item-trigger" asp-action="Index" class="dropdown-item">
+                                    <a target="_self" data-cy="menu-item-trigger" asp-controller="Client" asp-action="Index" class="dropdown-item">
                                         My Jobs
                                     </a>
                                 </li>
                                 <li>
-                                    <a target="_self" data-cy="menu-item-trigger" asp-action="AllJobPosts" class="dropdown-item">
+                                    <a target="_self" data-cy="menu-item-trigger" asp-controller="Client" asp-action="AllJobPosts" class="dropdown-item">
                                         All Job Posts
                                     </a>
                                 </li>
@@ -61,7 +61,7 @@
                                         </a>
                                     </li>*@
                                 <li>
-                                    <a target="_self" data-cy="menu-item-trigger" asp-action="PostJob" class="dropdown-item">
+                                    <a target="_self" data-cy="menu-item-trigger" asp-controller="Client" asp-action="PostJob" class="dropdown-item">
                                         Post a Job
                                     </a>
                                 </li>
@@ -79,7 +79,7 @@
                                         </a>
                                     </li>*@
                                 <li>
-                                    <a target="_self" data-cy="menu-item-trigger" asp-action="MyHire" class="dropdown-item">
+                                    <a target="_self" data-cy="menu-item-trigger" asp-controller="Client" asp-action="MyHire" class="dropdown-item">
                                         My Hires
                                     </a>
                                 </li>
@@ -128,7 +128,7 @@
                                 </ul>
                             </li>*@
                         <li class="nav-item p-lg-2 my-lg-2">
-                            <a target="_self" data-cy="menu-item-trigger" href="/messages/" class="nav-menu-item nav-link text-light">
+                            <a target="_self" data-cy="menu-item-trigger" asp-controller="Message" asp-action="Index" class="nav-menu-item nav-link text-light">
                                 <span class="nav-item-label">
                                     Messages
                                     <span style="display:inline-block;width:20px;"></span>
@@ -174,19 +174,19 @@
                             <img src="~/Images/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" class="dropdown-toggle img-fluid profile-img" />
                             <ul data-cy="dropdown-menu" class="dropdown-menu dropdown-menu-right profile-menue" aria-labelledby="dropdownMenuLink">
                                 <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/ab/f/contracts/" class="dropdown-item">
+                                    <a target="_self" data-cy="menu-item-trigger" href="" class="dropdown-item">
                                         <img src="~/Images/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" class="img-fluid rounded-circle" />
                                         @CurrentUser.FirstName
                                     </a>
                                 </li>
                                 <li>
-                                    <a target="_self" data-cy="menu-item-trigger" asp-action="Profile" class="dropdown-item">
+                                    <a target="_self" data-cy="menu-item-trigger" asp-controller="Client" asp-action="Profile" class="dropdown-item">
                                         <i class="fas fa-cog"></i>
                                         Setting
                                     </a>
                                 </li>
                                 <li>
-                                    <a target="_self" data-cy="menu-item-trigger" href="/account/logout" class="dropdown-item">
+                                    <a target="_self" data-cy="menu-item-trigger"  href="/account/logout" class="dropdown-item">
                                         <i class="fas fa-sign-out-alt"></i>
                                         Logout
                                     </a>
