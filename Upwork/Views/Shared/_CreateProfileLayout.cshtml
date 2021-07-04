@@ -165,15 +165,17 @@
             </a>
             @if (ViewBag.ProfilePhoto != null)
             {
-                <img src="~/ProfilePhotos/@ViewBag.ProfilePhoto" class="offset-8" />
+                <img src="~/ProfilePhotos/@ViewBag.ProfilePhoto" class="offset-8" style="cursor:initial" />
             }
             else
             {
-                <img src="~/Images/user.png" class="offset-8" />
+                <img src="~/Images/user.png" class="offset-8" style="cursor:initial"/>
             }
-        </div>
+        <a asp-action="Logout" asp-controller="Account">
+            <h5 class="text-secondary mt-2 ml-4"> <span class="fa fa-sign-out-alt"></span> Logout </h5>
+        </a>
+        </div>      
     </div>
-
     <div id="Content">
         <div class="row">
             <div class="col-2 offset-1" style="margin-top:30px">
