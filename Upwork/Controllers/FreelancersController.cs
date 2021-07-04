@@ -43,7 +43,7 @@ namespace Upwork.Controllers
             {
                 return BadRequest();
             }
-            var Jobs = await _context.Jobs.Where(a => a.IsDraft == false && a.IsCanceled == false).Include(a=>a.jobsSkills).Include(a => a.freelancer_Jobs).Include(a=> a.Client).ToListAsync();
+            var Jobs = await _context.Jobs.Where(a => a.IsDraft == false && a.IsCanceled == false && a.subCategoryId ==freelancer.SubCategoryId).Include(a=>a.jobsSkills).Include(a => a.freelancer_Jobs).Include(a=> a.Client).OrderBy(a=>a.CreateDate).ToListAsync();
 
             var Dislikejobs =  _context.Freelancer_Jobs.Where(a => a.Isdislike == true &&a.FreelancerId==CurrentUser.Id).Select(a => a.Jobs).ToList();
             var jobskills = _context.JobsSkills.Select(s => s.skill);
