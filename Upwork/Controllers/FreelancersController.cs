@@ -219,7 +219,7 @@ namespace Upwork.Controllers
             return View(_context.Freelancer_Jobs.Where(a => a.FreelancerId == Freelancer.FreelancerId && a.IsHire == true).Include(a=>a.Jobs).Include(a=>a.Jobs.Client.User).ToList());
         }
 
-        
+        [AllowAnonymous]
         public async Task<IActionResult> DownloadCSV(string FileName)
         {
             if (FileName == null)
