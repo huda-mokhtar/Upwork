@@ -100,7 +100,7 @@
                             <img src="~/ProfilePhotos/@CurrentUser.Image" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" class="dropdown-toggle img-fluid profile-img" />
                             <ul data-cy="dropdown-menu" class="dropdown-menu dropdown-menu-right profile-menue" aria-labelledby="dropdownMenuLink">
                                 <li>
-                                    <a target="_self" data-cy="menu-item-trigger" asp-action="profile" asp-controller="freelancers" class="dropdown-item">
+                                    <a target="_self" data-cy="menu-item-trigger" asp-action="profile" asp-controller="freelancers" asp-route-id="@CurrentUser.Id" class="dropdown-item">
                                         <img src="~/ProfilePhotos/@CurrentUser.Image" class="img-fluid rounded-circle" />
                                         @CurrentUser.FirstName
                                     </a>
