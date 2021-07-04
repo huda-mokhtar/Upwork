@@ -1,4 +1,4 @@
-﻿@model List<Jobs>
+﻿@model List<Freelancer_Job>
 
 @{
     ViewData["Title"] = "All Contracts";
@@ -40,43 +40,55 @@
                     </div>
                 </div>
             </div>
-            <div class="myDrafts py-3 px-4">
-                <div class="row m-0 p-0" style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
-                    <div class="col-8 text-left ">
-                        <a href="" class="braek">
-                            UX/UI designer to bring website mockup and prototype to
-                            life
-                        </a>
-                    </div>
-                    <div class="col-4">
-                        <div class="row m-0">
-                            <div class="col-9 text-right">
-                                <div class="text-light text-center px-3 py-2 devBtnGreen m-0" style=" width:fit-content ; height: auto; display: inline-block;">
-                                    <h6 class="m-0 p-0"> Download CSV</h6>
+            @foreach (var contract in Model)
+            {
+                <div class="myDrafts py-3 px-4">
+                    <div class="row m-0 p-0" style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
+                        <div class="col-8 text-left ">
+                            <a asp-action="JobDetails" asp-controller="Client" asp-route-id="@contract.JobsId" class="braek">
+                                <strong> @contract.Jobs.Title</strong>
+                            </a>
+                        </div>
+                        <div class="col-4">
+                            <div class="row m-0">
+                                <div class="col-9 text-right">
+                                    <a asp-action="DownloadCSV" asp-controller="Freelancers" asp-route-FileName="@contract.Contract">
+                                        <div class="text-light text-center px-3 py-2 devBtnGreen m-0" style=" width:fit-content ; height: auto; display: inline-block;">
+                                            <h6 class="m-0 p-0"> Download CSV</h6>
+                                        </div>
+                                    </a>
                                 </div>
-                            </div>
-                            <div class="col-3 text-right">
-                                <!-- <div class="m-0 text-right dropdown">
-                                    <div class=" circlee-points container-circleeAlljobs " data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                        <i class="fa fa-ellipsis-h 2x " style="color:rgb(83, 83, 83) ;"></i>
-                                    </div>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">Edit Draft</a>
-                                        <a class="dropdown-item" href="#">Remove Draft</a>
+                                <div class="col-3 text-right">
+                                    <!-- <div class="m-0 text-right dropdown">
+                                        <div class=" circlee-points container-circleeAlljobs " data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            <i class="fa fa-ellipsis-h 2x " style="color:rgb(83, 83, 83) ;"></i>
+                                        </div>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#">Edit Draft</a>
+                                            <a class="dropdown-item" href="#">Remove Draft</a>
 
-                                    </div>
-                                </div> -->
+                                        </div>
+                                    </div> -->
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row m-0 p-0 mt-3" style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
-                    <div class="col-5 text-left ml-1 mt-1">
-                        <p style="font-size: 15px;"> "Client Name"</p>
+                    <div class="row m-0 p-0 mt-3" style="display:-webkit-box; -webkit-box-align:center; margin: 15px; ">
+                        <div class="col-5 text-left ml-1 mt-1">
+                            <p style="font-size: 15px;">
+                                @foreach (var freelance in ViewBag.Users)
+                                {
+                                    if (freelance.Id == contract.FreelancerId)
+                                    {
+                                        <a asp-action="Profile" asp-controller="Freelancers" asp-route-id="@contract.FreelancerId" style="color: #656565; font-size:0.9rem;">@freelance.UserName</a>
+                                    }
+                                }
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
         </div>
     </div>
 </div>
