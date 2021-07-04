@@ -55,13 +55,10 @@ namespace Upwork.Controllers
 
 
         [AllowAnonymous]
-        [Authorize(Roles = "Client , Freelancer")]
-        // GET: Freelancers/Profile/5
         public async Task<IActionResult> Profile(string id)
-
         {
             var CurrentUser = await _UserManager.GetUserAsync(User);
-            var freelancer = await _context.Freelancers.Include(a => a.Educations).Include(a => a.SubCategory).Include(a => a.Category).Include(a => a.Freelancer_Jobs).Include(a => a.User).Include(a => a.City).Include(a => a.Skills).Include(a => a.Languages).FirstOrDefaultAsync(a => a.FreelancerId == CurrentUser.Id);
+            var freelancer = await _context.Freelancers.Include(a => a.Educations).Include(a => a.SubCategory).Include(a => a.Category).Include(a => a.Freelancer_Jobs).Include(a => a.User).Include(a => a.City).Include(a => a.Skills).Include(a => a.Languages).FirstOrDefaultAsync(a => a.FreelancerId == id);
             
             if (freelancer == null)
             {

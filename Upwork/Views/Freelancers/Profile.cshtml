@@ -3,6 +3,14 @@
 @model Upwork.Models.Freelancer
 @{
     ViewData["Title"] = "Freelancer Profile ";
+    if (User.IsInRole("Freelancer"))
+    {
+        Layout = "_FreelanceLayout";
+    }
+    else
+    {
+        Layout = "_ClientLayout";
+    }
 }
 @section Style {
     <link href="~/css/FreelancerProfile.css" rel="stylesheet" />
@@ -24,55 +32,55 @@
                                             </div>
                                         </a>
                                     }
-                                        @*
-            <div class="editPhoto mb-0 ml-0" data-url="@Url.Action("ChangeProfilePhoto")" data-toggle="modal" data-target="#editPhoto">
-                <i class="fa fa-pencil" aria-hidden="true"></i>
-            </div>
-                                        *@
-                                        <div id="ModalPlaceHolder">
-                                        </div>
-                                        @* Photo *@
-                                        @*
-            <div class="modal" id="editPhoto">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header P-2">
-                            <h4 class="modal-title">Edit Photo</h4>
-                        </div>
-                        <div class="modal-body m-0">
-                            <div class="row m-1 p-0">
-                                <div class="col-7">
-                                    <div id="UploadDiv" class="text-center" style="border: 2px dashed #14a800; border-radius: 50%;width: 250px; height: 250px;cursor: pointer">
-                                        <div class="my-5 mx-auto ">
-                                            <p class="mt-5">Attach Photo Here</p>
-                                        </div>
-                                    </div>
-                                    <input type="file" id="Myphoto" hidden />
-                                </div>
-                                <div class="col-5 mt-5">
-                                    <h6 class="mt-5">
-                                        Show clients the best version of yourself!
-                                    </h6>
-                                </div>
-
-                            </div>
-
-
-                        </div>
-                        <div class="modal-footer">
-                            <div class="text-right">
-                                <input type="button" class="btn text-success bg-white mr-2"
-                                       style="border-color:lightgrey; width: fit-content;border-radius: 30px; font-weight: 500; " data-dismiss="modal" data-target="#editPhoto" value="Cancel" />
-                                <input type="button" class="btn text-light mr-2" style="border-color:lightgrey; width: fit-content;font-weight: 500; background-color:#14a800 ;border-radius: 30px;" value="Attach Photo" />
-                            </div>
-                        </div>
-
+                                    @*
+                    <div class="editPhoto mb-0 ml-0" data-url="@Url.Action("ChangeProfilePhoto")" data-toggle="modal" data-target="#editPhoto">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
                     </div>
-                </div>
-            </div>
-                                        *@
-                                        <img src="~/ProfilePhotos/@Model.Image" class="Freelancer-photo my-auto" />
+                                    *@
+                                    <div id="ModalPlaceHolder">
                                     </div>
+                                    @* Photo *@
+                                    @*
+                    <div class="modal" id="editPhoto">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header P-2">
+                                    <h4 class="modal-title">Edit Photo</h4>
+                                </div>
+                                <div class="modal-body m-0">
+                                    <div class="row m-1 p-0">
+                                        <div class="col-7">
+                                            <div id="UploadDiv" class="text-center" style="border: 2px dashed #14a800; border-radius: 50%;width: 250px; height: 250px;cursor: pointer">
+                                                <div class="my-5 mx-auto ">
+                                                    <p class="mt-5">Attach Photo Here</p>
+                                                </div>
+                                            </div>
+                                            <input type="file" id="Myphoto" hidden />
+                                        </div>
+                                        <div class="col-5 mt-5">
+                                            <h6 class="mt-5">
+                                                Show clients the best version of yourself!
+                                            </h6>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                                <div class="modal-footer">
+                                    <div class="text-right">
+                                        <input type="button" class="btn text-success bg-white mr-2"
+                                               style="border-color:lightgrey; width: fit-content;border-radius: 30px; font-weight: 500; " data-dismiss="modal" data-target="#editPhoto" value="Cancel" />
+                                        <input type="button" class="btn text-light mr-2" style="border-color:lightgrey; width: fit-content;font-weight: 500; background-color:#14a800 ;border-radius: 30px;" value="Attach Photo" />
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                                    *@
+                                    <img src="~/ProfilePhotos/@Model.Image" class="Freelancer-photo my-auto" />
+                                </div>
                                 <div class="ml-2">
                                     <h2>@Model.User.FirstName @Model.User.LastName</h2>
 
@@ -86,24 +94,37 @@
                                     }
                                     </p>
                                     @*
-        <p class="Address-time my-auto" style="display: inline-block;">
-            – 4:56 am local time
-        </p>  *@
+                    <p class="Address-time my-auto" style="display: inline-block;">
+                        – 4:56 am local time
+                    </p>  *@
                                 </div>
                             </div>
                         </div>
-                        @if(SignIn.IsSignedIn(User) && User.IsInRole("Freelancer") && UserManager.GetUserId(User) == Model.FreelancerId) { 
-                        <div class="col-4 text-left my-auto">
-                            <a class="btn devBtnGreen  px-4 py-2 text-light" asp-action="Settings">
-                                <h6 class="my-auto">
-                                    Profile Settings
-                                </h6>
-                            </a>
-                        </div>
+                        @if (SignIn.IsSignedIn(User) && User.IsInRole("Freelancer") && UserManager.GetUserId(User) == Model.FreelancerId)
+                        {
+                            <div class="col-4 text-left my-auto">
+                                <a class="btn devBtnGreen  px-4 py-2 text-light" asp-action="Settings">
+                                    <h6 class="my-auto">
+                                        Profile Settings
+                                    </h6>
+                                </a>
+                            </div>
+                        }
+                        else if (SignIn.IsSignedIn(User))
+                        {
+                            <div class="col-4 text-left my-auto">
+                                <a class="btn devBtnGreen  px-4 py-2 text-light" asp-action="Index" asp-controller="Message" asp-route-id="@Model.FreelancerId">
+                                    <h6 class="my-auto">
+                                        Send Message
+                                    </h6>
+                                </a>
+                            </div>
                         }
                     </div>
-                </div>
-                <div class="card-body m-0 p-0">
+    
+                    </div>
+    
+                    <div class="card-body m-0 p-0">
                     <div class="row m-0">
                         <div class="col-4 text-left">
                             @*
