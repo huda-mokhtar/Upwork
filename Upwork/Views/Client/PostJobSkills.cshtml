@@ -17,12 +17,12 @@
     }
     @section RightSide{
         <div id="JobSkills">
-            <h5>Search skills or add your own</h5>
+            <h5 class="d-none">Search skills or add your own</h5>
             <div class="w-100">
-                <div class="form-group has-search">
+                @*<div class="form-group has-search">
                     <span class="fa fa-search form-control-feedback"></span>
                     <input type="search" class="form-control" placeholder="Search skills or add your own">
-                </div>
+                </div>*@
                 <form class="d-none" id="skillsAdded" method="post" asp-action="PostJobSkills">
                     <input type="hidden" asp-for="Id" id="jobId" />
                     <p class="text-muted">Selected skills</p>
@@ -48,7 +48,7 @@
                             }
                         }
                     </form>
-                <h5 class="card-title pb-3">Popular skills</h5>
+                <h5 class="card-title pb-3 " id="popular">Popular skills</h5>
                 <div class="container-fluid">
                     <div class="row" id="defaultSkills">
                         @*@foreach (var item in Model)
@@ -72,12 +72,12 @@
 
                         }
 
-                        <a href="#" style="color: #14a800;" id="seeMore">see more</a>
+                       <a href="#" style="color: #14a800;" id="seeMore" class="d-none">see more</a>
                     </div>
                 </div>
 
                 <!-- Button trigger modal -->
-                <a href="#" style="color: #14a800;" data-toggle="modal" data-target="#exampleModalLong"><i class="fa fa-undo" aria-hidden="true"></i> Change your skill category</a>
+                @*<a href="#" style="color: #14a800;" data-toggle="modal" data-target="#exampleModalLong"><i class="fa fa-undo" aria-hidden="true"></i> Change your skill category</a>*@
 
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -165,6 +165,7 @@
             }
             if ($("#defaultSkills").children().length <= 1) {
                 $("#defaultSkills").addClass("d-none");
+                $("#popular").addClass("d-none");
             }
         });
 
@@ -196,6 +197,7 @@
             }
             if ($("#defaultSkills").children().length > 1) {
                 $("#defaultSkills").removeClass("d-none");
+                $("#popular").removeClass("d-none");
                 //console.log($("#skillsAdded").children().length);
 
             }
