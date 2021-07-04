@@ -40,9 +40,13 @@ else
                     <form method="post" enctype="multipart/form-data" action="~/Client/Hire" id="hireForm">
                         <input hidden name="FreelancerId" id="freelancerId" value="@proposal.Freelancer.FreelancerId" />
                         <input hidden name="JobsId" id="jobId" value="@proposal.JobsId" />
-                        <div class=" p-1 text-center mb-2">
-                            <input type="file" class="form-control" placeholder="CSV" id="contract" name="Contract" accept="application/pdf" required>
-                        </div>
+                        @*<span class="btn btn-primary btn-file">
+                            Browse...<input type="file">
+                        </span>*@
+                    <div class=" lightDev py-1 px-2 text-center m-2">
+                        <i class="fa fa-paperclip " aria-hidden="true"></i>
+                        <div class="btn btn-file p-0 text-success">CSV<input type="file" placeholder="CSV" id="contract" name="Contract" accept="application/pdf" required></div>
+                    </div>
                         <div class=" lightDev text-center py-1 px-2 m-2" onclick="hire(this)">
                             Hire
                         </div>
