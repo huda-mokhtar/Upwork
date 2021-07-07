@@ -617,7 +617,10 @@ namespace Upwork.Controllers
                     string folder = Path.Combine(_hostenviroment.WebRootPath, "contracts");
                     ContractName = Freelancer.User.UserName + "_" + Job.Title+ Path.GetExtension(Contract.FileName);
                     string photoPath = Path.Combine(folder, ContractName);
-                    Contract.CopyTo(new FileStream(photoPath, FileMode.Create));
+                    using (var stream = new FileStream(photoPath, FileMode.Open))
+                    {
+                        Contract.CopyTo(stream);
+                    }
                 }
                 FreelancerJob.IsHire = true;
                 FreelancerJob.IsProposal = false;
