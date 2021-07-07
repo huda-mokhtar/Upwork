@@ -39,7 +39,7 @@
         <div class="col-lg-3 col-md-6 mt-4 pt-2 mx-0 px-2">
             <div class="blog-post rounded border mx-0 px-0">
                 <div class="blog-img d-block overflow-hidden position-relative h-60">
-                    <img src="~/profilePhotos/@project.Image" style="height:15rem" class="img-fluid rounded-top" alt="">
+                    <img src="~/Images/@project.Image" style="height:15rem" class="img-fluid rounded-top" alt="">
                     <div class="overlay rounded-top bg-dark"></div>
                     <div class="post-meta">
                         <a class="text-light d-block text-right like">
@@ -77,7 +77,7 @@
                     <small class="text-muted p float-right"> @CultureInfo.CreateSpecificCulture("en-US").DateTimeFormat.GetAbbreviatedMonthName(project.Date.Value.Month) @project.Date.Value.Year</small>
                     <small><p class="text-dark text-left" style="font-weight: 500; font-size: 14px;">@project.SubCategory.Name</p></small>
                     <div class="pt-2 mt-2 border-top d-flex">
-                        <img src="~/Images/@project.Freelancer.Image" width="36px" class="img-fluid avatar avatar-ex-sm rounded-pill mr-3 shadow" alt="">
+                        <img src="~/ProfilePhotos/@project.Freelancer.Image" width="36px" class="img-fluid avatar avatar-ex-sm rounded-pill mr-3 shadow" alt="">
                         <div class="author mt-2">
                             <h6 class="mb-0"><a asp-action="Profile" asp-controller="Freelancers" asp-route-id="@project.FreelancerId" class="text-dark name">@project.Freelancer.User.FirstName</a></h6>
                         </div>

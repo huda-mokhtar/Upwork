@@ -285,10 +285,6 @@
 
 @section Scripts{
     <script>
-        //var intRate = $("#rateValue").val();
-        //for (var r = 0; r < intRate; r++) {
-        //    $("#rate").children
-        //}
         function hire(btn) {
 
             let FreelancerId = document.getElementById("freelancerId").value;
@@ -303,7 +299,7 @@
                 url: $("#hireForm").attr("action"),
                 type: "POST",
                 data: formData,
-                processData: false,
+                processData: false,   
                 contentType: false,
                 success: (res) => {
                     console.log("success");
