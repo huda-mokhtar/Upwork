@@ -635,7 +635,7 @@ namespace Upwork.Controllers
 
         public IActionResult ProjectsCatalog()
         {
-            var Projects = _context.Projects.Include(a => a.client_Projects).Include(a => a.Freelancer.User).Include(a => a.SubCategory).ToList();
+            var Projects = _context.Projects.Include(a => a.client_Projects).Include(a => a.Freelancer.User).Include(a => a.SubCategory).Where(a=>a.IsDraft !=true).OrderBy(a=>a.Date).ToList();
             return View(Projects);
         }
 
